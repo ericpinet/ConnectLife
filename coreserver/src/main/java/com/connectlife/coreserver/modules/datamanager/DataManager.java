@@ -22,6 +22,7 @@ import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.datamanager.DatabaseStructure;
+import com.connectlife.coreserver.modules.datamanager.Config;
 
 /**
  * This is the data manager for this application. 
@@ -134,6 +135,17 @@ public class DataManager implements Module {
 	}
 	
 	/**
+	 * Return a Config object that correspond to this section and item.
+	 * @param _section 	Section of the configuration.
+	 * @param _item		Item of the configuraiton.
+	 * @return Config object or null.
+	 */
+	public static Config getConfig(String _section, String _item){
+		return getInstance().loadConfig(_section, _item);
+	}
+	
+	
+	/**
 	 * Prepare database for the application
 	 * 
 	 * @return True if the preparation of the database is completed correctly.
@@ -192,6 +204,13 @@ public class DataManager implements Module {
 					m_logger.warn("Execute statement: "+DatabaseStructure.CREATE_TABLES[i]);
 					statement.executeUpdate(DatabaseStructure.CREATE_TABLES[i]);
 				}
+				
+				// create default data in all tables
+				String [] datas = DatabaseStructure.CREATE_DATA();
+				for( int i=0 ; i<datas.length ; i++){
+					m_logger.warn("Execute statement: "+datas[i]);
+					statement.executeUpdate(datas[i]);
+				}
 			}
 			
 			
@@ -221,25 +240,37 @@ public class DataManager implements Module {
 	 * @param _name
 	 * @return
 	 */
-	public Config getConfig(String _name){
+	private Config loadConfig(String _section, String _item){
 		Config ret_config = null;
 		Statement statement = null;
 		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
 		   null != m_connection	){
-			
-			
+
 			try {
 				statement = m_connection.createStatement();
 				statement.setQueryTimeout(Consts.DATABASE_TIMEOUT);
 				
-				ResultSet rs = statement.executeQuery( "select value from config where name = '"+_name+"';" );
+				ResultSet rs = statement.executeQuery( "select section, item, type, value "
+													 + "from config "
+													 + "where section = '"+_section+"' "
+													 + "and item = '"+_item+"';" );
 				while ( rs.next() ) {
+					String section = rs.getString("section");
+					String item = rs.getString("item");
+					String type = rs.getString("type");
 					String value = rs.getString("value");
-					ret_config = new Config(_name, value);
 					
-					// TODO - return value for integer
+					if( type.equals(Consts.CONFIG_TYPE_STRING) ){
+						ret_config = new Config(section, item , value);
+					}
+					else if( type.equals(Consts.CONFIG_TYPE_INTEGER) ){
+						ret_config = new Config(section, item, Integer.parseInt(value));
+					}
+					else {
+						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+					}
 				}
 				
 			} catch (SQLException e) {

@@ -21,7 +21,7 @@ public class DatabaseStructure {
 	/**
 	 * Version of the latest database. If the version isn't equal with the database file, the database will be recreated.
 	 */
-	public static final String VERSION = "1.0.0.0";
+	public static final String VERSION = "1.0.0.3";
 	
 	
 	/**
@@ -43,11 +43,31 @@ public class DatabaseStructure {
 				"insert into VERSION values('"+DatabaseStructure.VERSION+"')",
 				
 				// CONFIG
-				"create table CONFIG (item string, value string)",
-				"insert into CONFIG values('"+Consts.API_SERVER_HOSTNAME_CONFIG_NAME+"', '"+Consts.API_SERVER_HOSTNAME_CONFIG_DEFAULT_VALUE+"')", 		// AgiServer - Hostname
-				"insert into CONFIG values('"+Consts.API_SERVER_TCPIP_PORT_CONFIG_NAME+"', '"+Consts.API_SERVER_TCPIP_PORT_CONFIG_DEFAULT_VALUE+"')", 	// AgiServer - TCPIP Port
-				"insert into CONFIG values('"+Consts.API_SERVER_BACKLOG_CONFIG_NAME+"', '"+Consts.API_SERVER_BACKLOG_CONFIG_DEFAULT_VALUE+"')", 		// AgiServer - Backlog
-				"insert into CONFIG values('"+Consts.DATABASE_TIMEOUT_CONFIG_NAME+"', '"+Consts.DATABASE_TIMEOUT_CONFIG_DEFAULT_VALUE+"')" 				// Database - Timeout (sec)
+				"create table CONFIG (section string, item string, type string, value string)",
 		};
+	
+	/**
+	 * All query to recreate default data
+	 * @return
+	 */
+	public static String[] CREATE_DATA(){
+		String[] ret_strings = new String[Consts.ItemConfig.length];
+		
+		// CONFIG TABLE
+		final int column_config_section = 0;
+		final int column_config_item 	= 1;
+		final int column_config_type 	= 2;
+		final int column_config_value 	= 3;
+		
+		for(int i=0 ; i<Consts.ItemConfig.length ; i++){
+			
+			ret_strings[i] = new String("insert into CONFIG values ('"+ Consts.ItemConfig[i][column_config_section] +"',"
+																 + "'"+ Consts.ItemConfig[i][column_config_item] +"',"
+																 + "'"+ Consts.ItemConfig[i][column_config_type] +"',"
+																 + "'"+ Consts.ItemConfig[i][column_config_value] +"')");
+		}
+		
+		return ret_strings;
+	}
 	
 }

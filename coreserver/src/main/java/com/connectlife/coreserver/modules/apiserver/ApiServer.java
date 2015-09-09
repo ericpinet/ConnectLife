@@ -8,17 +8,17 @@
  */
 package com.connectlife.coreserver.modules.apiserver;
 
+import java.net.UnknownHostException;
+
 // external 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import com.sun.net.httpserver.*;
+import org.eclipse.jetty.server.Server;
 
 // internal
 import com.connectlife.coreserver.modules.Module;
+import com.connectlife.coreserver.modules.datamanager.Config;
 import com.connectlife.coreserver.modules.datamanager.DataManager;
-import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 
 /**
@@ -39,7 +39,7 @@ public class ApiServer implements Module {
 	private static Logger m_logger = LogManager.getLogger(ApiServer.class);
 
 	/**
-	 * Singleton reference for this class
+	 * Singleton reference for this class.
 	 */
 	private static ApiServer m_ref = null;
 	
@@ -49,31 +49,20 @@ public class ApiServer implements Module {
 	private boolean m_isInit;
 	
 	/**
-	 * ModuleUID for the ApiServer
+	 * ModuleUID for the ApiServer.
 	 */
 	private static final ModuleUID m_moduleUID = ModuleUID.API_SERVER;
 	
-	private HttpServer m_server = null;
-	
-	private String m_hostname = Consts.API_SERVER_HOSTNAME_CONFIG_DEFAULT_VALUE;
-    private int m_port = Integer.parseInt(Consts.API_SERVER_TCPIP_PORT_CONFIG_DEFAULT_VALUE);
-    private int m_backlog = Integer.parseInt(Consts.API_SERVER_BACKLOG_CONFIG_DEFAULT_VALUE);
+	/**
+	 * Http server for the json servlet.
+	 */
+	private Server m_server;
 
-    private String HEADER_ALLOW = "Allow";
-    private String HEADER_CONTENT_TYPE = "Content-Type";
+	/**
+	 * Indicate if the server will be close gracefuly
+	 */
+    private final boolean m_will_stop_gracefuly = false;
 
-    private Charset CHARSET = StandardCharsets.UTF_8;
-
-    private int STATUS_OK = 200;
-    private int STATUS_METHOD_NOT_ALLOWED = 405;
-
-    private int NO_RESPONSE_LENGTH = -1;
-
-    private String METHOD_GET = "GET";
-    private String METHOD_OPTIONS = "OPTIONS";
-    private String ALLOWED_METHODS = METHOD_GET + "," + METHOD_OPTIONS;
-	
-	
 	/**
 	 * Default constructor of the api server.
 	 */
@@ -82,7 +71,7 @@ public class ApiServer implements Module {
 	}
 	
 	/**
-	 * Return the instance of the ApiServer for this application
+	 * Return the instance of the ApiServer for this application.
 	 * 
 	 * @return Singleton instance of the ApiServer.
 	 */
@@ -105,47 +94,68 @@ public class ApiServer implements Module {
 		
 		m_logger.info("Initialization in progress ...");
 		
-		// TODO - Server HTTP.
+		// retrive config
+		Config hostname 	= DataManager.getConfig("APISERVER", "HOSTNAME");
+		Config tcpip_port 	= DataManager.getConfig("APISERVER", "TCPIP_PORT");
+		Config min_thread 	= DataManager.getConfig("APISERVER", "MIN_THREAD");
+		Config max_thread 	= DataManager.getConfig("APISERVER", "MAX_THREAD");
 		
-		/*
-		// get config needed for the api server
-		m_hostname = DataManager.getInstance().getConfig(Consts.API_SERVER_HOSTNAME_CONFIG_NAME).getValue();
+		if( null != hostname   || 
+			null != tcpip_port ||
+			null != min_thread || 
+			null != max_thread){
 		
-		m_server = HttpServer.create(new InetSocketAddress(m_hostname, m_port), m_backlog);
-        server.createContext("/func1", he -> {
+			// Init http server
             try {
-                final Headers headers = he.getResponseHeaders();
-                final String requestMethod = he.getRequestMethod().toUpperCase();
-                switch (requestMethod) {
-                    case METHOD_GET:
-                        final Map<String, List<String>> requestParameters = getRequestParameters(he.getRequestURI());
-                        // do something with the request parameters
-                        final String responseBody = "['hello world!']";
-                        headers.set(HEADER_CONTENT_TYPE, String.format("application/json; charset=%s", CHARSET));
-                        final byte[] rawResponseBody = responseBody.getBytes(CHARSET);
-                        he.sendResponseHeaders(STATUS_OK, rawResponseBody.length);
-                        he.getResponseBody().write(rawResponseBody);
-                        break;
-                    case METHOD_OPTIONS:
-                        headers.set(HEADER_ALLOW, ALLOWED_METHODS);
-                        he.sendResponseHeaders(STATUS_OK, NO_RESPONSE_LENGTH);
-                        break;
-                    default:
-                        headers.set(HEADER_ALLOW, ALLOWED_METHODS);
-                        he.sendResponseHeaders(STATUS_METHOD_NOT_ALLOWED, NO_RESPONSE_LENGTH);
-                        break;
-                }
-            } finally {
-                he.close();
-            }
-        });
-        server.start();
-        */
+            	
+            	Server server = new Server(8080);
+                server.start();
+                server.dumpStdErr();
+                server.join();
+                
+            	/*
+            	m_server = new Server();
+            	 
+                SocketListener listener = new SocketListener();
+                
+				listener.setHost(hostname.getStringValue());
+	            listener.setPort(tcpip_port.getIntegerValue());
+	            listener.setMinThreads(min_thread.getIntegerValue());
+	            listener.setMaxThreads(max_thread.getIntegerValue());
+	            m_server.addListener(listener);            
+
+	            m_context = (ServletHttpContext) m_server.getContext("/");
+	            m_context.addServlet("/"+ApiServerServlet.class.getSimpleName(), ApiServerServlet.class.getName());
+	            
+	            m_server.start();
+	            m_server.join();
+	            */
+	            
+	            m_isInit = true;
+	            
+	            m_logger.info("Http server started with this configuration :");
+	            m_logger.info("Hostname:    "+hostname.getStringValue());
+	            m_logger.info("Tcp/Ip Port: "+tcpip_port.getIntegerValue());
+	            m_logger.info("Min thread:  "+min_thread.getIntegerValue());
+	            m_logger.info("Max thread:  "+max_thread.getIntegerValue());
+	            
+            } catch (UnknownHostException e) {
+				m_logger.error("Unable to set hostname in http server. ("+hostname.getStringValue()+")");
+				e.printStackTrace();
+			} catch (Exception e) {
+				m_logger.error("Unable to start or join http server.");
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to initialize. Configuration not found!");
+		}
 		
 		if( true==ret_val )
 			m_logger.info("Initialization completed.");
 		else
 			m_logger.error("Initialization failed.");
+		
 		return ret_val;
 	}
 
@@ -162,7 +172,19 @@ public class ApiServer implements Module {
 	public void unInit() {
 		m_logger.info("UnInitialization in progress ...");
 		
-		// TODO - ApiServer unInit
+		if(	m_isInit && 
+			null != m_server &&
+			true == m_server.isStarted()){
+			
+			//try {
+				// TODO m_server.stop(m_will_stop_gracefuly);
+				m_isInit = false;
+				
+			//} catch (InterruptedException e) {
+			//	m_logger.error("Unable to stop correctly the http server.");
+			//	e.printStackTrace();
+			//}
+		}
 
 		m_logger.info("UnInitialization completed.");
 	}

@@ -3,10 +3,19 @@
     <Console name="Console" target="SYSTEM_OUT">
       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %logger{36} - %msg%n"/>
     </Console>
+    <File name="File" fileName="logs/coreserver.log">
+      <PatternLayout>
+        <Pattern>%d{HH:mm:ss.SSS} [%t] [%-5level] %logger{36} - %msg%n</Pattern>
+      </PatternLayout>
+    </File>
+    <Async name="Async">
+      <AppenderRef ref="File"/>
+    </Async>
   </Appenders>
   <Loggers>
     <Root level="trace">
       <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
     </Root>
   </Loggers>
 </Configuration>

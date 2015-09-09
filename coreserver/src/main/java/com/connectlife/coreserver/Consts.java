@@ -44,19 +44,26 @@ public final class Consts {
 	}
 	
 	/**
-	 * Default configuration for the database
+	 * Type string 
 	 */
-	public static final String API_SERVER_TCPIP_PORT_CONFIG_NAME 			= "API_SERVER_TCPIP_PORT"; 
-	public static final String API_SERVER_TCPIP_PORT_CONFIG_DEFAULT_VALUE 	= "9006";
+	public static final String CONFIG_TYPE_STRING = "string";
 	
-	public static final String API_SERVER_HOSTNAME_CONFIG_NAME 				= "API_SERVER_HOSTNAME"; 
-	public static final String API_SERVER_HOSTNAME_CONFIG_DEFAULT_VALUE 	= "localhost";
+	/**
+	 * Type integer
+	 */
+	public static final String CONFIG_TYPE_INTEGER = "integer";
 	
-	public static final String API_SERVER_BACKLOG_CONFIG_NAME 				= "API_SERVER_BACKLOG"; 
-	public static final String API_SERVER_BACKLOG_CONFIG_DEFAULT_VALUE 		= "1";
 	
-	public static final String DATABASE_TIMEOUT_CONFIG_NAME 				= "DATABASE_TIMEOUT"; 	// Seconds
-	public static final String DATABASE_TIMEOUT_CONFIG_DEFAULT_VALUE 		= "30";
+	/**
+	 * Default configuration for the database
+	 * Adding all config and it's default value and type here. This config will be created automatically in database.
+	 */
+	public static String [][] ItemConfig = {
+			{"APISERVER" , 		"HOSTNAME" , 			CONFIG_TYPE_STRING,				"localhost"},
+            {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
+            {"APISERVER" , 		"MIN_THREAD" ,			CONFIG_TYPE_INTEGER,			"5"},
+            {"APISERVER" , 		"MAX_THREAD" ,			CONFIG_TYPE_INTEGER,			"15"}
+       };
 	
 	
 	

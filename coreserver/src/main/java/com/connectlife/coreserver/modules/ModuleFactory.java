@@ -89,8 +89,8 @@ public class ModuleFactory {
 			m_logger.info("Prepare module in progress ...");
 			
 			m_modules = new HashMap<ModuleUID, Module>();
-			m_modules.put(ModuleUID.API_SERVER, ApiServer.getInstance());
 			m_modules.put(ModuleUID.DATA_MANAGER, DataManager.getInstance());
+			m_modules.put(ModuleUID.API_SERVER, ApiServer.getInstance());
 			
 			ret_val = true;
 			m_prepareModuleCompleted = true;

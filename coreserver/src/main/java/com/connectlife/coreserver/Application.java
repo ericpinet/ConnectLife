@@ -52,7 +52,8 @@ public class Application {
 			}
 		}
 		catch(Exception e){
-			// todo: generate error when application crash
+			e.printStackTrace();
+			m_logger.error(e.toString());
 		}
 		finally{
 			app.unInitModules();
@@ -130,6 +131,7 @@ public class Application {
 	 * UnInitialization of all applications modules.
 	 */
 	private void unInitModules(){
+		
 		Collection<Module> modules = ModuleFactory.getModules();
 		Iterator<Module> itr = modules.iterator();
 		
