@@ -22,6 +22,7 @@ import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.datamanager.DatabaseStructure;
+import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.modules.datamanager.Config;
 
 /**
@@ -119,7 +120,8 @@ public class DataManager implements Module {
 			try {
 				m_connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				m_logger.error("Unable to close connection. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
@@ -179,7 +181,7 @@ public class DataManager implements Module {
 					if( true == version_number.equalsIgnoreCase(DatabaseStructure.VERSION) ){
 						need_to_recreate_database = false;
 						ret_val = true;
-						m_logger.warn("Database version "+ DatabaseStructure.VERSION +" is good.");
+						m_logger.info("Database version "+ DatabaseStructure.VERSION +" is good.");
 					}
 					else{
 						m_logger.warn("Database version isn't the right version. Database must be rebuild.");
@@ -213,12 +215,15 @@ public class DataManager implements Module {
 				}
 			}
 			
-			
 			ret_val = true;
 			
 		} catch (ClassNotFoundException e) {
+			m_logger.error("Unable to prepare database. "+e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		} catch (SQLException e) {
+			m_logger.error("Unable to prepare database. "+e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
 	    finally{
@@ -227,8 +232,9 @@ public class DataManager implements Module {
 		    		statement.close();
 	    	}
 	    	catch(SQLException e){
-	    		// statement close failed.
-	    		System.err.println(e);
+	    		m_logger.error("Unable to close database statement. "+e.getMessage());
+	    		StdOutErrLog.tieSystemOutAndErrToLog();
+	    		e.printStackTrace();
 	    	}
 		}
 		
@@ -274,7 +280,8 @@ public class DataManager implements Module {
 				}
 				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				m_logger.error("Unable to retrive configuration. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}

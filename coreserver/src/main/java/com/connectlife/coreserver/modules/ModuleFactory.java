@@ -10,8 +10,7 @@ package com.connectlife.coreserver.modules;
 
 
 // external
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Hashtable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +19,7 @@ import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.modules.apiserver.ApiServer;
 import com.connectlife.coreserver.modules.datamanager.DataManager;
+import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 
 /**
  * Factory of all modules include in coreserver application.
@@ -37,7 +37,7 @@ public class ModuleFactory {
 	/**
 	 * HashMap of modules load in factory.
 	 */
-	private static HashMap <ModuleUID,Module> m_modules = null;
+	private static Hashtable <ModuleUID,Module> m_modules = null;
 	
 	/**
 	 * Flag to indicate if modules are prepared and in hashmap of the factory.
@@ -69,13 +69,13 @@ public class ModuleFactory {
 	/**
 	 * Return all modules of the application.
 	 */
-	public static Collection <Module> getModules(){
+	public static Hashtable <ModuleUID,Module> getModules(){
 		
 		if( false  == m_prepareModuleCompleted ){
 			prepareModules();
 		}
 		
-		return m_modules.values();
+		return m_modules;
 	}
 	
 	/**
@@ -88,9 +88,10 @@ public class ModuleFactory {
 			
 			m_logger.info("Prepare module in progress ...");
 			
-			m_modules = new HashMap<ModuleUID, Module>();
+			m_modules = new Hashtable<ModuleUID, Module>();
 			m_modules.put(ModuleUID.DATA_MANAGER, DataManager.getInstance());
 			m_modules.put(ModuleUID.API_SERVER, ApiServer.getInstance());
+			m_modules.put(ModuleUID.ENVIRONMENT_MANAGER, EnvironmentManager.getInstance());
 			
 			ret_val = true;
 			m_prepareModuleCompleted = true;

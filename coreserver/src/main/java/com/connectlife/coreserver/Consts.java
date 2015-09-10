@@ -37,10 +37,15 @@ public final class Consts {
 	public static final int DATABASE_TIMEOUT = 30;
 	
 	/**
+	 * Environment data path
+	 */
+	public static final String ENV_DATA_PATH = "logs";
+	
+	/**
 	 * Enum of all modules include in coreserver application.
 	 */
 	public enum ModuleUID {
-		API_SERVER, DATA_MANAGER
+		API_SERVER, DATA_MANAGER, ENVIRONMENT_MANAGER
 	}
 	
 	/**
@@ -59,10 +64,7 @@ public final class Consts {
 	 * Adding all config and it's default value and type here. This config will be created automatically in database.
 	 */
 	public static String [][] ItemConfig = {
-			{"APISERVER" , 		"HOSTNAME" , 			CONFIG_TYPE_STRING,				"localhost"},
-            {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
-            {"APISERVER" , 		"MIN_THREAD" ,			CONFIG_TYPE_INTEGER,			"5"},
-            {"APISERVER" , 		"MAX_THREAD" ,			CONFIG_TYPE_INTEGER,			"15"}
+            {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"}
        };
 	
 	

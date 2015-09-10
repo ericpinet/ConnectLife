@@ -21,7 +21,7 @@ public class DatabaseStructure {
 	/**
 	 * Version of the latest database. If the version isn't equal with the database file, the database will be recreated.
 	 */
-	public static final String VERSION = "1.0.0.3";
+	public static final String VERSION = "1.0.0.4";
 	
 	
 	/**

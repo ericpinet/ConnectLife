@@ -11,15 +11,17 @@ package com.connectlife.coreserver;
 // external
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // internal
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.modules.ModuleFactory;
+import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
  * Main application class. All start here!
@@ -52,8 +54,8 @@ public class Application {
 			}
 		}
 		catch(Exception e){
+			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
-			m_logger.error(e.toString());
 		}
 		finally{
 			app.unInitModules();
@@ -77,11 +79,16 @@ public class Application {
 		
 		boolean ret_val = false;
 		
+		m_logger.info("Initialization started ...");
+		
 		// Startup application logging system
 		if( true == initBasePath() &&
 			true == initModules() ){
 			ret_val = true;
+			m_logger.info("Initialization completed.");
 		}
+		
+		
 		
 		return ret_val;
 	}
@@ -91,8 +98,10 @@ public class Application {
 	 * @return True is the base path can be init correctly
 	 */
 	private boolean initBasePath(){
+		
 		boolean ret_val = false;
 		String path = "";
+		
 		try {
 			
 			path = new File(".").getCanonicalPath();
@@ -101,6 +110,7 @@ public class Application {
 			
 		} catch (IOException e) {
 			m_logger.error("Load base path failed! "+e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
 		
@@ -113,15 +123,27 @@ public class Application {
 	 * @return True if all applications modules are initialized correctly.
 	 */
 	private boolean initModules(){
+		
 		boolean ret_val = true;
+		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
+		Iterator<Module> itr = modules.values().iterator();
 		
-		Collection<Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.iterator();
-		
-		while(itr.hasNext()){
-			Module module = itr.next();
-			if(false == module.init())
-				ret_val = false;
+		// Initialization of DataManager first of all
+		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
+		if( null != data &&
+		   	false == data.isInit() ){
+			
+			data.init();
+			
+			while(itr.hasNext()){
+				Module module = itr.next();
+				if( false == module.isInit() && 
+					false == module.init())
+					ret_val = false;
+			}
+		}
+		else{
+			m_logger.error("Unable to find DataManager.");
 		}
 		
 		return ret_val;
@@ -132,22 +154,40 @@ public class Application {
 	 */
 	private void unInitModules(){
 		
-		Collection<Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.iterator();
-		
+		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
+		Iterator<Module> itr = modules.values().iterator();
+			
 		while(itr.hasNext()){
 			Module module = itr.next();
-			if(true == module.isInit())
-				module.unInit();
+			if( true == module.isInit() &&
+				Consts.ModuleUID.DATA_MANAGER != module.getModuleUID() ){
+					module.unInit();
+			}
 		}
-
+		
+		// UnInitialization of DataManager at the end
+		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
+		if( null != data &&
+		   	false == data.isInit() ){
+			data.unInit();
+		}
+		
 	}
 	
 	/**
 	 * Start the application main loop
 	 */
 	public void run(){
+		
+		// TODO - application run main thread
 		// application run
+		//while(true){
+		//	try {
+		//		Thread.sleep(1000);
+		//	} catch (InterruptedException e) {
+		//		// no error on interup.
+		//	}
+		//}
 	}
 
 }
