@@ -23,8 +23,8 @@ public class Email {
 	/**
 	 * List of type of Email.
 	 */
-	enum EmailType{
-		HOME, WORK, OTHERS
+	public enum Type{
+		PERSONAL, WORK, OTHERS
 	}
 	
 	/**
@@ -35,13 +35,13 @@ public class Email {
 	/**
 	 * Type of this email.
 	 */
-	private EmailType m_type;
+	private Type m_type;
 
 	/**
 	 * @param _email
 	 * @param _type
 	 */
-	public Email(String _email, EmailType _type) {
+	public Email(String _email, Type _type) {
 		super();
 		this.m_email = _email;
 		this.m_type = _type;
@@ -57,22 +57,22 @@ public class Email {
 	/**
 	 * @param m_email the m_email to set
 	 */
-	public void setEmail(String m_email) {
-		this.m_email = m_email;
+	public void setEmail(String _email) {
+		this.m_email = _email;
 	}
 
 	/**
 	 * @return the m_type
 	 */
-	public EmailType getType() {
+	public Type getType() {
 		return m_type;
 	}
 
 	/**
 	 * @param m_type the m_type to set
 	 */
-	public void setType(EmailType m_type) {
-		this.m_type = m_type;
+	public void setType(Type _type) {
+		this.m_type = _type;
 	}
 	
 	

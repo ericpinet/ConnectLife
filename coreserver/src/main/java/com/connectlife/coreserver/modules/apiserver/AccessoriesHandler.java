@@ -18,6 +18,7 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 // internal
+import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 
 /**
  * AgiServerHandler manage the JSON api server. 
@@ -45,7 +46,6 @@ public class AccessoriesHandler extends AbstractHandler {
 	 * @throws ServletException
 	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@Override
 	public void handle(	String _target, 
 					 	Request _base_request, 
 					 	HttpServletRequest _request, 
@@ -53,13 +53,12 @@ public class AccessoriesHandler extends AbstractHandler {
 			throws IOException, ServletException {
 		
 		//TODO - Create JSON response
-		_response.setContentType("text/html; charset=utf-8");
+		_response.setContentType("application/json; charset=utf-8");
 		_response.setStatus(HttpServletResponse.SC_OK);
  
         PrintWriter out = _response.getWriter();
  
-        out.println("<h1>" + "It's work" + "</h1>");
-        out.println("I'm amazing!");
+        out.print(EnvironmentManager.getInstance().getJsonEnvironment());
  
         _base_request.setHandled(true);
 	}

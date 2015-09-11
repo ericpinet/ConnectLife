@@ -23,7 +23,7 @@ public class PhoneNumber {
 	/**
 	 * List of type of PhoneNumber.
 	 */
-	enum PhoneNumberType{
+	public enum Type{
 		HOME, WORK, CELL, OTHERS
 	}
 	
@@ -35,13 +35,13 @@ public class PhoneNumber {
 	/**
 	 * Type of this phone number.
 	 */
-	private PhoneNumberType m_type;
+	private Type m_type;
 
 	/**
 	 * @param m_phone_number
 	 * @param m_type
 	 */
-	public PhoneNumber(String _phone_number, PhoneNumberType _type) {
+	public PhoneNumber(String _phone_number, Type _type) {
 		super();
 		m_phone_number = _phone_number;
 		m_type = _type;
@@ -57,22 +57,22 @@ public class PhoneNumber {
 	/**
 	 * @param m_phone_number the m_phone_number to set
 	 */
-	public void setPhoneNumber(String m_phone_number) {
-		this.m_phone_number = m_phone_number;
+	public void setPhoneNumber(String _phone_number) {
+		this.m_phone_number = _phone_number;
 	}
 
 	/**
 	 * @return the m_type
 	 */
-	public PhoneNumberType getType() {
+	public Type getType() {
 		return m_type;
 	}
 
 	/**
 	 * @param m_type the m_type to set
 	 */
-	public void setType(PhoneNumberType m_type) {
-		this.m_type = m_type;
+	public void setType(Type _type) {
+		this.m_type = _type;
 	}
 	
 	

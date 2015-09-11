@@ -23,7 +23,7 @@ public class Address {
 	/**
 	 * List of type of address.
 	 */
-	enum AddressType{
+	public enum AddressType{
 		HOME, WORK, OTHERS
 	}
 	
@@ -79,8 +79,8 @@ public class Address {
 	/**
 	 * @param m_street the m_street to set
 	 */
-	public void setStreet(String m_street) {
-		this.m_street = m_street;
+	public void setStreet(String _street) {
+		this.m_street = _street;
 	}
 
 	/**
@@ -93,8 +93,8 @@ public class Address {
 	/**
 	 * @param m_city the m_city to set
 	 */
-	public void setCity(String m_city) {
-		this.m_city = m_city;
+	public void setCity(String _city) {
+		this.m_city = _city;
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class Address {
 	/**
 	 * @param m_region the m_region to set
 	 */
-	public void setRegion(String m_region) {
-		this.m_region = m_region;
+	public void setRegion(String _region) {
+		this.m_region = _region;
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class Address {
 	/**
 	 * @param m_zip_code the m_zip_code to set
 	 */
-	public void setZipCode(String m_zip_code) {
-		this.m_zip_code = m_zip_code;
+	public void setZipCode(String _zip_code) {
+		this.m_zip_code = _zip_code;
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class Address {
 	/**
 	 * @param m_country the m_country to set
 	 */
-	public void setCountry(String m_country) {
-		this.m_country = m_country;
+	public void setCountry(String _country) {
+		this.m_country = _country;
 	}
 
 	

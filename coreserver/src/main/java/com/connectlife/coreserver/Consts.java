@@ -37,15 +37,27 @@ public final class Consts {
 	public static final int DATABASE_TIMEOUT = 30;
 	
 	/**
-	 * Environment data path
+	 * Environment data path contain the data representing the user, home, 
+	 * zones, rooms, accessories
 	 */
-	public static final String ENV_DATA_PATH = "logs";
+	public static final String ENV_DATA_PATH = "data";
+	
+	/**
+	 * Environment file name contain the data representing the user, home, 
+	 * zones, rooms, accessories
+	 */
+	public static final String ENV_DATA_FILENAME = "environnement.data";
+	
+	/**
+	 * Environment file name backup.
+	 */
+	public static final String ENV_DATA_FILENAME_BACKUP = "environnement.data.bk";
 	
 	/**
 	 * Enum of all modules include in coreserver application.
 	 */
 	public enum ModuleUID {
-		API_SERVER, DATA_MANAGER, ENVIRONMENT_MANAGER
+		API_SERVER, DATA_MANAGER, ENVIRONMENT_MANAGER, CONSOLE_MANAGER
 	}
 	
 	/**
@@ -64,7 +76,8 @@ public final class Consts {
 	 * Adding all config and it's default value and type here. This config will be created automatically in database.
 	 */
 	public static String [][] ItemConfig = {
-            {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"}
+            {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
+            {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9007"},
        };
 	
 	

@@ -21,6 +21,11 @@ package com.connectlife.coreserver.modules.environment.data;
 public class Person {
 	
 	/**
+	 * Unique identifier for this Person.
+	 */
+	private String m_uid;
+	
+	/**
 	 * First name of the person.
 	 */
 	private String m_first_name;
@@ -51,19 +56,22 @@ public class Person {
 	private String m_image_link;
 
 	/**
-	 * @param _first_name
-	 * @param _last_name
-	 * @param _emails
-	 * @param _phone_numbers
-	 * @param _address
+	 * @param _uid				Uid for the person.
+	 * @param _first_name		First name.
+	 * @param _last_name		Last name.
+	 * @param _emails			Email.
+	 * @param _phone_numbers 	Phones Numbers.
+	 * @param _address			Address.
 	 */
-	public Person(	String _first_name, 
+	public Person(	String _uid,
+					String _first_name, 
 					String _last_name, 
 					Email[] _emails, 
 					PhoneNumber[] _phone_numbers,
 					Address[] _address,
 					String _image_link) {
 		super();
+		this.m_uid = _uid;
 		this.m_first_name = _first_name;
 		this.m_last_name = _last_name;
 		this.m_emails = _emails;
@@ -71,6 +79,23 @@ public class Person {
 		this.m_address = _address;
 		this.m_image_link = _image_link;
 	}
+	
+
+	/**
+	 * @return the m_uid
+	 */
+	public String getUid() {
+		return m_uid;
+	}
+
+
+	/**
+	 * @param m_uid the m_uid to set
+	 */
+	public void setUid(String _uid) {
+		this.m_uid = _uid;
+	}
+
 
 	/**
 	 * @return the m_first_name
@@ -82,8 +107,8 @@ public class Person {
 	/**
 	 * @param m_first_name the m_first_name to set
 	 */
-	public void setFirstName(String m_first_name) {
-		this.m_first_name = m_first_name;
+	public void setFirstName(String _first_name) {
+		this.m_first_name = _first_name;
 	}
 
 	/**
@@ -96,8 +121,8 @@ public class Person {
 	/**
 	 * @param m_last_name the m_last_name to set
 	 */
-	public void setLastName(String m_last_name) {
-		this.m_last_name = m_last_name;
+	public void setLastName(String _last_name) {
+		this.m_last_name = _last_name;
 	}
 
 	/**
@@ -110,8 +135,8 @@ public class Person {
 	/**
 	 * @param m_emails the m_emails to set
 	 */
-	public void setEmails(Email[] m_emails) {
-		this.m_emails = m_emails;
+	public void setEmails(Email[] _emails) {
+		this.m_emails = _emails;
 	}
 
 	/**
@@ -124,8 +149,8 @@ public class Person {
 	/**
 	 * @param m_phone_numbers the m_phone_numbers to set
 	 */
-	public void setPhoneNumbers(PhoneNumber[] m_phone_numbers) {
-		this.m_phone_numbers = m_phone_numbers;
+	public void setPhoneNumbers(PhoneNumber[] _phone_numbers) {
+		this.m_phone_numbers = _phone_numbers;
 	}
 
 	/**
@@ -138,8 +163,8 @@ public class Person {
 	/**
 	 * @param m_address the m_address to set
 	 */
-	public void setAddress(Address[] m_address) {
-		this.m_address = m_address;
+	public void setAddress(Address[] _address) {
+		this.m_address = _address;
 	}
 
 	/**
@@ -152,8 +177,8 @@ public class Person {
 	/**
 	 * @param m_image_link the m_image_link to set
 	 */
-	public void setImageLink(String m_image_link) {
-		this.m_image_link = m_image_link;
+	public void setImageLink(String _image_link) {
+		this.m_image_link = _image_link;
 	}
 	
 }

@@ -37,6 +37,16 @@ public class Application {
 	 * Init logger instance for this class
 	 */
 	private static Logger m_logger = LogManager.getLogger(Application.class);
+	
+	/**
+	 * Reference for singleton
+	 */
+	private static Application m_ref = null;
+	
+	/**
+	 * Base path of the application.
+	 */
+	private String m_base_path;
 
 	/**
 	 * @param args
@@ -45,7 +55,7 @@ public class Application {
 		
 		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
 		
-		Application app = new Application();
+		Application app = Application.getInstance();
 		try{
 			
 			if( true == app.init() ){
@@ -69,6 +79,18 @@ public class Application {
 	 */
 	public Application(){
 		
+	}
+	
+	/**
+	 * Return the instance of this application.
+	 * 
+	 * @return Singleton instance of the ApiServer.
+	 */
+	public static Application getInstance(){
+		if(null == m_ref){
+			m_ref = new Application();
+		}
+		return m_ref;
 	}
 	
 	/**
@@ -100,12 +122,11 @@ public class Application {
 	private boolean initBasePath(){
 		
 		boolean ret_val = false;
-		String path = "";
 		
 		try {
 			
-			path = new File(".").getCanonicalPath();
-			m_logger.info("Base path: '"+ path +"'.");
+			m_base_path = new File(".").getCanonicalPath();
+			m_logger.info("Base path: '"+ m_base_path +"'.");
 			ret_val = true;
 			
 		} catch (IOException e) {
@@ -115,6 +136,14 @@ public class Application {
 		}
 		
 		return ret_val;
+	}
+	
+	/**
+	 * Return the base path of the application.
+	 * @return
+	 */
+	public String getBasePath(){
+		return m_base_path;
 	}
 	
 	/**
@@ -181,13 +210,13 @@ public class Application {
 		
 		// TODO - application run main thread
 		// application run
-		//while(true){
-		//	try {
-		//		Thread.sleep(1000);
-		//	} catch (InterruptedException e) {
-		//		// no error on interup.
-		//	}
-		//}
+		while(true){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// no error on interup.
+			}
+		}
 	}
 
 }
