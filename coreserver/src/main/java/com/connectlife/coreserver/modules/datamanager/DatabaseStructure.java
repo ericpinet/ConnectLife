@@ -21,7 +21,7 @@ public class DatabaseStructure {
 	/**
 	 * Version of the latest database. If the version isn't equal with the database file, the database will be recreated.
 	 */
-	public static final String VERSION = "0.0.0.5";
+	public static final String VERSION = "0.0.0.6";
 	
 	
 	/**
@@ -48,7 +48,8 @@ public class DatabaseStructure {
 	
 	/**
 	 * All query to recreate default data
-	 * @return
+	 * 
+	 * @return Return all query to build config data in database.
 	 */
 	public static String[] CREATE_DATA(){
 		String[] ret_strings = new String[Consts.ItemConfig.length];

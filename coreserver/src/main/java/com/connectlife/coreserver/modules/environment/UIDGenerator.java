@@ -23,7 +23,7 @@ public class UIDGenerator {
 	
 	/**
 	 * Generate a new UID for an object in the system.
-	 * @return
+	 * @return UID representation for an object.
 	 */
 	public static String getUID(){
 		UUID uid = UUID.randomUUID();

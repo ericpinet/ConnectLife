@@ -38,8 +38,10 @@ public class Email {
 	private Type m_type;
 
 	/**
-	 * @param _email
-	 * @param _type
+	 * Default constructor.
+	 * 
+	 * @param _email 	Email.
+	 * @param _type		Type.
 	 */
 	public Email(String _email, Type _type) {
 		super();
@@ -55,7 +57,7 @@ public class Email {
 	}
 
 	/**
-	 * @param m_email the m_email to set
+	 * @param _email the m_email to set
 	 */
 	public void setEmail(String _email) {
 		this.m_email = _email;
@@ -69,7 +71,7 @@ public class Email {
 	}
 
 	/**
-	 * @param m_type the m_type to set
+	 * @param _type the m_type to set
 	 */
 	public void setType(Type _type) {
 		this.m_type = _type;

@@ -47,9 +47,15 @@ public class Application {
 	 * Base path of the application.
 	 */
 	private String m_base_path;
+	
+	/**
+	 * Indicator if the application must be running.
+	 */
+	private boolean m_is_running;
 
 	/**
-	 * @param args
+	 * Main methode of the application.
+	 * @param args Arguments past to the application.
 	 */
 	public static void main(String[] args) {
 		
@@ -60,6 +66,7 @@ public class Application {
 			
 			if( true == app.init() ){
 			
+				app.setRunning(true);
 				app.run();
 			}
 		}
@@ -72,6 +79,8 @@ public class Application {
 		}
 		
 		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+		
+		System.exit(0);
 	}
 	
 	/**
@@ -140,12 +149,26 @@ public class Application {
 	
 	/**
 	 * Return the base path of the application.
-	 * @return
+	 * @return The application base path.
 	 */
 	public String getBasePath(){
 		return m_base_path;
 	}
 	
+	/**
+	 * @return the m_is_running
+	 */
+	public boolean isRunning() {
+		return m_is_running;
+	}
+
+	/**
+	 * @param _is_running the m_is_running to set
+	 */
+	public void setRunning(boolean _is_running) {
+		this.m_is_running = _is_running;
+	}
+
 	/**
 	 * Initialization of all applications modules.
 	 * 
@@ -208,10 +231,14 @@ public class Application {
 	 */
 	public void run(){
 		
-		// TODO - application run main thread
+		// start the state machine
+		ApplicationStateMachine state_machine = new ApplicationStateMachine();
+		state_machine.start();
+		
 		// application run
-		while(true){
+		while(m_is_running){
 			try {
+				m_logger.info("Main loop.");
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// no error on interup.

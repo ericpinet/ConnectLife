@@ -145,6 +145,8 @@ public class ApiServer implements Module {
 			true == m_server.isStarted()){
 			
 			try {
+				m_logger.info("Server running.");
+				
 				m_server.stop();
 				m_isInit = false;
 				

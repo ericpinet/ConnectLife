@@ -243,8 +243,11 @@ public class DataManager implements Module {
 	
 	/**
 	 * Return a configuration object.
-	 * @param _name
-	 * @return
+	 * 
+	 * @param _section Section of the item configuration.
+	 * @param _item Item of configuration.
+	 * 
+	 * @return A Config object representing the configuration.
 	 */
 	private Config loadConfig(String _section, String _item){
 		Config ret_config = null;

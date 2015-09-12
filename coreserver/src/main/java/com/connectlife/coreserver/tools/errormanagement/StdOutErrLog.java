@@ -40,8 +40,8 @@ public class StdOutErrLog {
 
 	/**
 	 * Route the print and println in the log.
-	 * @param realPrintStream
-	 * @return
+	 * @param realPrintStream The output stream.
+	 * @return Printer stream.
 	 */
 	public static PrintStream createLoggingProxy(final PrintStream realPrintStream) {
 	    return new PrintStream(realPrintStream) {

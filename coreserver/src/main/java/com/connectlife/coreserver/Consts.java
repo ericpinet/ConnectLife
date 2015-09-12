@@ -74,10 +74,13 @@ public final class Consts {
 	/**
 	 * Default configuration for the database
 	 * Adding all config and it's default value and type here. This config will be created automatically in database.
+	 * If you add new config, change the database version in DatabaseStructure.
 	 */
 	public static String [][] ItemConfig = {
             {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
             {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9007"},
+            {"CONSOLE" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
+            {"CONSOLE" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"}
        };
 	
 	

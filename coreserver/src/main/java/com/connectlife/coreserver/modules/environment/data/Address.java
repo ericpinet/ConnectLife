@@ -53,12 +53,12 @@ public class Address {
 	private String m_country;
 	
 	/**
-	 * 
-	 * @param _street
-	 * @param _city
-	 * @param _region
-	 * @param _zip_code
-	 * @param _country
+	 * Default constructor.
+	 * @param _street		Street.
+	 * @param _city			City.
+	 * @param _region		Region.
+	 * @param _zip_code		Zip Code.
+	 * @param _country		Country.
 	 */
 	public Address(String _street, String _city, String _region, String _zip_code, String _country) {
 		super();
@@ -77,7 +77,7 @@ public class Address {
 	}
 
 	/**
-	 * @param m_street the m_street to set
+	 * @param _street the m_street to set
 	 */
 	public void setStreet(String _street) {
 		this.m_street = _street;
@@ -91,7 +91,7 @@ public class Address {
 	}
 
 	/**
-	 * @param m_city the m_city to set
+	 * @param _city the m_city to set
 	 */
 	public void setCity(String _city) {
 		this.m_city = _city;
@@ -105,7 +105,7 @@ public class Address {
 	}
 
 	/**
-	 * @param m_region the m_region to set
+	 * @param _region the m_region to set
 	 */
 	public void setRegion(String _region) {
 		this.m_region = _region;
@@ -119,7 +119,7 @@ public class Address {
 	}
 
 	/**
-	 * @param m_zip_code the m_zip_code to set
+	 * @param _zip_code the m_zip_code to set
 	 */
 	public void setZipCode(String _zip_code) {
 		this.m_zip_code = _zip_code;
@@ -133,7 +133,7 @@ public class Address {
 	}
 
 	/**
-	 * @param m_country the m_country to set
+	 * @param _country the m_country to set
 	 */
 	public void setCountry(String _country) {
 		this.m_country = _country;

@@ -20,22 +20,40 @@ package com.connectlife.coreserver.modules.environment.data;
  */
 public class Zone {
 	
+	/**
+	 * Zone's UID.
+	 */
 	private String m_uid;
 	
+	/**
+	 * Zone's name.
+	 */
 	private String m_name;
 	
+	/**
+	 * Zone's image link.
+	 */
 	private String m_image_link;
 	
 	/**
-	 * @param m_uid
-	 * @param m_name
-	 * @param m_image_link
+	 * Zone's rooms. 
 	 */
-	public Zone(String _uid, String _name, String _image_link) {
+	private Room[] m_rooms;
+	
+	/**
+	 * Default constructor. 
+	 * 
+	 * @param _uid			Zone's uid.
+	 * @param _name			Zone's name.
+	 * @param _image_link	Zone's image link.
+	 * @param _zones		Zone's rooms.
+	 */
+	public Zone(String _uid, String _name, String _image_link, Room[] _rooms ) {
 		super();
 		this.m_uid = _uid;
 		this.m_name = _name;
 		this.m_image_link = _image_link;
+		this.m_rooms = _rooms;
 	}
 
 	/**
@@ -78,6 +96,20 @@ public class Zone {
 	 */
 	public void setImageLink(String _image_link) {
 		this.m_image_link = _image_link;
+	}
+
+	/**
+	 * @return the m_rooms
+	 */
+	public Room[] getRooms() {
+		return m_rooms;
+	}
+
+	/**
+	 * @param _rooms the m_rooms to set
+	 */
+	public void setRooms(Room[] _rooms) {
+		this.m_rooms = _rooms;
 	}
 
 }

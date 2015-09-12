@@ -207,6 +207,8 @@ public class EnvironmentManager implements Module {
 	
 	/**
 	 * Return True is the EnvironmentManager is correctly Loaded.
+	 * 
+	 * @return True if this module is loaded.
 	 */
 	public boolean isLoaded() {
 		return m_is_loaded;
@@ -214,6 +216,8 @@ public class EnvironmentManager implements Module {
 	
 	/**
 	 * Return True is the EnvironmentManager is correctly saved.
+	 * 
+	 * @return True is the environmment is saved.
 	 */
 	public boolean isSaved() {
 		return m_is_saved;
@@ -232,7 +236,7 @@ public class EnvironmentManager implements Module {
 	
 	/**
 	 * Return a JSON string representing the environment.
-	 * @return
+	 * @return JSON string of the environment.
 	 */
 	public String getJsonEnvironment(){
 		String ret_val = "";
@@ -247,6 +251,8 @@ public class EnvironmentManager implements Module {
 
 	/**
 	 * Return the moduleUID for the ApiServer.
+	 * 
+	 * @return The moduleUID for this module.
 	 */
 	public ModuleUID getModuleUID() {
 		return m_moduleUID;
@@ -254,8 +260,8 @@ public class EnvironmentManager implements Module {
 	
 	/**
 	 * Check if environment file already exist. 
-	 * @param _path
-	 * @param _filename
+	 * @param _path Path of the environment file.
+	 * @param _filename File name of the environment file.
 	 * @return True if environment file exist.
 	 */
 	private boolean checkEnvironmentExist(String _path, String _filename){
@@ -274,8 +280,8 @@ public class EnvironmentManager implements Module {
 	/**
 	 * Load environment data from file.
 	 * 
-	 * @param _path
-	 * @param _filename
+	 * @param _path Path of the environment file.
+	 * @param _filename File name of the environment file.
 	 * @return True if the load successed.
 	 */
 	private boolean loadEnvironment(String _path, String _filename){
@@ -323,8 +329,8 @@ public class EnvironmentManager implements Module {
 	/**
 	 * Save the environment in file.
 	 * 
-	 * @param _path
-	 * @param _filename
+	 * @param _path Paht of the environment file.
+	 * @param _filename File name of the environment file.
 	 * @return True if save succeded.
 	 */
 	private boolean saveEnvironment(String _path, String _filename){
@@ -365,8 +371,7 @@ public class EnvironmentManager implements Module {
 	
 	/**
 	 * Generate the base environment on new system. 
-	 * @param _environment Out variable. The generated environment in set in this parameter.
-	 * @return True if the environment are correctly generated.
+	 * @return Environment object build for the base system.
 	 */
 	private Environment generateBaseEnvironnment(){
 		Environment ret_env = null;

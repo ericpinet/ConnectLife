@@ -44,7 +44,7 @@ public interface Module {
 	/**
 	 * Return the unique identifier for the module
 	 * 
-	 * @return 
+	 * @return The moduleUID of the module.
 	 */
 	public ModuleUID getModuleUID();
 }

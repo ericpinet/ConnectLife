@@ -20,10 +20,8 @@ import org.apache.sshd.common.NamedFactory;
 import org.apache.sshd.server.PasswordAuthenticator;
 import org.apache.sshd.server.UserAuth;
 import org.apache.sshd.server.auth.UserAuthPassword;
-import org.apache.sshd.server.command.ScpCommandFactory;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.session.ServerSession;
-import org.apache.sshd.server.shell.ProcessShellFactory;
 
 // internal
 import com.connectlife.coreserver.Consts;
@@ -34,7 +32,7 @@ import com.connectlife.coreserver.modules.datamanager.DataManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
- * 
+ * Manager of the console sshd daemon.
  * 
  * @author ericpinet
  * <br> 2015-09-11
@@ -62,42 +60,54 @@ public class ConsoleManager implements Module {
 	private SshServer m_sshd;
 
 	/**
-	 * @return
+	 * Initialization of the console manager of the application.
+	 * 
+	 * @return True if initialization is completed correctly. 
 	 * @see com.connectlife.coreserver.modules.Module#init()
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean init() {
 		
 		boolean ret_val = false;
 		
 		m_logger.info("Initialization in progress ...");
 		
-		Config tcpip_port 	= DataManager.getConfig("CONSOLE", "TCPIP_PORT");
+		Config tcpip_port 		= DataManager.getConfig("CONSOLE", "TCPIP_PORT");
+		
+		
+		m_logger.info("TCP/IP Port: " + tcpip_port.getIntegerValue());
 		
 		m_sshd = SshServer.setUpDefaultServer();
 		m_sshd.setPort(tcpip_port.getIntegerValue());
 		m_sshd.setKeyPairProvider(new SimpleGeneratorHostKeyProvider("hostkey.ser"));
 		
-		
-		// TODO : implement shutdown/exit/log show/module show/module init/module uninit/module reload/env show/env save/env load
-		
-		m_sshd.setShellFactory(new ProcessShellFactory(new String[] { "/bin/sh", "-i", "-l" }));
-		//m_sshd.setCommandFactory(new ScpCommandFactory());
-		
+		m_sshd.setShellFactory(new InAppShellFactory());
+	
 		List<NamedFactory<UserAuth>> userAuthFactories = new ArrayList<NamedFactory<UserAuth>>();
 		userAuthFactories.add(new UserAuthPassword.Factory());
 		m_sshd.setUserAuthFactories(userAuthFactories);
 
 		m_sshd.setPasswordAuthenticator(new PasswordAuthenticator() {
 		    public boolean authenticate(String username, String password, ServerSession session) {
-		        return "admin".equals(username) && "1234".equals(password);
+		    	
+		    	boolean ret_val = false;
+		    	Config admin_username 	= DataManager.getConfig("CONSOLE", "ADMIN_USERNAME");
+				Config admin_password 	= DataManager.getConfig("CONSOLE", "ADMIN_PASSWORD");
+				
+		    	if( admin_username.getStringValue().equals(username) && admin_password.getStringValue().equals(password) ){
+		    		ret_val = true;
+		    		m_logger.info("Authentification succeed for the "+ username +".");
+		    	}
+		    	else{
+		    		m_logger.info("Authentification failed for the "+ username +".");
+		    	}
+		        return ret_val;
 		    }
 		});
 		
 		try {
-			
 			m_sshd.start();
-			ret_val = m_isInit = true;
-			
+			ret_val = m_isInit = true;	
 		} 
 		catch (IOException e) {
 			m_logger.error(e.getMessage());
@@ -126,12 +136,29 @@ public class ConsoleManager implements Module {
 	 * @see com.connectlife.coreserver.modules.Module#unInit()
 	 */
 	public void unInit() {
-		// TODO Auto-generated method stub
-
+		
+		m_logger.info("Uninitialization started ...");
+		
+		if(	true == m_isInit &&
+			null != m_sshd ){
+			
+			try {
+				m_sshd.stop(true);
+				
+				m_logger.info("Uninitialization completed.");
+				
+			} catch (InterruptedException e) {
+				// Ignore
+				m_logger.warn("Uninitialization interrupted.");
+			} finally{
+				m_sshd = null;
+			}
+		}
 	}
 
 	/**
-	 * @return
+	 * Return the module uid for the console manager.
+	 * @return ModuleUID for this module.
 	 * @see com.connectlife.coreserver.modules.Module#getModuleUID()
 	 */
 	public ModuleUID getModuleUID() {

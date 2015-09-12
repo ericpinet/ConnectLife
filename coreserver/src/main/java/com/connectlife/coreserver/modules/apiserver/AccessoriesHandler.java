@@ -37,13 +37,14 @@ public class AccessoriesHandler extends AbstractHandler {
     }
 
 	/**
+	 * Handle for the http request.
 	 * 
-	 * @param _target
-	 * @param _base_request
-	 * @param _request
-	 * @param _response
-	 * @throws IOException
-	 * @throws ServletException
+	 * @param _target				Target of the request.
+	 * @param _base_request			Base request.
+	 * @param _request				Request.
+	 * @param _response				Response.
+	 * @throws IOException			IOException can occur during the request.
+	 * @throws ServletException		ServletException can occur during the request.
 	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	public void handle(	String _target, 
