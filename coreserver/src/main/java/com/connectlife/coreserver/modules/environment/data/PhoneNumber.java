@@ -38,8 +38,8 @@ public class PhoneNumber {
 	private Type m_type;
 
 	/**
-	 * @param m_phone_number
-	 * @param m_type
+	 * @param _phone_number	Phone number.
+	 * @param _type			Type of phone number.
 	 */
 	public PhoneNumber(String _phone_number, Type _type) {
 		super();
@@ -55,7 +55,7 @@ public class PhoneNumber {
 	}
 
 	/**
-	 * @param m_phone_number the m_phone_number to set
+	 * @param _phone_number the m_phone_number to set
 	 */
 	public void setPhoneNumber(String _phone_number) {
 		this.m_phone_number = _phone_number;
@@ -69,7 +69,7 @@ public class PhoneNumber {
 	}
 
 	/**
-	 * @param m_type the m_type to set
+	 * @param _type the m_type to set
 	 */
 	public void setType(Type _type) {
 		this.m_type = _type;

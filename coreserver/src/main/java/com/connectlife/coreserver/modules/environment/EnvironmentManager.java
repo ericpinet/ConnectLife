@@ -21,11 +21,16 @@ import java.io.IOException;
 // internal
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.modules.Module;
+import com.connectlife.coreserver.modules.environment.data.Accessory;
+import com.connectlife.coreserver.modules.environment.data.Action;
 import com.connectlife.coreserver.modules.environment.data.Address;
 import com.connectlife.coreserver.modules.environment.data.Email;
 import com.connectlife.coreserver.modules.environment.data.Environment;
 import com.connectlife.coreserver.modules.environment.data.Person;
 import com.connectlife.coreserver.modules.environment.data.PhoneNumber;
+import com.connectlife.coreserver.modules.environment.data.Room;
+import com.connectlife.coreserver.modules.environment.data.State;
+import com.connectlife.coreserver.modules.environment.data.Zone;
 import com.connectlife.coreserver.modules.environment.data.Home;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.gson.Gson;
@@ -374,24 +379,41 @@ public class EnvironmentManager implements Module {
 	 * @return Environment object build for the base system.
 	 */
 	private Environment generateBaseEnvironnment(){
+		
 		Environment ret_env = null;
 		
-		Person[] persons = {new Person(	UIDGenerator.getUID(), 
-											"Eric", 
-											"Pinet", 
-											new Email[]{new Email("pineri01@gmail.com", Email.Type.PERSONAL)}, 
-											new PhoneNumber[]{new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL)}, 
-											new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") }, 
-											""),
-							new Person(	UIDGenerator.getUID(), 
-									"Qiaomei", 
-									"Wang", 
-									new Email[]{new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL)}, 
-									new PhoneNumber[]{new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL)}, 
-									new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") }, 
-									"")};
+		// Person
 		
-		Home[] homes = {new Home(UIDGenerator.getUID(), "Home", "", null)};
+		  Person[] persons = {new Person(UIDGenerator.getUID(), 
+										"Eric", 
+										"Pinet", 
+										"",
+										new Email[]{new Email("pineri01@gmail.com", Email.Type.PERSONAL)}, 
+										new PhoneNumber[]{new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL)}, 
+										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") }),
+				  
+							new Person(	UIDGenerator.getUID(), 
+										"Qiaomei", 
+										"Wang", 
+										"",
+										new Email[]{new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL)}, 
+										new PhoneNumber[]{new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL)}, 
+										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") })};
+		
+		Accessory[] accessories = {new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
+																					   new Action[]{new Action("Open"), 
+																							   		new Action("Close")} ),
+				
+								   new Accessory( UIDGenerator.getUID(), "Television", new State[]{ new State("Open", false)}, 
+										   											   new Action[]{new Action("Open"), 
+										   											                new Action("Close")} )
+								  };
+		
+		Room[] rooms = {new Room(UIDGenerator.getUID(), "Leving room", "", accessories )};
+		
+		Zone[] zones = {new Zone(UIDGenerator.getUID(), "First floor.", "", rooms)};
+		
+		Home[] homes = {new Home(UIDGenerator.getUID(), "Home", "", zones)};
 		
 		ret_env = new Environment( persons, homes );
 		

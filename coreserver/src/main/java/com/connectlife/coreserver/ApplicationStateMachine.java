@@ -84,6 +84,7 @@ public class ApplicationStateMachine {
 	 * State machine started in different thread.
 	 */
 	private void startFlow() {
+		m_logger.info("State machine starting ...");
         m_flow.start(new FlowContext());
     }
 	
@@ -109,25 +110,25 @@ public class ApplicationStateMachine {
             .whenEnter(WAITING, new ContextHandler<FlowContext>() {
 	            public void call(final FlowContext context) throws Exception {
 	            	
-	            	m_logger.info("Waiting");
-	            	
 	            	Thread.sleep(5000);
+	            	
+	            	// check if trigger must be raise
+	            	
+	            	// check if user do an action to perform
+	            	
+	            	// terminated
+	            	
 	            	context.trigger(onTrigger);
 	            }
 	        })// END WAITING
         
 	        .whenEnter(EXECUTE_TRIGGER, new ContextHandler<FlowContext>() {
 	            public void call(final FlowContext context) throws Exception {
-	            	
-	            	m_logger.info("Execute trigger");
-	            	
+
 	            	Thread.sleep(5000);
 	            	context.trigger(onEndExecuteTrigger);
 	            	
 	            }
 	        });// END EXECUTE TRIGGER
 	}
-	
-	
-	
 }

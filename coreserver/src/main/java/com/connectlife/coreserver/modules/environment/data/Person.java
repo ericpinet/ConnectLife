@@ -59,17 +59,18 @@ public class Person {
 	 * @param _uid				Uid for the person.
 	 * @param _first_name		First name.
 	 * @param _last_name		Last name.
+	 * @param _image_link		Image link for this person.
 	 * @param _emails			Email.
 	 * @param _phone_numbers 	Phones Numbers.
 	 * @param _address			Address.
 	 */
 	public Person(	String _uid,
 					String _first_name, 
-					String _last_name, 
+					String _last_name,
+					String _image_link,
 					Email[] _emails, 
 					PhoneNumber[] _phone_numbers,
-					Address[] _address,
-					String _image_link) {
+					Address[] _address) {
 		super();
 		this.m_uid = _uid;
 		this.m_first_name = _first_name;
@@ -90,7 +91,7 @@ public class Person {
 
 
 	/**
-	 * @param m_uid the m_uid to set
+	 * @param _uid the m_uid to set
 	 */
 	public void setUid(String _uid) {
 		this.m_uid = _uid;
@@ -105,7 +106,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_first_name the m_first_name to set
+	 * @param _first_name the m_first_name to set
 	 */
 	public void setFirstName(String _first_name) {
 		this.m_first_name = _first_name;
@@ -119,7 +120,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_last_name the m_last_name to set
+	 * @param _last_name the m_last_name to set
 	 */
 	public void setLastName(String _last_name) {
 		this.m_last_name = _last_name;
@@ -133,7 +134,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_emails the m_emails to set
+	 * @param _emails the m_emails to set
 	 */
 	public void setEmails(Email[] _emails) {
 		this.m_emails = _emails;
@@ -147,7 +148,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_phone_numbers the m_phone_numbers to set
+	 * @param _phone_numbers the m_phone_numbers to set
 	 */
 	public void setPhoneNumbers(PhoneNumber[] _phone_numbers) {
 		this.m_phone_numbers = _phone_numbers;
@@ -161,7 +162,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_address the m_address to set
+	 * @param _address the m_address to set
 	 */
 	public void setAddress(Address[] _address) {
 		this.m_address = _address;
@@ -175,7 +176,7 @@ public class Person {
 	}
 
 	/**
-	 * @param m_image_link the m_image_link to set
+	 * @param _image_link the m_image_link to set
 	 */
 	public void setImageLink(String _image_link) {
 		this.m_image_link = _image_link;

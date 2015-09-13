@@ -54,7 +54,8 @@ public class ModuleFactory {
 	/**
 	 * Return the module corresponding at the ModuleUID.
 	 * 
-	 * @param _module
+	 * @param _module UID du module.
+	 * @return Module with this UID.
 	 */
 	public static Module getModule(ModuleUID _module){
 		Module ret_module = null;
@@ -69,6 +70,7 @@ public class ModuleFactory {
 	
 	/**
 	 * Return all modules of the application.
+	 * @return All modules.
 	 */
 	public static Hashtable <ModuleUID,Module> getModules(){
 		
@@ -81,6 +83,7 @@ public class ModuleFactory {
 	
 	/**
 	 * Prepare modules
+	 * @return True if all modules are correctly prepared.
 	 */
 	private static boolean prepareModules(){
 		boolean ret_val = false;

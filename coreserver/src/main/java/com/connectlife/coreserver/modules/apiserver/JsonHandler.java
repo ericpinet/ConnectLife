@@ -1,5 +1,5 @@
 /**
- *  AccessoriesHandler.java
+ *  JsonHandler.java
  *  coreserver
  *
  *  Created by Eric Pinet  on 2015-09-09.
@@ -26,12 +26,12 @@ import com.connectlife.coreserver.modules.environment.EnvironmentManager;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class AccessoriesHandler extends AbstractHandler {
+public class JsonHandler extends AbstractHandler {
 	
     /**
      * Default Constructor
      */
-	public AccessoriesHandler()
+	public JsonHandler()
     {
         
     }
@@ -53,12 +53,10 @@ public class AccessoriesHandler extends AbstractHandler {
 					 	HttpServletResponse _response )
 			throws IOException, ServletException {
 		
-		//TODO - Create JSON response
 		_response.setContentType("application/json; charset=utf-8");
 		_response.setStatus(HttpServletResponse.SC_OK);
  
         PrintWriter out = _response.getWriter();
- 
         out.print(EnvironmentManager.getInstance().getJsonEnvironment());
  
         _base_request.setHandled(true);

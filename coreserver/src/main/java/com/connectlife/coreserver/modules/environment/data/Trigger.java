@@ -37,7 +37,7 @@ public class Trigger {
 	/**
 	 * Constructor for Accessory state trigger.
 	 * 
-	 * @param _accessory_state
+	 * @param _accessory_state State for an accessories.
 	 */
 	public Trigger(AccessoryState _accessory_state) {
 		super();

@@ -55,10 +55,11 @@ public class Accessory {
 	 * @param _possible_actions Actions possible to do on this accessory.
 	 * @param _states			States of this accessory.
 	 */
-	public Accessory(String _uid, String _name, Action[] _possible_actions){
+	public Accessory(String _uid, String _name, State[] _states, Action[] _possible_actions){
 		super();
 		this.m_uid = _uid;
 		this.m_name = _name;
+		this.m_states = _states;
 		this.m_possible_actions = _possible_actions;
 	}
 
@@ -70,7 +71,7 @@ public class Accessory {
 	}
 
 	/**
-	 * @param m_uid the m_uid to set
+	 * @param _uid the m_uid to set
 	 */
 	public void setUid(String _uid) {
 		this.m_uid = _uid;
@@ -84,7 +85,7 @@ public class Accessory {
 	}
 
 	/**
-	 * @param m_name the m_name to set
+	 * @param _name the m_name to set
 	 */
 	public void setName(String _name) {
 		this.m_name = _name;

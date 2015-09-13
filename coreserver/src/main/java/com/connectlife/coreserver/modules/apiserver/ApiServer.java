@@ -99,7 +99,7 @@ public class ApiServer implements Module {
             	// TODO jetty log in log4j
             	
             	Server server = new Server(tcpip_port.getIntegerValue());
-                server.setHandler(new AccessoriesHandler());
+                server.setHandler(new JsonHandler());
          
                 server.start();
                 //server.join();

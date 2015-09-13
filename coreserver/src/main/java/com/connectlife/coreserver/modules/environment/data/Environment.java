@@ -38,7 +38,8 @@ public class Environment {
 	}
 	
 	/**
-	 * @param m_persons
+	 * @param _persons Persons present in the environment
+	 * @param _homes Homes in this environment.
 	 */
 	public Environment(Person[] _persons, Home[] _homes) {
 		super();
@@ -54,7 +55,7 @@ public class Environment {
 	}
 
 	/**
-	 * @param m_persons the m_persons to set
+	 * @param _persons the m_persons to set
 	 */
 	public void setPersons(Person[] _persons) {
 		this.m_persons = _persons;

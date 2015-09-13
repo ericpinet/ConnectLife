@@ -28,7 +28,7 @@ public class Action {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param _name
+	 * @param _name Action's name.
 	 */
 	public Action(String _name){
 		super();

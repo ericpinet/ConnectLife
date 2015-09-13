@@ -36,17 +36,24 @@ public class Room {
 	private String m_image_link;
 	
 	/**
+	 * Room's accessories.
+	 */
+	private Accessory[] m_accessories;
+	
+	/**
 	 * Default constructor.
 	 * 
-	 * @param m_uid			Room's uid.
-	 * @param m_name		Room's name.
-	 * @param m_image_link  Room's image link.
+	 * @param _uid			Room's uid.
+	 * @param _name			Room's name.
+	 * @param _image_link  	Room's image link.
+	 * @param _accessories	Accessories in the room.
 	 */
-	public Room(String _uid, String _name, String _image_link) {
+	public Room(String _uid, String _name, String _image_link, Accessory[] _accessories) {
 		super();
 		this.m_uid = _uid;
 		this.m_name = _name;
 		this.m_image_link = _image_link;
+		this.m_accessories = _accessories;
 	}
 
 	/**
@@ -57,7 +64,7 @@ public class Room {
 	}
 
 	/**
-	 * @param m_uid the m_uid to set
+	 * @param _uid the m_uid to set
 	 */
 	public void setUid(String _uid) {
 		this.m_uid = _uid;
@@ -71,7 +78,7 @@ public class Room {
 	}
 
 	/**
-	 * @param m_name the m_name to set
+	 * @param _name the m_name to set
 	 */
 	public void setName(String _name) {
 		this.m_name = _name;
@@ -85,10 +92,24 @@ public class Room {
 	}
 
 	/**
-	 * @param m_image_link the m_image_link to set
+	 * @param _image_link the m_image_link to set
 	 */
 	public void setImageLink(String _image_link) {
 		this.m_image_link = _image_link;
 	}
 
+	/**
+	 * @return the m_accessories
+	 */
+	public Accessory[] getAccessories() {
+		return m_accessories;
+	}
+
+	/**
+	 * @param _accessories the m_accessories to set
+	 */
+	public void setAccessories(Accessory[] _accessories) {
+		this.m_accessories = _accessories;
+	}
+	
 }

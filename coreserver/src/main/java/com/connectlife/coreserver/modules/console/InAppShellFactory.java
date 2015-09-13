@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 import com.connectlife.coreserver.Application;
 // internal
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -82,6 +83,7 @@ public class InAppShellFactory implements Factory {
          * List of all command.
          */
         // TODO : implement log show, module show, module reload, env show, env save, env load
+        private static final String SHELL_CMD_OUTPUT_ENV = "output env";
         private static final String SHELL_CMD_SHUTDOWN = "shutdown";
         private static final String SHELL_CMD_QUIT = "quit";
         private static final String SHELL_CMD_EXIT = "exit";
@@ -218,11 +220,12 @@ public class InAppShellFactory implements Factory {
                 
                 // setup m_reader.
                 m_reader.setPrompt(SHELL_PROMPT);
-                m_reader.addCompleter(new StringsCompleter(SHELL_CMD_SHUTDOWN,
-                										 SHELL_CMD_QUIT,
-                        								 SHELL_CMD_EXIT, 
-                        								 SHELL_CMD_VERSION, 
-                        								 SHELL_CMD_HELP));
+                m_reader.addCompleter(new StringsCompleter(	SHELL_CMD_OUTPUT_ENV,
+                											SHELL_CMD_SHUTDOWN,
+                										 	SHELL_CMD_QUIT,
+                										 	SHELL_CMD_EXIT, 
+                										 	SHELL_CMD_VERSION, 
+                										 	SHELL_CMD_HELP));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
                 m_writer.println("****************************************************");
@@ -259,7 +262,13 @@ public class InAppShellFactory implements Factory {
                 throw new InterruptedIOException();
 
             String response;
-            if (line.equalsIgnoreCase(SHELL_CMD_SHUTDOWN)){
+            
+            if (line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ENV)){
+            	// SHUTDOWN
+            	m_logger.info(SHELL_CMD_OUTPUT_ENV);
+                response = EnvironmentManager.getInstance().getJsonEnvironment();
+                
+            }else if (line.equalsIgnoreCase(SHELL_CMD_SHUTDOWN)){
             	// SHUTDOWN
             	m_logger.info(SHELL_CMD_SHUTDOWN);
                 response = "shutdown m_in progress...";

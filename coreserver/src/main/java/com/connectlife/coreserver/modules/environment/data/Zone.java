@@ -46,7 +46,7 @@ public class Zone {
 	 * @param _uid			Zone's uid.
 	 * @param _name			Zone's name.
 	 * @param _image_link	Zone's image link.
-	 * @param _zones		Zone's rooms.
+	 * @param _rooms		Zone's rooms.
 	 */
 	public Zone(String _uid, String _name, String _image_link, Room[] _rooms ) {
 		super();
@@ -64,7 +64,7 @@ public class Zone {
 	}
 
 	/**
-	 * @param m_uid the m_uid to set
+	 * @param _uid the m_uid to set
 	 */
 	public void setUid(String _uid) {
 		this.m_uid = _uid;
@@ -78,7 +78,7 @@ public class Zone {
 	}
 
 	/**
-	 * @param m_name the m_name to set
+	 * @param _name the m_name to set
 	 */
 	public void setName(String _name) {
 		this.m_name = _name;
@@ -92,7 +92,7 @@ public class Zone {
 	}
 
 	/**
-	 * @param m_image_link the m_image_link to set
+	 * @param _image_link the m_image_link to set
 	 */
 	public void setImageLink(String _image_link) {
 		this.m_image_link = _image_link;

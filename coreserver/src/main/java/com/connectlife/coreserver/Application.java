@@ -238,7 +238,6 @@ public class Application {
 		// application run
 		while(m_is_running){
 			try {
-				m_logger.info("Main loop.");
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// no error on interup.

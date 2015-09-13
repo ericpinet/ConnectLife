@@ -30,10 +30,10 @@ public class Home {
 
 	/**
 	 * 
-	 * @param _uid
-	 * @param _name
-	 * @param _image_link
-	 * @param _zones
+	 * @param _uid 			UID of the home.
+	 * @param _name			Name of the home.
+	 * @param _image_link 	Image of the home.
+	 * @param _zones		Zones in the home.
 	 */
 	public Home(String _uid, String _name, String _image_link, Zone[] _zones) {
 		super();
@@ -51,7 +51,7 @@ public class Home {
 	}
 
 	/**
-	 * @param m_uid the m_uid to set
+	 * @param _uid the m_uid to set
 	 */
 	public void setUid(String _uid) {
 		this.m_uid = _uid;
@@ -65,7 +65,7 @@ public class Home {
 	}
 
 	/**
-	 * @param m_name the m_name to set
+	 * @param _name the m_name to set
 	 */
 	public void setName(String _name) {
 		this.m_name = _name;
@@ -79,7 +79,7 @@ public class Home {
 	}
 
 	/**
-	 * @param m_image_link the m_image_link to set
+	 * @param _image_link the m_image_link to set
 	 */
 	public void setImageLink(String _image_link) {
 		this.m_image_link = _image_link;
@@ -93,7 +93,7 @@ public class Home {
 	}
 
 	/**
-	 * @param m_zones the m_zones to set
+	 * @param _zones the m_zones to set
 	 */
 	public void setZones(Zone[] _zones) {
 		this.m_zones = _zones;
