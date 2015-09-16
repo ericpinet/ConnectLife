@@ -24,7 +24,7 @@ public class PhoneNumber {
 	 * List of type of PhoneNumber.
 	 */
 	public enum Type{
-		HOME, WORK, CELL, OTHERS
+		HOME, WORK, CELL, OTHER
 	}
 	
 	/**

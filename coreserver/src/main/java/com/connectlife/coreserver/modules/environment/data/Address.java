@@ -23,8 +23,8 @@ public class Address {
 	/**
 	 * List of type of address.
 	 */
-	public enum AddressType{
-		HOME, WORK, OTHERS
+	public enum Type{
+		HOME, WORK, OTHER
 	}
 	
 	/**
@@ -53,20 +53,27 @@ public class Address {
 	private String m_country;
 	
 	/**
+	 * Type of the address.
+	 */
+	private Type m_type;
+	
+	/**
 	 * Default constructor.
 	 * @param _street		Street.
 	 * @param _city			City.
 	 * @param _region		Region.
 	 * @param _zip_code		Zip Code.
 	 * @param _country		Country.
+	 * @param _type			Type of the address.
 	 */
-	public Address(String _street, String _city, String _region, String _zip_code, String _country) {
+	public Address(String _street, String _city, String _region, String _zip_code, String _country, Type _type) {
 		super();
 		this.m_street = _street;
 		this.m_city = _city;
 		this.m_region = _region;
 		this.m_zip_code = _zip_code;
 		this.m_country = _country;
+		this.m_type = _type;
 	}
 
 	/**
@@ -137,6 +144,20 @@ public class Address {
 	 */
 	public void setCountry(String _country) {
 		this.m_country = _country;
+	}
+
+	/**
+	 * @return the m_type
+	 */
+	public Type getType() {
+		return m_type;
+	}
+
+	/**
+	 * @param _type the m_type to set
+	 */
+	public void setType(Type _type) {
+		this.m_type = _type;
 	}
 
 	

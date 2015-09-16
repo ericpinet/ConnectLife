@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
 
 // internal
 import com.connectlife.coreserver.Application;
@@ -33,8 +35,6 @@ import com.connectlife.coreserver.modules.environment.data.State;
 import com.connectlife.coreserver.modules.environment.data.Zone;
 import com.connectlife.coreserver.modules.environment.data.Home;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.environment.UIDGenerator;
@@ -388,17 +388,22 @@ public class EnvironmentManager implements Module {
 										"Eric", 
 										"Pinet", 
 										"",
-										new Email[]{new Email("pineri01@gmail.com", Email.Type.PERSONAL)}, 
-										new PhoneNumber[]{new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL)}, 
-										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") }),
+										new Email[]{new Email("pineri01@gmail.com", Email.Type.PERSONAL),
+													new Email("eric.pinet@imagemsoft.com", Email.Type.WORK),
+													new Email("eric_pinet@hotmail.com", Email.Type.PERSONAL)}, 
+										new PhoneNumber[]{new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL),
+												          new PhoneNumber("418 548-1684",PhoneNumber.Type.OTHER)}, 
+										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) }),
 				  
 							new Person(	UIDGenerator.getUID(), 
 										"Qiaomei", 
 										"Wang", 
 										"",
-										new Email[]{new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL)}, 
+										new Email[]{new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL),
+												    new Email("qiaomei.wang@frima.com", Email.Type.WORK)}, 
 										new PhoneNumber[]{new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL)}, 
-										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada") })};
+										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME),
+												       new Address("9298 carré richard", "Québec", "Québec", "G2B 3P6", "Canada", Address.Type.OTHER)})};
 		
 		Accessory[] accessories = {new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
 																					   new Action[]{new Action("Open"), 

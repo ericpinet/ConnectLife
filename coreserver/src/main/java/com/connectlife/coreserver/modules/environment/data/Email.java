@@ -24,7 +24,7 @@ public class Email {
 	 * List of type of Email.
 	 */
 	public enum Type{
-		PERSONAL, WORK, OTHERS
+		PERSONAL, WORK, OTHER
 	}
 	
 	/**
