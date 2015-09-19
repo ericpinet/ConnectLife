@@ -24,8 +24,8 @@ import java.io.PrintWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.connectlife.coreserver.Application;
 // internal
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -284,7 +284,11 @@ public class InAppShellFactory implements Factory {
             else if (line.equalsIgnoreCase(SHELL_CMD_HELP)){
             	// HELP
             	m_logger.info(SHELL_CMD_HELP);
-                response = "Help is not implemented yet...";
+                response = SHELL_CMD_QUIT + " - exit console cli.\n";
+                response += SHELL_CMD_EXIT + " - exit console cli.\n";
+                response += SHELL_CMD_OUTPUT_ENV + " - output the system environment (JSON).\n";
+                response += SHELL_CMD_SHUTDOWN + " - shutdown the system.\n";
+                response += SHELL_CMD_VERSION + " - return the version of the system.\n";
             }
             else{
             	// UNKNOW CMD

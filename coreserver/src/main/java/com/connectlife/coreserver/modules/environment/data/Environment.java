@@ -60,4 +60,18 @@ public class Environment {
 	public void setPersons(Person[] _persons) {
 		this.m_persons = _persons;
 	}
+
+	/**
+	 * @return the m_homes
+	 */
+	public Home[] getHomes() {
+		return m_homes;
+	}
+
+	/**
+	 * @param _homes the m_homes to set
+	 */
+	public void setHomes(Home[] _homes) {
+		this.m_homes = _homes;
+	}
 }

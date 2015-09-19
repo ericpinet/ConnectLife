@@ -17,6 +17,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.jmdns.ServiceEvent;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -33,6 +36,8 @@ import com.connectlife.coreserver.modules.environment.data.PhoneNumber;
 import com.connectlife.coreserver.modules.environment.data.Room;
 import com.connectlife.coreserver.modules.environment.data.State;
 import com.connectlife.coreserver.modules.environment.data.Zone;
+import com.connectlife.coreserver.modules.environment.discover.DiscoveryListner;
+import com.connectlife.coreserver.modules.environment.discover.DiscoveryManager;
 import com.connectlife.coreserver.modules.environment.data.Home;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Consts;
@@ -45,7 +50,7 @@ import com.connectlife.coreserver.modules.environment.UIDGenerator;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class EnvironmentManager implements Module {
+public class EnvironmentManager implements Module, DiscoveryListner {
 	
 	/**
 	 * Logger use for this class.
@@ -99,6 +104,11 @@ public class EnvironmentManager implements Module {
 	private String m_backup_filename;
 	
 	/**
+	 * Discovery manager of the accessories in the environment
+	 */
+	private DiscoveryManager m_discovery_manager;
+	
+	/**
 	 * ModuleUID for the ApiServer.
 	 */
 	private static final ModuleUID m_moduleUID = ModuleUID.ENVIRONMENT_MANAGER;
@@ -113,6 +123,7 @@ public class EnvironmentManager implements Module {
 		m_path = m_app.getBasePath() + "/" + Consts.ENV_DATA_PATH + "/";
 		m_filename = Consts.ENV_DATA_FILENAME;
 		m_backup_filename = Consts.ENV_DATA_FILENAME_BACKUP;
+		m_discovery_manager = new DiscoveryManager();
 		
 		m_is_loaded = false;
 		m_is_saved = false;
@@ -195,8 +206,13 @@ public class EnvironmentManager implements Module {
 			}
 		}
 		
-		if( true==ret_val )
+		if( true==ret_val ){
+			
+			m_discovery_manager.addListner(this);
+			m_discovery_manager.start();
+			
 			m_logger.info("Initialization completed.");
+		}
 		else
 			m_logger.error("Initialization failed.");
 		
@@ -235,6 +251,9 @@ public class EnvironmentManager implements Module {
 		m_logger.info("UnInitialization in progress ...");
 		
 		// TODO UnInit Environment Manager
+		
+		m_discovery_manager.stop();
+		m_discovery_manager = null;
 
 		m_logger.info("UnInitialization completed.");
 	}
@@ -423,5 +442,46 @@ public class EnvironmentManager implements Module {
 		ret_env = new Environment( persons, homes );
 		
 		return ret_env;
+	}
+
+	/**
+	 * Callback called when service is discover.
+	 * 
+	 * @param _service Service informations.
+	 * @see com.connectlife.coreserver.modules.environment.discover.DiscoveryListner#serviceDiscover(javax.jmdns.ServiceEvent)
+	 */
+	@Override
+	public void serviceDiscover(ServiceEvent _service) {
+	
+		m_logger.info("Accessory discovered: "+ _service.getName() + " - " + _service.getType());
+		
+		
+		
+	}
+
+	/**
+	 * Callback called when service is romoved.
+	 * 
+	 * @param _service Service information.
+	 * @see com.connectlife.coreserver.modules.environment.discover.DiscoveryListner#serviceRemove(javax.jmdns.ServiceEvent)
+	 */
+	@Override
+	public void serviceRemove(ServiceEvent _service) {
+		// TODO Auto-generated method stub
+		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
+		
+	}
+	
+	/**
+	 * Found and return accessories corresponding with the constraintes.
+	 * @param _constraintes
+	 * @return
+	 */
+	public Accessory[] foundAccessory(Accessory _constraintes){
+		Accessory[] ret_accesories = null;
+		
+		
+		
+		return ret_accesories;
 	}
 }
