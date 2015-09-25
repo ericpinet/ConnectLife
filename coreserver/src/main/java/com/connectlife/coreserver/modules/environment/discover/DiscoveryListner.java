@@ -26,7 +26,7 @@ public interface DiscoveryListner {
 	
 	/**
 	 * Callback called when a service is removed.
-	 * @param _service
+	 * @param _service Service Information.
 	 */
 	public void serviceRemove(ServiceEvent _service);
 

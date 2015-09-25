@@ -5,4 +5,5 @@ com.connectlife.coreserver.modules.console
 com.connectlife.coreserver.modules.datamanager
 com.connectlife.coreserver.modules.environment
 com.connectlife.coreserver.modules.environment.data
+com.connectlife.coreserver.modules.environment.discover
 com.connectlife.coreserver.tools.errormanagement

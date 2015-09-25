@@ -108,8 +108,6 @@ public class DiscoveryManager  {
 	
 	/**
 	 * Default constructor
-	 * 
-	 * @param _environment_manager Environment manager parent of this discovery manager.
 	 */
 	public DiscoveryManager(){
 		m_discover = null;
@@ -175,7 +173,7 @@ public class DiscoveryManager  {
 	
 	/**
 	 * Add a new listner on the discovery manager.
-	 * @param _listner
+	 * @param _listner Listener that will be receive the notification.
 	 */
 	public void addListner(DiscoveryListner _listner){
 		m_listners.add(_listner);
@@ -183,7 +181,7 @@ public class DiscoveryManager  {
 	
 	/**
 	 * Inform all listners of new ServiceDiscover
-	 * @param _service
+	 * @param _service ServiceEvent described the service discovered.
 	 */
 	private void informListerServiceDiscover(ServiceEvent _service){
 		for(int i=0 ; i<m_listners.size() ; i++){
@@ -193,7 +191,7 @@ public class DiscoveryManager  {
 	
 	/**
 	 * Inform all listners of new ServiceRemove
-	 * @param _service
+	 * @param _service ServiceEvent described the service removed.
 	 */
 	private void informListerServiceRemove(ServiceEvent _service){
 		for(int i=0 ; i<m_listners.size() ; i++){

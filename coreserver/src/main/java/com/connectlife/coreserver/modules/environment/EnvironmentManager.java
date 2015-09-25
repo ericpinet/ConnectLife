@@ -17,9 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import javax.jmdns.ServiceEvent;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -45,7 +43,7 @@ import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.environment.UIDGenerator;
 
 /**
- * Manager of the environnement of the automation.
+ * Manager of the environment of the automation.
  * 
  * @author ericpinet
  * <br> 2015-09-09
@@ -452,11 +450,8 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	 */
 	@Override
 	public void serviceDiscover(ServiceEvent _service) {
-	
+		// TODO
 		m_logger.info("Accessory discovered: "+ _service.getName() + " - " + _service.getType());
-		
-		
-		
 	}
 
 	/**
@@ -467,9 +462,8 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	 */
 	@Override
 	public void serviceRemove(ServiceEvent _service) {
-		// TODO Auto-generated method stub
+		// TODO
 		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
-		
 	}
 	
 	/**

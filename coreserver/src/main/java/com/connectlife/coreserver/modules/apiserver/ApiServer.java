@@ -97,7 +97,6 @@ public class ApiServer implements Module {
             try {
             	
             	// TODO jetty log in log4j
-            	
             	Server server = new Server(tcpip_port.getIntegerValue());
                 server.setHandler(new JsonHandler());
          
@@ -106,7 +105,6 @@ public class ApiServer implements Module {
 	            
 	            ret_val = m_isInit = true;
 	            
-	            m_logger.info("Http server started with this configuration :");
 	            m_logger.info("TCP/IP Port: "+tcpip_port.getIntegerValue());
 	            
             } catch (Exception e) {

@@ -82,7 +82,6 @@ public class InAppShellFactory implements Factory {
         /**
          * List of all command.
          */
-        // TODO : implement log show, module show, module reload, env show, env save, env load
         private static final String SHELL_CMD_OUTPUT_ENV = "output env";
         private static final String SHELL_CMD_SHUTDOWN = "shutdown";
         private static final String SHELL_CMD_QUIT = "quit";
