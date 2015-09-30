@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.modules.environment.data;
 
 // external
+import java.util.Collection;
 
 // internal
 
@@ -38,7 +39,7 @@ public class Zone {
 	/**
 	 * Zone's rooms. 
 	 */
-	private Room[] m_rooms;
+	private Collection<Room> m_rooms;
 	
 	/**
 	 * Default constructor. 
@@ -48,7 +49,7 @@ public class Zone {
 	 * @param _image_link	Zone's image link.
 	 * @param _rooms		Zone's rooms.
 	 */
-	public Zone(String _uid, String _name, String _image_link, Room[] _rooms ) {
+	public Zone(String _uid, String _name, String _image_link, Collection<Room> _rooms ) {
 		super();
 		this.m_uid = _uid;
 		this.m_name = _name;
@@ -101,14 +102,14 @@ public class Zone {
 	/**
 	 * @return the m_rooms
 	 */
-	public Room[] getRooms() {
+	public Collection<Room> getRooms() {
 		return m_rooms;
 	}
 
 	/**
 	 * @param _rooms the m_rooms to set
 	 */
-	public void setRooms(Room[] _rooms) {
+	public void setRooms(Collection<Room> _rooms) {
 		this.m_rooms = _rooms;
 	}
 

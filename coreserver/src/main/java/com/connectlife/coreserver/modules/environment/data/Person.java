@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.modules.environment.data;
 
 // external
+import java.util.Collection;
 
 // internal
 
@@ -38,17 +39,17 @@ public class Person {
 	/**
 	 * Emails of the person.
 	 */
-	private Email[] m_emails;
+	private Collection<Email> m_emails;
 	
 	/**
 	 * PhoneNumbers of the person.
 	 */
-	private PhoneNumber[] m_phone_numbers;
+	private Collection<PhoneNumber> m_phone_numbers;
 	
 	/**
 	 * Address of the person.
 	 */
-	private Address[] m_address;
+	private Collection<Address> m_address;
 	
 	/**
 	 * Image link of the person.
@@ -68,9 +69,9 @@ public class Person {
 					String _first_name, 
 					String _last_name,
 					String _image_link,
-					Email[] _emails, 
-					PhoneNumber[] _phone_numbers,
-					Address[] _address) {
+					Collection<Email> _emails, 
+					Collection<PhoneNumber> _phone_numbers,
+					Collection<Address> _address) {
 		super();
 		this.m_uid = _uid;
 		this.m_first_name = _first_name;
@@ -129,42 +130,42 @@ public class Person {
 	/**
 	 * @return the m_emails
 	 */
-	public Email[] getEmails() {
+	public Collection<Email> getEmails() {
 		return m_emails;
 	}
 
 	/**
 	 * @param _emails the m_emails to set
 	 */
-	public void setEmails(Email[] _emails) {
+	public void setEmails(Collection<Email> _emails) {
 		this.m_emails = _emails;
 	}
 
 	/**
 	 * @return the m_phone_numbers
 	 */
-	public PhoneNumber[] getPhoneNumbers() {
+	public Collection<PhoneNumber> getPhoneNumbers() {
 		return m_phone_numbers;
 	}
 
 	/**
 	 * @param _phone_numbers the m_phone_numbers to set
 	 */
-	public void setPhoneNumbers(PhoneNumber[] _phone_numbers) {
+	public void setPhoneNumbers(Collection<PhoneNumber> _phone_numbers) {
 		this.m_phone_numbers = _phone_numbers;
 	}
 
 	/**
 	 * @return the m_address
 	 */
-	public Address[] getAddress() {
+	public Collection<Address> getAddress() {
 		return m_address;
 	}
 
 	/**
 	 * @param _address the m_address to set
 	 */
-	public void setAddress(Address[] _address) {
+	public void setAddress(Collection<Address> _address) {
 		this.m_address = _address;
 	}
 

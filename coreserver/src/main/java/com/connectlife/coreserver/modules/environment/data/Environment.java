@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.modules.environment.data;
 
 // external
+import java.util.Collection;
 
 // internal
 
@@ -23,12 +24,12 @@ public class Environment {
 	/**
 	 * Persons in the environment.
 	 */
-	Person[] m_persons;
+	Collection<Person> m_persons;
 	
 	/**
 	 * Home in the environment.
 	 */
-	Home[] m_homes;
+	Collection<Home> m_homes;
 	
 	/**
 	 * Default constructor.
@@ -41,7 +42,7 @@ public class Environment {
 	 * @param _persons Persons present in the environment
 	 * @param _homes Homes in this environment.
 	 */
-	public Environment(Person[] _persons, Home[] _homes) {
+	public Environment(Collection<Person> _persons, Collection<Home> _homes) {
 		super();
 		this.m_persons = _persons;
 		this.m_homes = _homes;
@@ -50,28 +51,28 @@ public class Environment {
 	/**
 	 * @return the m_persons
 	 */
-	public Person[] getPersons() {
+	public Collection<Person> getPersons() {
 		return m_persons;
 	}
 
 	/**
 	 * @param _persons the m_persons to set
 	 */
-	public void setPersons(Person[] _persons) {
+	public void setPersons(Collection<Person> _persons) {
 		this.m_persons = _persons;
 	}
 
 	/**
 	 * @return the m_homes
 	 */
-	public Home[] getHomes() {
+	public Collection<Home> getHomes() {
 		return m_homes;
 	}
 
 	/**
 	 * @param _homes the m_homes to set
 	 */
-	public void setHomes(Home[] _homes) {
+	public void setHomes(Collection<Home> _homes) {
 		this.m_homes = _homes;
 	}
 }

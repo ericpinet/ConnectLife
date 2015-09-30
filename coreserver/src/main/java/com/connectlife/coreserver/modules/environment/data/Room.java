@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.modules.environment.data;
 
 // external
+import java.util.Collection;
 
 // internal
 
@@ -38,7 +39,7 @@ public class Room {
 	/**
 	 * Room's accessories.
 	 */
-	private Accessory[] m_accessories;
+	private Collection<Accessory> m_accessories;
 	
 	/**
 	 * Default constructor.
@@ -48,7 +49,7 @@ public class Room {
 	 * @param _image_link  	Room's image link.
 	 * @param _accessories	Accessories in the room.
 	 */
-	public Room(String _uid, String _name, String _image_link, Accessory[] _accessories) {
+	public Room(String _uid, String _name, String _image_link, Collection<Accessory> _accessories) {
 		super();
 		this.m_uid = _uid;
 		this.m_name = _name;
@@ -101,14 +102,14 @@ public class Room {
 	/**
 	 * @return the m_accessories
 	 */
-	public Accessory[] getAccessories() {
+	public Collection<Accessory> getAccessories() {
 		return m_accessories;
 	}
 
 	/**
 	 * @param _accessories the m_accessories to set
 	 */
-	public void setAccessories(Accessory[] _accessories) {
+	public void setAccessories(Collection<Accessory> _accessories) {
 		this.m_accessories = _accessories;
 	}
 	

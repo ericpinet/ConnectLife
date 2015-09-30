@@ -17,6 +17,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -395,47 +398,56 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	 * Generate the base environment on new system. 
 	 * @return Environment object build for the base system.
 	 */
+	@SuppressWarnings("serial")
 	private Environment generateBaseEnvironnment(){
 		
 		Environment ret_env = null;
 		
+		
 		// Person
-		
-		  Person[] persons = {new Person(UIDGenerator.getUID(), 
-										"Eric", 
-										"Pinet", 
-										"",
-										new Email[]{new Email("pineri01@gmail.com", Email.Type.PERSONAL),
-													new Email("eric.pinet@imagemsoft.com", Email.Type.WORK),
-													new Email("eric_pinet@hotmail.com", Email.Type.PERSONAL)}, 
-										new PhoneNumber[]{new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL),
-												          new PhoneNumber("418 548-1684",PhoneNumber.Type.OTHER)}, 
-										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) }),
-				  
-							new Person(	UIDGenerator.getUID(), 
-										"Qiaomei", 
-										"Wang", 
-										"",
-										new Email[]{new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL),
-												    new Email("qiaomei.wang@frima.com", Email.Type.WORK)}, 
-										new PhoneNumber[]{new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL)}, 
-										new Address[]{ new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME),
-												       new Address("9298 carré richard", "Québec", "Québec", "G2B 3P6", "Canada", Address.Type.OTHER)})};
-		
-		Accessory[] accessories = {new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
-																					   new Action[]{new Action("Open"), 
-																							   		new Action("Close")} ),
+		final Collection<Person> persons = new ArrayList<Person>()	{{ 	add(new Person(UIDGenerator.getUID(), 
+																							"Eric", 
+																							"Pinet", 
+																							"",
+																							new ArrayList<Email>()	{{ 	add(new Email("pineri01@gmail.com", Email.Type.PERSONAL) );
+																														add(new Email("eric.pinet@imagemsoft.com", Email.Type.WORK) );
+																														add(new Email("eric_pinet@hotmail.com", Email.Type.PERSONAL) );
+																													}}, 
+																							new ArrayList<PhoneNumber>()	{{ 	add( new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL) );
+																																add( new PhoneNumber("418 548-1684",PhoneNumber.Type.OTHER) );
+																															}}, 
+																							new ArrayList<Address>()	{{ add( new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) ); 
+																														}}) );
 				
-								   new Accessory( UIDGenerator.getUID(), "Television", new State[]{ new State("Open", false)}, 
+																			add( new Person(UIDGenerator.getUID(), 
+																							"Qiaomei", 
+																							"Wang", 
+																							"",
+																							new ArrayList<Email>()	{{ 	add(new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL) );
+																														add(new Email("qiaomei.wang@frima.com", Email.Type.WORK) );
+																													}},
+																							new ArrayList<PhoneNumber>()	{{ 	add( new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL) ); 
+																															}}, 
+																							new ArrayList<Address>()	{{ 	add( new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) );
+																									       					add( new Address("9298 carré richard", "Québec", "Québec", "G2B 3P6", "Canada", Address.Type.OTHER) );
+																														}}) );
+																					}};
+
+		
+		final Collection<Accessory> accessories = new ArrayList<Accessory>()	{{ 	add(new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
+																					   												new Action[]{new Action("Open"), 
+																					   															 new Action("Close")} ) );
+				
+																			add( new Accessory( UIDGenerator.getUID(), "Television", new State[]{ new State("Open", false)}, 
 										   											   new Action[]{new Action("Open"), 
-										   											                new Action("Close")} )
-								  };
+										   											                new Action("Close")} ) );
+																		}};
 		
-		Room[] rooms = {new Room(UIDGenerator.getUID(), "Leving room", "", accessories )};
+		final Collection<Room> rooms = new ArrayList<Room>()	{{ 	add(new Room(UIDGenerator.getUID(), "Leving room", "", accessories ) ); }};
 		
-		Zone[] zones = {new Zone(UIDGenerator.getUID(), "First floor.", "", rooms)};
+		final Collection<Zone> zones = new ArrayList<Zone>()	{{ 	add(new Zone(UIDGenerator.getUID(), "First floor.", "", rooms) ); }};
 		
-		Home[] homes = {new Home(UIDGenerator.getUID(), "Home", "", zones)};
+		final Collection<Home> homes = new ArrayList<Home>()	{{ 	add(new Home(UIDGenerator.getUID(), "Home", "", zones) ); }};
 		
 		ret_env = new Environment( persons, homes );
 		
