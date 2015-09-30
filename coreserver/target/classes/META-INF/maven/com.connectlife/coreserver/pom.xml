@@ -101,7 +101,13 @@
 	<version>3.4.1</version>
   </dependency>
 
-  
+
+  <!-- Homekit -->
+  <dependency>
+	<groupId>com.beowulfe.hap</groupId>
+	<artifactId>hap</artifactId>
+	<version>1.0.0</version>
+  </dependency>
   
   </dependencies>
 </project>
