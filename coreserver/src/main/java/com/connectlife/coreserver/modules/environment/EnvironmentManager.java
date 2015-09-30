@@ -19,7 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -467,7 +466,7 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	}
 
 	/**
-	 * Callback called when service is romoved.
+	 * Callback called when service is removed.
 	 * 
 	 * @param _service Service information.
 	 * @see com.connectlife.coreserver.modules.environment.discover.DiscoveryListner#serviceRemove(javax.jmdns.ServiceEvent)
@@ -476,18 +475,5 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	public void serviceRemove(ServiceEvent _service) {
 		// TODO
 		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
-	}
-	
-	/**
-	 * Found and return accessories corresponding with the constraintes.
-	 * @param _constraintes
-	 * @return
-	 */
-	public Accessory[] foundAccessory(Accessory _constraintes){
-		Accessory[] ret_accesories = null;
-		
-		
-		
-		return ret_accesories;
 	}
 }
