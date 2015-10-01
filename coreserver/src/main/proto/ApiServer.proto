@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package apiserver;
+
+option java_package = "com.connectlife.coreserver.apiserver";
+
+// Api service specification
+service ApiServer {
+  rpc Version (VersionRequest) returns (VersionResult);
+}
+
+message VersionRequest {
+
+}
+
+message VersionResult {
+	required string version = 1;
+}
+
+
+
