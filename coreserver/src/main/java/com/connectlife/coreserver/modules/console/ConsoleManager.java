@@ -27,8 +27,8 @@ import org.apache.sshd.server.session.ServerSession;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.Module;
-import com.connectlife.coreserver.modules.datamanager.Config;
-import com.connectlife.coreserver.modules.datamanager.DataManager;
+import com.connectlife.coreserver.modules.configmanager.Config;
+import com.connectlife.coreserver.modules.configmanager.ConfigManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -72,7 +72,7 @@ public class ConsoleManager implements Module {
 		
 		m_logger.info("Initialization in progress ...");
 		
-		Config tcpip_port 		= DataManager.getConfig("CONSOLE", "TCPIP_PORT");
+		Config tcpip_port 		= ConfigManager.getConfig("CONSOLE", "TCPIP_PORT");
 		
 		
 		m_logger.info("TCP/IP Port: " + tcpip_port.getIntegerValue());
@@ -91,8 +91,8 @@ public class ConsoleManager implements Module {
 		    public boolean authenticate(String username, String password, ServerSession session) {
 		    	
 		    	boolean ret_val = false;
-		    	Config admin_username 	= DataManager.getConfig("CONSOLE", "ADMIN_USERNAME");
-				Config admin_password 	= DataManager.getConfig("CONSOLE", "ADMIN_PASSWORD");
+		    	Config admin_username 	= ConfigManager.getConfig("CONSOLE", "ADMIN_USERNAME");
+				Config admin_password 	= ConfigManager.getConfig("CONSOLE", "ADMIN_PASSWORD");
 				
 		    	if( admin_username.getStringValue().equals(username) && admin_password.getStringValue().equals(password) ){
 		    		ret_val = true;

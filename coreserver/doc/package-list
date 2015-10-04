@@ -1,8 +1,8 @@
 com.connectlife.coreserver
 com.connectlife.coreserver.modules
 com.connectlife.coreserver.modules.apiserver
+com.connectlife.coreserver.modules.configmanager
 com.connectlife.coreserver.modules.console
-com.connectlife.coreserver.modules.datamanager
 com.connectlife.coreserver.modules.environment
 com.connectlife.coreserver.modules.environment.data
 com.connectlife.coreserver.modules.environment.discover

@@ -18,8 +18,8 @@ import org.apache.logging.log4j.Logger;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.modules.apiserver.ApiServer;
+import com.connectlife.coreserver.modules.configmanager.ConfigManager;
 import com.connectlife.coreserver.modules.console.ConsoleManager;
-import com.connectlife.coreserver.modules.datamanager.DataManager;
 import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 
 /**
@@ -93,7 +93,7 @@ public class ModuleFactory {
 			m_logger.info("Prepare module in progress ...");
 			
 			m_modules = new Hashtable<ModuleUID, Module>();
-			m_modules.put(ModuleUID.DATA_MANAGER, DataManager.getInstance());
+			m_modules.put(ModuleUID.DATA_MANAGER, ConfigManager.getInstance());
 			m_modules.put(ModuleUID.API_SERVER, ApiServer.getInstance());
 			m_modules.put(ModuleUID.ENVIRONMENT_MANAGER, EnvironmentManager.getInstance());
 			m_modules.put(ModuleUID.CONSOLE_MANAGER, ConsoleManager.getInstance());

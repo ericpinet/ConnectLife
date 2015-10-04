@@ -180,7 +180,7 @@ public class Application {
 		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
 		Iterator<Module> itr = modules.values().iterator();
 		
-		// Initialization of DataManager first of all
+		// Initialization of ConfigManager first of all
 		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
 		if( null != data &&
 		   	false == data.isInit() ){
@@ -195,7 +195,7 @@ public class Application {
 			}
 		}
 		else{
-			m_logger.error("Unable to find DataManager.");
+			m_logger.error("Unable to find ConfigManager.");
 		}
 		
 		return ret_val;
@@ -217,7 +217,7 @@ public class Application {
 			}
 		}
 		
-		// UnInitialization of DataManager at the end
+		// UnInitialization of ConfigManager at the end
 		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
 		if( null != data &&
 		   	false == data.isInit() ){

@@ -21,8 +21,8 @@ import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 
 // internal
 import com.connectlife.coreserver.modules.Module;
-import com.connectlife.coreserver.modules.datamanager.Config;
-import com.connectlife.coreserver.modules.datamanager.DataManager;
+import com.connectlife.coreserver.modules.configmanager.Config;
+import com.connectlife.coreserver.modules.configmanager.ConfigManager;
 import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Consts.ModuleUID;
@@ -94,7 +94,7 @@ public class ApiServer implements Module, CLApi.Iface {
 	
 	/**
 	 * Initialization of the api server.
-	 * This method use the DataManager to load configuration of the
+	 * This method use the ConfigManager to load configuration of the
 	 * Api Server.
 	 * 
 	 * @return True if initialization completed with success.
@@ -105,8 +105,8 @@ public class ApiServer implements Module, CLApi.Iface {
 		m_logger.info("Initialization in progress ...");
 		
 		// retrive config
-		Config tcpip_port 			= DataManager.getConfig("APISERVER", "TCPIP_PORT");
-		Config tcpip_port_secure 	= DataManager.getConfig("APISERVER", "TCPIP_PORT_SECURE");
+		Config tcpip_port 			= ConfigManager.getConfig("APISERVER", "TCPIP_PORT");
+		Config tcpip_port_secure 	= ConfigManager.getConfig("APISERVER", "TCPIP_PORT_SECURE");
 		
 		if( null != tcpip_port &&
 			null != tcpip_port_secure){
@@ -255,7 +255,9 @@ public class ApiServer implements Module, CLApi.Iface {
 	}
 
 	/**
-	 * @return
+	 * Return the agi version of the server. 
+	 * 
+	 * @return Version of this agi server.
 	 * @throws TException
 	 * @see com.connectlife.clapi.clapi.Iface#getVersion()
 	 */
@@ -266,8 +268,11 @@ public class ApiServer implements Module, CLApi.Iface {
 	}
 
 	/**
-	 * @param version
-	 * @return
+	 * Check compatibility with the agi server.
+	 * 
+	 * @param version Agi version number of the client application.
+	 * @return True if this version is supported by this server.
+	 * 
 	 * @throws TException
 	 * @see com.connectlife.clapi.clapi.Iface#checkCompatibility(java.lang.String)
 	 */
@@ -278,7 +283,9 @@ public class ApiServer implements Module, CLApi.Iface {
 	}
 
 	/**
-	 * @return
+	 * Return the json string representing the environment data in the application.
+	 * 
+	 * @return Json representation of the environment data.
 	 * @throws TException
 	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
