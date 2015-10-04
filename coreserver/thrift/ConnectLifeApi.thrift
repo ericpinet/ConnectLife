@@ -45,7 +45,7 @@ service CLApi
    *
    * @return string - Service version. 
    */
-  string         getVersion(),
+  string         getVersion() throws (1:Xception e),
   
   /**
    * Check compatibility of the client with the server version. 
@@ -53,12 +53,12 @@ service CLApi
    * @param string version - Version of the client api. 
    * @return bool - Return true if the client version is compatible with the server.
    */
-  bool			 checkCompatibility(1: string version), 	
+  bool			 checkCompatibility(1: string version) throws (1:Xception e), 	
   
   /**
    * Get the environment data in Json format.
    *
    * @return string - Json string representing the environment.
    */
-  string 		getEnvironmentDataJson(),	 
+  string 		getEnvironmentDataJson() throws (1:Xception e),	 
 }
