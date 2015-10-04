@@ -11,7 +11,6 @@ package com.connectlife.coreserver.modules.apiserver;
 // external 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jetty.server.Server;
 import org.apache.thrift.TException;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
@@ -65,14 +64,15 @@ public class ApiServer implements Module, CLApi.Iface {
 	private static final ModuleUID m_moduleUID = ModuleUID.API_SERVER;
 	
 	/**
-	 * Http server for the json servlet.
+	 * Processor for client connection.
 	 */
-	private Server m_server;
-	
-	
 	private CLApi.Processor<CLApi.Iface> m_processor;
 	
-
+	/**
+	 * Thread of the simple server.
+	 */
+	private Runnable m_simple_server;
+	
 	/**
 	 * Default constructor of the api server.
 	 */
@@ -132,14 +132,6 @@ public class ApiServer implements Module, CLApi.Iface {
                 //    }
                 //};
                 //new Thread(secure).start();
-
-            	
-            	// TODO jetty log in log4j
-            	//Server server = new Server(tcpip_port.getIntegerValue());
-                //server.setHandler(new JsonHandler());
-         
-                //server.start();
-                //server.join();
 	            
 	            ret_val = m_isInit = true;
 	            
@@ -177,13 +169,11 @@ public class ApiServer implements Module, CLApi.Iface {
 		m_logger.info("UnInitialization in progress ...");
 		
 		if(	m_isInit && 
-			null != m_server &&
-			true == m_server.isStarted()){
+			null != m_simple_server){
 			
 			try {
-				m_logger.info("Server running.");
 				
-				m_server.stop();
+				// TODO close server correctly
 				m_isInit = false;
 				
 			} catch (Exception e) {
