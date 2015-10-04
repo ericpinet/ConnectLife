@@ -12,13 +12,25 @@ package com.connectlife.coreserver.modules.apiserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
+import org.apache.thrift.TException;
+import org.apache.thrift.server.TServer;
+import org.apache.thrift.server.TThreadPoolServer;
+import org.apache.thrift.transport.TSSLTransportFactory;
+import org.apache.thrift.transport.TServerSocket;
+import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 
 // internal
 import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.modules.datamanager.Config;
 import com.connectlife.coreserver.modules.datamanager.DataManager;
+import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Consts.ModuleUID;
+import com.connectlife.clapi.*;
+import com.connectlife.clapi.CLApi.Iface;
+import com.connectlife.clapi.CLApi.Processor;
+
 
 /**
  * Api server of the coreserver. This class is main api server interface
@@ -30,7 +42,7 @@ import com.connectlife.coreserver.Consts.ModuleUID;
  * @author Eric Pinet (pineri01@gmail.com)
  * <br> 2015-09-07
  */
-public class ApiServer implements Module {
+public class ApiServer implements Module, CLApi.Iface {
 	
 	/**
 	 * Logger use for this class.
@@ -56,6 +68,10 @@ public class ApiServer implements Module {
 	 * Http server for the json servlet.
 	 */
 	private Server m_server;
+	
+	
+	private CLApi.Processor<CLApi.Iface> m_processor;
+	
 
 	/**
 	 * Default constructor of the api server.
@@ -89,18 +105,40 @@ public class ApiServer implements Module {
 		m_logger.info("Initialization in progress ...");
 		
 		// retrive config
-		Config tcpip_port 	= DataManager.getConfig("APISERVER", "TCPIP_PORT");
+		Config tcpip_port 			= DataManager.getConfig("APISERVER", "TCPIP_PORT");
+		Config tcpip_port_secure 	= DataManager.getConfig("APISERVER", "TCPIP_PORT_SECURE");
 		
-		if( null != tcpip_port ){
+		if( null != tcpip_port &&
+			null != tcpip_port_secure){
 		
 			// Init http server
             try {
             	
+            	// Initialize thrift server (simple and secure)
+            	m_processor = new Processor<Iface>(this);
+            	
+            	// simple
+            	Runnable simple = new Runnable() {
+            		public void run() {
+            			simple(m_processor, tcpip_port.getIntegerValue());
+                    }
+                };
+                new Thread(simple).start();
+                
+                // secure
+                //Runnable secure = new Runnable() {
+                //	public void run() {
+                //		secure(m_processor, tcpip_port_secure.getIntegerValue());
+                //    }
+                //};
+                //new Thread(secure).start();
+
+            	
             	// TODO jetty log in log4j
-            	Server server = new Server(tcpip_port.getIntegerValue());
-                server.setHandler(new JsonHandler());
+            	//Server server = new Server(tcpip_port.getIntegerValue());
+                //server.setHandler(new JsonHandler());
          
-                server.start();
+                //server.start();
                 //server.join();
 	            
 	            ret_val = m_isInit = true;
@@ -163,5 +201,99 @@ public class ApiServer implements Module {
 	 */
 	public ModuleUID getModuleUID() {
 		return m_moduleUID;
+	}
+	
+	/**
+	 * Starting simple server (no secure).
+	 * 
+	 * @param _processor Processor of the server.
+	 * @param _port		 TcpIp port to listening.
+	 */
+	public static void simple(@SuppressWarnings("rawtypes") CLApi.Processor _processor, int _port) {
+		try {
+			TServerTransport serverTransport = new TServerSocket(_port);
+			TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(_processor));
+			
+			m_logger.info("Starting the simple server...");
+			server.serve();
+			
+		} 
+		catch (Exception e) {
+			m_logger.error("Unable to start correctly the simple server. "+e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Starting secure server (SSL).
+	 * 
+	 * @param _processor Processor of the server.
+	 * @param _port		 TcpIp port to listening.
+	 */
+	public static void secure(@SuppressWarnings("rawtypes") CLApi.Processor _processor, int _port) {
+	    try {
+			/*
+			 * Use TSSLTransportParameters to setup the required SSL parameters. In this example
+			 * we are setting the keystore and the keystore password. Other things like algorithms,
+			 * cipher suites, client auth etc can be set. 
+			 */
+			TSSLTransportParameters params = new TSSLTransportParameters();
+			// TODO The Keystore contains the private key
+			params.setKeyStore("../../lib/java/test/.keystore", "thrift", null, null);
+			 
+			/*
+			 * Use any of the TSSLTransportFactory to get a server transport with the appropriate
+			 * SSL configuration. You can use the default settings if properties are set in the command line.
+			 * Ex: -Djavax.net.ssl.keyStore=.keystore and -Djavax.net.ssl.keyStorePassword=thrift
+			 * 
+			 * Note: You need not explicitly call open(). The underlying server socket is bound on return
+			 * from the factory class. 
+			 */
+			TServerTransport serverTransport = TSSLTransportFactory.getServerSocket(_port, 0, null, params);
+			TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(_processor));
+			
+			m_logger.info("Starting the secure server...");
+			server.serve();
+			
+	    } 
+	    catch (Exception e) {
+	    	m_logger.error("Unable to start correctly the secure server. "+e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+	    }    
+	}
+
+	/**
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.clapi.Iface#getVersion()
+	 */
+	@Override
+	public String getVersion() throws TException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param version
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.clapi.Iface#checkCompatibility(java.lang.String)
+	 */
+	@Override
+	public boolean checkCompatibility(String version) throws TException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
+	 */
+	@Override
+	public String getEnvironmentDataJson() throws TException {
+		return EnvironmentManager.getInstance().getJsonEnvironment();
 	}
 }

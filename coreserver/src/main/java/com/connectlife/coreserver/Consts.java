@@ -78,7 +78,8 @@ public final class Consts {
 	 */
 	public static String [][] ItemConfig = {
             {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
-            {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9007"},
+            {"APISERVER" , 		"TCPIP_PORT_SECURE" , 	CONFIG_TYPE_INTEGER,			"9007"},
+            {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9008"},
             {"CONSOLE" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
             {"CONSOLE" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"}
        };

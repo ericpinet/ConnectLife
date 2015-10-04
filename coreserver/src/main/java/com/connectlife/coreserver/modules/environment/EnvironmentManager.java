@@ -459,7 +459,6 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	 * @param _service Service informations.
 	 * @see com.connectlife.coreserver.modules.environment.discover.DiscoveryListner#serviceDiscover(javax.jmdns.ServiceEvent)
 	 */
-	@Override
 	public void serviceDiscover(ServiceEvent _service) {
 		// TODO
 		m_logger.info("Accessory discovered: "+ _service.getName() + " - " + _service.getType());
@@ -471,7 +470,6 @@ public class EnvironmentManager implements Module, DiscoveryListner {
 	 * @param _service Service information.
 	 * @see com.connectlife.coreserver.modules.environment.discover.DiscoveryListner#serviceRemove(javax.jmdns.ServiceEvent)
 	 */
-	@Override
 	public void serviceRemove(ServiceEvent _service) {
 		// TODO
 		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
