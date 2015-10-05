@@ -11,12 +11,14 @@ package com.connectlife.coreserver.modules.apiserver;
 // external 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.thrift.TException;
+import org.apache.thrift.TProcessor;
+import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TThreadPoolServer;
 import org.apache.thrift.transport.TSSLTransportFactory;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
+import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
 
 // internal
@@ -74,10 +76,15 @@ public class ApiServer implements Module, CLApi.Iface {
 	private Runnable m_simple_server;
 	
 	/**
+	 * Distributor of push notification to clients simple.
+	 */
+	private PushDistributor m_push_distributor_simple;
+	
+	/**
 	 * Default constructor of the api server.
 	 */
 	private ApiServer(){
-		
+		m_push_distributor_simple = new PushDistributor();
 	}
 	
 	/**
@@ -120,7 +127,7 @@ public class ApiServer implements Module, CLApi.Iface {
             	// simple
             	Runnable simple = new Runnable() {
             		public void run() {
-            			simple(m_processor, tcpip_port.getIntegerValue());
+            			simple(m_processor, m_push_distributor_simple, tcpip_port.getIntegerValue());
                     }
                 };
                 new Thread(simple).start();
@@ -196,13 +203,29 @@ public class ApiServer implements Module, CLApi.Iface {
 	/**
 	 * Starting simple server (no secure).
 	 * 
-	 * @param _processor Processor of the server.
-	 * @param _port		 TcpIp port to listening.
+	 * @param _processor 		Processor of the server.
+	 * @param _push_distributor Distributor that keeping list of all client connected for simple connection (no secure).
+	 * @param _port		 		TcpIp m_port to listening.
 	 */
-	public static void simple(@SuppressWarnings("rawtypes") CLApi.Processor _processor, int _port) {
+	public static void simple(@SuppressWarnings("rawtypes") CLApi.Processor _processor, PushDistributor _push_distributor, int _port) {
 		try {
+			/**
+			 * Processor factory use to bind second socket on client to
+			 * push notification.
+			 */
+			TProcessorFactory processor_factory = new TProcessorFactory(null) {
+				@Override
+			    public TProcessor getProcessor(TTransport trans) {
+					_push_distributor.addClient(new NotificationServiceClient(trans));
+					return _processor;
+				}
+			};
+			
 			TServerTransport serverTransport = new TServerSocket(_port);
-			TServer server = new TThreadPoolServer(new TThreadPoolServer.Args(serverTransport).processor(_processor));
+			
+			TThreadPoolServer.Args serverArgs = new TThreadPoolServer.Args(serverTransport);
+		    serverArgs.processorFactory(processor_factory);
+		    TServer server = new TThreadPoolServer(serverArgs);
 			
 			m_logger.info("Starting the simple server...");
 			server.serve();
@@ -219,7 +242,7 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * Starting secure server (SSL).
 	 * 
 	 * @param _processor Processor of the server.
-	 * @param _port		 TcpIp port to listening.
+	 * @param _port		 TcpIp m_port to listening.
 	 */
 	public static void secure(@SuppressWarnings("rawtypes") CLApi.Processor _processor, int _port) {
 	    try {
@@ -233,7 +256,7 @@ public class ApiServer implements Module, CLApi.Iface {
 			params.setKeyStore("../../lib/java/test/.keystore", "thrift", null, null);
 			 
 			/*
-			 * Use any of the TSSLTransportFactory to get a server transport with the appropriate
+			 * Use any of the TSSLTransportFactory to get a server m_transport with the appropriate
 			 * SSL configuration. You can use the default settings if properties are set in the command line.
 			 * Ex: -Djavax.net.ssl.keyStore=.keystore and -Djavax.net.ssl.keyStorePassword=thrift
 			 * 
@@ -258,11 +281,11 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * Return the agi version of the server. 
 	 * 
 	 * @return Version of this agi server.
-	 * @throws TException
+	 * @throws Xception - Exception throw in message failed.
 	 * @see com.connectlife.clapi.clapi.Iface#getVersion()
 	 */
 	@Override
-	public String getVersion() throws TException {
+	public String getVersion() throws Xception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -273,11 +296,11 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * @param version Agi version number of the client application.
 	 * @return True if this version is supported by this server.
 	 * 
-	 * @throws TException
+	 * @throws Xception - Exception throw in message failed.
 	 * @see com.connectlife.clapi.clapi.Iface#checkCompatibility(java.lang.String)
 	 */
 	@Override
-	public boolean checkCompatibility(String version) throws TException {
+	public boolean checkCompatibility(String version) throws Xception {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -286,11 +309,11 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * Return the json string representing the environment data in the application.
 	 * 
 	 * @return Json representation of the environment data.
-	 * @throws TException
+	 * @throws Xception - Exception throw in message failed.
 	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
 	@Override
-	public String getEnvironmentDataJson() throws TException {
+	public String getEnvironmentDataJson() throws Xception {
 		return EnvironmentManager.getInstance().getJsonEnvironment();
 	}
 }

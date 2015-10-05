@@ -31,6 +31,23 @@ namespace cpp.noexist ConnectLifeApi
 namespace * com.connectlife.clapi
 
 /**
+ * Notification type
+ */
+enum Type
+{
+  ENV_UPDATED = 1,
+  SYS_SHUTDOWN
+}
+
+/**
+ * Notification in api
+ */
+struct Notification {
+  1: Type id,
+  2: string data
+}
+
+/**
  * Exception in api.
  */
 exception Xception {
@@ -38,6 +55,11 @@ exception Xception {
   2: string message
 }
 
+
+
+/**
+ * CLApi - Api of server
+ */
 service CLApi
 {
   /**
@@ -60,5 +82,17 @@ service CLApi
    *
    * @return string - Json string representing the environment.
    */
-  string 		getEnvironmentDataJson() throws (1:Xception e),	 
+  string 		getEnvironmentDataJson() throws (1:Xception e),
+  
 }
+
+
+/**
+ * CLApiPush - Api for push notification to clients
+ */
+service CLApiPush
+{
+	void 		Push(1: Notification notification) throws (1:Xception e),
+}
+
+
