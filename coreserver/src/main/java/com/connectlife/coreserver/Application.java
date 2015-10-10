@@ -16,11 +16,14 @@ import java.util.Iterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.connectlife.clapi.Notification;
+import com.connectlife.clapi.Type;
 // internal
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.modules.ModuleFactory;
+import com.connectlife.coreserver.modules.apiserver.ApiServer;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -238,7 +241,16 @@ public class Application {
 		// application run
 		while(m_is_running){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
+				
+				
+				// TODO: TEST NOTIFICATION
+				ApiServer apiserver = (ApiServer) ModuleFactory.getModule(Consts.ModuleUID.API_SERVER);
+				if( null != apiserver ){
+					apiserver.sendNotificationAllClient(new Notification(Type.ENV_UPDATED, "Environnement updated."));
+				}
+				
+				
 			} catch (InterruptedException e) {
 				// no error on interup.
 			}

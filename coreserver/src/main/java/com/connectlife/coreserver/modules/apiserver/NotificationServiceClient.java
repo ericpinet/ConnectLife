@@ -14,8 +14,8 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 
-// internal
 import com.connectlife.clapi.CLApiPush;
+// internal
 import com.connectlife.clapi.Notification;
 
 
@@ -75,7 +75,7 @@ public class NotificationServiceClient {
 	 * @param _notification Notification to send at the client.
 	 * @throws TException Exception throw if an error occur.
 	 */
-	public void sendNotification(Notification _notification) throws TException {
-		this.m_client.Push(_notification);
+	public void pushNotification(Notification _notification) throws TException {
+		this.m_client.push(_notification);
 	}
 }

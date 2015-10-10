@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.thrift.TException;
+import java.lang.Runnable;
 
 // internal
 import com.connectlife.clapi.CLApiPush.Iface;
@@ -81,7 +82,9 @@ public class PushDistributor implements Iface, Runnable {
 				while (clientItr.hasNext()) {
 					NotificationServiceClient client = clientItr.next();
 					try {
-						client.sendNotification(notification);
+						m_logger.debug(String.format("Send notification to %s started ...", client.getAddress()));
+						client.pushNotification(notification);
+						m_logger.debug(String.format("Send notification to %s completed.", client.getAddress()));
 					} catch (TException te) {
 						// Most likely client disconnected, should remove it from the list
 						clientItr.remove();
@@ -102,11 +105,9 @@ public class PushDistributor implements Iface, Runnable {
 	 * 
 	 * @param _notification 	Notification to send at all client.
 	 * @throws TException	Exception generated if a problem occur.
-	 * @see com.connectlife.clapi.CLApiPush.Iface#Push(com.connectlife.clapi.Notification)
 	 */
 	@Override
-	public void Push(Notification _notification) throws TException {
+	public void push(Notification _notification) throws TException {
 		m_message_queue.add(_notification);
-	    m_logger.info(String.format("Adding message to queue:\n%s", _notification));
 	}
 }

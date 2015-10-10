@@ -23,11 +23,6 @@ namespace delphi ConnectLife.clapi
 namespace cocoa ConnectLifeApi
 namespace lua ConnectLifeApi
 
-// Presence of namespaces and sub-namespaces for which there is
-// no generator should compile with warnings only
-namespace noexist ConnectLifeApi
-namespace cpp.noexist ConnectLifeApi
-
 namespace * com.connectlife.clapi
 
 /**
@@ -88,11 +83,16 @@ service CLApi
 
 
 /**
- * CLApiPush - Api for push notification to clients
+ * Service use to send notification to clients application.
  */
 service CLApiPush
 {
-	void 		Push(1: Notification notification) throws (1:Xception e),
+  /**
+   * Push notification to client.
+   * @param Notification - Notification to send at client.
+   */
+  oneway void 		push(1: Notification notification),
+  
 }
 
 

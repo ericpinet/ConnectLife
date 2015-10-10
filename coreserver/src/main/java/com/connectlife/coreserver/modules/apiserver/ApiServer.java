@@ -11,6 +11,7 @@ package com.connectlife.coreserver.modules.apiserver;
 // external 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.thrift.TException;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.TProcessorFactory;
 import org.apache.thrift.server.TServer;
@@ -27,6 +28,7 @@ import com.connectlife.coreserver.modules.configmanager.Config;
 import com.connectlife.coreserver.modules.configmanager.ConfigManager;
 import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
 import com.connectlife.clapi.*;
 import com.connectlife.clapi.CLApi.Iface;
@@ -208,11 +210,10 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * @param _port		 		TcpIp m_port to listening.
 	 */
 	public static void simple(@SuppressWarnings("rawtypes") CLApi.Processor _processor, PushDistributor _push_distributor, int _port) {
+		
 		try {
-			/**
-			 * Processor factory use to bind second socket on client to
-			 * push notification.
-			 */
+			// Processor factory use to bind second socket on client to
+			// push notification.
 			TProcessorFactory processor_factory = new TProcessorFactory(null) {
 				@Override
 			    public TProcessor getProcessor(TTransport trans) {
@@ -222,11 +223,13 @@ public class ApiServer implements Module, CLApi.Iface {
 			};
 			
 			TServerTransport serverTransport = new TServerSocket(_port);
-			
 			TThreadPoolServer.Args serverArgs = new TThreadPoolServer.Args(serverTransport);
 		    serverArgs.processorFactory(processor_factory);
 		    TServer server = new TThreadPoolServer(serverArgs);
 			
+		    // start the push distributor
+		    new Thread(_push_distributor).start();
+		    
 			m_logger.info("Starting the simple server...");
 			server.serve();
 			
@@ -282,12 +285,10 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * 
 	 * @return Version of this agi server.
 	 * @throws Xception - Exception throw in message failed.
-	 * @see com.connectlife.clapi.clapi.Iface#getVersion()
 	 */
 	@Override
 	public String getVersion() throws Xception {
-		// TODO Auto-generated method stub
-		return null;
+		return Consts.APP_NAME + " " + Consts.APP_VERSION;
 	}
 
 	/**
@@ -297,7 +298,6 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * @return True if this version is supported by this server.
 	 * 
 	 * @throws Xception - Exception throw in message failed.
-	 * @see com.connectlife.clapi.clapi.Iface#checkCompatibility(java.lang.String)
 	 */
 	@Override
 	public boolean checkCompatibility(String version) throws Xception {
@@ -310,10 +310,26 @@ public class ApiServer implements Module, CLApi.Iface {
 	 * 
 	 * @return Json representation of the environment data.
 	 * @throws Xception - Exception throw in message failed.
-	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
 	@Override
 	public String getEnvironmentDataJson() throws Xception {
 		return EnvironmentManager.getInstance().getJsonEnvironment();
+	}
+	
+	/**
+	 * Send notification to all client connected.
+	 * 
+	 * @param _notification Notification to send at client.
+	 */
+	public void sendNotificationAllClient(Notification _notification) {
+		try {
+			if(m_push_distributor_simple != null){
+				m_push_distributor_simple.push(_notification);
+			}
+		} catch (TException e) {
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
 	}
 }
