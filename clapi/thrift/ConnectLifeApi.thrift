@@ -28,29 +28,88 @@ namespace * com.connectlife.clapi
 /**
  * Notification type
  */
-enum Type
-{
+enum Type{
   ENV_UPDATED = 1,
   SYS_SHUTDOWN
 }
 
 /**
- * Notification in api
+ * Notification
  */
 struct Notification {
-  1: Type id,
-  2: string data
+  1: required Type id,
+  2: list<string> data
 }
 
 /**
- * Exception in api.
+ * Email Type
  */
-exception Xception {
-  1: i32 errorCode,
-  2: string message
+enum EmailType{
+	PERSONAL = 1,
+	WORK,
+	OTHER
 }
 
+/**
+ * Email
+ */
+struct Email {
+	1: required EmailType type,
+	2: required string email
+}
 
+/**
+ * Phone Type
+ */
+enum PhoneType{
+	HOME = 1,
+	CELL,
+	WORK,
+	OTHER
+}
+
+/**
+ * Phone
+ */
+struct Phone {
+	1: required PhoneType type,
+	2: required string phone
+}
+
+/**
+ * Address Type
+ */
+enum AddressType{
+	HOME = 1,
+	WORK,
+	OTHER
+}
+
+/**
+ * Address
+ */
+struct Address {
+	1: required AddressType type,
+	2: required string street,
+	3: optional string city,
+	4: optional string region,
+	5: optional string zipcode,
+	6: optional string country
+}
+
+/**
+ * Person
+ */
+struct Person {
+	1: required string uid,
+	2: required string firstname,
+	3: optional string lastname,
+	4: optional list<Email> emails,
+	5: optional list<Phone> phones,
+	6: optional list<Address> address,
+	7: optional string imageurl
+}
+ 
 
 /**
  * CLApi - Api of server
@@ -62,7 +121,7 @@ service CLApi
    *
    * @return string - Service version. 
    */
-  string         getVersion() throws (1:Xception e),
+  string         getVersion(),
   
   /**
    * Check compatibility of the client with the server version. 
@@ -70,14 +129,14 @@ service CLApi
    * @param string version - Version of the client api. 
    * @return bool - Return true if the client version is compatible with the server.
    */
-  bool			 checkCompatibility(1: string version) throws (1:Xception e), 	
+  bool			 checkCompatibility(1: string version), 	
   
   /**
    * Get the environment data in Json format.
    *
    * @return string - Json string representing the environment.
    */
-  string 		getEnvironmentDataJson() throws (1:Xception e),
+  string 		getEnvironmentDataJson(),
   
 }
 

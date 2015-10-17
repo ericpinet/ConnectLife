@@ -25,10 +25,7 @@ import java.util.Iterator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
-import com.connectlife.coreserver.environment.data.Address;
-import com.connectlife.coreserver.environment.data.Email;
-import com.connectlife.coreserver.environment.data.Person;
-import com.connectlife.coreserver.environment.data.PhoneNumber;
+import com.connectlife.clapi.*;
 
 
 /**
@@ -100,7 +97,7 @@ public class PersonWindow extends Dialog {
 		lblFirstName.setText("First name:");
 		
 		txtFirstname = new Text(shell, SWT.BORDER);
-		txtFirstname.setText(person.getFirstName());
+		txtFirstname.setText(person.getFirstname());
 		txtFirstname.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblLastName = new Label(shell, SWT.NONE);
@@ -108,7 +105,8 @@ public class PersonWindow extends Dialog {
 		lblLastName.setText("Last name:");
 		
 		txtLastname = new Text(shell, SWT.BORDER);
-		txtLastname.setText(person.getLastName());
+		if(null != person.getLastname())
+			txtLastname.setText(person.getLastname());
 		txtLastname.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblEmails = new Label(shell, SWT.NONE);
@@ -130,19 +128,21 @@ public class PersonWindow extends Dialog {
 		tblclmnType.setText("Type");
 		
 		// load table informations.
-		Iterator<Email> itr = person.getEmails().iterator();
-		while(itr.hasNext()){
-			Email email = itr.next();
-			String type = "";
-			if(Email.Type.PERSONAL == email.getType())
-				type = "Personal";
-			else if (Email.Type.WORK == email.getType())
-				type = "Work";
-			else if (Email.Type.OTHER == email.getType())
-				type = "Other";
-			
-			TableItem item = new TableItem(tableEmail, SWT.NONE);
-			item.setText(new String[]{email.getEmail(), type});
+		Iterator<Email> itr = person.getEmailsIterator();
+		if(null != itr){
+			while(itr.hasNext()){
+				Email email = itr.next();
+				String type = "";
+				if(EmailType.PERSONAL == email.getType())
+					type = "Personal";
+				else if (EmailType.WORK == email.getType())
+					type = "Work";
+				else if (EmailType.OTHER == email.getType())
+					type = "Other";
+				
+				TableItem item = new TableItem(tableEmail, SWT.NONE);
+				item.setText(new String[]{email.getEmail(), type});
+			}
 		}
 		
 		Label lblPhoneNumbers = new Label(shell, SWT.NONE);
@@ -164,21 +164,23 @@ public class PersonWindow extends Dialog {
 		tblclmnType_1.setText("Type");
 		
 		// load table informations.
-		Iterator<PhoneNumber> itrp = person.getPhoneNumbers().iterator();
-		while(itrp.hasNext()){
-			PhoneNumber phone = itrp.next();
-			String type = "";
-			if(PhoneNumber.Type.CELL == phone.getType())
-				type = "Cellular";
-			else if(PhoneNumber.Type.HOME == phone.getType())
-				type = "Home";
-			else if (PhoneNumber.Type.WORK == phone.getType())
-				type = "Work";
-			else if (PhoneNumber.Type.OTHER == phone.getType())
-				type = "Other";
-			
-			TableItem item = new TableItem(tablePhoneNumbers, SWT.NONE);
-			item.setText(new String[]{phone.getPhoneNumber(), type});
+		Iterator<Phone> itrp = person.getPhonesIterator();
+		if(null != itrp){
+			while(itrp.hasNext()){
+				Phone phone = itrp.next();
+				String type = "";
+				if(PhoneType.CELL == phone.getType())
+					type = "Cellular";
+				else if(PhoneType.HOME == phone.getType())
+					type = "Home";
+				else if (PhoneType.WORK == phone.getType())
+					type = "Work";
+				else if (PhoneType.OTHER == phone.getType())
+					type = "Other";
+				
+				TableItem item = new TableItem(tablePhoneNumbers, SWT.NONE);
+				item.setText(new String[]{phone.getPhone(), type});
+			}
 		}
 		
 		Label lblAddress = new Label(shell, SWT.NONE);
@@ -216,19 +218,21 @@ public class PersonWindow extends Dialog {
 		tblclmnType_2.setText("Type");
 		
 		// load table informations.
-		Iterator<Address> itra = person.getAddress().iterator();
-		while(itra.hasNext()){
-			Address address = itra.next();
-			String type = "";
-			if(Address.Type.HOME == address.getType())
-				type = "Home";
-			else if(Address.Type.WORK == address.getType())
-				type = "Work";
-			else if (Address.Type.OTHER == address.getType())
-				type = "Other";
-			
-			TableItem item = new TableItem(tableAddress, SWT.NONE);
-			item.setText(new String[]{address.getStreet(), address.getCity(), address.getRegion(), address.getZipCode(), address.getCountry() , type});
+		Iterator<Address> itra = person.getAddressIterator();
+		if(null != itra){
+			while(itra.hasNext()){
+				Address address = itra.next();
+				String type = "";
+				if(AddressType.HOME == address.getType())
+					type = "Home";
+				else if(AddressType.WORK == address.getType())
+					type = "Work";
+				else if (AddressType.OTHER == address.getType())
+					type = "Other";
+				
+				TableItem item = new TableItem(tableAddress, SWT.NONE);
+				item.setText(new String[]{address.getStreet(), address.getCity(), address.getRegion(), address.getZipcode(), address.getCountry() , type});
+			}
 		}
 		
 		Label lblPicture = new Label(shell, SWT.NONE);

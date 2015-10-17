@@ -182,7 +182,11 @@ public class MainWindow implements NotificationListener {
 	private void connectionWithServer(){
 		
 		try {
+			if(null != client){
+				client.close();
+			}
 			client = new Client(textHost.getText(), Integer.parseInt(textPort.getText()), this);
+			
 			
 			System.out.println( "Check compatibility with the server : " + client.checkCompatibility("0.1.0") );
 			
@@ -204,6 +208,8 @@ public class MainWindow implements NotificationListener {
 			while(itrh.hasNext()){
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
+			
+			lblStatus.setText("Connected.");
 			
 			//client.close();
 			
@@ -242,6 +248,7 @@ public class MainWindow implements NotificationListener {
 		}
 		catch( Exception e){
 			System.out.println(e.getMessage());
+			lblStatus.setText("Not connected. "+e.getMessage());
 		}
 	}
 	

@@ -12,6 +12,7 @@ package com.connectlife.coreserver.environment.data;
 import java.util.Collection;
 
 // internal
+import com.connectlife.clapi.*;
 
 /**
  * 

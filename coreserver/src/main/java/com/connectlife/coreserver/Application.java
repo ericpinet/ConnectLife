@@ -284,12 +284,13 @@ public class Application {
 			try {
 				Thread.sleep(2000);
 				
-				
 				// TODO: TEST NOTIFICATION
 				if( null != m_api && true == m_api.isInit() ){
-					m_api.sendNotificationAllClient(new Notification(Type.ENV_UPDATED, "Environnement updated."));
+					Notification notification = new Notification();
+					notification.setId(Type.ENV_UPDATED);
+					notification.addToData(m_environment.getJsonEnvironment());
+					m_api.sendNotificationAllClient(notification);
 				}
-				
 				
 			} catch (InterruptedException e) {
 				// no error on interup.

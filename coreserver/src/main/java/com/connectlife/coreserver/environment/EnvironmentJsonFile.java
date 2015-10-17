@@ -23,6 +23,9 @@ import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
+
+// internal
+import com.connectlife.clapi.*;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.UIDGenerator;
@@ -358,7 +361,11 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 		
 		
 		// Person
-		final Collection<Person> persons = new ArrayList<Person>()	{{ 	add(new Person(UIDGenerator.getUID(), 
+		Collection<Person> persons = new ArrayList<Person>();
+		Person eric = new Person(UIDGenerator.getUID(), "Eric");
+		persons.add(eric);
+		
+		/*final Collection<Person> persons = new ArrayList<Person>()	{{ 	add(new Person(UIDGenerator.getUID(), 
 																							"Eric", 
 																							"Pinet", 
 																							"",
@@ -384,7 +391,7 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 																							new ArrayList<Address>()	{{ 	add( new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) );
 																									       					add( new Address("9298 carré richard", "Québec", "Québec", "G2B 3P6", "Canada", Address.Type.OTHER) );
 																														}}) );
-																					}};
+																					}};*/
 
 		
 		final Collection<Accessory> accessories = new ArrayList<Accessory>()	{{ 	add(new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
