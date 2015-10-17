@@ -25,11 +25,10 @@ import java.util.Iterator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
-import com.connectlife.coreserver.modules.environment.data.Address;
-import com.connectlife.coreserver.modules.environment.data.Email;
-// internal
-import com.connectlife.coreserver.modules.environment.data.Person;
-import com.connectlife.coreserver.modules.environment.data.PhoneNumber;
+import com.connectlife.coreserver.environment.data.Address;
+import com.connectlife.coreserver.environment.data.Email;
+import com.connectlife.coreserver.environment.data.Person;
+import com.connectlife.coreserver.environment.data.PhoneNumber;
 
 
 /**

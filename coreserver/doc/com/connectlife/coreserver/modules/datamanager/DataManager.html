@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -92,7 +92,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.connectlife.coreserver.modules.configmanager</div>
+<div class="subTitle">com.connectlife.coreserver.configmanager</div>
 <h2 title="Class DataManager" class="title">Class DataManager</h2>
 </div>
 <div class="contentContainer">
@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.connectlife.coreserver.modules.configmanager.ConfigManager</li>
+<li>com.connectlife.coreserver.configmanager.ConfigSqliteManager</li>
 </ul>
 </li>
 </ul>
@@ -167,7 +167,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>private static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.modules.configmanager">DataManager</a></code></td>
+<td class="colFirst"><code>private static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.configmanager">DataManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html#m_ref">m_ref</a></span></code>
 <div class="block">Singleton reference for this class</div>
 </td>
@@ -209,14 +209,14 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a></code></td>
+<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html#getConfig-java.lang.String-java.lang.String-">getConfig</a></span>(java.lang.String&nbsp;_section,
          java.lang.String&nbsp;_item)</code>
 <div class="block">Return a Config object that correspond to this section and item.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.modules.configmanager">DataManager</a></code></td>
+<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.configmanager">DataManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html#getInstance--">getInstance</a></span>()</code>
 <div class="block">Return the instance of the DataManager for this application</div>
 </td>
@@ -240,7 +240,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>private <a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a></code></td>
+<td class="colFirst"><code>private <a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html#loadConfig-java.lang.String-java.lang.String-">loadConfig</a></span>(java.lang.String&nbsp;_section,
           java.lang.String&nbsp;_item)</code>
 <div class="block">Return a configuration object.</div>
@@ -296,7 +296,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>m_ref</h4>
-<pre>private static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.modules.configmanager">DataManager</a> m_ref</pre>
+<pre>private static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.configmanager">DataManager</a> m_ref</pre>
 <div class="block">Singleton reference for this class</div>
 </li>
 </ul>
@@ -362,7 +362,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getInstance</h4>
-<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.modules.configmanager">DataManager</a>&nbsp;getInstance()</pre>
+<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/DataManager.html" title="class in com.connectlife.coreserver.configmanager">DataManager</a>&nbsp;getInstance()</pre>
 <div class="block">Return the instance of the DataManager for this application</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -440,7 +440,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getConfig</h4>
-<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a>&nbsp;getConfig(java.lang.String&nbsp;_section,
+<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a>&nbsp;getConfig(java.lang.String&nbsp;_section,
                                java.lang.String&nbsp;_item)</pre>
 <div class="block">Return a Config object that correspond to this section and item.</div>
 <dl>
@@ -472,7 +472,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>loadConfig</h4>
-<pre>private&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a>&nbsp;loadConfig(java.lang.String&nbsp;_section,
+<pre>private&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/datamanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a>&nbsp;loadConfig(java.lang.String&nbsp;_section,
                           java.lang.String&nbsp;_item)</pre>
 <div class="block">Return a configuration object.</div>
 <dl>
@@ -512,7 +512,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/datamanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">

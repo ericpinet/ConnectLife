@@ -11,20 +11,23 @@ package com.connectlife.coreserver;
 // external
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Iterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
-import com.connectlife.clapi.Notification;
-import com.connectlife.clapi.Type;
 // internal
 import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.Consts.ModuleUID;
-import com.connectlife.coreserver.modules.Module;
-import com.connectlife.coreserver.modules.ModuleFactory;
-import com.connectlife.coreserver.modules.apiserver.ApiServer;
+import com.connectlife.coreserver.apiserver.Api;
+import com.connectlife.coreserver.configmanager.Config;
+import com.connectlife.coreserver.console.Console;
+import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.clapi.Notification;
+import com.connectlife.clapi.Type;
+
 
 /**
  * Main application class. All start here!
@@ -34,6 +37,7 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
  * @author  Eric Pinet (pineri01@gmail.com)
  * <br> 2015-09-07
  */
+@Singleton
 public class Application {
 	
 	/**
@@ -42,9 +46,24 @@ public class Application {
 	private static Logger m_logger = LogManager.getLogger(Application.class);
 	
 	/**
-	 * Reference for singleton
+	 * Config manager for the application.
 	 */
-	private static Application m_ref = null;
+	private final Config m_config;
+	
+	/**
+	 * Environment data for the application.
+	 */
+	private final Environment m_environment;
+	
+	/**
+	 * Api manager for the application.
+	 */
+	private final Api m_api;
+	
+	/**
+	 * Console manager for the application.
+	 */
+	private final Console m_console;
 	
 	/**
 	 * Base path of the application.
@@ -55,6 +74,16 @@ public class Application {
 	 * Indicator if the application must be running.
 	 */
 	private boolean m_is_running;
+	
+	/**
+	 * Singleton reference of this class.
+	 */
+	private static Application m_ref;
+	
+	/**
+	 * Flag to indicate if application is already initialized.
+	 */
+	private boolean m_isInit;
 
 	/**
 	 * Main methode of the application.
@@ -62,26 +91,19 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
+		Injector injector = Guice.createInjector(new ApplicationModule());
+		Application app = injector.getInstance(Application.class);
 		
-		Application app = Application.getInstance();
-		try{
+		m_ref = app;
+		
+		try {
+			app.startup();
 			
-			if( true == app.init() ){
-			
-				app.setRunning(true);
-				app.run();
-			}
-		}
-		catch(Exception e){
+		} catch (Exception e) {
+			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
-		finally{
-			app.unInitModules();
-		}
-		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
 		
 		System.exit(0);
 	}
@@ -89,40 +111,51 @@ public class Application {
 	/**
 	 * Main constructor of the application
 	 */
-	public Application(){
-		
+	@Inject
+	public Application(Config _config, Environment _env, Api _api, Console _console){
+		m_logger.debug("Application constructor.");
+		m_config = _config;
+		m_environment = _env;
+		m_api = _api;
+		m_console = _console;
+		m_ref = this;
 	}
 	
 	/**
-	 * Return the instance of this application.
+	 * Return the application instance.
 	 * 
-	 * @return Singleton instance of the ApiServer.
+	 * @return Application current running.
 	 */
-	public static Application getInstance(){
-		if(null == m_ref){
-			m_ref = new Application();
-		}
+	public static Application getApp() {
 		return m_ref;
 	}
+
 	
 	/**
 	 * Init all application stuff. 
 	 * @return True is initialization is completed correctly
 	 */
-	public boolean init(){
+	private boolean init(){
 		
 		boolean ret_val = false;
 		
 		m_logger.info("Initialization started ...");
 		
-		// Startup application logging system
-		if( true == initBasePath() &&
-			true == initModules() ){
-			ret_val = true;
-			m_logger.info("Initialization completed.");
+		if(false == m_isInit){
+		
+			// Startup application module
+			if( true == initBasePath() &&
+				true == initModules() ){
+				m_isInit = ret_val = true;
+				m_logger.info("Initialization completed.");
+			}
+			else{
+				m_logger.error("Initialization failed.");
+			}
 		}
-		
-		
+		else{
+			m_logger.warn("Application is already initialized.");
+		}
 		
 		return ret_val;
 	}
@@ -168,7 +201,7 @@ public class Application {
 	/**
 	 * @param _is_running the m_is_running to set
 	 */
-	public void setRunning(boolean _is_running) {
+	private void setRunning(boolean _is_running) {
 		this.m_is_running = _is_running;
 	}
 
@@ -180,25 +213,33 @@ public class Application {
 	private boolean initModules(){
 		
 		boolean ret_val = true;
-		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.values().iterator();
 		
-		// Initialization of ConfigManager first of all
-		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
-		if( null != data &&
-		   	false == data.isInit() ){
+		// Check if all module are not null
+		if(m_config != null &&
+		   m_environment != null &&
+		   m_api != null &&
+		   m_console != null
+		   ){
 			
-			data.init();
-			
-			while(itr.hasNext()){
-				Module module = itr.next();
-				if( false == module.isInit() && 
-					false == module.init())
-					ret_val = false;
+			// init config first
+			if(m_config.init() == true){
+				
+				// init environment second
+				if(m_environment.init() == true){
+					
+					// init others modules
+					if(	m_api.init() == true &&
+						m_console.init() == true ){
+						
+						ret_val = true;
+						
+					}
+				}
 			}
+			
 		}
 		else{
-			m_logger.error("Unable to find ConfigManager.");
+			m_logger.error("Unable to initialize modules. At less one module is null.");
 		}
 		
 		return ret_val;
@@ -209,22 +250,20 @@ public class Application {
 	 */
 	private void unInitModules(){
 		
-		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.values().iterator();
+		if(m_config != null &&
+		   m_environment != null &&
+		   m_api != null &&
+		   m_console != null
+		   ){
 			
-		while(itr.hasNext()){
-			Module module = itr.next();
-			if( true == module.isInit() &&
-				Consts.ModuleUID.DATA_MANAGER != module.getModuleUID() ){
-					module.unInit();
-			}
+			m_console.unInit();
+			m_api.unInit();
+			m_environment.unInit();
+			m_config.unInit();
+			
 		}
-		
-		// UnInitialization of ConfigManager at the end
-		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
-		if( null != data &&
-		   	false == data.isInit() ){
-			data.unInit();
+		else{
+			m_logger.error("Unable to uninitialize modules. At less one module is null.");
 		}
 		
 	}
@@ -233,6 +272,8 @@ public class Application {
 	 * Start the application main loop
 	 */
 	public void run(){
+		
+		setRunning(true);
 		
 		// start the state machine
 		ApplicationStateMachine state_machine = new ApplicationStateMachine();
@@ -245,9 +286,8 @@ public class Application {
 				
 				
 				// TODO: TEST NOTIFICATION
-				ApiServer apiserver = (ApiServer) ModuleFactory.getModule(Consts.ModuleUID.API_SERVER);
-				if( null != apiserver ){
-					apiserver.sendNotificationAllClient(new Notification(Type.ENV_UPDATED, "Environnement updated."));
+				if( null != m_api && true == m_api.isInit() ){
+					m_api.sendNotificationAllClient(new Notification(Type.ENV_UPDATED, "Environnement updated."));
 				}
 				
 				
@@ -257,4 +297,69 @@ public class Application {
 		}
 	}
 
+	/**
+	 * Startup the application process.
+	 * This function block until a shutdown as called.
+	 * 
+	 * @see com.connectlife.coreserver.App#startup()
+	 */
+	public void startup() {
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
+		
+		try{
+			if( true == init() ){
+				run();
+			}
+		}
+		catch(Exception e){
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		finally{
+			unInitModules();
+		}
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+	}
+
+	/**
+	 * Shutdown the application.
+	 * @see com.connectlife.coreserver.App#shutdown()
+	 */
+	public void shutdown() {
+		setRunning(false);
+	}
+	
+	/**
+	 * Return the configuration manager for this application.
+	 * @return Return configuration manager.
+	 */
+	public Config getConfig(){
+		return m_config;
+	}
+	
+	/**
+	 * Return the environment manager for this application.
+	 * @return Return environement manager.
+	 */
+	public Environment getEnvironment(){
+		return m_environment;
+	}
+	
+	/**
+	 * Return the api manager for this application.
+	 * @return Return api manager.
+	 */
+	public Api getApi(){
+		return m_api;
+	}
+	
+	/**
+	 * Return the console manager for this application.
+	 * @return Return console manager.
+	 */
+	public Console getConsole(){
+		return m_console;
+	}
 }

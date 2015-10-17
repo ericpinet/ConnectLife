@@ -49,8 +49,8 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.ConfigType.html" title="enum in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.ConfigType.html" title="enum in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/connectlife/coreserver/modules/configmanager/ConfigManager.html" target="_top">Frames</a></li>
@@ -92,7 +92,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">com.connectlife.coreserver.modules.configmanager</div>
+<div class="subTitle">com.connectlife.coreserver.configmanager</div>
 <h2 title="Class ConfigManager" class="title">Class ConfigManager</h2>
 </div>
 <div class="contentContainer">
@@ -100,7 +100,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>com.connectlife.coreserver.modules.configmanager.ConfigManager</li>
+<li>com.connectlife.coreserver.configmanager.ConfigSqliteManager</li>
 </ul>
 </li>
 </ul>
@@ -143,14 +143,14 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a></code></td>
+<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html#getConfig-java.lang.String-java.lang.String-">getConfig</a></span>(java.lang.String&nbsp;_section,
          java.lang.String&nbsp;_item)</code>
 <div class="block">Return a Config object that correspond to this section and item.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html" title="class in com.connectlife.coreserver.modules.configmanager">ConfigManager</a></code></td>
+<td class="colFirst"><code>static <a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html" title="class in com.connectlife.coreserver.configmanager">ConfigManager</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html#getInstance--">getInstance</a></span>()</code>
 <div class="block">Return the instance of the ConfigManager for this application</div>
 </td>
@@ -175,7 +175,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html#setConfig-com.connectlife.coreserver.modules.configmanager.Config-">setConfig</a></span>(<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a>&nbsp;_object)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html#setConfig-com.connectlife.coreserver.configmanager.ConfigItem-">setConfig</a></span>(<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a>&nbsp;_object)</code>
 <div class="block">Set new value for a config and save.</div>
 </td>
 </tr>
@@ -213,7 +213,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getInstance</h4>
-<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html" title="class in com.connectlife.coreserver.modules.configmanager">ConfigManager</a>&nbsp;getInstance()</pre>
+<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/configmanager/ConfigManager.html" title="class in com.connectlife.coreserver.configmanager">ConfigManager</a>&nbsp;getInstance()</pre>
 <div class="block">Return the instance of the ConfigManager for this application</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -291,7 +291,7 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getConfig</h4>
-<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a>&nbsp;getConfig(java.lang.String&nbsp;_section,
+<pre>public static&nbsp;<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a>&nbsp;getConfig(java.lang.String&nbsp;_section,
                                java.lang.String&nbsp;_item)</pre>
 <div class="block">Return a Config object that correspond to this section and item.</div>
 <dl>
@@ -303,13 +303,13 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </dl>
 </li>
 </ul>
-<a name="setConfig-com.connectlife.coreserver.modules.configmanager.Config-">
+<a name="setConfig-com.connectlife.coreserver.configmanager.ConfigItem-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setConfig</h4>
-<pre>public static&nbsp;boolean&nbsp;setConfig(<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.modules.configmanager">Config</a>&nbsp;_object)</pre>
+<pre>public static&nbsp;boolean&nbsp;setConfig(<a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.html" title="class in com.connectlife.coreserver.configmanager">Config</a>&nbsp;_object)</pre>
 <div class="block">Set new value for a config and save.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -347,8 +347,8 @@ implements <a href="../../../../../com/connectlife/coreserver/modules/Module.htm
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.ConfigType.html" title="enum in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.modules.configmanager"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/Config.ConfigType.html" title="enum in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../com/connectlife/coreserver/modules/configmanager/DatabaseStructure.html" title="class in com.connectlife.coreserver.configmanager"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?com/connectlife/coreserver/modules/configmanager/ConfigManager.html" target="_top">Frames</a></li>

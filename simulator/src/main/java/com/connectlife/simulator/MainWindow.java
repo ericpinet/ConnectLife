@@ -26,13 +26,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
-
-// internal
-import com.connectlife.coreserver.modules.environment.data.*;
 import com.connectlife.clapi.*;
 import com.connectlife.clapi.CLApiPush.Processor;
 import com.connectlife.clapi.client.Client;
 import com.connectlife.clapi.client.NotificationListener;
+import com.connectlife.coreserver.environment.data.*;
 
 /**
  * 

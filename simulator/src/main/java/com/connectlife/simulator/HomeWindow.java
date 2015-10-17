@@ -25,11 +25,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-// internal
-import com.connectlife.coreserver.modules.environment.data.Home;
-import com.connectlife.coreserver.modules.environment.data.Room;
-import com.connectlife.coreserver.modules.environment.data.Zone;
-import com.connectlife.coreserver.modules.environment.data.Accessory;
+import com.connectlife.coreserver.environment.data.Accessory;
+import com.connectlife.coreserver.environment.data.Home;
+import com.connectlife.coreserver.environment.data.Room;
+import com.connectlife.coreserver.environment.data.Zone;
 
 
 /**

@@ -18,7 +18,6 @@ connectlife-coreserver is the main application server of the ConnectLife System.
 ![Capture d’écran 2015-09-29 à 22.06.41.png](https://bitbucket.org/repo/G4bp4k/images/3851133221-Capture%20d%E2%80%99%C3%A9cran%202015-09-29%20%C3%A0%2022.06.41.png)
 
 
-
 ### Contribution guidelines ###
 
 * Writing tests - It's important!

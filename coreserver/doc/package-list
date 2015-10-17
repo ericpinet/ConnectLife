@@ -2,10 +2,10 @@ com.connectlife.clapi
 com.connectlife.clapi.client
 com.connectlife.coreserver
 com.connectlife.coreserver.modules
-com.connectlife.coreserver.modules.apiserver
-com.connectlife.coreserver.modules.configmanager
-com.connectlife.coreserver.modules.console
-com.connectlife.coreserver.modules.environment
-com.connectlife.coreserver.modules.environment.data
-com.connectlife.coreserver.modules.environment.discover
+com.connectlife.coreserver.apiserver
+com.connectlife.coreserver.configmanager
+com.connectlife.coreserver.console
+com.connectlife.coreserver.environment
+com.connectlife.coreserver.environment.data
+com.connectlife.coreserver.environment.discover
 com.connectlife.coreserver.tools.errormanagement
