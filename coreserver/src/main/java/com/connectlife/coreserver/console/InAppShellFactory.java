@@ -39,14 +39,6 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 public class InAppShellFactory implements Factory {
 	
 	/**
-	 * Default constructor
-	 * 
-	 * @param _app
-	 */
-	public InAppShellFactory(){
-	}
-
-	/**
 	 * Create the new Shell.
 	 * 
 	 * @return Command for the shell.

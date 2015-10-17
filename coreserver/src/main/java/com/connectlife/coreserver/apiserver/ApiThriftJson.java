@@ -75,7 +75,9 @@ public class ApiThriftJson implements Api {
 	private PushDistributor m_push_distributor_simple;
 	
 	/**
-	 * Default constructor of the api server.
+	 * Default constructor.
+	 * @param _processor Processor for the client request.
+	 * @param _config Config manager of the application.
 	 */
 	@Inject
 	public ApiThriftJson(CLApi.Iface _processor, Config _config){

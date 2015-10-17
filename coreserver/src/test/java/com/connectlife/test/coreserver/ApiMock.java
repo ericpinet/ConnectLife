@@ -30,7 +30,7 @@ public class ApiMock implements Api {
 	}
 	
 	/**
-	 * @return
+	 * @return 
 	 * @see com.connectlife.coreserver.modules.Module#init()
 	 */
 	@Override

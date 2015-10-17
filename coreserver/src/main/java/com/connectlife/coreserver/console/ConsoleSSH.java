@@ -75,7 +75,6 @@ public class ConsoleSSH implements Console {
 	 * Initialization of the console manager of the application.
 	 * 
 	 * @return True if initialization is completed correctly. 
-	 * @see com.connectlife.coreserver.modules.Module#init()
 	 */
 	@SuppressWarnings("unchecked")
 	public boolean init() {
@@ -144,8 +143,7 @@ public class ConsoleSSH implements Console {
 	}
 
 	/**
-	 * 
-	 * @see com.connectlife.coreserver.modules.Module#unInit()
+	 * UnInitialize the console.
 	 */
 	public void unInit() {
 		

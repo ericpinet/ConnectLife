@@ -62,20 +62,18 @@ public class ApiProcessor implements CLApi.Iface {
 
 	/**
 	 * @return The server version number.
-	 * @throws Xception
-	 * @throws TException
+	 * @throws TException Thrift exception if something goes wrong.
 	 * @see com.connectlife.clapi.CLApi.Iface#getVersion()
 	 */
 	@Override
-	public String getVersion() throws Xception, TException {
+	public String getVersion() throws TException {
 		return new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] );
 	}
 
 	/**
 	 * @param version String representing the client version.
-	 * @return
-	 * @throws Xception
-	 * @throws TException
+	 * @return True if server is compatible with the client.
+	 * @throws TException Thrift exception if something goes wrong.
 	 * @see com.connectlife.clapi.CLApi.Iface#checkCompatibility(java.lang.String)
 	 */
 	@Override
@@ -110,8 +108,7 @@ public class ApiProcessor implements CLApi.Iface {
 
 	/**
 	 * @return Environment data in json format.
-	 * @throws Xception
-	 * @throws TException
+	 * @throws TException Thrift exception if something goes wrong.
 	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
 	@Override

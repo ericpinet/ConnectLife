@@ -22,33 +22,34 @@ import javax.jmdns.ServiceEvent;
 public interface Environment {
 
 	/**
-	 * Initialization of the EnvironmentJsonFile.
+	 * Initialization the environment data.
 	 * 
 	 * @return True if initialization completed with success.
 	 */
 	public boolean init();
 
 	/**
-	 * Return True is the EnvironmentJsonFile is correctly initialized.
+	 * Return True is the environment data is correctly initialized.
+	 * @return True if the environment data is correctly initialized.
 	 */
 	public boolean isInit();
 	
 	/**
-	 * Return True is the EnvironmentJsonFile is correctly Loaded.
+	 * Return True is the environment data is correctly Loaded.
 	 * 
 	 * @return True if this module is loaded.
 	 */
 	public boolean isLoaded();
 	
 	/**
-	 * Return True is the EnvironmentJsonFile is correctly saved.
+	 * Return True is the environment data is correctly saved.
 	 * 
-	 * @return True is the environmment is saved.
+	 * @return True is the environment is saved.
 	 */
 	public boolean isSaved();
 
 	/**
-	 * UnInitialize the EnvironmentJsonFile. Return in empty state ready to initialize again.
+	 * UnInitialize the environment data. Return in empty state ready to initialize again.
 	 */
 	public void unInit();
 	

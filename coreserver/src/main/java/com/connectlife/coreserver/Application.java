@@ -109,7 +109,11 @@ public class Application {
 	}
 	
 	/**
-	 * Main constructor of the application
+	 * Default constructor
+	 * @param _config Config manager for the application.
+	 * @param _env Environment manager for the application.
+	 * @param _api Api for the application.
+	 * @param _console Console for the application.
 	 */
 	@Inject
 	public Application(Config _config, Environment _env, Api _api, Console _console){
@@ -169,7 +173,6 @@ public class Application {
 		boolean ret_val = false;
 		
 		try {
-			
 			m_base_path = new File(".").getCanonicalPath();
 			m_logger.info("Base path: '"+ m_base_path +"'.");
 			ret_val = true;
@@ -301,8 +304,6 @@ public class Application {
 	/**
 	 * Startup the application process.
 	 * This function block until a shutdown as called.
-	 * 
-	 * @see com.connectlife.coreserver.App#startup()
 	 */
 	public void startup() {
 		
@@ -326,7 +327,6 @@ public class Application {
 
 	/**
 	 * Shutdown the application.
-	 * @see com.connectlife.coreserver.App#shutdown()
 	 */
 	public void shutdown() {
 		setRunning(false);
