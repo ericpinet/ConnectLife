@@ -15,10 +15,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import java.util.Iterator;
 import org.apache.thrift.TException;
-import org.apache.thrift.transport.TTransport;
-import org.apache.thrift.transport.TSocket;
-import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TProtocol;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
@@ -27,7 +23,6 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.connectlife.clapi.*;
-import com.connectlife.clapi.CLApiPush.Processor;
 import com.connectlife.clapi.client.Client;
 import com.connectlife.clapi.client.NotificationListener;
 import com.connectlife.coreserver.environment.data.*;
@@ -188,12 +183,15 @@ public class MainWindow implements NotificationListener {
 		
 		try {
 			client = new Client(textHost.getText(), Integer.parseInt(textPort.getText()), this);
+			
+			System.out.println( "Check compatibility with the server : " + client.checkCompatibility("0.1.0") );
+			
 			String responseBody = client.getEnvironmentDataJson();
 		    
 		    // Deal with the response.
 			// Use caution: ensure correct character encoding and is not binary data
 			Gson gson = new Gson();
-			Environment env = gson.fromJson(new String(responseBody), Environment.class);
+			Data env = gson.fromJson(new String(responseBody), Data.class);
 			  
 			// open persons
 			Iterator<Person> itrp = env.getPersons().iterator();
@@ -261,7 +259,7 @@ public class MainWindow implements NotificationListener {
 	    // Deal with the response.
 		// Use caution: ensure correct character encoding and is not binary data
 		Gson gson = new Gson();
-		Environment env = gson.fromJson(new String(responseBody), Environment.class);
+		Data env = gson.fromJson(new String(responseBody), Data.class);
 		  
 		// open persons
 		Iterator<Person> itrp = env.getPersons().iterator();

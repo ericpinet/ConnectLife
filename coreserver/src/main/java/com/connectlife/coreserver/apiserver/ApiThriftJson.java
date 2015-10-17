@@ -21,11 +21,12 @@ import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TServerTransport;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TSSLTransportFactory.TSSLTransportParameters;
+import com.google.inject.Inject;
 
+// internal
 import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.configmanager.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.google.inject.Inject;
 import com.connectlife.clapi.CLApi;
 import com.connectlife.clapi.CLApi.Iface;
 import com.connectlife.clapi.CLApi.Processor;

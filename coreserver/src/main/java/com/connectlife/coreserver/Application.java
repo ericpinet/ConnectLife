@@ -91,7 +91,7 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		Injector injector = Guice.createInjector(new ApplicationModule());
+		Injector injector = Guice.createInjector(new ApplicationInject());
 		Application app = injector.getInstance(Application.class);
 		
 		m_ref = app;

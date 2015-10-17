@@ -1,5 +1,5 @@
 /**
- *  ApplicationModule.java
+ *  ApplicationInject.java
  *  coreserver
  *
  *  Created by ericpinet on 2015-10-10.
@@ -22,7 +22,7 @@ import com.connectlife.coreserver.environment.Environment;
  * @author ericpinet
  * <br> 2015-10-10
  */
-public class ApplicationModuleTest extends AbstractModule {
+public class ApplicationInjectTest extends AbstractModule {
 
 	/**
 	 * 

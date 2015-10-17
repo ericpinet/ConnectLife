@@ -60,7 +60,7 @@ public class ApplicationTest {
 	
 	@Test
 	public void startupTest() {
-		Injector injector = Guice.createInjector(new ApplicationModuleTest());
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		Application app = injector.getInstance(Application.class);
 		
 		Thread test_thread = new Thread(new Runnable() {
@@ -85,7 +85,7 @@ public class ApplicationTest {
 	
 	@Test
 	public void shutdownTest() {
-		Injector injector = Guice.createInjector(new ApplicationModuleTest());
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		Application app = injector.getInstance(Application.class);
 		
 		Thread test_thread = new Thread(new Runnable() {
@@ -127,7 +127,7 @@ public class ApplicationTest {
 
 	@Test
 	public void basePathTest() {
-		Injector injector = Guice.createInjector(new ApplicationModuleTest());
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		Application app = injector.getInstance(Application.class);
 		
 		Thread test_thread = new Thread(new Runnable() {
@@ -154,7 +154,7 @@ public class ApplicationTest {
 	
 	@Test
 	public void startupTwiceTest() {
-		Injector injector = Guice.createInjector(new ApplicationModuleTest());
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		Application app = injector.getInstance(Application.class);
 		
 		Thread test_thread = new Thread(new Runnable() {

@@ -1,5 +1,5 @@
 /**
- *  ApplicationModule.java
+ *  ApplicationInject.java
  *  coreserver
  *
  *  Created by ericpinet on 2015-10-10.
@@ -28,7 +28,7 @@ import com.connectlife.coreserver.environment.EnvironmentJsonFile;
  * @author ericpinet
  * <br> 2015-10-10
  */
-public class ApplicationModule extends AbstractModule {
+public class ApplicationInject extends AbstractModule {
 
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class ApplicationModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Config.class).to(ConfigSqliteManager.class).in(Singleton.class);
-		bind(Environment.class).to(EnvironmentJsonFile.class);
+		bind(Environment.class).to(EnvironmentJsonFile.class).in(Singleton.class);
 		bind(Api.class).to(ApiThriftJson.class);
 		bind(Console.class).to(ConsoleSSH.class);
 		
