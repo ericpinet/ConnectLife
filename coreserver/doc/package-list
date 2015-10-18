@@ -5,8 +5,9 @@ com.connectlife.coreserver.apiserver
 com.connectlife.coreserver.configmanager
 com.connectlife.coreserver.console
 com.connectlife.coreserver.environment
-com.connectlife.coreserver.environment.data
 com.connectlife.coreserver.environment.discover
 com.connectlife.coreserver.tools.errormanagement
 com.connectlife.simulator
 com.connectlife.test.coreserver
+com.connectlife.test.coreserver.apiserver
+com.connectlife.test.coreserver.environment
