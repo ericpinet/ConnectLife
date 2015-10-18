@@ -22,10 +22,14 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.appender.RollingFileAppender;
 
 // internal
 import com.connectlife.coreserver.Application;
@@ -94,6 +98,7 @@ public class InAppShellFactory implements Factory {
         private static final String SHELL_CMD_OUTPUT_CONFIG = "output config";
         private static final String SHELL_CMD_SET_CONFIG = "set config";
         private static final String SHELL_CMD_RESTORE_FACTORY_CONFIG = "restore factory config";
+        private static final String SHELL_CMD_OUTPUT_LOG = "output log";
 
         /**
          * Input stream of the console.
@@ -233,7 +238,8 @@ public class InAppShellFactory implements Factory {
                 										 	SHELL_CMD_OUTPUT_ALL_CONFIGS,
                 										 	SHELL_CMD_OUTPUT_CONFIG,
                 										 	SHELL_CMD_SET_CONFIG,
-                										 	SHELL_CMD_RESTORE_FACTORY_CONFIG
+                										 	SHELL_CMD_RESTORE_FACTORY_CONFIG,
+                										 	SHELL_CMD_OUTPUT_LOG
                 										 	));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
@@ -303,6 +309,7 @@ public class InAppShellFactory implements Factory {
                 response += SHELL_CMD_OUTPUT_CONFIG + " - return the specific configuration of the system.\n";
                 response += SHELL_CMD_SET_CONFIG + " - Modify the configuration of the system.\n";
                 response += SHELL_CMD_RESTORE_FACTORY_CONFIG + " - Restore the factory configurations of the system.\n";
+                response += SHELL_CMD_OUTPUT_LOG + " - Output the log of the system.\n";
             }
             else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ALL_CONFIGS)){
             	m_logger.info(SHELL_CMD_OUTPUT_ALL_CONFIGS);
@@ -400,6 +407,18 @@ public class InAppShellFactory implements Factory {
             	if(Application.getApp().getConfig().RestoreFactory()){
             		response = "The Configurations are restored.";
             	}
+            }
+            else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_LOG)){
+            	  m_logger.info(SHELL_CMD_OUTPUT_LOG);
+            	  org.apache.logging.log4j.core.Logger loggerImpl = (org.apache.logging.log4j.core.Logger)m_logger;
+            	  Appender appender = (loggerImpl).getAppenders().get("File");
+            	  String fileName = ((RollingFileAppender)appender).getFileName();
+            	  try{
+            		  response = new String(Files.readAllBytes(Paths.get(fileName)));  
+            	  }
+            	  catch (Exception e){
+            		  m_logger.warn(e.getMessage());
+            	  }
             }
             else{	
             	// UNKNOW CMD
