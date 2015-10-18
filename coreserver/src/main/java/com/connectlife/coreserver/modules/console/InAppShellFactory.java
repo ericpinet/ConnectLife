@@ -13,6 +13,7 @@ import org.apache.sshd.common.Factory;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
+
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
 import java.io.FilterOutputStream;
@@ -21,12 +22,18 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // internal
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.modules.configmanager.Config;
+import com.connectlife.coreserver.modules.configmanager.Config.ConfigType;
+import com.connectlife.coreserver.modules.configmanager.ConfigManager;
+import com.connectlife.coreserver.modules.configmanager.DatabaseStructure;
 import com.connectlife.coreserver.modules.environment.EnvironmentManager;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
@@ -88,6 +95,12 @@ public class InAppShellFactory implements Factory {
         private static final String SHELL_CMD_EXIT = "exit";
         private static final String SHELL_CMD_VERSION = "version";
         private static final String SHELL_CMD_HELP = "help";
+        private static final String SHELL_CMD_OUTPUT_ALL_CONFIGS = "output configs";
+        private static final String SHELL_CMD_OUTPUT_CONFIG = "output config";
+        private static final String SHELL_CMD_SET_CONFIG = "set config";
+        private static final String SHELL_CMD_RESTORE_FACTORY_CONFIG = "restore factory config";
+        
+       // private static final String SHELL_CMD_OUTPUT_CONFIG_DETAIL = "config";
 
         /**
          * Input stream of the console.
@@ -224,7 +237,12 @@ public class InAppShellFactory implements Factory {
                 										 	SHELL_CMD_QUIT,
                 										 	SHELL_CMD_EXIT, 
                 										 	SHELL_CMD_VERSION, 
-                										 	SHELL_CMD_HELP));
+                										 	SHELL_CMD_HELP,
+                										 	SHELL_CMD_OUTPUT_ALL_CONFIGS,
+                										 	SHELL_CMD_OUTPUT_CONFIG,
+                										 	SHELL_CMD_SET_CONFIG,
+                										 	SHELL_CMD_RESTORE_FACTORY_CONFIG
+                										 	));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
                 m_writer.println("****************************************************");
@@ -260,7 +278,7 @@ public class InAppShellFactory implements Factory {
                  line.equalsIgnoreCase(SHELL_CMD_EXIT))
                 throw new InterruptedIOException();
 
-            String response;
+            String response = "";
             
             if (line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ENV)){
             	// SHUTDOWN
@@ -288,8 +306,109 @@ public class InAppShellFactory implements Factory {
                 response += SHELL_CMD_OUTPUT_ENV + " - output the system environment (JSON).\n";
                 response += SHELL_CMD_SHUTDOWN + " - shutdown the system.\n";
                 response += SHELL_CMD_VERSION + " - return the version of the system.\n";
+                response += SHELL_CMD_OUTPUT_ALL_CONFIGS + " - return the configurations of the system.\n";
+                response += SHELL_CMD_OUTPUT_CONFIG + " - return the specific configuration of the system.\n";
+                response += SHELL_CMD_SET_CONFIG + " - Modify the configuration of the system.\n";
+                response += SHELL_CMD_RESTORE_FACTORY_CONFIG + " - Restore the factory configurations of the system.\n";
             }
-            else{
+            else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ALL_CONFIGS)){
+            	m_logger.info(SHELL_CMD_OUTPUT_ALL_CONFIGS);
+            	ArrayList<Config> configs = ConfigManager.getInstance().getConfigs();
+            	for(int i=0; i<configs.size(); i++)
+            	{
+                	response += String.format("%1$-" + 20 + "s", configs.get(i).getSection())+ " " + 
+                				String.format("%1$-" + 20 + "s", configs.get(i).getItem()) + " " + 
+                				String.format("%1$-" + 20 + "s", configs.get(i).getType().toString()) + " " +
+                				String.format("%1$-" + 20 + "s", configs.get(i).getValueToString()) +"\n"; 
+            	}
+            }
+            else if(line.toLowerCase().startsWith(SHELL_CMD_OUTPUT_CONFIG)){
+            	m_logger.info(SHELL_CMD_OUTPUT_CONFIG);
+            	
+            	// this section is to get the section and item from the text.
+            	int minLength = (SHELL_CMD_OUTPUT_CONFIG+" [*][*]").length();
+            	int section_start_at = line.indexOf("[");
+            	int section_end_at   = line.indexOf("]");
+            	int item_start_at    = line.indexOf("[",section_end_at);
+            	int item_end_at      = line.indexOf("]", item_start_at);
+            	
+            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_OUTPUT_CONFIG.length()) != ' ') || (section_start_at + 1 >= section_end_at) || (section_end_at + 1 != item_start_at) || (item_start_at + 1 >= item_end_at) || (line.length() != item_end_at + 1))
+            	{
+            		response = "Format error! Please use format like : " + SHELL_CMD_OUTPUT_CONFIG+" [section][item]";
+            	}
+            	else
+            	{
+                	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
+                	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
+                	
+                	Config config = ConfigManager.getInstance().loadConfig(section, item);
+                	if(config == null){
+                		response = "This configuration doesn't exist.";
+                	}
+                	else{
+                    	response = String.format("%1$-" + 20 + "s", config.getSection())+ " " +
+	             				   String.format("%1$-" + 20 + "s", config.getItem()) + " " +
+	             				   String.format("%1$-" + 20 + "s", config.getType().toString()) + " " +
+	             				   String.format("%1$-" + 20 + "s", config.getValueToString()) +"\n"; 		
+                	}
+            	}
+            }
+            else if (line.toLowerCase().startsWith(SHELL_CMD_SET_CONFIG)){
+            	m_logger.info(SHELL_CMD_SET_CONFIG);
+            	
+            	// this section is to get the section and item from the text.
+            	int minLength = (SHELL_CMD_SET_CONFIG+" [*][*] *").length();
+            	int section_start_at = line.indexOf("[");
+            	int section_end_at   = line.indexOf("]");
+            	int item_start_at    = line.indexOf("[",section_end_at);
+            	int item_end_at      = line.indexOf("]", item_start_at);
+            	String strValue      = item_end_at+2 < line.length() ? line.substring(item_end_at+2) : "";
+            	boolean   isValideValue = true;
+            	response = null;
+            	if (line.length() < minLength || 
+            		strValue.equals("") ||
+            		(line.charAt(SHELL_CMD_SET_CONFIG.length()) != ' ') || 
+            		(section_start_at + 1 >= section_end_at) || 
+            		(section_end_at + 1 != item_start_at) || 
+            		(item_start_at + 1 >= item_end_at) || 
+            		(line.length() <= item_end_at + 1) || 
+            		(line.charAt(item_end_at+1) != ' '))
+            	{
+            		response = "Format error! Please use format like : " + SHELL_CMD_SET_CONFIG+" [section][item] value";
+            	}
+            	else
+            	{
+                	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
+                	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
+                	
+                	Config config = ConfigManager.getInstance().loadConfig(section, item);
+                	if(config == null){
+                		response = "This configuration doesn't exist.";
+                	}
+                	else{
+                    	if(config.getType() == ConfigType.INTEGER){
+                			isValideValue = strValue.matches("^\\d+$");
+                		}
+                    	
+                    	if(!isValideValue){
+                    		response = "Format error! The value is not valide !";
+                    	}
+                    	else{
+                    		if(ConfigManager.getInstance().setConfigs(section, item, strValue)){
+                    			response = "Config is updated.";	
+                    		}
+                    	}
+                	} 
+            	}
+            }
+            else if(line.equalsIgnoreCase(SHELL_CMD_RESTORE_FACTORY_CONFIG)){
+            	m_logger.info(SHELL_CMD_RESTORE_FACTORY_CONFIG);
+            	
+            	if(ConfigManager.getInstance().RestoreFactory()){
+            		response = "The Configurations are restored.";
+            	}
+            }
+            else{	
             	// UNKNOW CMD
             	m_logger.info(line);
                 response = "Command not found: \"" + line + "\"";

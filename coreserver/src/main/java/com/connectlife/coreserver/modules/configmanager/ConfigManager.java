@@ -8,21 +8,21 @@
  */
 package com.connectlife.coreserver.modules.configmanager;
 
-// external
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
-// internal
-import com.connectlife.coreserver.modules.Module;
-import com.connectlife.coreserver.modules.configmanager.Config;
-import com.connectlife.coreserver.modules.configmanager.DatabaseStructure;
+// external
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.Consts.ModuleUID;
+// internal
+import com.connectlife.coreserver.modules.Module;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -255,6 +255,56 @@ public class ConfigManager implements Module {
 	}
 	
 	/**
+	 * Restore the factory configurations of system.
+	 * 
+	 * @return True if the restoration is completed successfully.
+	 */
+	public boolean RestoreFactory(){
+		Statement statement = null;
+		boolean ret = false;
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(Consts.DATABASE_TIMEOUT);
+				
+				// drop all tables
+				for( int i=0 ; i<DatabaseStructure.DROP_TABLES.length ; i++){
+					m_logger.warn("Execute statement: "+DatabaseStructure.DROP_TABLES[i]);
+					statement.executeUpdate(DatabaseStructure.DROP_TABLES[i]);
+				}
+				
+				// create all tables
+				for( int i=0 ; i<DatabaseStructure.CREATE_TABLES.length ; i++){
+					m_logger.warn("Execute statement: "+DatabaseStructure.CREATE_TABLES[i]);
+					statement.executeUpdate(DatabaseStructure.CREATE_TABLES[i]);
+				}
+				
+				// create default data in all tables
+				String [] datas = DatabaseStructure.CREATE_DATA();
+				for( int i=0 ; i<datas.length ; i++){
+					m_logger.warn("Execute statement: "+datas[i]);
+					statement.executeUpdate(datas[i]);
+				}
+				ret = true;
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to restore factory configurations. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to  restore factory, the connection is not ready.");
+		}
+		
+		return ret;
+	}
+	
+	/**
 	 * Return a configuration object.
 	 * 
 	 * @param _section Section of the item configuration.
@@ -308,4 +358,87 @@ public class ConfigManager implements Module {
 		return ret_config;
 	}
 	
+	/**
+	 * Return all the configurations.
+	 * 
+	 * @return A Configurations list.
+	 */
+	public ArrayList<Config> getConfigs(){
+		Config config = null;
+		Statement statement = null;
+		ArrayList<Config> ret_configs = new ArrayList<Config>();
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(Consts.DATABASE_TIMEOUT);
+				
+				ResultSet rs = statement.executeQuery( "select section, item, type, value from config;");
+				while ( rs.next() ) {
+					String section = rs.getString("section");
+					String item = rs.getString("item");
+					String type = rs.getString("type");
+					String value = rs.getString("value");
+					
+					if( type.equals(Consts.CONFIG_TYPE_STRING) ){
+						config = new Config(section, item , value);
+					}
+					else if( type.equals(Consts.CONFIG_TYPE_INTEGER) ){
+						config = new Config(section, item, Integer.parseInt(value));
+					}
+					else {
+						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+					}
+					ret_configs.add(config);
+				}
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+		}
+		
+		return ret_configs;
+	}
+	
+	/**
+	 * Return all the configurations.
+	 * 
+	 * @return A Config object representing the configuration.
+	 */
+	public boolean setConfigs(String _section, String _item, String _value){
+		Statement statement = null;
+		boolean ret = false;
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(Consts.DATABASE_TIMEOUT);
+				
+				String sql = "UPDATE config SET value = '" + _value + "' WHERE section = '"+ _section + "' AND item = '"+_item+"';";
+				statement.executeUpdate(sql);
+				ret = true;
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+		}
+		
+		return ret;
+	}
 }

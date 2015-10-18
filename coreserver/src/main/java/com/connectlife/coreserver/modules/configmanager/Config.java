@@ -91,6 +91,19 @@ public class Config {
 	}
 	
 	/**
+	 * Convert the value of the configuration to string and return it.
+	 * @return Value of this configuration converted in string.
+	 */
+	public String getValueToString(){
+		if(m_type == ConfigType.INTEGER){
+			return getIntegerValue().toString();
+		}
+		else{
+			return getStringValue();
+		}
+	}
+	
+	/**
 	 * Return the section of the configuration.
 	 * @return Section name.
 	 */
