@@ -6,7 +6,7 @@
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.test.coreserver;
+package com.connectlife.test.coreserver.apiserver;
 
 import com.connectlife.clapi.Notification;
 

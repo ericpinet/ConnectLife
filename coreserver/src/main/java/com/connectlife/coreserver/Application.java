@@ -25,8 +25,6 @@ import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.connectlife.clapi.Notification;
-import com.connectlife.clapi.Type;
 
 
 /**
@@ -286,14 +284,6 @@ public class Application {
 		while(m_is_running){
 			try {
 				Thread.sleep(2000);
-				
-				// TODO: TEST NOTIFICATION
-				if( null != m_api && true == m_api.isInit() ){
-					Notification notification = new Notification();
-					notification.setId(Type.ENV_UPDATED);
-					notification.addToData(m_environment.getJsonEnvironment());
-					m_api.sendNotificationAllClient(notification);
-				}
 				
 			} catch (InterruptedException e) {
 				// no error on interup.

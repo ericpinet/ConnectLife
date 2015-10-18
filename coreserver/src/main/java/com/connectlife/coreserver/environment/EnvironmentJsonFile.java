@@ -11,6 +11,8 @@ package com.connectlife.coreserver.environment;
 // external
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +20,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -29,7 +30,6 @@ import com.connectlife.clapi.*;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.UIDGenerator;
-import com.connectlife.coreserver.environment.data.*;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryManager;
 
@@ -354,62 +354,86 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 	 * Generate the base environment on new system. 
 	 * @return Environment object build for the base system.
 	 */
-	@SuppressWarnings("serial")
 	private Data generateBaseEnvironnment(){
 		
 		Data ret_env = null;
 		
-		
 		// Person
-		Collection<Person> persons = new ArrayList<Person>();
+		List<Person> persons = new ArrayList<Person>();
 		Person eric = new Person(UIDGenerator.getUID(), "Eric");
+		eric.setLastname("Pinet");
+		eric.addToEmails(new Email(EmailType.PERSONAL, "pineri01@gmail.com"));
+		eric.addToEmails(new Email(EmailType.WORK, "eric.pinet@imagemsoft.com"));
+		eric.addToEmails(new Email(EmailType.OTHER, "eric_pinet@hotmail.com"));
+		eric.addToPhones(new Phone(PhoneType.CELL, "418 998-2481"));
+		eric.addToPhones(new Phone(PhoneType.OTHER, "418 548-1684"));
+		Address ericadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		ericadd.setCity("Québec");
+		ericadd.setRegion("Québec");
+		ericadd.setZipcode("G3E0G3");
+		ericadd.setCountry("Canada");
+		eric.addToAddress(ericadd);
 		persons.add(eric);
 		
-		/*final Collection<Person> persons = new ArrayList<Person>()	{{ 	add(new Person(UIDGenerator.getUID(), 
-																							"Eric", 
-																							"Pinet", 
-																							"",
-																							new ArrayList<Email>()	{{ 	add(new Email("pineri01@gmail.com", Email.Type.PERSONAL) );
-																														add(new Email("eric.pinet@imagemsoft.com", Email.Type.WORK) );
-																														add(new Email("eric_pinet@hotmail.com", Email.Type.PERSONAL) );
-																													}}, 
-																							new ArrayList<PhoneNumber>()	{{ 	add( new PhoneNumber("418 998-2481",PhoneNumber.Type.CELL) );
-																																add( new PhoneNumber("418 548-1684",PhoneNumber.Type.OTHER) );
-																															}}, 
-																							new ArrayList<Address>()	{{ add( new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) ); 
-																														}}) );
-				
-																			add( new Person(UIDGenerator.getUID(), 
-																							"Qiaomei", 
-																							"Wang", 
-																							"",
-																							new ArrayList<Email>()	{{ 	add(new Email("qiaomei.wang.wqm@gmail.com", Email.Type.PERSONAL) );
-																														add(new Email("qiaomei.wang@frima.com", Email.Type.WORK) );
-																													}},
-																							new ArrayList<PhoneNumber>()	{{ 	add( new PhoneNumber("438 348-1699",PhoneNumber.Type.CELL) ); 
-																															}}, 
-																							new ArrayList<Address>()	{{ 	add( new Address("2353 rue du cuir", "Québec", "Québec", "G3E 0G3", "Canada", Address.Type.HOME) );
-																									       					add( new Address("9298 carré richard", "Québec", "Québec", "G2B 3P6", "Canada", Address.Type.OTHER) );
-																														}}) );
-																					}};*/
-
+		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
+		qiaomei.setLastname("Wang");
+		qiaomei.addToEmails(new Email(EmailType.PERSONAL, "qiaomei.wang.wqm@gmail.com"));
+		qiaomei.addToEmails(new Email(EmailType.WORK, "qiaomei.wang@frima.com"));
+		qiaomei.addToPhones(new Phone(PhoneType.CELL, "438 348-1699"));
+		Address qiaomeiadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		qiaomeiadd.setCity("Québec");
+		qiaomeiadd.setRegion("Québec");
+		qiaomeiadd.setZipcode("G3E0G3");
+		qiaomeiadd.setCountry("Canada");
+		qiaomei.addToAddress(ericadd);
+		persons.add(qiaomei);
 		
-		final Collection<Accessory> accessories = new ArrayList<Accessory>()	{{ 	add(new Accessory( UIDGenerator.getUID(), "Main light", new State[]{ new State("Open", false)}, 
-																					   												new Action[]{new Action("Open"), 
-																					   															 new Action("Close")} ) );
-				
-																			add( new Accessory( UIDGenerator.getUID(), "Television", new State[]{ new State("Open", false)}, 
-										   											   new Action[]{new Action("Open"), 
-										   											                new Action("Close")} ) );
-																		}};
+		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		List<Characteristic> characteristics = new ArrayList<Characteristic>();
+		characteristics.add(boolean_light);
+		characteristics.add(dimmable_light);
 		
-		final Collection<Room> rooms = new ArrayList<Room>()	{{ 	add(new Room(UIDGenerator.getUID(), "Leving room", "", accessories ) ); }};
 		
-		final Collection<Zone> zones = new ArrayList<Zone>()	{{ 	add(new Zone(UIDGenerator.getUID(), "First floor.", "", rooms) ); }};
+		Service dimmable_light_service = new Service(UIDGenerator.getUID(), characteristics);
+		List<Service> services = new ArrayList<Service>();
+		services.add(dimmable_light_service);
 		
-		final Collection<Home> homes = new ArrayList<Home>()	{{ 	add(new Home(UIDGenerator.getUID(), "Home", "", zones) ); }};
+		Accessory light_leving = new Accessory(	UIDGenerator.getUID(),
+												"Light",
+												"Philips",
+												"100w",
+												"PL001-100-10009",
+												services);
 		
-		ret_env = new Data( persons, homes );
+		List<Accessory> accessories_leving = new ArrayList<Accessory>();
+		accessories_leving.add(light_leving);
+		
+		// Create room
+		Room leving = new Room(UIDGenerator.getUID(), "Leving room");
+		leving.setAccessories(accessories_leving);
+		
+		List<Room> rooms_first_floor = new ArrayList<Room>();
+		rooms_first_floor.add(leving);
+		
+		// Create zone
+		Zone first_floor = new Zone(UIDGenerator.getUID(), "First floor");
+		first_floor.setRooms(rooms_first_floor);
+		
+		List<Zone> home1_zones = new ArrayList<Zone>();
+		home1_zones.add(first_floor);
+		
+		// Create home
+		Home home1 = new Home(UIDGenerator.getUID(), "Home");
+		home1.setZones(home1_zones);
+		
+		List<Home> homes = new ArrayList<Home>();
+		homes.add(home1);
+		
+		// Create base data
+		ret_env = new Data();
+		ret_env.addToHome(home1);
+		ret_env.setPersons(persons);
 		
 		return ret_env;
 	}

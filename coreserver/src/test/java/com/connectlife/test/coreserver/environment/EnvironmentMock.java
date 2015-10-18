@@ -6,11 +6,13 @@
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.test.coreserver;
+package com.connectlife.test.coreserver.environment;
 
 import javax.jmdns.ServiceEvent;
 
+import com.connectlife.clapi.Data;
 import com.connectlife.coreserver.environment.Environment;
+import com.google.gson.Gson;
 
 /**
 * 
@@ -79,8 +81,13 @@ public class EnvironmentMock implements Environment {
 	 */
 	@Override
 	public String getJsonEnvironment() {
-		// TODO Auto-generated method stub
-		return null;
+			
+		Data data = CreateTestData.getData();
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(data);
+		
+		return new String(json);
 	}
 
 	/**

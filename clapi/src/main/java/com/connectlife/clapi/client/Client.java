@@ -9,8 +9,6 @@
 package com.connectlife.clapi.client;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 // external
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
@@ -18,6 +16,8 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 // internal
 import com.connectlife.clapi.*;
@@ -111,8 +111,9 @@ public class Client implements CLApi.Iface, Runnable {
         
         CLApiPush.Iface handler = new CLApiPush.Iface() {
 			
-			public void push(Notification _notification) throws Xception, TException {
-				m_listner.notificationReceive(_notification);
+			public void push(Notification _notification) throws TException {
+				if(m_listner != null)
+					m_listner.notificationReceive(_notification);
 			}
 		};
         
@@ -142,35 +143,32 @@ public class Client implements CLApi.Iface, Runnable {
 
 	/**
 	 * @return
-	 * @throws Xception
 	 * @throws TException
 	 * @see com.connectlife.clapi.CLApi.Iface#getVersion()
 	 */
 	@Override
-	public String getVersion() throws Xception, TException {
+	public String getVersion() throws TException {
 		return m_client.getVersion();
 	}
 
 	/**
 	 * @param _version
 	 * @return
-	 * @throws Xception
 	 * @throws TException
 	 * @see com.connectlife.clapi.CLApi.Iface#checkCompatibility(java.lang.String)
 	 */
 	@Override
-	public boolean checkCompatibility(String _version) throws Xception, TException {
+	public boolean checkCompatibility(String _version) throws TException {
 		return m_client.checkCompatibility(_version);
 	}
 
 	/**
 	 * @return
-	 * @throws Xception
 	 * @throws TException
 	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
 	@Override
-	public String getEnvironmentDataJson() throws Xception, TException {
+	public String getEnvironmentDataJson() throws TException {
 		return m_client.getEnvironmentDataJson();
 	}
 

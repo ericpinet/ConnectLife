@@ -19,7 +19,18 @@ import com.connectlife.coreserver.Application;
 
 /**
  * This class permit to simply output stack trace in the log.
+ * Exemple:
  * 
+ * <pre>
+ * {@code
+ * try {
+ *	    [...]
+ *		
+ * } catch (Exception e) {
+ *    StdOutErrLog.tieSystemOutAndErrToLog();
+ * }
+ * }
+ * </pre>
  * @author ericpinet
  * <br> 2015-09-09
  */

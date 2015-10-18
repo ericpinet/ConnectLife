@@ -6,6 +6,8 @@
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
+ 
+
 
 namespace c_glib ConnectLifeApi
 namespace java com.connectlife.clapi
@@ -110,6 +112,120 @@ struct Person {
 	7: optional string imageurl
 }
  
+
+/**
+ * CharacteristicAccessMode
+ */
+enum CharacteristicAccessMode {
+	READ_ONLY = 1,
+	WRITE_ONLY,
+	READ_WRITE
+}
+
+/**
+ * CharacteristicType
+ */ 
+enum CharacteristicType {
+	BOOLEAN = 1,
+	ENUM,
+	FLOAT,
+	INTEGER,
+	STATIC_STRING,
+	WRITE_ONLY_BOOLEAN
+}
+
+/**
+ * CharacteristicEventType
+ */
+enum CharacteristicEventType {
+	NO_EVENT = 1,
+	EVENT
+}
+
+/**
+ * Charateristic
+ */
+struct Characteristic {
+	1: required string uid,
+	2: required CharacteristicAccessMode mode,
+	3: required CharacteristicType type,
+	4: required CharacteristicEventType event,
+	5: required string data 
+}
+
+/**
+ * Service
+ */
+struct Service {
+	1: required string uid,
+	2: required list<Characteristic> characteristics
+}
+
+/**
+ * AccessoryType
+ */
+enum AccessoryType {
+	LIGHT = 1,
+	LIGHT_DIMMABLE,
+	LIGHT_COLORED,
+	LIGHT_COLORED_DIMMABLE,
+	FAN,
+	AUTOMATIC_DOOR,
+	LOCK_MECHANISM,
+	THERMOSTAT,
+	SWITCH
+}
+
+/**
+ * Accessory
+ */
+struct Accessory {
+	1: required string uid,
+	2: required string label,
+	3: required string manufacturer,
+	4: required string model,
+	5: required string serialnumber,
+	6: required list<Service> services,
+	7: optional string imageurl
+}
+
+/**
+ * Room
+ */
+struct Room {
+	1: required string uid,
+	2: required string label,
+	3: optional list<Accessory> accessories,
+	4: optional string imageurl
+}
+
+/**
+ * Zone
+ */
+struct Zone {
+	1: required string uid,
+	2: required string label,
+	3: optional list<Room> rooms,
+	4: optional string imageurl
+}
+
+/**
+ * Home
+ */
+struct Home {
+	1: required string uid,
+	2: required string label,
+	3: optional list<Zone> zones,
+	4: optional string imageurl
+}
+
+/**
+ * Data
+ */
+struct Data {
+	1: optional list<Person> persons,
+	2: optional list<Home> home
+}
 
 /**
  * CLApi - Api of server

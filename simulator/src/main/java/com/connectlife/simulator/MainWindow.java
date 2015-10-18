@@ -25,7 +25,6 @@ import com.google.gson.Gson;
 import com.connectlife.clapi.*;
 import com.connectlife.clapi.client.Client;
 import com.connectlife.clapi.client.NotificationListener;
-import com.connectlife.coreserver.environment.data.*;
 
 /**
  * 
@@ -204,7 +203,7 @@ public class MainWindow implements NotificationListener {
 			}
 			  
 			// open homes
-			Iterator<Home> itrh = env.getHomes().iterator();
+			Iterator<Home> itrh = env.getHomeIterator();
 			while(itrh.hasNext()){
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
@@ -275,7 +274,7 @@ public class MainWindow implements NotificationListener {
 		}
 		  
 		// open homes
-		Iterator<Home> itrh = env.getHomes().iterator();
+		Iterator<Home> itrh = env.getHomeIterator();
 		while(itrh.hasNext()){
 			_shell.getDisplay().asyncExec( new startHome(itrh.next(), _shell) );
 		}

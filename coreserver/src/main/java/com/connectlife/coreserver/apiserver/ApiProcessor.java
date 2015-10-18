@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 // internal
 import com.connectlife.clapi.CLApi;
-import com.connectlife.clapi.Xception;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
@@ -44,7 +43,7 @@ public class ApiProcessor implements CLApi.Iface {
 	 *           
 	 *           Client and Server are compatible. 
 	 */
-	private static final int API_SERVER_VERSION[] = { 1, 1, 0 };
+	public static final int API_SERVER_VERSION[] = { 1, 1, 0 };
 	
 	/**
 	 * Environment manager use to respond at the client.
@@ -77,7 +76,7 @@ public class ApiProcessor implements CLApi.Iface {
 	 * @see com.connectlife.clapi.CLApi.Iface#checkCompatibility(java.lang.String)
 	 */
 	@Override
-	public boolean checkCompatibility(String version) throws Xception, TException {
+	public boolean checkCompatibility(String version) throws TException {
 		boolean ret_val = false;
 		
 		try{
@@ -112,7 +111,7 @@ public class ApiProcessor implements CLApi.Iface {
 	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
 	 */
 	@Override
-	public String getEnvironmentDataJson() throws Xception, TException {
+	public String getEnvironmentDataJson() throws TException {
 		return m_environment.getJsonEnvironment();
 	}
 }

@@ -25,10 +25,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-import com.connectlife.coreserver.environment.data.Accessory;
-import com.connectlife.coreserver.environment.data.Home;
-import com.connectlife.coreserver.environment.data.Room;
-import com.connectlife.coreserver.environment.data.Zone;
+import com.connectlife.clapi.*;
 
 
 /**
@@ -96,7 +93,7 @@ public class HomeWindow extends Dialog {
 		lblName.setText("Name:");
 		
 		txtName = new Text(shell, SWT.BORDER);
-		txtName.setText(home.getName());
+		txtName.setText(home.getLabel());
 		txtName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 		
 		Label lblPicture = new Label(shell, SWT.NONE);
@@ -120,7 +117,7 @@ public class HomeWindow extends Dialog {
 		trclmnUid.setText("Uid");
 		
 		TreeItem root = new TreeItem(tree, SWT.NONE);
-		root.setText(new String[] { "Home: " + home.getName(), home.getUid() });
+		root.setText(new String[] { "Home: " + home.getLabel(), home.getUid() });
 		
 		tree.setHeaderVisible(true);
 		
@@ -129,19 +126,19 @@ public class HomeWindow extends Dialog {
 		while(itr.hasNext()){
 			Zone zone = itr.next();
 			TreeItem item = new TreeItem(root, SWT.NONE);
-		    item.setText(new String[] { "Zone: " + zone.getName(), zone.getUid() });
+		    item.setText(new String[] { "Zone: " + zone.getLabel(), zone.getUid() });
 		    
 		    Iterator<Room> itrr = zone.getRooms().iterator();
 		    while(itrr.hasNext()){
 		    	Room room = itrr.next();
 				TreeItem item2 = new TreeItem(item, SWT.NONE);
-			    item2.setText(new String[] { "Room: " + room.getName(), room.getUid() });
+			    item2.setText(new String[] { "Room: " + room.getLabel(), room.getUid() });
 			    
 			    Iterator<Accessory> itra = room.getAccessories().iterator();
 			    while(itra.hasNext()){
 			    	Accessory acc = itra.next();
 					TreeItem item3 = new TreeItem(item2, SWT.NONE);
-				    item3.setText(new String[] { "Accessory: " + acc.getName(), acc.getUid() });
+				    item3.setText(new String[] { "Accessory: " + acc.label, acc.getUid() });
 			    }
 		    }
 		}
