@@ -8,6 +8,8 @@
  */
 package com.connectlife.coreserver.configmanager;
 
+import java.util.List;
+
 // external
 
 // internal
@@ -49,11 +51,25 @@ public interface Config {
 	public ConfigItem getConfig(String _section, String _item);
 	
 	/**
+	 * Return all ConfigItem object in the application.
+	 * 
+	 * @return List<ConfigItem> object or null.
+	 */
+	public List<ConfigItem> getConfigs();
+	
+	/**
 	 * Set new value for a config and save.
 	 * 
 	 * @param _object ConfigItem objecto to save in configuration.
 	 * @return True if configuration was correctly updated.
 	 */
 	public boolean setConfig(ConfigItem _object);
+	
+	/**
+	 * Restore the factory configurations of system.
+	 * 
+	 * @return True if the restoration is completed successfully.
+	 */
+	public boolean RestoreFactory();
 
 }

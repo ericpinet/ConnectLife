@@ -8,6 +8,8 @@
  */
 package com.connectlife.test.coreserver;
 
+import java.util.List;
+
 import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.configmanager.ConfigItem;
 
@@ -71,6 +73,26 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public boolean setConfig(ConfigItem _object) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.configmanager.Config#getConfigs()
+	 */
+	@Override
+	public List<ConfigItem> getConfigs() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.configmanager.Config#RestoreFactory()
+	 */
+	@Override
+	public boolean RestoreFactory() {
 		// TODO Auto-generated method stub
 		return false;
 	}

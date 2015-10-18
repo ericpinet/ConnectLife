@@ -8,15 +8,17 @@
  */
 package com.connectlife.coreserver.configmanager;
 
-// external
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
+// external
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.connectlife.coreserver.configmanager.ConfigItem;
 import com.connectlife.coreserver.configmanager.DatabaseStructure;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -141,11 +143,103 @@ public class ConfigSqliteManager implements Config {
 	 * Return a ConfigItem object that correspond to this section and item.
 	 * 
 	 * @param _section 	Section of the configuration.
-	 * @param _item		Item of the configuraiton.
+	 * @param _item		Item of the configuration.
 	 * @return ConfigItem object or null.
 	 */
 	public ConfigItem getConfig(String _section, String _item){
-		return loadConfig(_section, _item);
+		ConfigItem ret_config = null;
+		Statement statement = null;
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(DATABASE_TIMEOUT);
+				
+				ResultSet rs = statement.executeQuery( "select section, item, type, value "
+													 + "from config "
+													 + "where section = '"+_section+"' "
+													 + "and item = '"+_item+"';" );
+				while ( rs.next() ) {
+					String section = rs.getString("section");
+					String item = rs.getString("item");
+					String type = rs.getString("type");
+					String value = rs.getString("value");
+					
+					if( type.equals(CONFIG_TYPE_STRING) ){
+						ret_config = new ConfigItem(section, item , value);
+					}
+					else if( type.equals(CONFIG_TYPE_INTEGER) ){
+						ret_config = new ConfigItem(section, item, Integer.parseInt(value));
+					}
+					else {
+						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+					}
+				}
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to retrive configuration. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to retrive config from database, the connection is not ready.");
+		}
+		
+		return ret_config;
+	}
+	
+	/**
+	 * Return all the configurations.
+	 * 
+	 * @return A Configurations list.
+	 */
+	public List<ConfigItem> getConfigs(){
+		ConfigItem config = null;
+		Statement statement = null;
+		ArrayList<ConfigItem> ret_configs = new ArrayList<ConfigItem>();
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(DATABASE_TIMEOUT);
+				
+				ResultSet rs = statement.executeQuery( "select section, item, type, value from config;");
+				while ( rs.next() ) {
+					String section = rs.getString("section");
+					String item = rs.getString("item");
+					String type = rs.getString("type");
+					String value = rs.getString("value");
+					
+					if( type.equals(CONFIG_TYPE_STRING) ){
+						config = new ConfigItem(section, item , value);
+					}
+					else if( type.equals(CONFIG_TYPE_INTEGER) ){
+						config = new ConfigItem(section, item, Integer.parseInt(value));
+					}
+					else {
+						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+					}
+					ret_configs.add(config);
+				}
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+		}
+		
+		return ret_configs;
 	}
 	
 	/**
@@ -155,9 +249,32 @@ public class ConfigSqliteManager implements Config {
 	 * @return True if configuration was correctly updated.
 	 */
 	public boolean setConfig(ConfigItem _object){
-		//TODO Complete this methode.
-		boolean ret_val = false;
-		return ret_val;
+		Statement statement = null;
+		boolean ret = false;
+		
+		// check if connection is ready to get config.
+		if(true == m_isInit &&
+		   null != m_connection	){
+
+			try {
+				statement = m_connection.createStatement();
+				statement.setQueryTimeout(DATABASE_TIMEOUT);
+				
+				String sql = "UPDATE config SET value = '" + _object.getValueToString() + "' WHERE section = '"+ _object.getSection() + "' AND item = '"+_object.getItem()+"';";
+				statement.executeUpdate(sql);
+				ret = true;
+				
+			} catch (SQLException e) {
+				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+		}
+		
+		return ret;
 	}
 	
 	
@@ -256,16 +373,13 @@ public class ConfigSqliteManager implements Config {
 	}
 	
 	/**
-	 * Return a configuration object.
+	 * Restore the factory configurations of system.
 	 * 
-	 * @param _section Section of the item configuration.
-	 * @param _item Item of configuration.
-	 * 
-	 * @return A ConfigItem object representing the configuration.
+	 * @return True if the restoration is completed successfully.
 	 */
-	private ConfigItem loadConfig(String _section, String _item){
-		ConfigItem ret_config = null;
+	public boolean RestoreFactory(){
 		Statement statement = null;
+		boolean ret = false;
 		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
@@ -275,38 +389,36 @@ public class ConfigSqliteManager implements Config {
 				statement = m_connection.createStatement();
 				statement.setQueryTimeout(DATABASE_TIMEOUT);
 				
-				ResultSet rs = statement.executeQuery( "select section, item, type, value "
-													 + "from config "
-													 + "where section = '"+_section+"' "
-													 + "and item = '"+_item+"';" );
-				while ( rs.next() ) {
-					String section = rs.getString("section");
-					String item = rs.getString("item");
-					String type = rs.getString("type");
-					String value = rs.getString("value");
-					
-					if( type.equals(CONFIG_TYPE_STRING) ){
-						ret_config = new ConfigItem(section, item , value);
-					}
-					else if( type.equals(CONFIG_TYPE_INTEGER) ){
-						ret_config = new ConfigItem(section, item, Integer.parseInt(value));
-					}
-					else {
-						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
-					}
+				// drop all tables
+				for( int i=0 ; i<DatabaseStructure.DROP_TABLES.length ; i++){
+					m_logger.warn("Execute statement: "+DatabaseStructure.DROP_TABLES[i]);
+					statement.executeUpdate(DatabaseStructure.DROP_TABLES[i]);
 				}
 				
+				// create all tables
+				for( int i=0 ; i<DatabaseStructure.CREATE_TABLES.length ; i++){
+					m_logger.warn("Execute statement: "+DatabaseStructure.CREATE_TABLES[i]);
+					statement.executeUpdate(DatabaseStructure.CREATE_TABLES[i]);
+				}
+				
+				// create default data in all tables
+				String [] datas = DatabaseStructure.CREATE_DATA();
+				for( int i=0 ; i<datas.length ; i++){
+					m_logger.warn("Execute statement: "+datas[i]);
+					statement.executeUpdate(datas[i]);
+				}
+				ret = true;
+				
 			} catch (SQLException e) {
-				m_logger.error("Unable to retrive configuration. "+e.getMessage());
+				m_logger.error("Unable to restore factory configurations. "+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to retrive config from database, the connection is not ready.");
+			m_logger.error("Unable to  restore factory, the connection is not ready.");
 		}
 		
-		return ret_config;
+		return ret;
 	}
-	
 }
