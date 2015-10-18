@@ -341,7 +341,7 @@ public class InAppShellFactory implements Factory {
                 	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
                 	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
                 	
-                	Config config = ConfigManager.getInstance().loadConfig(section, item);
+                	Config config = ConfigManager.getConfig(section, item);
                 	if(config == null){
                 		response = "This configuration doesn't exist.";
                 	}
@@ -381,7 +381,7 @@ public class InAppShellFactory implements Factory {
                 	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
                 	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
                 	
-                	Config config = ConfigManager.getInstance().loadConfig(section, item);
+                	Config config = ConfigManager.getConfig(section, item);
                 	if(config == null){
                 		response = "This configuration doesn't exist.";
                 	}
