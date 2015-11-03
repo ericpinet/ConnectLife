@@ -13,6 +13,8 @@ import com.google.inject.AbstractModule;
 
 // internal
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.test.coreserver.environment.DiscoveryServiceMock;
 import com.connectlife.test.coreserver.environment.EnvironmentMock;
 
 /**
@@ -30,6 +32,7 @@ public class ApiProcessorInjectTest  extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(Environment.class).to(EnvironmentMock.class);
+		bind(DiscoveryService.class).to(DiscoveryServiceMock.class);
 	}
 
 }

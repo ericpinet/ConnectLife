@@ -21,6 +21,8 @@ import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.console.ConsoleSSH;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
+import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.coreserver.environment.discover.DiscoveryJmdns;
 
 /**
  * Google Guice injection module to create an Application Class.
@@ -42,6 +44,7 @@ public class ApplicationInject extends AbstractModule {
 		bind(Console.class).to(ConsoleSSH.class);
 		
 		bind(CLApi.Iface.class).to(ApiProcessor.class);
+		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
 	}
 
 }

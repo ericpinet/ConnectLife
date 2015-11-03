@@ -65,6 +65,11 @@ public class ApiThriftJson implements Api {
 	private final CLApi.Processor<CLApi.Iface> m_processor;
 	
 	/**
+	 * The api processor.
+	 */
+	private final CLApi.Iface m_api_processor;
+	
+	/**
 	 * Thread of the simple server.
 	 */
 	private Runnable m_simple_server;
@@ -82,6 +87,7 @@ public class ApiThriftJson implements Api {
 	@Inject
 	public ApiThriftJson(CLApi.Iface _processor, Config _config){
 		m_push_distributor_simple = new PushDistributor();
+		m_api_processor = _processor;
 		m_processor = new Processor<Iface>(_processor);
 		m_config = _config;
 	}
@@ -195,7 +201,8 @@ public class ApiThriftJson implements Api {
 				@Override
 			    public TProcessor getProcessor(TTransport trans) {
 					_push_distributor.addClient(new NotificationServiceClient(trans));
-					return _processor;
+					//return _processor;
+					return new Processor<Iface>(m_api_processor);
 				}
 			};
 			

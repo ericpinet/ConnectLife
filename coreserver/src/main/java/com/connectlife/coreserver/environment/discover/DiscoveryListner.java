@@ -11,7 +11,7 @@ package com.connectlife.coreserver.environment.discover;
 import javax.jmdns.ServiceEvent;
 
 /**
- * Interface for DiscoveryManager.
+ * Interface for DiscoveryJmdns.
  * 
  * @author ericpinet
  * <br> 2015-09-18

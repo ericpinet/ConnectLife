@@ -18,6 +18,12 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
+import com.connectlife.clapi.Notification;
+import com.connectlife.clapi.Type;
 // internal
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.apiserver.Api;
@@ -36,7 +42,7 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
  * <br> 2015-09-07
  */
 @Singleton
-public class Application {
+public class Application implements Observer{
 	
 	/**
 	 * Init logger instance for this class
@@ -135,6 +141,7 @@ public class Application {
 	
 	/**
 	 * Init all application stuff. 
+	 * 
 	 * @return True is initialization is completed correctly
 	 */
 	private boolean init(){
@@ -164,6 +171,7 @@ public class Application {
 	
 	/**
 	 * Init the base path of the application
+	 * 
 	 * @return True is the base path can be init correctly
 	 */
 	private boolean initBasePath(){
@@ -228,6 +236,8 @@ public class Application {
 				// init environment second
 				if(m_environment.init() == true){
 					
+					m_environment.addObserver(this);
+					
 					// init others modules
 					if(	m_api.init() == true &&
 						m_console.init() == true ){
@@ -286,7 +296,7 @@ public class Application {
 				Thread.sleep(2000);
 				
 			} catch (InterruptedException e) {
-				// no error on interup.
+				m_logger.info("Main application thread was stopted.");
 			}
 		}
 	}
@@ -352,5 +362,24 @@ public class Application {
 	 */
 	public Console getConsole(){
 		return m_console;
+	}
+
+	/**
+	 * @param o
+	 * @param arg
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(m_environment == o){
+			m_logger.info("Environment was updated, send new environment at all client.");
+			
+			if(m_api != null){
+				m_api.sendNotificationAllClient( new Notification(Type.ENV_UPDATED, new ArrayList<String>()) );
+			}
+			else{
+				m_logger.warn("Api was not ready to send new environment at all client.");
+			}
+		}
 	}
 }

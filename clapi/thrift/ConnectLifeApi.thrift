@@ -223,8 +223,9 @@ struct Home {
  * Data
  */
 struct Data {
-	1: optional list<Person> persons,
-	2: optional list<Home> home
+	1: required i64 version,
+	2: optional list<Person> persons,
+	3: optional list<Home> home
 }
 
 /**
@@ -237,7 +238,7 @@ service CLApi
    *
    * @return string - Service version. 
    */
-  string         getVersion(),
+  string         	getVersion(),
   
   /**
    * Check compatibility of the client with the server version. 
@@ -245,14 +246,38 @@ service CLApi
    * @param string version - Version of the client api. 
    * @return bool - Return true if the client version is compatible with the server.
    */
-  bool			 checkCompatibility(1: string version), 	
+  bool			 	checkCompatibility(1: string version), 	
   
   /**
    * Get the environment data in Json format.
    *
    * @return string - Json string representing the environment.
    */
-  string 		getEnvironmentDataJson(),
+  string 			getEnvironmentDataJson(),
+  
+  string 			generateUID(),
+  
+  Data				getData(),
+  
+  bool				addPerson(1: Person person),
+  
+  bool				deletePerson(1: Person person),
+  
+  bool				addHome(1: Home home),
+  
+  bool				deleteHome(1: Home home),
+  
+  bool				addZone(1: Home home, 2:Zone zone),
+  
+  bool				deleteZone(1: Zone zone),
+  
+  bool 				addRoom(1: Zone zone, 2: Room room),
+  
+  bool				deleteRoom(1: Room room),
+  
+  list<Accessory>	getNotMatchedAccessories(),
+  
+  bool				attachAccessory(1: Room room, 2: Accessory accessory),
   
 }
 

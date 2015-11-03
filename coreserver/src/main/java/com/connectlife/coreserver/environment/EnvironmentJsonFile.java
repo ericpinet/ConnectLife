@@ -11,7 +11,6 @@ package com.connectlife.coreserver.environment;
 // external
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.List;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,10 +19,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
+import java.util.Observable;
 
 // internal
 import com.connectlife.clapi.*;
@@ -31,7 +32,7 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
-import com.connectlife.coreserver.environment.discover.DiscoveryManager;
+import com.connectlife.coreserver.environment.discover.DiscoveryService;
 
 /**
  * Manager of the environment of the automation.
@@ -39,7 +40,7 @@ import com.connectlife.coreserver.environment.discover.DiscoveryManager;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class EnvironmentJsonFile implements Environment, DiscoveryListner {
+public class EnvironmentJsonFile extends Observable implements Environment, DiscoveryListner {
 	
 	/**
 	 * Environment data path contain the data representing the user, home, 
@@ -92,15 +93,15 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 	/**
 	 * Discovery manager of the accessories in the environment
 	 */
-	private DiscoveryManager m_discovery_manager;
+	private DiscoveryService m_discovery_manager;
 	
 	/**
 	 * Default constructor of the environment.
 	 */
 	@Inject
-	public EnvironmentJsonFile(){
+	public EnvironmentJsonFile(DiscoveryService _service){
 		
-		m_discovery_manager = new DiscoveryManager();
+		m_discovery_manager = _service;
 		m_is_loaded = false;
 		m_is_saved = false;
 	}
@@ -145,7 +146,6 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 				}
 				else{
 					m_logger.error("Environment backup load failed!");
-					// TODO contact support service.
 				}
 			}
 		}
@@ -174,8 +174,13 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 		
 		if( true==ret_val ){
 			
-			m_discovery_manager.addListner(this);
-			m_discovery_manager.start();
+			if(null != m_discovery_manager){
+				m_discovery_manager.addListner(this);
+				m_discovery_manager.start();
+			}
+			else{
+				m_logger.warn("No discovery manager set in the environment.");
+			}
 			
 			m_logger.info("Initialization completed.");
 		}
@@ -218,8 +223,10 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 		
 		// TODO UnInit Environment Manager
 		
-		m_discovery_manager.stop();
-		m_discovery_manager = null;
+		if(null != m_discovery_manager){
+			m_discovery_manager.stop();
+			m_discovery_manager = null;
+		}
 
 		m_logger.info("UnInitialization completed.");
 	}
@@ -458,5 +465,165 @@ public class EnvironmentJsonFile implements Environment, DiscoveryListner {
 	public void serviceRemove(ServiceEvent _service) {
 		// TODO
 		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#getData()
+	 */
+	@Override
+	public Data getData() {
+		return m_data;
+	}
+
+	/**
+	 * @param person
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.connectlife.clapi.Person)
+	 */
+	@Override
+	public boolean addPerson(Person person) {
+		boolean ret_val = false;
+		
+		if(null != person){	
+			boolean found = false;
+			int pos = 0;
+
+			// try to find the person to update.
+			while(pos<m_data.persons.size() && false == found){
+				Person per = m_data.persons.get(pos);
+				
+				if(per.getUid().equals(person.getUid())){
+					found = true;
+					
+					m_data.persons.set(pos, person);
+				
+					environmentChange();
+					
+					ret_val = true;
+					
+					m_logger.debug("addPerson: "+person.firstname + " (Update)");
+				}
+				pos++;
+			}
+			
+			// if not found, add person.
+			if(false == found){
+				m_data.persons.add(person);
+				ret_val = true;
+				m_logger.debug("addPerson: "+person.firstname + " (Add)");
+			}
+		}
+		return ret_val;
+	}
+
+	/**
+	 * @param person
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.connectlife.clapi.Person)
+	 */
+	@Override
+	public boolean deletePerson(Person person) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param home
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#addHome(com.connectlife.clapi.Home)
+	 */
+	@Override
+	public boolean addHome(Home home) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param home
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#deleteHome(com.connectlife.clapi.Home)
+	 */
+	@Override
+	public boolean deleteHome(Home home) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param home
+	 * @param zone
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#addZone(com.connectlife.clapi.Home, com.connectlife.clapi.Zone)
+	 */
+	@Override
+	public boolean addZone(Home home, Zone zone) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param zone
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#deleteZone(com.connectlife.clapi.Zone)
+	 */
+	@Override
+	public boolean deleteZone(Zone zone) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param zone
+	 * @param room
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#addRoom(com.connectlife.clapi.Zone, com.connectlife.clapi.Room)
+	 */
+	@Override
+	public boolean addRoom(Zone zone, Room room) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @param room
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#deleteRoom(com.connectlife.clapi.Room)
+	 */
+	@Override
+	public boolean deleteRoom(Room room) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#getNotMatchedAccessories()
+	 */
+	@Override
+	public List<Accessory> getNotMatchedAccessories() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param room
+	 * @param accessory
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#attachAccessory(com.connectlife.clapi.Room, com.connectlife.clapi.Accessory)
+	 */
+	@Override
+	public boolean attachAccessory(Room room, Accessory accessory) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	/**
+	 * Indicate that the environment was changes. All observers will be notified.
+	 */
+	private void environmentChange(){
+		setChanged();
+		notifyObservers();
+		m_is_saved = false;
 	}
 }

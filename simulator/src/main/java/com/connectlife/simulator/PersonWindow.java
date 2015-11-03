@@ -22,10 +22,18 @@ import org.eclipse.swt.widgets.Label;
 
 import java.util.Iterator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.thrift.TException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
 import com.connectlife.clapi.*;
+import com.connectlife.clapi.client.Client;
+
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 
 /**
@@ -35,6 +43,11 @@ import com.connectlife.clapi.*;
  * <br> 2015-09-13
  */
 public class PersonWindow extends Dialog {
+	
+	/**
+	 * Init logger instance for this class
+	 */
+	private static Logger m_logger = LogManager.getLogger(PersonWindow.class);
 
 	protected Object result;
 	protected Shell shell;
@@ -46,16 +59,18 @@ public class PersonWindow extends Dialog {
 	private Table tableAddress;
 	
 	private Person person;
+	private Client client;
 
 	/**
 	 * Create the dialog.
 	 * @param parent
 	 * @param style
 	 */
-	public PersonWindow(Shell parent, int style, Person _person) {
+	public PersonWindow(Shell parent, int style, Person _person, Client _client) {
 		super(parent, style);
 		setText("Person");
 		person = _person;
+		client = _client;
 	}
 
 	/**
@@ -80,7 +95,7 @@ public class PersonWindow extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell();
-		shell.setSize(600, 399);
+		shell.setSize(600, 431);
 		shell.setText(getText());
 		shell.setLayout(new GridLayout(2, false));
 		
@@ -241,6 +256,24 @@ public class PersonWindow extends Dialog {
 		// TODO Load image
 		@SuppressWarnings("unused")
 		Canvas canvas = new Canvas(shell, SWT.NONE);
+		new Label(shell, SWT.NONE);
+		
+		Button btnAdd = new Button(shell, SWT.NONE);
+		btnAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				try {
+					person.setFirstname("Eric2");
+					client.addPerson(person);
+					
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnAdd.setText("Add");
 	}
-
 }

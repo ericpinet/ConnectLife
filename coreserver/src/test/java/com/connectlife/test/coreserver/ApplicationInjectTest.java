@@ -14,7 +14,9 @@ import com.connectlife.coreserver.apiserver.Api;
 import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.test.coreserver.apiserver.ApiMock;
+import com.connectlife.test.coreserver.environment.DiscoveryServiceMock;
 import com.connectlife.test.coreserver.environment.EnvironmentMock;
 
 
@@ -36,5 +38,6 @@ public class ApplicationInjectTest extends AbstractModule {
 		bind(Environment.class).to(EnvironmentMock.class);
 		bind(Api.class).to(ApiMock.class);
 		bind(Console.class).to(ConsoleMock.class);
+		bind(DiscoveryService.class).to(DiscoveryServiceMock.class);
 	}
 }

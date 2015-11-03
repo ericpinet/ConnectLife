@@ -1,5 +1,5 @@
 /**
- *  DiscoveryManager.java
+ *  DiscoveryJmdns.java
  *  coreserver
  *
  *  Created by ericpinet on 2015-09-17.
@@ -23,17 +23,17 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 
 /**
- * 
+ * Discovery JMDNS services in the local network.
  * 
  * @author ericpinet
  * <br> 2015-09-17
  */
-public class DiscoveryManager  {
+public class DiscoveryJmdns implements DiscoveryService {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(DiscoveryManager.class);
+	private static Logger m_logger = LogManager.getLogger(DiscoveryJmdns.class);
 	
 	/**
 	 * Discover service manager.
@@ -109,7 +109,7 @@ public class DiscoveryManager  {
 	/**
 	 * Default constructor
 	 */
-	public DiscoveryManager(){
+	public DiscoveryJmdns(){
 		m_discover = null;
 		m_listners = new Vector<DiscoveryListner>();
 	}

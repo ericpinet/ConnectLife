@@ -14,6 +14,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 import java.util.Iterator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.thrift.TException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -33,6 +36,11 @@ import com.connectlife.clapi.client.NotificationListener;
  * <br> 2015-09-13
  */
 public class MainWindow implements NotificationListener {
+	
+	/**
+	 * Init logger instance for this class
+	 */
+	private static Logger m_logger = LogManager.getLogger(MainWindow.class);
 
 	protected Shell shell;
 	private Text textHost;
@@ -53,12 +61,14 @@ public class MainWindow implements NotificationListener {
 	static class startPerson implements Runnable{
 		public Person person;
 		public Shell shell;
-		public startPerson(Person _person, Shell _shell){
+		public Client client;
+		public startPerson(Person _person, Shell _shell, Client _client){
 			person = _person;
 			shell = _shell;
+			client = _client;
 		}
 		public void run(){
-			PersonWindow per = new PersonWindow(shell, 0, person);
+			PersonWindow per = new PersonWindow(shell, 0, person, client);
 	    	per.open();
 		}
 	}
@@ -127,16 +137,16 @@ public class MainWindow implements NotificationListener {
 		lblHost.setText("Host:");
 		
 		textHost = new Text(shell, SWT.BORDER);
-		textHost.setText(HOST);
 		textHost.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		textHost.setText(HOST);
 		
 		Label lblPort = new Label(shell, SWT.NONE);
 		lblPort.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblPort.setText("Port:");
 		
 		textPort = new Text(shell, SWT.BORDER);
-		textPort.setText(PORT);
 		textPort.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		textPort.setText(PORT);
 		new Label(shell, SWT.NONE);
 		
 		Button btnConnect = new Button(shell, SWT.NONE);
@@ -165,13 +175,11 @@ public class MainWindow implements NotificationListener {
 			}
 		});
 		btnDisconnect.setText("Disconnect");
-		//new Label(shell, SWT.NONE);
-		//new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
 		lblStatus = new Label(shell, SWT.NONE);
-		lblStatus.setText("Not connected");
 		lblStatus.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true, 1, 1));
+		lblStatus.setText("Not connected");
 
 	}
 	
@@ -186,20 +194,14 @@ public class MainWindow implements NotificationListener {
 			}
 			client = new Client(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
+			m_logger.info( "Check compatibility with the server : " + client.checkCompatibility("1.1.0") );
 			
-			System.out.println( "Check compatibility with the server : " + client.checkCompatibility("0.1.0") );
+			Data env = client.getData();
 			
-			String responseBody = client.getEnvironmentDataJson();
-		    
-		    // Deal with the response.
-			// Use caution: ensure correct character encoding and is not binary data
-			Gson gson = new Gson();
-			Data env = gson.fromJson(new String(responseBody), Data.class);
-			  
 			// open persons
 			Iterator<Person> itrp = env.getPersons().iterator();
 			while(itrp.hasNext()){
-				shell.getDisplay().asyncExec( new startPerson (itrp.next(), shell) );
+				shell.getDisplay().asyncExec( new startPerson (itrp.next(), shell, client) );
 			}
 			  
 			// open homes
@@ -212,38 +214,6 @@ public class MainWindow implements NotificationListener {
 			
 			//client.close();
 			
-			/*
-			TTransport transport;
-			transport = new TSocket(textHost.getText(), Integer.parseInt(textPort.getText()));
-	        transport.open();
-	        
-	        TProtocol protocol = new  TBinaryProtocol(transport);
-	        CLApi.Client client = new CLApi.Client(protocol);
-	        
-	        
-	        CLApiPush.Iface handler = new CLApiPush.Iface() {
-				
-				public void push(Notification _notification) throws Xception, TException {
-					System.out.println(_notification.getData());
-				}
-			};
-	        
-			Processor<CLApiPush.Iface> processor = new CLApiPush.Processor<CLApiPush.Iface>(handler);
-			
-	        perform(client, shell);
-	        
-	        while(true)
-	        {
-		        try {
-					while (processor.process(protocol, protocol) == true) { System.out.println("Process");  }
-				} catch (TException e) {
-					System.out.println("Error");
-				}
-	        }
-
-	        //transport.close();
-	         
-	         */
 		}
 		catch( Exception e){
 			System.out.println(e.getMessage());
@@ -258,7 +228,7 @@ public class MainWindow implements NotificationListener {
 		lblStatus.setText("Not connected.");
 	}
 	
-	private static void perform(CLApi.Client client, Shell _shell) throws TException
+	private static void perform(CLApi.Client client, Shell _shell, Client _client) throws TException
 	{
 	    String responseBody = client.getEnvironmentDataJson();
 	    
@@ -270,7 +240,7 @@ public class MainWindow implements NotificationListener {
 		// open persons
 		Iterator<Person> itrp = env.getPersons().iterator();
 		while(itrp.hasNext()){
-			_shell.getDisplay().asyncExec( new startPerson (itrp.next(), _shell) );
+			_shell.getDisplay().asyncExec( new startPerson (itrp.next(), _shell, _client) );
 		}
 		  
 		// open homes

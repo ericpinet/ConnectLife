@@ -16,6 +16,9 @@ import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
 import org.apache.thrift.transport.TTransportException;
+
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -200,7 +203,135 @@ public class Client implements CLApi.Iface, Runnable {
 		m_logger.info("Notification listner stopted.");
 	}
 
-	
-	
+	/**
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#getData()
+	 */
+	@Override
+	public Data getData() throws TException {
+		return m_client.getData();
+	}
 
+	/**
+	 * @param person
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#addPerson(com.connectlife.clapi.Person)
+	 */
+	@Override
+	public boolean addPerson(Person person) throws TException {
+		return m_client.addPerson(person);
+	}
+
+	/**
+	 * @param person
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#deletePerson(com.connectlife.clapi.Person)
+	 */
+	@Override
+	public boolean deletePerson(Person person) throws TException {
+		return m_client.deletePerson(person);
+	}
+
+	/**
+	 * @param home
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#addHome(com.connectlife.clapi.Home)
+	 */
+	@Override
+	public boolean addHome(Home home) throws TException {
+		return m_client.addHome(home);
+	}
+
+	/**
+	 * @param home
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#delteHome(com.connectlife.clapi.Home)
+	 */
+	@Override
+	public boolean deleteHome(Home home) throws TException {
+		return m_client.deleteHome(home);
+	}
+
+	/**
+	 * @param home
+	 * @param zone
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#addZone(com.connectlife.clapi.Home, com.connectlife.clapi.Zone)
+	 */
+	@Override
+	public boolean addZone(Home home, Zone zone) throws TException {
+		return m_client.addZone(home,zone);
+	}
+
+	/**
+	 * @param zone
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#deleteZone(com.connectlife.clapi.Zone)
+	 */
+	@Override
+	public boolean deleteZone(Zone zone) throws TException {
+		return m_client.deleteZone(zone);
+	}
+
+	/**
+	 * @param zone
+	 * @param room
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#addRoom(com.connectlife.clapi.Zone, com.connectlife.clapi.Room)
+	 */
+	@Override
+	public boolean addRoom(Zone zone, Room room) throws TException {
+		return m_client.addRoom(zone, room);
+	}
+
+	/**
+	 * @param room
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#deleteRoom(com.connectlife.clapi.Room)
+	 */
+	@Override
+	public boolean deleteRoom(Room room) throws TException {
+		return m_client.deleteRoom(room);
+	}
+
+	/**
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#getNotMatchedAccessories()
+	 */
+	@Override
+	public List<Accessory> getNotMatchedAccessories() throws TException {
+		return m_client.getNotMatchedAccessories();
+	}
+
+	/**
+	 * @param room
+	 * @param accessory
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#attachAccessory(com.connectlife.clapi.Room, com.connectlife.clapi.Accessory)
+	 */
+	@Override
+	public boolean attachAccessory(Room room, Accessory accessory) throws TException {
+		return m_client.attachAccessory(room, accessory);
+	}
+
+	/**
+	 * @return
+	 * @throws TException
+	 * @see com.connectlife.clapi.CLApi.Iface#generateUID()
+	 */
+	@Override
+	public String generateUID() throws TException {
+		return m_client.generateUID();
+	}
 }
