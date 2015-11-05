@@ -1,0 +1,45 @@
+/**
+ *  ConnectLifeApi.proto
+ *  coreserver
+ *
+ *  Created by Eric Pinet <pineri01@gmail.com> on 2015-11-02.
+ *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
+ */
+
+syntax = "proto2";
+
+package clapi;
+
+option java_multiple_files = true;
+option java_package = "com.clapi";
+option java_outer_classname = "CLApiProtos";
+
+// The CLAPI definition.
+service CLApi {
+
+  // Get version of server.
+  rpc getVersion (clapi.GetVersionRequest) returns (clapi.GetVersionResponse) {}
+
+  // Get
+
+}
+
+// The request of getVersion containing nothing
+message GetVersionRequest {
+}
+
+// The response message containing the version number of the server.
+message GetVersionResponse {
+  required string version = 1;
+}
+
+// The notification message.
+message Notification {
+
+	// enum of type
+	enum NotificationType {
+	    ENV_UPDATED = 0;
+	}
+
+	required NotificationType type = 1;
+}
