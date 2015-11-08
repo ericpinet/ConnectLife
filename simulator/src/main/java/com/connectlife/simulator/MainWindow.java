@@ -25,9 +25,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
+import com.clapi.client.CLApiClient;
 import com.connectlife.clapi.*;
 import com.connectlife.clapi.client.Client;
-import com.connectlife.clapi.client.NotificationListener;
+import com.clapi.client.NotificationListener;
 
 /**
  * 
@@ -180,7 +181,6 @@ public class MainWindow implements NotificationListener {
 		lblStatus = new Label(shell, SWT.NONE);
 		lblStatus.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true, 1, 1));
 		lblStatus.setText("Not connected");
-
 	}
 	
 	/**
@@ -189,6 +189,32 @@ public class MainWindow implements NotificationListener {
 	private void connectionWithServer(){
 		
 		try {
+			
+			CLApiClient clapiclient = new CLApiClient(HOST, Integer.parseInt(PORT), this);
+			try {
+				m_logger.info( "Get server version : " + clapiclient.getVersion() );
+				
+				for(int i=0 ; i<10 ; i++){
+					
+					clapiclient.waitNotification();
+					m_logger.info( "WaitNotification sended." );
+					
+					m_logger.info( "Get server version : " + clapiclient.getVersion() );
+				}
+				
+				for(int i=0 ; i<10 ; i++){
+					m_logger.info( "Get server version : " + clapiclient.getVersion() );
+					Thread.sleep(100);
+				}
+				
+			    
+		    } finally {
+		    	//clapiclient.shutdown();
+		    }
+			
+			Thread.sleep(100000);
+			
+			/*
 			if(null != client){
 				client.close();
 			}
@@ -209,6 +235,7 @@ public class MainWindow implements NotificationListener {
 			while(itrh.hasNext()){
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
+			*/
 			
 			lblStatus.setText("Connected.");
 			
@@ -252,10 +279,12 @@ public class MainWindow implements NotificationListener {
 
 	/**
 	 * @param _notification
-	 * @see com.connectlife.clapi.client.NotificationListener#notificationReceive(com.connectlife.clapi.Notification)
+	 * @see com.clapi.client.NotificationListener#notificationReceive(com.clapi.Notification)
 	 */
-	public void notificationReceive(Notification _notification) {
-		System.out.println(_notification.getData());	
+	@Override
+	public void notificationReceive(com.clapi.Notification _notification) {
+		m_logger.info( "WaitNotification recieved." );
+		
 	}
 
 }

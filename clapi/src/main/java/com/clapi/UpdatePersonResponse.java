@@ -4,21 +4,17 @@
 package com.clapi;
 
 /**
- * Protobuf type {@code clapi.GetVersionRequest}
- *
- * <pre>
- * The request/response of getVersion containing nothing
- * </pre>
+ * Protobuf type {@code clapi.UpdatePersonResponse}
  */
-public  final class GetVersionRequest extends
+public  final class UpdatePersonResponse extends
     com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:clapi.GetVersionRequest)
-    GetVersionRequestOrBuilder {
-  // Use GetVersionRequest.newBuilder() to construct.
-  private GetVersionRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // @@protoc_insertion_point(message_implements:clapi.UpdatePersonResponse)
+    UpdatePersonResponseOrBuilder {
+  // Use UpdatePersonResponse.newBuilder() to construct.
+  private UpdatePersonResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
     super(builder);
   }
-  private GetVersionRequest() {
+  private UpdatePersonResponse() {
   }
 
   @java.lang.Override
@@ -26,7 +22,7 @@ public  final class GetVersionRequest extends
   getUnknownFields() {
     return this.unknownFields;
   }
-  private GetVersionRequest(
+  private UpdatePersonResponse(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
     this();
@@ -62,14 +58,14 @@ public  final class GetVersionRequest extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.clapi.CLApiProtos.internal_static_clapi_GetVersionRequest_descriptor;
+    return com.clapi.CLApiProtos.internal_static_clapi_UpdatePersonResponse_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.clapi.CLApiProtos.internal_static_clapi_GetVersionRequest_fieldAccessorTable
+    return com.clapi.CLApiProtos.internal_static_clapi_UpdatePersonResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.clapi.GetVersionRequest.class, com.clapi.GetVersionRequest.Builder.class);
+            com.clapi.UpdatePersonResponse.class, com.clapi.UpdatePersonResponse.Builder.class);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -98,53 +94,53 @@ public  final class GetVersionRequest extends
   }
 
   private static final long serialVersionUID = 0L;
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.clapi.GetVersionRequest parseFrom(byte[] data)
+  public static com.clapi.UpdatePersonResponse parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.clapi.GetVersionRequest parseFrom(java.io.InputStream input)
+  public static com.clapi.UpdatePersonResponse parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return PARSER.parseFrom(input);
   }
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return PARSER.parseFrom(input, extensionRegistry);
   }
-  public static com.clapi.GetVersionRequest parseDelimitedFrom(java.io.InputStream input)
+  public static com.clapi.UpdatePersonResponse parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return PARSER.parseDelimitedFrom(input);
   }
-  public static com.clapi.GetVersionRequest parseDelimitedFrom(
+  public static com.clapi.UpdatePersonResponse parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return PARSER.parseDelimitedFrom(input, extensionRegistry);
   }
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return PARSER.parseFrom(input);
   }
-  public static com.clapi.GetVersionRequest parseFrom(
+  public static com.clapi.UpdatePersonResponse parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -155,7 +151,7 @@ public  final class GetVersionRequest extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.clapi.GetVersionRequest prototype) {
+  public static Builder newBuilder(com.clapi.UpdatePersonResponse prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -170,29 +166,25 @@ public  final class GetVersionRequest extends
     return builder;
   }
   /**
-   * Protobuf type {@code clapi.GetVersionRequest}
-   *
-   * <pre>
-   * The request/response of getVersion containing nothing
-   * </pre>
+   * Protobuf type {@code clapi.UpdatePersonResponse}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:clapi.GetVersionRequest)
-      com.clapi.GetVersionRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:clapi.UpdatePersonResponse)
+      com.clapi.UpdatePersonResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.clapi.CLApiProtos.internal_static_clapi_GetVersionRequest_descriptor;
+      return com.clapi.CLApiProtos.internal_static_clapi_UpdatePersonResponse_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.clapi.CLApiProtos.internal_static_clapi_GetVersionRequest_fieldAccessorTable
+      return com.clapi.CLApiProtos.internal_static_clapi_UpdatePersonResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.clapi.GetVersionRequest.class, com.clapi.GetVersionRequest.Builder.class);
+              com.clapi.UpdatePersonResponse.class, com.clapi.UpdatePersonResponse.Builder.class);
     }
 
-    // Construct using com.clapi.GetVersionRequest.newBuilder()
+    // Construct using com.clapi.UpdatePersonResponse.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -213,38 +205,38 @@ public  final class GetVersionRequest extends
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.clapi.CLApiProtos.internal_static_clapi_GetVersionRequest_descriptor;
+      return com.clapi.CLApiProtos.internal_static_clapi_UpdatePersonResponse_descriptor;
     }
 
-    public com.clapi.GetVersionRequest getDefaultInstanceForType() {
-      return com.clapi.GetVersionRequest.getDefaultInstance();
+    public com.clapi.UpdatePersonResponse getDefaultInstanceForType() {
+      return com.clapi.UpdatePersonResponse.getDefaultInstance();
     }
 
-    public com.clapi.GetVersionRequest build() {
-      com.clapi.GetVersionRequest result = buildPartial();
+    public com.clapi.UpdatePersonResponse build() {
+      com.clapi.UpdatePersonResponse result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public com.clapi.GetVersionRequest buildPartial() {
-      com.clapi.GetVersionRequest result = new com.clapi.GetVersionRequest(this);
+    public com.clapi.UpdatePersonResponse buildPartial() {
+      com.clapi.UpdatePersonResponse result = new com.clapi.UpdatePersonResponse(this);
       onBuilt();
       return result;
     }
 
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.clapi.GetVersionRequest) {
-        return mergeFrom((com.clapi.GetVersionRequest)other);
+      if (other instanceof com.clapi.UpdatePersonResponse) {
+        return mergeFrom((com.clapi.UpdatePersonResponse)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.clapi.GetVersionRequest other) {
-      if (other == com.clapi.GetVersionRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.clapi.UpdatePersonResponse other) {
+      if (other == com.clapi.UpdatePersonResponse.getDefaultInstance()) return this;
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -258,11 +250,11 @@ public  final class GetVersionRequest extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.clapi.GetVersionRequest parsedMessage = null;
+      com.clapi.UpdatePersonResponse parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.clapi.GetVersionRequest) e.getUnfinishedMessage();
+        parsedMessage = (com.clapi.UpdatePersonResponse) e.getUnfinishedMessage();
         throw e;
       } finally {
         if (parsedMessage != null) {
@@ -272,27 +264,27 @@ public  final class GetVersionRequest extends
       return this;
     }
 
-    // @@protoc_insertion_point(builder_scope:clapi.GetVersionRequest)
+    // @@protoc_insertion_point(builder_scope:clapi.UpdatePersonResponse)
   }
 
-  // @@protoc_insertion_point(class_scope:clapi.GetVersionRequest)
-  private static final com.clapi.GetVersionRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:clapi.UpdatePersonResponse)
+  private static final com.clapi.UpdatePersonResponse DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.clapi.GetVersionRequest();
+    DEFAULT_INSTANCE = new com.clapi.UpdatePersonResponse();
   }
 
-  public static com.clapi.GetVersionRequest getDefaultInstance() {
+  public static com.clapi.UpdatePersonResponse getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  @java.lang.Deprecated public static final com.google.protobuf.Parser<GetVersionRequest>
-      PARSER = new com.google.protobuf.AbstractParser<GetVersionRequest>() {
-    public GetVersionRequest parsePartialFrom(
+  @java.lang.Deprecated public static final com.google.protobuf.Parser<UpdatePersonResponse>
+      PARSER = new com.google.protobuf.AbstractParser<UpdatePersonResponse>() {
+    public UpdatePersonResponse parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       try {
-        return new GetVersionRequest(input, extensionRegistry);
+        return new UpdatePersonResponse(input, extensionRegistry);
       } catch (RuntimeException e) {
         if (e.getCause() instanceof
             com.google.protobuf.InvalidProtocolBufferException) {
@@ -304,16 +296,16 @@ public  final class GetVersionRequest extends
     }
   };
 
-  public static com.google.protobuf.Parser<GetVersionRequest> parser() {
+  public static com.google.protobuf.Parser<UpdatePersonResponse> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<GetVersionRequest> getParserForType() {
+  public com.google.protobuf.Parser<UpdatePersonResponse> getParserForType() {
     return PARSER;
   }
 
-  public com.clapi.GetVersionRequest getDefaultInstanceForType() {
+  public com.clapi.UpdatePersonResponse getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

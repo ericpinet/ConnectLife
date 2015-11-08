@@ -4,23 +4,23 @@
 package com.clapi;
 
 /**
- * Protobuf type {@code clapi.Notification}
+ * Protobuf type {@code clapi.Phone}
  *
  * <pre>
- * The notification message.
+ * Phone
  * </pre>
  */
-public  final class Notification extends
+public  final class Phone extends
     com.google.protobuf.GeneratedMessage implements
-    // @@protoc_insertion_point(message_implements:clapi.Notification)
-    NotificationOrBuilder {
-  // Use Notification.newBuilder() to construct.
-  private Notification(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    // @@protoc_insertion_point(message_implements:clapi.Phone)
+    PhoneOrBuilder {
+  // Use Phone.newBuilder() to construct.
+  private Phone(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
     super(builder);
   }
-  private Notification() {
+  private Phone() {
+    phone_ = "";
     type_ = 0;
-    data_ = "";
   }
 
   @java.lang.Override
@@ -28,7 +28,7 @@ public  final class Notification extends
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Notification(
+  private Phone(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
     this();
@@ -50,21 +50,21 @@ public  final class Notification extends
             }
             break;
           }
-          case 8: {
-            int rawValue = input.readEnum();
-            com.clapi.Notification.NotificationType value = com.clapi.Notification.NotificationType.valueOf(rawValue);
-            if (value == null) {
-              unknownFields.mergeVarintField(1, rawValue);
-            } else {
-              bitField0_ |= 0x00000001;
-              type_ = rawValue;
-            }
+          case 10: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000001;
+            phone_ = bs;
             break;
           }
-          case 18: {
-            com.google.protobuf.ByteString bs = input.readBytes();
-            bitField0_ |= 0x00000002;
-            data_ = bs;
+          case 16: {
+            int rawValue = input.readEnum();
+            com.clapi.Phone.PhoneType value = com.clapi.Phone.PhoneType.valueOf(rawValue);
+            if (value == null) {
+              unknownFields.mergeVarintField(2, rawValue);
+            } else {
+              bitField0_ |= 0x00000002;
+              type_ = rawValue;
+            }
             break;
           }
         }
@@ -82,66 +82,75 @@ public  final class Notification extends
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.clapi.CLApiProtos.internal_static_clapi_Notification_descriptor;
+    return com.clapi.CLApiProtos.internal_static_clapi_Phone_descriptor;
   }
 
   protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.clapi.CLApiProtos.internal_static_clapi_Notification_fieldAccessorTable
+    return com.clapi.CLApiProtos.internal_static_clapi_Phone_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.clapi.Notification.class, com.clapi.Notification.Builder.class);
+            com.clapi.Phone.class, com.clapi.Phone.Builder.class);
   }
 
   /**
-   * Protobuf enum {@code clapi.Notification.NotificationType}
+   * Protobuf enum {@code clapi.Phone.PhoneType}
    *
    * <pre>
-   * enum of type
+   * Phone Type
    * </pre>
    */
-  public enum NotificationType
+  public enum PhoneType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
-     * <code>ENV_UPDATED = 0;</code>
+     * <code>PERSONAL = 0;</code>
      */
-    ENV_UPDATED(0, 0),
+    PERSONAL(0, 0),
     /**
-     * <code>MESSAGE = 1;</code>
+     * <code>WORK = 1;</code>
      */
-    MESSAGE(1, 1),
+    WORK(1, 1),
+    /**
+     * <code>OTHER = 2;</code>
+     */
+    OTHER(2, 2),
     ;
 
     /**
-     * <code>ENV_UPDATED = 0;</code>
+     * <code>PERSONAL = 0;</code>
      */
-    public static final int ENV_UPDATED_VALUE = 0;
+    public static final int PERSONAL_VALUE = 0;
     /**
-     * <code>MESSAGE = 1;</code>
+     * <code>WORK = 1;</code>
      */
-    public static final int MESSAGE_VALUE = 1;
+    public static final int WORK_VALUE = 1;
+    /**
+     * <code>OTHER = 2;</code>
+     */
+    public static final int OTHER_VALUE = 2;
 
 
     public final int getNumber() {
       return value;
     }
 
-    public static NotificationType valueOf(int value) {
+    public static PhoneType valueOf(int value) {
       switch (value) {
-        case 0: return ENV_UPDATED;
-        case 1: return MESSAGE;
+        case 0: return PERSONAL;
+        case 1: return WORK;
+        case 2: return OTHER;
         default: return null;
       }
     }
 
-    public static com.google.protobuf.Internal.EnumLiteMap<NotificationType>
+    public static com.google.protobuf.Internal.EnumLiteMap<PhoneType>
         internalGetValueMap() {
       return internalValueMap;
     }
     private static final com.google.protobuf.Internal.EnumLiteMap<
-        NotificationType> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<NotificationType>() {
-            public NotificationType findValueByNumber(int number) {
-              return NotificationType.valueOf(number);
+        PhoneType> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<PhoneType>() {
+            public PhoneType findValueByNumber(int number) {
+              return PhoneType.valueOf(number);
             }
           };
 
@@ -155,12 +164,12 @@ public  final class Notification extends
     }
     public static final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptor() {
-      return com.clapi.Notification.getDescriptor().getEnumTypes().get(0);
+      return com.clapi.Phone.getDescriptor().getEnumTypes().get(0);
     }
 
-    private static final NotificationType[] VALUES = values();
+    private static final PhoneType[] VALUES = values();
 
-    public static NotificationType valueOf(
+    public static PhoneType valueOf(
         com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
       if (desc.getType() != getDescriptor()) {
         throw new java.lang.IllegalArgumentException(
@@ -172,60 +181,36 @@ public  final class Notification extends
     private final int index;
     private final int value;
 
-    private NotificationType(int index, int value) {
+    private PhoneType(int index, int value) {
       this.index = index;
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:clapi.Notification.NotificationType)
+    // @@protoc_insertion_point(enum_scope:clapi.Phone.PhoneType)
   }
 
   private int bitField0_;
-  public static final int TYPE_FIELD_NUMBER = 1;
-  private int type_;
+  public static final int PHONE_FIELD_NUMBER = 1;
+  private volatile java.lang.Object phone_;
   /**
-   * <code>required .clapi.Notification.NotificationType type = 1;</code>
+   * <code>required string phone = 1;</code>
    *
    * <pre>
-   * Type of notification
+   * Phone
    * </pre>
    */
-  public boolean hasType() {
+  public boolean hasPhone() {
     return ((bitField0_ & 0x00000001) == 0x00000001);
   }
   /**
-   * <code>required .clapi.Notification.NotificationType type = 1;</code>
+   * <code>required string phone = 1;</code>
    *
    * <pre>
-   * Type of notification
+   * Phone
    * </pre>
    */
-  public com.clapi.Notification.NotificationType getType() {
-    com.clapi.Notification.NotificationType result = com.clapi.Notification.NotificationType.valueOf(type_);
-    return result == null ? com.clapi.Notification.NotificationType.ENV_UPDATED : result;
-  }
-
-  public static final int DATA_FIELD_NUMBER = 2;
-  private volatile java.lang.Object data_;
-  /**
-   * <code>optional string data = 2;</code>
-   *
-   * <pre>
-   * Data of the notification
-   * </pre>
-   */
-  public boolean hasData() {
-    return ((bitField0_ & 0x00000002) == 0x00000002);
-  }
-  /**
-   * <code>optional string data = 2;</code>
-   *
-   * <pre>
-   * Data of the notification
-   * </pre>
-   */
-  public java.lang.String getData() {
-    java.lang.Object ref = data_;
+  public java.lang.String getPhone() {
+    java.lang.Object ref = phone_;
     if (ref instanceof java.lang.String) {
       return (java.lang.String) ref;
     } else {
@@ -233,30 +218,54 @@ public  final class Notification extends
           (com.google.protobuf.ByteString) ref;
       java.lang.String s = bs.toStringUtf8();
       if (bs.isValidUtf8()) {
-        data_ = s;
+        phone_ = s;
       }
       return s;
     }
   }
   /**
-   * <code>optional string data = 2;</code>
+   * <code>required string phone = 1;</code>
    *
    * <pre>
-   * Data of the notification
+   * Phone
    * </pre>
    */
   public com.google.protobuf.ByteString
-      getDataBytes() {
-    java.lang.Object ref = data_;
+      getPhoneBytes() {
+    java.lang.Object ref = phone_;
     if (ref instanceof java.lang.String) {
       com.google.protobuf.ByteString b = 
           com.google.protobuf.ByteString.copyFromUtf8(
               (java.lang.String) ref);
-      data_ = b;
+      phone_ = b;
       return b;
     } else {
       return (com.google.protobuf.ByteString) ref;
     }
+  }
+
+  public static final int TYPE_FIELD_NUMBER = 2;
+  private int type_;
+  /**
+   * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+   *
+   * <pre>
+   * Phone Type
+   * </pre>
+   */
+  public boolean hasType() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+   *
+   * <pre>
+   * Phone Type
+   * </pre>
+   */
+  public com.clapi.Phone.PhoneType getType() {
+    com.clapi.Phone.PhoneType result = com.clapi.Phone.PhoneType.valueOf(type_);
+    return result == null ? com.clapi.Phone.PhoneType.PERSONAL : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -265,7 +274,7 @@ public  final class Notification extends
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
-    if (!hasType()) {
+    if (!hasPhone()) {
       memoizedIsInitialized = 0;
       return false;
     }
@@ -276,10 +285,10 @@ public  final class Notification extends
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      output.writeEnum(1, type_);
+      com.google.protobuf.GeneratedMessage.writeString(output, 1, phone_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 2, data_);
+      output.writeEnum(2, type_);
     }
     unknownFields.writeTo(output);
   }
@@ -290,11 +299,11 @@ public  final class Notification extends
 
     size = 0;
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeEnumSize(1, type_);
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, phone_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, data_);
+      size += com.google.protobuf.CodedOutputStream
+        .computeEnumSize(2, type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -302,53 +311,53 @@ public  final class Notification extends
   }
 
   private static final long serialVersionUID = 0L;
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.clapi.Notification parseFrom(byte[] data)
+  public static com.clapi.Phone parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.clapi.Notification parseFrom(java.io.InputStream input)
+  public static com.clapi.Phone parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return PARSER.parseFrom(input);
   }
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return PARSER.parseFrom(input, extensionRegistry);
   }
-  public static com.clapi.Notification parseDelimitedFrom(java.io.InputStream input)
+  public static com.clapi.Phone parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return PARSER.parseDelimitedFrom(input);
   }
-  public static com.clapi.Notification parseDelimitedFrom(
+  public static com.clapi.Phone parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return PARSER.parseDelimitedFrom(input, extensionRegistry);
   }
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return PARSER.parseFrom(input);
   }
-  public static com.clapi.Notification parseFrom(
+  public static com.clapi.Phone parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -359,7 +368,7 @@ public  final class Notification extends
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.clapi.Notification prototype) {
+  public static Builder newBuilder(com.clapi.Phone prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   public Builder toBuilder() {
@@ -374,29 +383,29 @@ public  final class Notification extends
     return builder;
   }
   /**
-   * Protobuf type {@code clapi.Notification}
+   * Protobuf type {@code clapi.Phone}
    *
    * <pre>
-   * The notification message.
+   * Phone
    * </pre>
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:clapi.Notification)
-      com.clapi.NotificationOrBuilder {
+      // @@protoc_insertion_point(builder_implements:clapi.Phone)
+      com.clapi.PhoneOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.clapi.CLApiProtos.internal_static_clapi_Notification_descriptor;
+      return com.clapi.CLApiProtos.internal_static_clapi_Phone_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.clapi.CLApiProtos.internal_static_clapi_Notification_fieldAccessorTable
+      return com.clapi.CLApiProtos.internal_static_clapi_Phone_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.clapi.Notification.class, com.clapi.Notification.Builder.class);
+              com.clapi.Phone.class, com.clapi.Phone.Builder.class);
     }
 
-    // Construct using com.clapi.Notification.newBuilder()
+    // Construct using com.clapi.Phone.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -412,65 +421,65 @@ public  final class Notification extends
     }
     public Builder clear() {
       super.clear();
-      type_ = 0;
+      phone_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
-      data_ = "";
+      type_ = 0;
       bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.clapi.CLApiProtos.internal_static_clapi_Notification_descriptor;
+      return com.clapi.CLApiProtos.internal_static_clapi_Phone_descriptor;
     }
 
-    public com.clapi.Notification getDefaultInstanceForType() {
-      return com.clapi.Notification.getDefaultInstance();
+    public com.clapi.Phone getDefaultInstanceForType() {
+      return com.clapi.Phone.getDefaultInstance();
     }
 
-    public com.clapi.Notification build() {
-      com.clapi.Notification result = buildPartial();
+    public com.clapi.Phone build() {
+      com.clapi.Phone result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
       return result;
     }
 
-    public com.clapi.Notification buildPartial() {
-      com.clapi.Notification result = new com.clapi.Notification(this);
+    public com.clapi.Phone buildPartial() {
+      com.clapi.Phone result = new com.clapi.Phone(this);
       int from_bitField0_ = bitField0_;
       int to_bitField0_ = 0;
       if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
         to_bitField0_ |= 0x00000001;
       }
-      result.type_ = type_;
+      result.phone_ = phone_;
       if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
         to_bitField0_ |= 0x00000002;
       }
-      result.data_ = data_;
+      result.type_ = type_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
 
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.clapi.Notification) {
-        return mergeFrom((com.clapi.Notification)other);
+      if (other instanceof com.clapi.Phone) {
+        return mergeFrom((com.clapi.Phone)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.clapi.Notification other) {
-      if (other == com.clapi.Notification.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.clapi.Phone other) {
+      if (other == com.clapi.Phone.getDefaultInstance()) return this;
+      if (other.hasPhone()) {
+        bitField0_ |= 0x00000001;
+        phone_ = other.phone_;
+        onChanged();
+      }
       if (other.hasType()) {
         setType(other.getType());
-      }
-      if (other.hasData()) {
-        bitField0_ |= 0x00000002;
-        data_ = other.data_;
-        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -478,7 +487,7 @@ public  final class Notification extends
     }
 
     public final boolean isInitialized() {
-      if (!hasType()) {
+      if (!hasPhone()) {
         return false;
       }
       return true;
@@ -488,11 +497,11 @@ public  final class Notification extends
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.clapi.Notification parsedMessage = null;
+      com.clapi.Phone parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.clapi.Notification) e.getUnfinishedMessage();
+        parsedMessage = (com.clapi.Phone) e.getUnfinishedMessage();
         throw e;
       } finally {
         if (parsedMessage != null) {
@@ -503,84 +512,32 @@ public  final class Notification extends
     }
     private int bitField0_;
 
-    private int type_ = 0;
+    private java.lang.Object phone_ = "";
     /**
-     * <code>required .clapi.Notification.NotificationType type = 1;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Type of notification
+     * Phone
      * </pre>
      */
-    public boolean hasType() {
+    public boolean hasPhone() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .clapi.Notification.NotificationType type = 1;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Type of notification
+     * Phone
      * </pre>
      */
-    public com.clapi.Notification.NotificationType getType() {
-      com.clapi.Notification.NotificationType result = com.clapi.Notification.NotificationType.valueOf(type_);
-      return result == null ? com.clapi.Notification.NotificationType.ENV_UPDATED : result;
-    }
-    /**
-     * <code>required .clapi.Notification.NotificationType type = 1;</code>
-     *
-     * <pre>
-     * Type of notification
-     * </pre>
-     */
-    public Builder setType(com.clapi.Notification.NotificationType value) {
-      if (value == null) {
-        throw new NullPointerException();
-      }
-      bitField0_ |= 0x00000001;
-      type_ = value.getNumber();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>required .clapi.Notification.NotificationType type = 1;</code>
-     *
-     * <pre>
-     * Type of notification
-     * </pre>
-     */
-    public Builder clearType() {
-      bitField0_ = (bitField0_ & ~0x00000001);
-      type_ = 0;
-      onChanged();
-      return this;
-    }
-
-    private java.lang.Object data_ = "";
-    /**
-     * <code>optional string data = 2;</code>
-     *
-     * <pre>
-     * Data of the notification
-     * </pre>
-     */
-    public boolean hasData() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string data = 2;</code>
-     *
-     * <pre>
-     * Data of the notification
-     * </pre>
-     */
-    public java.lang.String getData() {
-      java.lang.Object ref = data_;
+    public java.lang.String getPhone() {
+      java.lang.Object ref = phone_;
       if (!(ref instanceof java.lang.String)) {
         com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          data_ = s;
+          phone_ = s;
         }
         return s;
       } else {
@@ -588,94 +545,146 @@ public  final class Notification extends
       }
     }
     /**
-     * <code>optional string data = 2;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Data of the notification
+     * Phone
      * </pre>
      */
     public com.google.protobuf.ByteString
-        getDataBytes() {
-      java.lang.Object ref = data_;
+        getPhoneBytes() {
+      java.lang.Object ref = phone_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        data_ = b;
+        phone_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
     /**
-     * <code>optional string data = 2;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Data of the notification
+     * Phone
      * </pre>
      */
-    public Builder setData(
+    public Builder setPhone(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-      data_ = value;
+  bitField0_ |= 0x00000001;
+      phone_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string data = 2;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Data of the notification
+     * Phone
      * </pre>
      */
-    public Builder clearData() {
-      bitField0_ = (bitField0_ & ~0x00000002);
-      data_ = getDefaultInstance().getData();
+    public Builder clearPhone() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      phone_ = getDefaultInstance().getPhone();
       onChanged();
       return this;
     }
     /**
-     * <code>optional string data = 2;</code>
+     * <code>required string phone = 1;</code>
      *
      * <pre>
-     * Data of the notification
+     * Phone
      * </pre>
      */
-    public Builder setDataBytes(
+    public Builder setPhoneBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
-      data_ = value;
+  bitField0_ |= 0x00000001;
+      phone_ = value;
       onChanged();
       return this;
     }
 
-    // @@protoc_insertion_point(builder_scope:clapi.Notification)
+    private int type_ = 0;
+    /**
+     * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+     *
+     * <pre>
+     * Phone Type
+     * </pre>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+     *
+     * <pre>
+     * Phone Type
+     * </pre>
+     */
+    public com.clapi.Phone.PhoneType getType() {
+      com.clapi.Phone.PhoneType result = com.clapi.Phone.PhoneType.valueOf(type_);
+      return result == null ? com.clapi.Phone.PhoneType.PERSONAL : result;
+    }
+    /**
+     * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+     *
+     * <pre>
+     * Phone Type
+     * </pre>
+     */
+    public Builder setType(com.clapi.Phone.PhoneType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      bitField0_ |= 0x00000002;
+      type_ = value.getNumber();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional .clapi.Phone.PhoneType type = 2 [default = PERSONAL];</code>
+     *
+     * <pre>
+     * Phone Type
+     * </pre>
+     */
+    public Builder clearType() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      type_ = 0;
+      onChanged();
+      return this;
+    }
+
+    // @@protoc_insertion_point(builder_scope:clapi.Phone)
   }
 
-  // @@protoc_insertion_point(class_scope:clapi.Notification)
-  private static final com.clapi.Notification DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:clapi.Phone)
+  private static final com.clapi.Phone DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.clapi.Notification();
+    DEFAULT_INSTANCE = new com.clapi.Phone();
   }
 
-  public static com.clapi.Notification getDefaultInstance() {
+  public static com.clapi.Phone getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  @java.lang.Deprecated public static final com.google.protobuf.Parser<Notification>
-      PARSER = new com.google.protobuf.AbstractParser<Notification>() {
-    public Notification parsePartialFrom(
+  @java.lang.Deprecated public static final com.google.protobuf.Parser<Phone>
+      PARSER = new com.google.protobuf.AbstractParser<Phone>() {
+    public Phone parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       try {
-        return new Notification(input, extensionRegistry);
+        return new Phone(input, extensionRegistry);
       } catch (RuntimeException e) {
         if (e.getCause() instanceof
             com.google.protobuf.InvalidProtocolBufferException) {
@@ -687,16 +696,16 @@ public  final class Notification extends
     }
   };
 
-  public static com.google.protobuf.Parser<Notification> parser() {
+  public static com.google.protobuf.Parser<Phone> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Notification> getParserForType() {
+  public com.google.protobuf.Parser<Phone> getParserForType() {
     return PARSER;
   }
 
-  public com.clapi.Notification getDefaultInstanceForType() {
+  public com.clapi.Phone getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

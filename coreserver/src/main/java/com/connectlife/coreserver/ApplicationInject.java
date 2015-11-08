@@ -11,10 +11,14 @@ package com.connectlife.coreserver;
 // external
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import com.connectlife.clapi.CLApi;
+import com.clapi.CLApiGrpc;
+
 import com.connectlife.coreserver.apiserver.Api;
+//import com.connectlife.clapi.CLApi;
+//import com.connectlife.coreserver.apiserver.ApiProcessorOld;
+//import com.connectlife.coreserver.apiserver.ApiThriftJson;
+import com.connectlife.coreserver.apiserver.ApiGrpc;
 import com.connectlife.coreserver.apiserver.ApiProcessor;
-import com.connectlife.coreserver.apiserver.ApiThriftJson;
 import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.configmanager.ConfigSqliteManager;
 import com.connectlife.coreserver.console.Console;
@@ -22,6 +26,8 @@ import com.connectlife.coreserver.console.ConsoleSSH;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.coreserver.gpio.Gpio;
+import com.connectlife.coreserver.gpio.RaspberryPiGpio;
 import com.connectlife.coreserver.environment.discover.DiscoveryJmdns;
 
 /**
@@ -38,13 +44,25 @@ public class ApplicationInject extends AbstractModule {
 	 */
 	@Override
 	protected void configure() {
+		
+		// Config
 		bind(Config.class).to(ConfigSqliteManager.class).in(Singleton.class);
+		
+		// Environment
 		bind(Environment.class).to(EnvironmentJsonFile.class).in(Singleton.class);
-		bind(Api.class).to(ApiThriftJson.class);
+		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
+		
+		// Api 
+		bind(Api.class).to(ApiGrpc.class);
+		bind(CLApiGrpc.CLApi.class).to(ApiProcessor.class);
+		//bind(Api.class).to(ApiThriftJson.class);				// for old thrift api
+		//bind(CLApi.Iface.class).to(ApiProcessorOld.class);	// for old thrift api
+		
+		// Console
 		bind(Console.class).to(ConsoleSSH.class);
 		
-		bind(CLApi.Iface.class).to(ApiProcessor.class);
-		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
+		// GPIO
+		bind(Gpio.class).to(RaspberryPiGpio.class);	
 	}
 
 }

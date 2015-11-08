@@ -5,10 +5,6 @@ package com.clapi;
 
 /**
  * Protobuf type {@code clapi.GetVersionResponse}
- *
- * <pre>
- * The response message containing the version number of the server.
- * </pre>
  */
 public  final class GetVersionResponse extends
     com.google.protobuf.GeneratedMessage implements
@@ -232,10 +228,6 @@ public  final class GetVersionResponse extends
   }
   /**
    * Protobuf type {@code clapi.GetVersionResponse}
-   *
-   * <pre>
-   * The response message containing the version number of the server.
-   * </pre>
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessage.Builder<Builder> implements

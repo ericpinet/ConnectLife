@@ -8,7 +8,6 @@
  */
 package com.connectlife.coreserver;
 
-// external
 import java.io.File;
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
@@ -24,12 +23,13 @@ import java.util.Observer;
 
 import com.connectlife.clapi.Notification;
 import com.connectlife.clapi.Type;
-// internal
+
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.apiserver.Api;
 import com.connectlife.coreserver.configmanager.Config;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 
@@ -68,6 +68,11 @@ public class Application implements Observer{
 	 * Console manager for the application.
 	 */
 	private final Console m_console;
+	
+	/**
+	 * GPIO manager for the application.
+	 */
+	private final Gpio m_gpio;
 	
 	/**
 	 * Base path of the application.
@@ -118,14 +123,16 @@ public class Application implements Observer{
 	 * @param _env Environment manager for the application.
 	 * @param _api Api for the application.
 	 * @param _console Console for the application.
+	 * @param _gpio GPIO manager for the application.
 	 */
 	@Inject
-	public Application(Config _config, Environment _env, Api _api, Console _console){
+	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio){
 		m_logger.debug("Application constructor.");
 		m_config = _config;
 		m_environment = _env;
 		m_api = _api;
 		m_console = _console;
+		m_gpio = _gpio;
 		m_ref = this;
 	}
 	
@@ -240,7 +247,8 @@ public class Application implements Observer{
 					
 					// init others modules
 					if(	m_api.init() == true &&
-						m_console.init() == true ){
+						m_console.init() == true && 
+						m_gpio.init() == true){
 						
 						ret_val = true;
 						
@@ -264,13 +272,15 @@ public class Application implements Observer{
 		if(m_config != null &&
 		   m_environment != null &&
 		   m_api != null &&
-		   m_console != null
+		   m_console != null &&
+		   m_gpio != null
 		   ){
 			
 			m_console.unInit();
 			m_api.unInit();
 			m_environment.unInit();
 			m_config.unInit();
+			m_gpio.unInit();
 			
 		}
 		else{

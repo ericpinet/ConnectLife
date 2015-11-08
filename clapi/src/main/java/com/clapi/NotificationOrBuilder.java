@@ -9,10 +9,44 @@ public interface NotificationOrBuilder extends
 
   /**
    * <code>required .clapi.Notification.NotificationType type = 1;</code>
+   *
+   * <pre>
+   * Type of notification
+   * </pre>
    */
   boolean hasType();
   /**
    * <code>required .clapi.Notification.NotificationType type = 1;</code>
+   *
+   * <pre>
+   * Type of notification
+   * </pre>
    */
   com.clapi.Notification.NotificationType getType();
+
+  /**
+   * <code>optional string data = 2;</code>
+   *
+   * <pre>
+   * Data of the notification
+   * </pre>
+   */
+  boolean hasData();
+  /**
+   * <code>optional string data = 2;</code>
+   *
+   * <pre>
+   * Data of the notification
+   * </pre>
+   */
+  java.lang.String getData();
+  /**
+   * <code>optional string data = 2;</code>
+   *
+   * <pre>
+   * Data of the notification
+   * </pre>
+   */
+  com.google.protobuf.ByteString
+      getDataBytes();
 }

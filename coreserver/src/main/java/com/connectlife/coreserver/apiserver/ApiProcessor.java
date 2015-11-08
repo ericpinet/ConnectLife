@@ -2,287 +2,130 @@
  *  ApiProcessor.java
  *  coreserver
  *
- *  Created by ericpinet on 2015-10-16.
+ *  Created by ericpinet on 2015-11-07.
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
 package com.connectlife.coreserver.apiserver;
 
-// external
-import org.apache.thrift.TException;
-
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.connectlife.clapi.Accessory;
-// internal
-import com.connectlife.clapi.CLApi;
-import com.connectlife.clapi.Data;
-import com.connectlife.clapi.Home;
-import com.connectlife.clapi.Person;
-import com.connectlife.clapi.Room;
-import com.connectlife.clapi.Zone;
-import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.UIDGenerator;
+import com.clapi.AddPersonRequest;
+import com.clapi.AddPersonResponse;
+import com.clapi.CLApiGrpc;
+import com.clapi.DeleteAllPersonRequest;
+import com.clapi.DeleteAllPersonResponse;
+import com.clapi.DeletePersonRequest;
+import com.clapi.DeletePersonResponse;
+import com.clapi.Email;
+import com.clapi.GetVersionRequest;
+import com.clapi.GetVersionResponse;
+import com.clapi.Notification;
+import com.clapi.WaitNotificationRequest;
+import com.clapi.WaitNotificationResponse;
+import com.clapi.Notification.NotificationType;
+import com.clapi.Person;
+import com.clapi.UpdatePersonRequest;
+import com.clapi.UpdatePersonResponse;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.google.inject.Inject;
+
+import io.grpc.stub.StreamObserver;
 
 /**
- * Processor of the api. 
+ * 
  * 
  * @author ericpinet
- * <br> 2015-10-16
+ * <br> 2015-11-07
  */
-public class ApiProcessor implements CLApi.Iface {
+public class ApiProcessor implements CLApiGrpc.CLApi{
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private final Logger m_logger = LogManager.getLogger(ApiThriftJson.class);
-	
+	private final Logger m_logger = LogManager.getLogger(ApiProcessor.class);
+
 	/**
-	 * Api server version.
-	 * 
-	 * To check compatibility the difference with the first and third digit must be the same 
-	 * whit the client version.
-	 * 
-	 * Exemple : Server version 0,1,2 : 0 - 2 = -2
-	 *           Client version 1,1,3 : 1 - 3 = -2 
-	 *           
-	 *           Client and Server are compatible. 
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#getVersion(com.clapi.GetVersionRequest, io.grpc.stub.StreamObserver)
 	 */
-	public static final int API_SERVER_VERSION[] = { 1, 0, 0 };
-	
-	/**
-	 * Environment manager use to respond at the client.
-	 */
-	private final Environment m_environment;
-	
-	/**
-	 * Defautl constructor.
-	 * @param _env Environment manager use to process client request.
-	 */
-	@Inject
-	public ApiProcessor(Environment _env){
-		m_environment = _env;
+	@Override
+	public void getVersion(GetVersionRequest request, StreamObserver<GetVersionResponse> responseObserver) {
+		GetVersionResponse reply = GetVersionResponse.newBuilder().setVersion("1.0.0").build();
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
-	 * @return The server version number.
-	 * @throws TException Thrift exception if something goes wrong.
-	 * @see com.connectlife.clapi.CLApi.Iface#getVersion()
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#waitNotification(com.clapi.WaitNotificationRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public String getVersion() throws TException {
-		return new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] );
-	}
-
-	/**
-	 * @param version String representing the client version.
-	 * @return True if server is compatible with the client.
-	 * @throws TException Thrift exception if something goes wrong.
-	 * @see com.connectlife.clapi.CLApi.Iface#checkCompatibility(java.lang.String)
-	 */
-	@Override
-	public boolean checkCompatibility(String version) throws TException {
-		boolean ret_val = false;
+	public void waitNotification(WaitNotificationRequest request,
+			StreamObserver<WaitNotificationResponse> responseObserver) {
 		
-		try{
-			String[] version_id_txt = version.split("\\.");
-			int[] version_id = { Integer.parseInt(version_id_txt[0]),
-								 Integer.parseInt(version_id_txt[1]),
-								 Integer.parseInt(version_id_txt[2])
-							   };
+		try {
+			Thread.sleep(2000);
+			Notification notify = Notification.newBuilder()
+											  .setType(NotificationType.ENV_UPDATED)
+											  .build();
 			
+			WaitNotificationResponse reply = WaitNotificationResponse.newBuilder().setNotification(notify).build();
+			responseObserver.onNext(reply);
+			responseObserver.onCompleted();
 			
-			if( (version_id[0] - version_id[2]) ==  (API_SERVER_VERSION[0] - API_SERVER_VERSION[2]) ){
-				
-				ret_val = true;
-			}
-			else{
-				m_logger.info("The client version:"+version + " isn't compatible with this server version :"+
-						      new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] ));
-			}
-		}
-		catch(Exception e){
-			m_logger.error("Unable to check compatibility of client api : "+version);
+		} catch (InterruptedException e) {
+			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#addPerson(com.clapi.AddPersonRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
+		// TODO Auto-generated method stub
 		
-		return ret_val;
 	}
 
 	/**
-	 * @return Environment data in json format.
-	 * @throws TException Thrift exception if something goes wrong.
-	 * @see com.connectlife.clapi.CLApi.Iface#getEnvironmentDataJson()
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#updatePerson(com.clapi.UpdatePersonRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public String getEnvironmentDataJson() throws TException {
-		return m_environment.getJsonEnvironment();
-	}
-
-	/**
-	 * @return
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#getData()
-	 */
-	@Override
-	public Data getData() throws TException {
-		return m_environment.getData();
-	}
-
-	/**
-	 * Add or update person data in the environment.
-	 * 
-	 * @param person A person.
-	 * @return True if data updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#addPerson(com.connectlife.clapi.Person)
-	 */
-	@Override
-	public boolean addPerson(Person person) throws TException {
-		return m_environment.addPerson(person);
-	}
-
-	/**
-	 * Delete person data in the environment.
-	 * 
-	 * @param person A person.
-	 * @return True if data updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#deletePerson(com.connectlife.clapi.Person)
-	 */
-	@Override
-	public boolean deletePerson(Person person) throws TException {
+	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	/**
-	 * Add or update home data in the environment.
-	 * 
-	 * @param home A home.
-	 * @return True if data updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#addHome(com.connectlife.clapi.Home)
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#deletePerson(com.clapi.DeletePersonRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public boolean addHome(Home home) throws TException {
+	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	/**
-	 * Delete home data in the environment.
-	 * 
-	 * @param home A home.
-	 * @return True if data was deleted.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#deleteHome(com.connectlife.clapi.Home)
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.CLApiGrpc.CLApi#deleteAllPerson(com.clapi.DeleteAllPersonRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public boolean deleteHome(Home home) throws TException {
+	public void deleteAllPerson(DeleteAllPersonRequest request,
+			StreamObserver<DeleteAllPersonResponse> responseObserver) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
-	/**
-	 * Add zone data in the environment.
-	 * 
-	 * @param home A home.
-	 * @param zone A zone.
-	 * @return True if data updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#addZone(com.connectlife.clapi.Home, com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean addZone(Home home, Zone zone) throws TException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Delete zone in the environment.
-	 * 
-	 * @param zone A zone.
-	 * @return True if data was deleted.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#deleteZone(com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean deleteZone(Zone zone) throws TException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Add or update room data in the environment.
-	 * 
-	 * @param zone A zone.
-	 * @param room A room.
-	 * @return True if data was updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#addRoom(com.connectlife.clapi.Zone, com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean addRoom(Zone zone, Room room) throws TException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Delete room data in the environment.
-	 * 
-	 * @param room A room.
-	 * @return True if data was deleted.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#deleteRoom(com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean deleteRoom(Room room) throws TException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * Return list of Accessories not matched in a room.
-	 * 
-	 * @return List of Accessory.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#getNotMatchedAccessories()
-	 */
-	@Override
-	public List<Accessory> getNotMatchedAccessories() throws TException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Attach a Accessory at one room.
-	 * 
-	 * @param room A room.
-	 * @param accessory A accessory.
-	 * @return True if data was correctly updated.
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#attachAccessory(com.connectlife.clapi.Room, com.connectlife.clapi.Accessory)
-	 */
-	@Override
-	public boolean attachAccessory(Room room, Accessory accessory) throws TException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @return
-	 * @throws TException
-	 * @see com.connectlife.clapi.CLApi.Iface#generateUID()
-	 */
-	@Override
-	public String generateUID() throws TException {
-		return UIDGenerator.getUID();
-	}
 }

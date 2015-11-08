@@ -24,7 +24,7 @@ import org.apache.thrift.TException;
 
 import com.connectlife.clapi.Data;
 // internal
-import com.connectlife.coreserver.apiserver.ApiProcessor;
+import com.connectlife.coreserver.apiserver.ApiProcessorOld;
 import com.connectlife.test.coreserver.environment.CreateTestData;
 
 /**
@@ -35,7 +35,7 @@ import com.connectlife.test.coreserver.environment.CreateTestData;
  */
 public class ApiProcessorTest {
 	
-	ApiProcessor apiprocessor;
+	ApiProcessorOld apiprocessor;
 
 	/**
 	 * @throws java.lang.Exception
@@ -58,7 +58,7 @@ public class ApiProcessorTest {
 	public void setUp() throws Exception {
 		
 		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
-		apiprocessor = injector.getInstance(ApiProcessor.class);
+		apiprocessor = injector.getInstance(ApiProcessorOld.class);
 	}
 
 	/**
@@ -71,9 +71,9 @@ public class ApiProcessorTest {
 	@Test
 	public void checkCompatibilitySameTest() {
 
-		int version_id_1 = ApiProcessor.API_SERVER_VERSION[0];
-		int version_id_2 = ApiProcessor.API_SERVER_VERSION[1];
-		int version_id_3 = ApiProcessor.API_SERVER_VERSION[2];
+		int version_id_1 = ApiProcessorOld.API_SERVER_VERSION[0];
+		int version_id_2 = ApiProcessorOld.API_SERVER_VERSION[1];
+		int version_id_3 = ApiProcessorOld.API_SERVER_VERSION[2];
 		
 		try {
 			assertTrue(apiprocessor.checkCompatibility(new String( 	version_id_1 + 
@@ -89,9 +89,9 @@ public class ApiProcessorTest {
 	@Test
 	public void checkCompatibilityUpValidTest() {
 		
-		int version_id_1 = ApiProcessor.API_SERVER_VERSION[0] + 1000;
-		int version_id_2 = ApiProcessor.API_SERVER_VERSION[1] + 10;
-		int version_id_3 = ApiProcessor.API_SERVER_VERSION[2] + 1000;
+		int version_id_1 = ApiProcessorOld.API_SERVER_VERSION[0] + 1000;
+		int version_id_2 = ApiProcessorOld.API_SERVER_VERSION[1] + 10;
+		int version_id_3 = ApiProcessorOld.API_SERVER_VERSION[2] + 1000;
 		
 		try {
 			assertTrue(apiprocessor.checkCompatibility(new String( 	version_id_1 + 
@@ -107,9 +107,9 @@ public class ApiProcessorTest {
 	@Test
 	public void checkCompatibilityDownValidTest() {
 		
-		int version_id_1 = ApiProcessor.API_SERVER_VERSION[0] - 1000;
-		int version_id_2 = ApiProcessor.API_SERVER_VERSION[1] + 500;
-		int version_id_3 = ApiProcessor.API_SERVER_VERSION[2] - 1000;
+		int version_id_1 = ApiProcessorOld.API_SERVER_VERSION[0] - 1000;
+		int version_id_2 = ApiProcessorOld.API_SERVER_VERSION[1] + 500;
+		int version_id_3 = ApiProcessorOld.API_SERVER_VERSION[2] - 1000;
 		
 		try {
 			assertTrue(apiprocessor.checkCompatibility(new String( 	version_id_1 + 
@@ -125,9 +125,9 @@ public class ApiProcessorTest {
 	@Test
 	public void checkCompatibilityUpInvalidTest() {
 		
-		int version_id_1 = ApiProcessor.API_SERVER_VERSION[0] + 1000;
-		int version_id_2 = ApiProcessor.API_SERVER_VERSION[1] + 500;
-		int version_id_3 = ApiProcessor.API_SERVER_VERSION[2] + 2000;
+		int version_id_1 = ApiProcessorOld.API_SERVER_VERSION[0] + 1000;
+		int version_id_2 = ApiProcessorOld.API_SERVER_VERSION[1] + 500;
+		int version_id_3 = ApiProcessorOld.API_SERVER_VERSION[2] + 2000;
 		
 		try {
 			assertFalse(apiprocessor.checkCompatibility(new String( version_id_1 + 
@@ -143,9 +143,9 @@ public class ApiProcessorTest {
 	@Test
 	public void checkCompatibilityDownInvalidTest() {
 		
-		int version_id_1 = ApiProcessor.API_SERVER_VERSION[0] - 1000;
-		int version_id_2 = ApiProcessor.API_SERVER_VERSION[1] - 500;
-		int version_id_3 = ApiProcessor.API_SERVER_VERSION[2] - 2000;
+		int version_id_1 = ApiProcessorOld.API_SERVER_VERSION[0] - 1000;
+		int version_id_2 = ApiProcessorOld.API_SERVER_VERSION[1] - 500;
+		int version_id_3 = ApiProcessorOld.API_SERVER_VERSION[2] - 2000;
 		
 		try {
 			assertFalse(apiprocessor.checkCompatibility(new String( version_id_1 + 

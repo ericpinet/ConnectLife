@@ -14,23 +14,308 @@ option java_multiple_files = true;
 option java_package = "com.clapi";
 option java_outer_classname = "CLApiProtos";
 
-// The CLAPI definition.
+// The CLAPI definition. ////////////////////////////////////////
 service CLApi {
 
-  // Get version of server.
-  rpc getVersion (clapi.GetVersionRequest) returns (clapi.GetVersionResponse) {}
+  	// Get version of server.
+  	rpc getVersion (clapi.GetVersionRequest) returns (clapi.GetVersionResponse) {}
 
-  // Get
+	// Wait next notification. (Asynchrony message).
+	rpc waitNotification (clapi.WaitNotificationRequest) returns (clapi.WaitNotificationResponse) {}
 
+	// Person management
+	rpc addPerson(clapi.AddPersonRequest) returns (clapi.AddPersonResponse) {}
+	rpc updatePerson(clapi.UpdatePersonRequest) returns (clapi.UpdatePersonResponse) {}
+	rpc deletePerson(clapi.DeletePersonRequest) returns (clapi.DeletePersonResponse) {}
+	rpc deleteAllPerson(clapi.DeleteAllPersonRequest) returns (clapi.DeleteAllPersonResponse) {}
 }
 
-// The request of getVersion containing nothing
+// Declaration of message request and response //////////////////
+
+// The request/response of getVersion containing nothing
 message GetVersionRequest {
 }
-
-// The response message containing the version number of the server.
 message GetVersionResponse {
   required string version = 1;
+}
+
+// The request/response for the wait notification
+message WaitNotificationRequest {
+}
+message WaitNotificationResponse{
+	required Notification notification = 1;
+}
+
+// The request/response for addPerson
+message AddPersonRequest {
+	required Person person = 1;
+}
+message AddPersonResponse {
+}
+
+// The request/response for updatePerson
+message UpdatePersonRequest {
+	required Person person = 1;
+}
+message UpdatePersonResponse {
+}
+
+// The request/response for deletePerson
+message DeletePersonRequest {
+	required Person person = 1;
+}
+message DeletePersonResponse {
+}
+
+// The request/response for deleteAllPerson
+message DeleteAllPersonRequest {
+}
+message DeleteAllPersonResponse {
+}
+
+
+
+// Declaration of base objects ///////////////////////////////////
+
+// Email
+message Email {
+
+	// Email Type
+	enum EmailType {
+		PERSONAL = 0;
+		WORK = 1;
+		OTHER = 2;
+	}
+
+	// Email
+	required string email = 1;
+
+	// Email Type
+	optional EmailType type = 2 [default = PERSONAL];
+}
+
+// Phone
+message Phone {
+
+	// Phone Type
+	enum PhoneType {
+		PERSONAL = 0;
+		WORK = 1;
+		OTHER = 2;
+	}
+
+	// Phone
+	required string phone = 1;
+
+	// Phone Type
+	optional PhoneType type = 2 [default = PERSONAL];
+}
+
+// Address
+message Address{
+
+	// Address Type
+	enum AddressType {
+		PERSONAL = 0;
+		WORK = 1;
+		OTHER = 2;
+	}
+
+	// type
+	optional AddressType type = 1 [default = PERSONAL];
+
+	// Street
+	required string street = 2;
+
+	// City
+	required string city = 3;
+
+	// Region
+	required string region = 4;
+
+	// Zip Code
+	required string zipcode = 5;
+
+	// Country
+	required string country = 6;
+
+}
+
+// Person
+message Person {
+
+	// UID
+	required string uid = 1;
+
+	// First name
+	required string firstname = 2;
+
+	// Last name
+	required string lastname = 3;
+
+	// Emails
+	repeated Email emails = 4;
+
+	// Phones
+	repeated Phone phones = 5;
+
+	// Address
+	repeated Address addresses = 6;
+
+	// Image
+	optional string imageurl = 7;
+}
+
+
+// Characteristic is a item for a service
+message Characteristic {
+
+	// CharacteristicAccessMode for a service characteristic
+	enum CharacteristicAccessMode {
+		READ_ONLY = 1;
+		WRITE_ONLY = 2;
+		READ_WRITE = 3;
+	}
+
+	// CharacteristicType for a service characteristic
+	enum CharacteristicType {
+		BOOLEAN = 1;
+		ENUM = 2;
+		FLOAT = 3;
+		INTEGER = 4;
+		STATIC_STRING = 5;
+		WRITE_ONLY_BOOLEAN = 6;
+	}
+
+	// CharacteristicEventType for a service characteristic
+	enum CharacteristicEventType {
+		NO_EVENT = 1;
+		EVENT = 2;
+	}
+
+	// UID of the characteristic
+	required string uid = 1;
+
+	// Access mode for this characteristic
+	required CharacteristicAccessMode mode = 2;
+
+	// Type of this characteristic
+	required CharacteristicType type = 3;
+
+	// If the characteristic is a event
+	required CharacteristicEventType event = 4;
+}
+
+// Service of a accessory
+message Service {
+
+	// UID of the service
+	required string uid = 1;
+
+	// List of Characteristic in this service
+	repeated Characteristic characteristics = 2;
+}
+
+// Accessory
+message Accessory {
+
+	// Accessory Type
+	enum AccessoryType {
+		LIGHT = 1;
+		LIGHT_DIMMABLE = 2;
+		LIGHT_COLORED = 3;
+		LIGHT_COLORED_DIMMABLE = 4;
+		FAN = 5;
+		AUTOMATIC_DOOR = 6;
+		LOCK_MECHANISM = 7;
+		THERMOSTAT = 8;
+		SWITCH = 9;
+		CONTROL_BOARD = 10;
+		CAM = 11;
+	}
+
+	// UID of the accessory
+	required string uid = 1;
+
+	// Label of the accessory
+	required string label = 2;
+
+	// Manufacturer of the accessory
+	required string manufacturer = 3;
+
+	// Model of the accessory
+	required string model = 4;
+
+	// Serial Number of the accessory
+	required string serialnumber = 5;
+
+	// List of services in the accessory
+	repeated Service services = 6;
+
+	// image url for the accessory
+	optional string imageurl = 7;
+}
+
+// Room
+message Room {
+
+	// UID of the room
+	required string uid = 1;
+
+	// Label of the room
+	required string label = 2;
+
+	// List accessory in this room
+	repeated Accessory accessories = 3;
+
+	// Image url for this room
+	optional string imageurl = 4;
+}
+
+// Zone
+message Zone {
+
+	// UID of the zone
+	required string uid = 1;
+
+	// Label of the zone
+	required string label = 2;
+
+	// List of rooms in this zone
+	repeated Room rooms = 3;
+
+	// Image url for this zone
+	optional string imageurl = 4;
+}
+
+// Home
+message Home {
+
+	// UID of the home
+	required string uid = 1;
+
+	// Label of the home
+	required string label = 2;
+
+	// List of zones in this home
+	repeated Zone zones = 3;
+
+	// Image url for this home
+	optional string imageurl = 4;
+}
+
+// Data
+message Data {
+
+	// Version number of the environment data
+	required int32 version = 1;
+
+	// List of persons in the environment data
+	repeated Person persons = 2;
+
+	// List of homes in the environment data
+	repeated Home homes = 3;
+
 }
 
 // The notification message.
@@ -39,7 +324,12 @@ message Notification {
 	// enum of type
 	enum NotificationType {
 	    ENV_UPDATED = 0;
+	    MESSAGE = 1;
 	}
 
+	// Type of notification
 	required NotificationType type = 1;
+
+	// Data of the notification
+	optional string data = 2;
 }
