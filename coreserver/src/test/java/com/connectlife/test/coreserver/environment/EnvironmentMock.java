@@ -8,15 +8,9 @@
  */
 package com.connectlife.test.coreserver.environment;
 
-import java.util.List;
 import java.util.Observable;
 
-import com.connectlife.clapi.Accessory;
-import com.connectlife.clapi.Data;
-import com.connectlife.clapi.Home;
-import com.connectlife.clapi.Person;
-import com.connectlife.clapi.Room;
-import com.connectlife.clapi.Zone;
+import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.gson.Gson;
@@ -109,114 +103,14 @@ public class EnvironmentMock extends Observable implements Environment {
 	}
 
 	/**
-	 * @param person
+	 * @param firstname
+	 * @param lastname
+	 * @param imageurl
 	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.connectlife.clapi.Person)
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public boolean addPerson(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param person
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.connectlife.clapi.Person)
-	 */
-	@Override
-	public boolean deletePerson(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addHome(com.connectlife.clapi.Home)
-	 */
-	@Override
-	public boolean addHome(Home home) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteHome(com.connectlife.clapi.Home)
-	 */
-	@Override
-	public boolean deleteHome(Home home) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @param zone
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addZone(com.connectlife.clapi.Home, com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean addZone(Home home, Zone zone) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param zone
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteZone(com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean deleteZone(Zone zone) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param zone
-	 * @param room
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addRoom(com.connectlife.clapi.Zone, com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean addRoom(Zone zone, Room room) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param room
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteRoom(com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean deleteRoom(Room room) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#getNotMatchedAccessories()
-	 */
-	@Override
-	public List<Accessory> getNotMatchedAccessories() {
-		// TODO Auto-generated method stub
+	public String addPerson(String firstname, String lastname, String imageurl) {
 		return null;
-	}
-
-	/**
-	 * @param room
-	 * @param accessory
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#attachAccessory(com.connectlife.clapi.Room, com.connectlife.clapi.Accessory)
-	 */
-	@Override
-	public boolean attachAccessory(Room room, Accessory accessory) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

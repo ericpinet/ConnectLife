@@ -9,7 +9,7 @@
 package com.connectlife.coreserver.apiserver;
 
 // external
-import com.connectlife.clapi.Notification;
+import com.clapi.Notification;
 
 // internal
 
@@ -40,12 +40,5 @@ public interface Api {
 	 * Unload the module. After, it's possible to init again. 
 	 */
 	public void unInit();
-	
-	/**
-	 * Send notification to all client connected.
-	 * 
-	 * @param _notification Notification to send at client.
-	 */
-	public void sendNotificationAllClient(Notification _notification);
 
 }

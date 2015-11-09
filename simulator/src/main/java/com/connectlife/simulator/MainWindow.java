@@ -17,7 +17,6 @@ import java.util.Iterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.thrift.TException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
@@ -26,8 +25,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
-import com.connectlife.clapi.*;
-import com.connectlife.clapi.client.Client;
+import com.clapi.data.*;
 import com.clapi.client.NotificationListener;
 
 /**
@@ -47,7 +45,7 @@ public class MainWindow implements NotificationListener {
 	private Text textHost;
 	private Text textPort;
 	private Label lblStatus;
-	private Client client;
+	private CLApiClient client;
 	
 	private static final String HOST = "127.0.0.1";
 	
@@ -62,8 +60,8 @@ public class MainWindow implements NotificationListener {
 	static class startPerson implements Runnable{
 		public Person person;
 		public Shell shell;
-		public Client client;
-		public startPerson(Person _person, Shell _shell, Client _client){
+		public CLApiClient client;
+		public startPerson(Person _person, Shell _shell, CLApiClient _client){
 			person = _person;
 			shell = _shell;
 			client = _client;
@@ -184,45 +182,27 @@ public class MainWindow implements NotificationListener {
 	}
 	
 	/**
-	 * 
+	 * Connect client
 	 */
 	private void connectionWithServer(){
 		
 		try {
 			
-			CLApiClient clapiclient = new CLApiClient(HOST, Integer.parseInt(PORT), this);
-			try {
-				m_logger.info( "Get server version : " + clapiclient.getVersion() );
-				
-				for(int i=0 ; i<10 ; i++){
-					
-					clapiclient.waitNotification();
-					m_logger.info( "WaitNotification sended." );
-					
-					m_logger.info( "Get server version : " + clapiclient.getVersion() );
-				}
-				
-				for(int i=0 ; i<10 ; i++){
-					m_logger.info( "Get server version : " + clapiclient.getVersion() );
-					Thread.sleep(100);
-				}
-				
-			    
-		    } finally {
-		    	//clapiclient.shutdown();
-		    }
-			
-			Thread.sleep(100000);
-			
-			/*
-			if(null != client){
-				client.close();
+			if(client!=null){
+				client.shutdown();
 			}
-			client = new Client(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
-			m_logger.info( "Check compatibility with the server : " + client.checkCompatibility("1.1.0") );
+			CLApiClient client = new CLApiClient(HOST, Integer.parseInt(PORT), this);
 			
-			Data env = client.getData();
+			m_logger.info( "Get server version : " + client.getVersion() );
+			
+			m_logger.info( "check compatibility with the server : " + client.checkCompatibility() );
+			
+			
+			String json_data = client.getJsonData();
+			
+			Gson gson = new Gson();
+			Data env = gson.fromJson(json_data, Data.class);
 			
 			// open persons
 			Iterator<Person> itrp = env.getPersons().iterator();
@@ -231,15 +211,14 @@ public class MainWindow implements NotificationListener {
 			}
 			  
 			// open homes
-			Iterator<Home> itrh = env.getHomeIterator();
+			Iterator<Home> itrh = env.getHomes().iterator();
 			while(itrh.hasNext()){
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
-			*/
 			
+			client.waitNotification();
+			m_logger.info("Connected.");
 			lblStatus.setText("Connected.");
-			
-			//client.close();
 			
 		}
 		catch( Exception e){
@@ -248,33 +227,21 @@ public class MainWindow implements NotificationListener {
 		}
 	}
 	
+	/**
+	 * Disconnect client
+	 */
 	private void disconnect(){
-		if(client != null)
-			client.close();
 		
+		try {
+			if(client != null){
+				client.shutdown();
+			}
+		} catch (InterruptedException e) {
+			m_logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		m_logger.info("Not connected.");
 		lblStatus.setText("Not connected.");
-	}
-	
-	private static void perform(CLApi.Client client, Shell _shell, Client _client) throws TException
-	{
-	    String responseBody = client.getEnvironmentDataJson();
-	    
-	    // Deal with the response.
-		// Use caution: ensure correct character encoding and is not binary data
-		Gson gson = new Gson();
-		Data env = gson.fromJson(new String(responseBody), Data.class);
-		  
-		// open persons
-		Iterator<Person> itrp = env.getPersons().iterator();
-		while(itrp.hasNext()){
-			_shell.getDisplay().asyncExec( new startPerson (itrp.next(), _shell, _client) );
-		}
-		  
-		// open homes
-		Iterator<Home> itrh = env.getHomeIterator();
-		while(itrh.hasNext()){
-			_shell.getDisplay().asyncExec( new startHome(itrh.next(), _shell) );
-		}
 	}
 
 	/**
@@ -284,7 +251,6 @@ public class MainWindow implements NotificationListener {
 	@Override
 	public void notificationReceive(com.clapi.Notification _notification) {
 		m_logger.info( "WaitNotification recieved." );
-		
 	}
 
 }

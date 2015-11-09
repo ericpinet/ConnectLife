@@ -24,12 +24,14 @@ import java.util.Iterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.thrift.TException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 
-import com.connectlife.clapi.*;
-import com.connectlife.clapi.client.Client;
+import com.clapi.client.CLApiClient;
+import com.clapi.data.*;
+import com.clapi.data.Address.AddressType;
+import com.clapi.data.Email.EmailType;
+import com.clapi.data.Phone.PhoneType;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -59,14 +61,14 @@ public class PersonWindow extends Dialog {
 	private Table tableAddress;
 	
 	private Person person;
-	private Client client;
+	private CLApiClient client;
 
 	/**
 	 * Create the dialog.
 	 * @param parent
 	 * @param style
 	 */
-	public PersonWindow(Shell parent, int style, Person _person, Client _client) {
+	public PersonWindow(Shell parent, int style, Person _person, CLApiClient _client) {
 		super(parent, style);
 		setText("Person");
 		person = _person;
@@ -143,7 +145,7 @@ public class PersonWindow extends Dialog {
 		tblclmnType.setText("Type");
 		
 		// load table informations.
-		Iterator<Email> itr = person.getEmailsIterator();
+		Iterator<Email> itr = person.getEmails().iterator();
 		if(null != itr){
 			while(itr.hasNext()){
 				Email email = itr.next();
@@ -179,7 +181,7 @@ public class PersonWindow extends Dialog {
 		tblclmnType_1.setText("Type");
 		
 		// load table informations.
-		Iterator<Phone> itrp = person.getPhonesIterator();
+		Iterator<Phone> itrp = person.getPhones().iterator();
 		if(null != itrp){
 			while(itrp.hasNext()){
 				Phone phone = itrp.next();
@@ -233,7 +235,7 @@ public class PersonWindow extends Dialog {
 		tblclmnType_2.setText("Type");
 		
 		// load table informations.
-		Iterator<Address> itra = person.getAddressIterator();
+		Iterator<Address> itra = person.getAddresses().iterator();
 		if(null != itra){
 			while(itra.hasNext()){
 				Address address = itra.next();
@@ -265,7 +267,7 @@ public class PersonWindow extends Dialog {
 				
 				try {
 					person.setFirstname("Eric2");
-					client.addPerson(person);
+					client.addPerson(person.getFirstname(), person.getLastname(), "");
 					
 				} catch (Exception e1) {
 					m_logger.error(e1.getMessage());

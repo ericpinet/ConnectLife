@@ -19,6 +19,10 @@ public  final class UpdatePersonRequest extends
     super(builder);
   }
   private UpdatePersonRequest() {
+    uid_ = "";
+    firstname_ = "";
+    lastname_ = "";
+    imageurl_ = "";
   }
 
   @java.lang.Override
@@ -49,16 +53,27 @@ public  final class UpdatePersonRequest extends
             break;
           }
           case 10: {
-            com.clapi.Person.Builder subBuilder = null;
-            if (((bitField0_ & 0x00000001) == 0x00000001)) {
-              subBuilder = person_.toBuilder();
-            }
-            person_ = input.readMessage(com.clapi.Person.parser(), extensionRegistry);
-            if (subBuilder != null) {
-              subBuilder.mergeFrom(person_);
-              person_ = subBuilder.buildPartial();
-            }
+            com.google.protobuf.ByteString bs = input.readBytes();
             bitField0_ |= 0x00000001;
+            uid_ = bs;
+            break;
+          }
+          case 18: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000002;
+            firstname_ = bs;
+            break;
+          }
+          case 26: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000004;
+            lastname_ = bs;
+            break;
+          }
+          case 34: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000008;
+            imageurl_ = bs;
             break;
           }
         }
@@ -87,25 +102,172 @@ public  final class UpdatePersonRequest extends
   }
 
   private int bitField0_;
-  public static final int PERSON_FIELD_NUMBER = 1;
-  private com.clapi.Person person_;
+  public static final int UID_FIELD_NUMBER = 1;
+  private volatile java.lang.Object uid_;
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  public boolean hasPerson() {
+  public boolean hasUid() {
     return ((bitField0_ & 0x00000001) == 0x00000001);
   }
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  public com.clapi.Person getPerson() {
-    return person_ == null ? com.clapi.Person.getDefaultInstance() : person_;
+  public java.lang.String getUid() {
+    java.lang.Object ref = uid_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        uid_ = s;
+      }
+      return s;
+    }
   }
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  public com.clapi.PersonOrBuilder getPersonOrBuilder() {
-    return person_ == null ? com.clapi.Person.getDefaultInstance() : person_;
+  public com.google.protobuf.ByteString
+      getUidBytes() {
+    java.lang.Object ref = uid_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      uid_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int FIRSTNAME_FIELD_NUMBER = 2;
+  private volatile java.lang.Object firstname_;
+  /**
+   * <code>required string firstname = 2;</code>
+   */
+  public boolean hasFirstname() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>required string firstname = 2;</code>
+   */
+  public java.lang.String getFirstname() {
+    java.lang.Object ref = firstname_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        firstname_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>required string firstname = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getFirstnameBytes() {
+    java.lang.Object ref = firstname_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      firstname_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LASTNAME_FIELD_NUMBER = 3;
+  private volatile java.lang.Object lastname_;
+  /**
+   * <code>optional string lastname = 3;</code>
+   */
+  public boolean hasLastname() {
+    return ((bitField0_ & 0x00000004) == 0x00000004);
+  }
+  /**
+   * <code>optional string lastname = 3;</code>
+   */
+  public java.lang.String getLastname() {
+    java.lang.Object ref = lastname_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        lastname_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>optional string lastname = 3;</code>
+   */
+  public com.google.protobuf.ByteString
+      getLastnameBytes() {
+    java.lang.Object ref = lastname_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      lastname_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int IMAGEURL_FIELD_NUMBER = 4;
+  private volatile java.lang.Object imageurl_;
+  /**
+   * <code>optional string imageurl = 4;</code>
+   */
+  public boolean hasImageurl() {
+    return ((bitField0_ & 0x00000008) == 0x00000008);
+  }
+  /**
+   * <code>optional string imageurl = 4;</code>
+   */
+  public java.lang.String getImageurl() {
+    java.lang.Object ref = imageurl_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        imageurl_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>optional string imageurl = 4;</code>
+   */
+  public com.google.protobuf.ByteString
+      getImageurlBytes() {
+    java.lang.Object ref = imageurl_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      imageurl_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
   }
 
   private byte memoizedIsInitialized = -1;
@@ -114,11 +276,11 @@ public  final class UpdatePersonRequest extends
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
-    if (!hasPerson()) {
+    if (!hasUid()) {
       memoizedIsInitialized = 0;
       return false;
     }
-    if (!getPerson().isInitialized()) {
+    if (!hasFirstname()) {
       memoizedIsInitialized = 0;
       return false;
     }
@@ -129,7 +291,16 @@ public  final class UpdatePersonRequest extends
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      output.writeMessage(1, getPerson());
+      com.google.protobuf.GeneratedMessage.writeString(output, 1, uid_);
+    }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 2, firstname_);
+    }
+    if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 3, lastname_);
+    }
+    if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 4, imageurl_);
     }
     unknownFields.writeTo(output);
   }
@@ -140,8 +311,16 @@ public  final class UpdatePersonRequest extends
 
     size = 0;
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(1, getPerson());
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, uid_);
+    }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, firstname_);
+    }
+    if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(3, lastname_);
+    }
+    if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(4, imageurl_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -255,17 +434,18 @@ public  final class UpdatePersonRequest extends
     }
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        getPersonFieldBuilder();
       }
     }
     public Builder clear() {
       super.clear();
-      if (personBuilder_ == null) {
-        person_ = null;
-      } else {
-        personBuilder_.clear();
-      }
+      uid_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
+      firstname_ = "";
+      bitField0_ = (bitField0_ & ~0x00000002);
+      lastname_ = "";
+      bitField0_ = (bitField0_ & ~0x00000004);
+      imageurl_ = "";
+      bitField0_ = (bitField0_ & ~0x00000008);
       return this;
     }
 
@@ -293,11 +473,19 @@ public  final class UpdatePersonRequest extends
       if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
         to_bitField0_ |= 0x00000001;
       }
-      if (personBuilder_ == null) {
-        result.person_ = person_;
-      } else {
-        result.person_ = personBuilder_.build();
+      result.uid_ = uid_;
+      if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        to_bitField0_ |= 0x00000002;
       }
+      result.firstname_ = firstname_;
+      if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        to_bitField0_ |= 0x00000004;
+      }
+      result.lastname_ = lastname_;
+      if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        to_bitField0_ |= 0x00000008;
+      }
+      result.imageurl_ = imageurl_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -314,8 +502,25 @@ public  final class UpdatePersonRequest extends
 
     public Builder mergeFrom(com.clapi.UpdatePersonRequest other) {
       if (other == com.clapi.UpdatePersonRequest.getDefaultInstance()) return this;
-      if (other.hasPerson()) {
-        mergePerson(other.getPerson());
+      if (other.hasUid()) {
+        bitField0_ |= 0x00000001;
+        uid_ = other.uid_;
+        onChanged();
+      }
+      if (other.hasFirstname()) {
+        bitField0_ |= 0x00000002;
+        firstname_ = other.firstname_;
+        onChanged();
+      }
+      if (other.hasLastname()) {
+        bitField0_ |= 0x00000004;
+        lastname_ = other.lastname_;
+        onChanged();
+      }
+      if (other.hasImageurl()) {
+        bitField0_ |= 0x00000008;
+        imageurl_ = other.imageurl_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -323,10 +528,10 @@ public  final class UpdatePersonRequest extends
     }
 
     public final boolean isInitialized() {
-      if (!hasPerson()) {
+      if (!hasUid()) {
         return false;
       }
-      if (!getPerson().isInitialized()) {
+      if (!hasFirstname()) {
         return false;
       }
       return true;
@@ -351,122 +556,308 @@ public  final class UpdatePersonRequest extends
     }
     private int bitField0_;
 
-    private com.clapi.Person person_ = null;
-    private com.google.protobuf.SingleFieldBuilder<
-        com.clapi.Person, com.clapi.Person.Builder, com.clapi.PersonOrBuilder> personBuilder_;
+    private java.lang.Object uid_ = "";
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string uid = 1;</code>
      */
-    public boolean hasPerson() {
+    public boolean hasUid() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string uid = 1;</code>
      */
-    public com.clapi.Person getPerson() {
-      if (personBuilder_ == null) {
-        return person_ == null ? com.clapi.Person.getDefaultInstance() : person_;
-      } else {
-        return personBuilder_.getMessage();
-      }
-    }
-    /**
-     * <code>required .clapi.Person person = 1;</code>
-     */
-    public Builder setPerson(com.clapi.Person value) {
-      if (personBuilder_ == null) {
-        if (value == null) {
-          throw new NullPointerException();
+    public java.lang.String getUid() {
+      java.lang.Object ref = uid_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uid_ = s;
         }
-        person_ = value;
-        onChanged();
+        return s;
       } else {
-        personBuilder_.setMessage(value);
+        return (java.lang.String) ref;
       }
-      bitField0_ |= 0x00000001;
-      return this;
     }
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string uid = 1;</code>
      */
-    public Builder setPerson(
-        com.clapi.Person.Builder builderForValue) {
-      if (personBuilder_ == null) {
-        person_ = builderForValue.build();
-        onChanged();
+    public com.google.protobuf.ByteString
+        getUidBytes() {
+      java.lang.Object ref = uid_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uid_ = b;
+        return b;
       } else {
-        personBuilder_.setMessage(builderForValue.build());
+        return (com.google.protobuf.ByteString) ref;
       }
-      bitField0_ |= 0x00000001;
-      return this;
     }
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string uid = 1;</code>
      */
-    public Builder mergePerson(com.clapi.Person value) {
-      if (personBuilder_ == null) {
-        if (((bitField0_ & 0x00000001) == 0x00000001) &&
-            person_ != null &&
-            person_ != com.clapi.Person.getDefaultInstance()) {
-          person_ =
-            com.clapi.Person.newBuilder(person_).mergeFrom(value).buildPartial();
-        } else {
-          person_ = value;
-        }
-        onChanged();
-      } else {
-        personBuilder_.mergeFrom(value);
-      }
-      bitField0_ |= 0x00000001;
-      return this;
-    }
-    /**
-     * <code>required .clapi.Person person = 1;</code>
-     */
-    public Builder clearPerson() {
-      if (personBuilder_ == null) {
-        person_ = null;
-        onChanged();
-      } else {
-        personBuilder_.clear();
-      }
-      bitField0_ = (bitField0_ & ~0x00000001);
-      return this;
-    }
-    /**
-     * <code>required .clapi.Person person = 1;</code>
-     */
-    public com.clapi.Person.Builder getPersonBuilder() {
-      bitField0_ |= 0x00000001;
+    public Builder setUid(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uid_ = value;
       onChanged();
-      return getPersonFieldBuilder().getBuilder();
+      return this;
     }
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string uid = 1;</code>
      */
-    public com.clapi.PersonOrBuilder getPersonOrBuilder() {
-      if (personBuilder_ != null) {
-        return personBuilder_.getMessageOrBuilder();
+    public Builder clearUid() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      uid_ = getDefaultInstance().getUid();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public Builder setUidBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uid_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object firstname_ = "";
+    /**
+     * <code>required string firstname = 2;</code>
+     */
+    public boolean hasFirstname() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string firstname = 2;</code>
+     */
+    public java.lang.String getFirstname() {
+      java.lang.Object ref = firstname_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          firstname_ = s;
+        }
+        return s;
       } else {
-        return person_ == null ?
-            com.clapi.Person.getDefaultInstance() : person_;
+        return (java.lang.String) ref;
       }
     }
     /**
-     * <code>required .clapi.Person person = 1;</code>
+     * <code>required string firstname = 2;</code>
      */
-    private com.google.protobuf.SingleFieldBuilder<
-        com.clapi.Person, com.clapi.Person.Builder, com.clapi.PersonOrBuilder> 
-        getPersonFieldBuilder() {
-      if (personBuilder_ == null) {
-        personBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-            com.clapi.Person, com.clapi.Person.Builder, com.clapi.PersonOrBuilder>(
-                getPerson(),
-                getParentForChildren(),
-                isClean());
-        person_ = null;
+    public com.google.protobuf.ByteString
+        getFirstnameBytes() {
+      java.lang.Object ref = firstname_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        firstname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
       }
-      return personBuilder_;
+    }
+    /**
+     * <code>required string firstname = 2;</code>
+     */
+    public Builder setFirstname(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      firstname_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string firstname = 2;</code>
+     */
+    public Builder clearFirstname() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      firstname_ = getDefaultInstance().getFirstname();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string firstname = 2;</code>
+     */
+    public Builder setFirstnameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      firstname_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object lastname_ = "";
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public boolean hasLastname() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public java.lang.String getLastname() {
+      java.lang.Object ref = lastname_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          lastname_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public com.google.protobuf.ByteString
+        getLastnameBytes() {
+      java.lang.Object ref = lastname_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        lastname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public Builder setLastname(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+      lastname_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public Builder clearLastname() {
+      bitField0_ = (bitField0_ & ~0x00000004);
+      lastname_ = getDefaultInstance().getLastname();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string lastname = 3;</code>
+     */
+    public Builder setLastnameBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000004;
+      lastname_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object imageurl_ = "";
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public boolean hasImageurl() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public java.lang.String getImageurl() {
+      java.lang.Object ref = imageurl_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          imageurl_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getImageurlBytes() {
+      java.lang.Object ref = imageurl_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        imageurl_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public Builder setImageurl(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+      imageurl_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public Builder clearImageurl() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      imageurl_ = getDefaultInstance().getImageurl();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string imageurl = 4;</code>
+     */
+    public Builder setImageurlBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+      imageurl_ = value;
+      onChanged();
+      return this;
     }
 
     // @@protoc_insertion_point(builder_scope:clapi.UpdatePersonRequest)

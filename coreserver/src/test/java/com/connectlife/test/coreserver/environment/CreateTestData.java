@@ -13,23 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 // internal
-import com.connectlife.clapi.Accessory;
-import com.connectlife.clapi.Address;
-import com.connectlife.clapi.AddressType;
-import com.connectlife.clapi.Characteristic;
-import com.connectlife.clapi.CharacteristicAccessMode;
-import com.connectlife.clapi.CharacteristicEventType;
-import com.connectlife.clapi.CharacteristicType;
-import com.connectlife.clapi.Data;
-import com.connectlife.clapi.Email;
-import com.connectlife.clapi.EmailType;
-import com.connectlife.clapi.Home;
-import com.connectlife.clapi.Person;
-import com.connectlife.clapi.Phone;
-import com.connectlife.clapi.PhoneType;
-import com.connectlife.clapi.Room;
-import com.connectlife.clapi.Service;
-import com.connectlife.clapi.Zone;
+import com.clapi.data.*;
+import com.clapi.data.Address.AddressType;
+import com.clapi.data.Characteristic.CharacteristicAccessMode;
+import com.clapi.data.Characteristic.CharacteristicEventType;
+import com.clapi.data.Characteristic.CharacteristicType;
+import com.clapi.data.Email.EmailType;
+import com.clapi.data.Phone.PhoneType;
+import com.connectlife.coreserver.environment.UIDGenerator;
 
 
 /**
@@ -41,18 +32,19 @@ import com.connectlife.clapi.Zone;
 public class CreateTestData {
 	
 	public static Data getData(){
-		Data data = null;
+		Data ret_env = null;
 		
 		// Person
 		List<Person> persons = new ArrayList<Person>();
-		Person eric = new Person("1", "Eric");
+		
+		Person eric = new Person(UIDGenerator.getUID(), "Eric");
 		eric.setLastname("Pinet");
-		eric.addToEmails(new Email(EmailType.PERSONAL, "pineri01@gmail.com"));
-		eric.addToEmails(new Email(EmailType.WORK, "eric.pinet@imagemsoft.com"));
-		eric.addToEmails(new Email(EmailType.OTHER, "eric_pinet@hotmail.com"));
-		eric.addToPhones(new Phone(PhoneType.CELL, "418 998-2481"));
-		eric.addToPhones(new Phone(PhoneType.OTHER, "418 548-1684"));
-		Address ericadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
+		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
+		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
@@ -60,67 +52,69 @@ public class CreateTestData {
 		eric.addToAddress(ericadd);
 		persons.add(eric);
 		
-		Person qiaomei = new Person("2", "Qiaomei");
+		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addToEmails(new Email(EmailType.PERSONAL, "qiaomei.wang.wqm@gmail.com"));
-		qiaomei.addToEmails(new Email(EmailType.WORK, "qiaomei.wang@frima.com"));
-		qiaomei.addToPhones(new Phone(PhoneType.CELL, "438 348-1699"));
-		Address qiaomeiadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addToPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		
+		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
-		qiaomei.addToAddress(ericadd);
+		qiaomei.addToAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
-		Characteristic boolean_light = new Characteristic("3", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
-		Characteristic dimmable_light = new Characteristic("4", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
 		List<Characteristic> characteristics = new ArrayList<Characteristic>();
 		characteristics.add(boolean_light);
 		characteristics.add(dimmable_light);
 		
 		
-		Service dimmable_light_service = new Service("5", characteristics);
+		Service dimmable_light_service = new Service(UIDGenerator.getUID(), characteristics);
 		List<Service> services = new ArrayList<Service>();
 		services.add(dimmable_light_service);
 		
-		Accessory light_leving = new Accessory(	"6",
+		Accessory light_leving = new Accessory(	UIDGenerator.getUID(),
 												"Light",
 												"Philips",
 												"100w",
 												"PL001-100-10009",
-												services);
+												services,
+												"");
 		
 		List<Accessory> accessories_leving = new ArrayList<Accessory>();
 		accessories_leving.add(light_leving);
 		
 		// Create room
-		Room leving = new Room("7", "Leving room");
+		Room leving = new Room(UIDGenerator.getUID(), "Leving room");
 		leving.setAccessories(accessories_leving);
 		
 		List<Room> rooms_first_floor = new ArrayList<Room>();
 		rooms_first_floor.add(leving);
 		
 		// Create zone
-		Zone first_floor = new Zone("8", "First floor");
+		Zone first_floor = new Zone(UIDGenerator.getUID(), "First floor");
 		first_floor.setRooms(rooms_first_floor);
 		
 		List<Zone> home1_zones = new ArrayList<Zone>();
 		home1_zones.add(first_floor);
 		
 		// Create home
-		Home home1 = new Home("9", "Home");
+		Home home1 = new Home(UIDGenerator.getUID(), "Home");
 		home1.setZones(home1_zones);
 		
 		List<Home> homes = new ArrayList<Home>();
 		homes.add(home1);
 		
 		// Create base data
-		data = new Data();
-		data.addToHome(home1);
-		data.setPersons(persons);
+		ret_env = new Data();
+		ret_env.setHomes(homes);
+		ret_env.setPersons(persons);
 		
-		return data;
+		return ret_env;
 	}
 
 }

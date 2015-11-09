@@ -8,15 +8,16 @@ public interface DeletePersonRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  boolean hasPerson();
+  boolean hasUid();
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  com.clapi.Person getPerson();
+  java.lang.String getUid();
   /**
-   * <code>required .clapi.Person person = 1;</code>
+   * <code>required string uid = 1;</code>
    */
-  com.clapi.PersonOrBuilder getPersonOrBuilder();
+  com.google.protobuf.ByteString
+      getUidBytes();
 }

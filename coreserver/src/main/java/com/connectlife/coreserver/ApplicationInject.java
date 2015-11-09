@@ -14,9 +14,6 @@ import com.google.inject.Singleton;
 import com.clapi.CLApiGrpc;
 
 import com.connectlife.coreserver.apiserver.Api;
-//import com.connectlife.clapi.CLApi;
-//import com.connectlife.coreserver.apiserver.ApiProcessorOld;
-//import com.connectlife.coreserver.apiserver.ApiThriftJson;
 import com.connectlife.coreserver.apiserver.ApiGrpc;
 import com.connectlife.coreserver.apiserver.ApiProcessor;
 import com.connectlife.coreserver.configmanager.Config;
@@ -55,8 +52,6 @@ public class ApplicationInject extends AbstractModule {
 		// Api 
 		bind(Api.class).to(ApiGrpc.class);
 		bind(CLApiGrpc.CLApi.class).to(ApiProcessor.class);
-		//bind(Api.class).to(ApiThriftJson.class);				// for old thrift api
-		//bind(CLApi.Iface.class).to(ApiProcessorOld.class);	// for old thrift api
 		
 		// Console
 		bind(Console.class).to(ConsoleSSH.class);

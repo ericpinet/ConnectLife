@@ -6,4 +6,18 @@ package com.clapi;
 public interface DeletePersonResponseOrBuilder extends
     // @@protoc_insertion_point(interface_extends:clapi.DeletePersonResponse)
     com.google.protobuf.MessageOrBuilder {
+
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  boolean hasUid();
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  java.lang.String getUid();
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getUidBytes();
 }

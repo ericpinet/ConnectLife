@@ -8,7 +8,7 @@
  */
 package com.connectlife.test.coreserver.apiserver;
 
-import com.connectlife.clapi.Notification;
+import com.clapi.Notification;
 
 // external
 
@@ -54,15 +54,5 @@ public class ApiMock implements Api {
 	@Override
 	public void unInit() {
 		m_is_init = false;
-	}
-
-	/**
-	 * @param _notification
-	 * @see com.connectlife.coreserver.apiserver.Api#sendNotificationAllClient(com.connectlife.clapi.Notification)
-	 */
-	@Override
-	public void sendNotificationAllClient(Notification _notification) {
-		// TODO Auto-generated method stub
-		
 	}
 }

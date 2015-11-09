@@ -137,17 +137,4 @@ public class ApiGrpc implements Api {
 			m_server.shutdown();
 		}
 	}
-
-	
-
-	/**
-	 * @param _notification
-	 * @see com.connectlife.coreserver.apiserver.Api#sendNotificationAllClient(com.connectlife.clapi.Notification)
-	 */
-	@Override
-	public void sendNotificationAllClient(com.connectlife.clapi.Notification _notification) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

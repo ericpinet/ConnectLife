@@ -15,6 +15,7 @@ public  final class AddPersonResponse extends
     super(builder);
   }
   private AddPersonResponse() {
+    uid_ = "";
   }
 
   @java.lang.Override
@@ -26,6 +27,7 @@ public  final class AddPersonResponse extends
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry) {
     this();
+    int mutable_bitField0_ = 0;
     com.google.protobuf.UnknownFieldSet.Builder unknownFields =
         com.google.protobuf.UnknownFieldSet.newBuilder();
     try {
@@ -41,6 +43,12 @@ public  final class AddPersonResponse extends
                                    extensionRegistry, tag)) {
               done = true;
             }
+            break;
+          }
+          case 10: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000001;
+            uid_ = bs;
             break;
           }
         }
@@ -68,18 +76,68 @@ public  final class AddPersonResponse extends
             com.clapi.AddPersonResponse.class, com.clapi.AddPersonResponse.Builder.class);
   }
 
+  private int bitField0_;
+  public static final int UID_FIELD_NUMBER = 1;
+  private volatile java.lang.Object uid_;
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  public boolean hasUid() {
+    return ((bitField0_ & 0x00000001) == 0x00000001);
+  }
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  public java.lang.String getUid() {
+    java.lang.Object ref = uid_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        uid_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>required string uid = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getUidBytes() {
+    java.lang.Object ref = uid_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      uid_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
+    if (!hasUid()) {
+      memoizedIsInitialized = 0;
+      return false;
+    }
     memoizedIsInitialized = 1;
     return true;
   }
 
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 1, uid_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -88,6 +146,9 @@ public  final class AddPersonResponse extends
     if (size != -1) return size;
 
     size = 0;
+    if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, uid_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -200,6 +261,8 @@ public  final class AddPersonResponse extends
     }
     public Builder clear() {
       super.clear();
+      uid_ = "";
+      bitField0_ = (bitField0_ & ~0x00000001);
       return this;
     }
 
@@ -222,6 +285,13 @@ public  final class AddPersonResponse extends
 
     public com.clapi.AddPersonResponse buildPartial() {
       com.clapi.AddPersonResponse result = new com.clapi.AddPersonResponse(this);
+      int from_bitField0_ = bitField0_;
+      int to_bitField0_ = 0;
+      if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+        to_bitField0_ |= 0x00000001;
+      }
+      result.uid_ = uid_;
+      result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
     }
@@ -237,12 +307,20 @@ public  final class AddPersonResponse extends
 
     public Builder mergeFrom(com.clapi.AddPersonResponse other) {
       if (other == com.clapi.AddPersonResponse.getDefaultInstance()) return this;
+      if (other.hasUid()) {
+        bitField0_ |= 0x00000001;
+        uid_ = other.uid_;
+        onChanged();
+      }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
     }
 
     public final boolean isInitialized() {
+      if (!hasUid()) {
+        return false;
+      }
       return true;
     }
 
@@ -261,6 +339,83 @@ public  final class AddPersonResponse extends
           mergeFrom(parsedMessage);
         }
       }
+      return this;
+    }
+    private int bitField0_;
+
+    private java.lang.Object uid_ = "";
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public boolean hasUid() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public java.lang.String getUid() {
+      java.lang.Object ref = uid_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uid_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUidBytes() {
+      java.lang.Object ref = uid_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uid_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public Builder setUid(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uid_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public Builder clearUid() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      uid_ = getDefaultInstance().getUid();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string uid = 1;</code>
+     */
+    public Builder setUidBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uid_ = value;
+      onChanged();
       return this;
     }
 

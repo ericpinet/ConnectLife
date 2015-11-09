@@ -8,7 +8,6 @@
  */
 package com.connectlife.coreserver.environment;
 
-// external
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
@@ -26,11 +25,15 @@ import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
 import java.util.Observable;
 
-// internal
-import com.connectlife.clapi.*;
+import com.clapi.data.*;
+import com.clapi.data.Address.AddressType;
+import com.clapi.data.Characteristic.CharacteristicAccessMode;
+import com.clapi.data.Characteristic.CharacteristicEventType;
+import com.clapi.data.Characteristic.CharacteristicType;
+import com.clapi.data.Email.EmailType;
+import com.clapi.data.Phone.PhoneType;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 
@@ -100,7 +103,6 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	 */
 	@Inject
 	public EnvironmentJsonFile(DiscoveryService _service){
-		
 		m_discovery_manager = _service;
 		m_is_loaded = false;
 		m_is_saved = false;
@@ -221,7 +223,10 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	public void unInit() {
 		m_logger.info("UnInitialization in progress ...");
 		
-		// TODO UnInit Environment Manager
+		if( false == isSaved() ){
+			m_logger.warn("Environment is clossing when not saved. Force save environment before closing.");
+			saveEnvironment(m_path, ENV_DATA_FILENAME);
+		}
 		
 		if(null != m_discovery_manager){
 			m_discovery_manager.stop();
@@ -367,14 +372,15 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		
 		// Person
 		List<Person> persons = new ArrayList<Person>();
+		
 		Person eric = new Person(UIDGenerator.getUID(), "Eric");
 		eric.setLastname("Pinet");
-		eric.addToEmails(new Email(EmailType.PERSONAL, "pineri01@gmail.com"));
-		eric.addToEmails(new Email(EmailType.WORK, "eric.pinet@imagemsoft.com"));
-		eric.addToEmails(new Email(EmailType.OTHER, "eric_pinet@hotmail.com"));
-		eric.addToPhones(new Phone(PhoneType.CELL, "418 998-2481"));
-		eric.addToPhones(new Phone(PhoneType.OTHER, "418 548-1684"));
-		Address ericadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
+		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
+		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
@@ -384,15 +390,16 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		
 		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addToEmails(new Email(EmailType.PERSONAL, "qiaomei.wang.wqm@gmail.com"));
-		qiaomei.addToEmails(new Email(EmailType.WORK, "qiaomei.wang@frima.com"));
-		qiaomei.addToPhones(new Phone(PhoneType.CELL, "438 348-1699"));
-		Address qiaomeiadd = new Address(AddressType.HOME, "2353 rue du cuir");
+		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addToPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		
+		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
-		qiaomei.addToAddress(ericadd);
+		qiaomei.addToAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
 		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
@@ -411,7 +418,8 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 												"Philips",
 												"100w",
 												"PL001-100-10009",
-												services);
+												services,
+												"");
 		
 		List<Accessory> accessories_leving = new ArrayList<Accessory>();
 		accessories_leving.add(light_leving);
@@ -439,7 +447,7 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		
 		// Create base data
 		ret_env = new Data();
-		ret_env.addToHome(home1);
+		ret_env.setHomes(homes);
 		ret_env.setPersons(persons);
 		
 		return ret_env;
@@ -475,148 +483,6 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	public Data getData() {
 		return m_data;
 	}
-
-	/**
-	 * @param person
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.connectlife.clapi.Person)
-	 */
-	@Override
-	public boolean addPerson(Person person) {
-		boolean ret_val = false;
-		
-		if(null != person){	
-			boolean found = false;
-			int pos = 0;
-
-			// try to find the person to update.
-			while(pos<m_data.persons.size() && false == found){
-				Person per = m_data.persons.get(pos);
-				
-				if(per.getUid().equals(person.getUid())){
-					found = true;
-					
-					m_data.persons.set(pos, person);
-				
-					environmentChange();
-					
-					ret_val = true;
-					
-					m_logger.debug("addPerson: "+person.firstname + " (Update)");
-				}
-				pos++;
-			}
-			
-			// if not found, add person.
-			if(false == found){
-				m_data.persons.add(person);
-				ret_val = true;
-				m_logger.debug("addPerson: "+person.firstname + " (Add)");
-			}
-		}
-		return ret_val;
-	}
-
-	/**
-	 * @param person
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.connectlife.clapi.Person)
-	 */
-	@Override
-	public boolean deletePerson(Person person) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addHome(com.connectlife.clapi.Home)
-	 */
-	@Override
-	public boolean addHome(Home home) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteHome(com.connectlife.clapi.Home)
-	 */
-	@Override
-	public boolean deleteHome(Home home) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param home
-	 * @param zone
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addZone(com.connectlife.clapi.Home, com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean addZone(Home home, Zone zone) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param zone
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteZone(com.connectlife.clapi.Zone)
-	 */
-	@Override
-	public boolean deleteZone(Zone zone) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param zone
-	 * @param room
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addRoom(com.connectlife.clapi.Zone, com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean addRoom(Zone zone, Room room) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @param room
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#deleteRoom(com.connectlife.clapi.Room)
-	 */
-	@Override
-	public boolean deleteRoom(Room room) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#getNotMatchedAccessories()
-	 */
-	@Override
-	public List<Accessory> getNotMatchedAccessories() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * @param room
-	 * @param accessory
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#attachAccessory(com.connectlife.clapi.Room, com.connectlife.clapi.Accessory)
-	 */
-	@Override
-	public boolean attachAccessory(Room room, Accessory accessory) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	/**
 	 * Indicate that the environment was changes. All observers will be notified.
@@ -625,5 +491,20 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		setChanged();
 		notifyObservers();
 		m_is_saved = false;
+	}
+
+	/**
+	 * @param firstname
+	 * @param lastname
+	 * @param imageurl
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String addPerson(String firstname, String lastname, String imageurl) {
+		Person person = new Person(UIDGenerator.getUID(), firstname, lastname, imageurl);
+		m_data.addToPersons(person);
+		environmentChange();
+		return person.getUid();
 	}
 }

@@ -17,12 +17,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
-import com.connectlife.clapi.Notification;
-import com.connectlife.clapi.Type;
 
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.apiserver.Api;
@@ -382,14 +378,7 @@ public class Application implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		if(m_environment == o){
-			m_logger.info("Environment was updated, send new environment at all client.");
-			
-			if(m_api != null){
-				m_api.sendNotificationAllClient( new Notification(Type.ENV_UPDATED, new ArrayList<String>()) );
-			}
-			else{
-				m_logger.warn("Api was not ready to send new environment at all client.");
-			}
+			m_logger.info("Environment was updated.");
 		}
 	}
 }

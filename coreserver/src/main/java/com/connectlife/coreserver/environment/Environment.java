@@ -8,9 +8,8 @@
  */
 package com.connectlife.coreserver.environment;
 
-import java.util.List;
 import java.util.Observer;
-import com.connectlife.clapi.*;
+import com.clapi.data.*;
 
 
 /**
@@ -108,89 +107,15 @@ public interface Environment {
 	 * Return Data of the environment.
 	 * @return Data of the environment.
 	 */
-	public Data getData();
+	public Data getData();	
 	
 	/**
-	 * Add or update person data in the environment.
+	 * Add a person in the data. 
 	 * 
-	 * @param person A person.
-	 * @return True if data updated.
+	 * @param firstname First name of the person.
+	 * @param lastname Last name of the person.
+	 * @param imageurl image url of the person.
+	 * @return UID of the person. 
 	 */
-	public boolean addPerson(Person person);
-
-	/**
-	 * Delete person data in the environment.
-	 * 
-	 * @param person A person.
-	 * @return True if data updated.
-	 */
-	public boolean deletePerson(Person person);
-
-	/**
-	 * Add or update home data in the environment.
-	 * 
-	 * @param home A home.
-	 * @return True if data updated.
-	 */
-	public boolean addHome(Home home);
-
-	/**
-	 * Delete home data in the environment.
-	 * 
-	 * @param home A home.
-	 * @return True if data was deleted.
-	 */
-	public boolean deleteHome(Home home);
-
-	/**
-	 * Add zone data in the environment.
-	 * 
-	 * @param home A home.
-	 * @param zone A zone.
-	 * @return True if data updated.
-	 */
-	public boolean addZone(Home home, Zone zone);
-
-	/**
-	 * Delete zone in the environment.
-	 * 
-	 * @param zone A zone.
-	 * @return True if data was deleted.
-	 */
-	public boolean deleteZone(Zone zone);
-
-	/**
-	 * Add or update room data in the environment.
-	 * 
-	 * @param zone A zone.
-	 * @param room A room.
-	 * @return True if data was updated.
-	 */
-	public boolean addRoom(Zone zone, Room room);
-
-	/**
-	 * Delete room data in the environment.
-	 * 
-	 * @param room A room.
-	 * @return True if data was deleted.
-	 */
-	public boolean deleteRoom(Room room);
-
-	/**
-	 * Return list of Accessories not matched in a room.
-	 * 
-	 * @return List of Accessory.
-	 */
-	public List<Accessory> getNotMatchedAccessories();
-
-	/**
-	 * Attach a Accessory at one room.
-	 * 
-	 * @param room A room.
-	 * @param accessory A accessory.
-	 * @return True if data was correctly updated.
-	 */
-	public boolean attachAccessory(Room room, Accessory accessory);
-	
-	
+	public String addPerson(String firstname, String lastname, String imageurl);
 }

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
-import com.connectlife.clapi.*;
+import com.clapi.data.*;
 
 
 /**
@@ -138,7 +138,7 @@ public class HomeWindow extends Dialog {
 			    while(itra.hasNext()){
 			    	Accessory acc = itra.next();
 					TreeItem item3 = new TreeItem(item2, SWT.NONE);
-				    item3.setText(new String[] { "Accessory: " + acc.label, acc.getUid() });
+				    item3.setText(new String[] { "Accessory: " + acc.getLabel(), acc.getUid() });
 			    }
 		    }
 		}
