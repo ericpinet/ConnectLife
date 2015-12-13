@@ -192,7 +192,7 @@ public class MainWindow implements NotificationListener {
 				client.shutdown();
 			}
 			
-			CLApiClient client = new CLApiClient(HOST, Integer.parseInt(PORT), this);
+			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
 			m_logger.info( "Get server version : " + client.getVersion() );
 			
