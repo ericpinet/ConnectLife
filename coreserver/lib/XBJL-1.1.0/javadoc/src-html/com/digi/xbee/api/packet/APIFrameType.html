@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api.packet;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.HashMap;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.digi.xbee.api.utils.ByteUtils;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import com.digi.xbee.api.utils.HexUtils;<a name="line.17"></a>
+<span class="sourceLineNo">018</span><a name="line.18"></a>
+<span class="sourceLineNo">019</span>/**<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * This enumeration lists all the available frame types used in any XBee <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * protocol.<a name="line.21"></a>
+<span class="sourceLineNo">022</span> */<a name="line.22"></a>
+<span class="sourceLineNo">023</span>public enum APIFrameType {<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span>        // Enumeration elements.<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        UNKNOWN (-1, "Unknown packet"),<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        TX_64 (0x00, "TX (Transmit) Request 64-bit address"),<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        TX_16 (0x01, "TX (Transmit) Request 16-bit address"),<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        AT_COMMAND (0x08, "AT Command"),<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        AT_COMMAND_QUEUE (0x09, "AT Command Queue"),<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        TRANSMIT_REQUEST (0x10, "Transmit Request"),<a name="line.31"></a>
+<span class="sourceLineNo">032</span>        EXPLICIT_ADDRESSING_COMMAND_FRAME (0x11, "Explicit Addressing Command Frame"),<a name="line.32"></a>
+<span class="sourceLineNo">033</span>        REMOTE_AT_COMMAND_REQUEST (0x17, "Remote AT Command Request"),<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        RX_64 (0x80, "RX (Receive) Packet 64-bit Address"),<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        RX_16 (0x81, "RX (Receive) Packet 16-bit Address"),<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        RX_IO_64 (0x82, "IO Data Sample RX 64-bit Address Indicator"),<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        RX_IO_16 (0x83, "IO Data Sample RX 16-bit Address Indicator"),<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        AT_COMMAND_RESPONSE (0x88, "AT Command Response"),<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        TX_STATUS (0x89, "TX (Transmit) Status"),<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        MODEM_STATUS (0x8A, "Modem Status"),<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        TRANSMIT_STATUS (0x8B, "Transmit Status"),<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        RECEIVE_PACKET (0x90, "Receive Packet"),<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        EXPLICIT_RX_INDICATOR (0x91, "Explicit RX Indicator"),<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        IO_DATA_SAMPLE_RX_INDICATOR (0x92, "IO Data Sample RX Indicator"),<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        REMOTE_AT_COMMAND_RESPONSE (0x97, "Remote Command Response"),<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        GENERIC (0xFF, "Generic");<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        <a name="line.47"></a>
+<span class="sourceLineNo">048</span>        // Variables.<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private final int idValue;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        <a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private final String name;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        <a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private static final HashMap&lt;Integer, APIFrameType&gt; lookupTable = new HashMap&lt;Integer, APIFrameType&gt;();<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        <a name="line.54"></a>
+<span class="sourceLineNo">055</span>        static {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                for (APIFrameType type:values())<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                        lookupTable.put(type.getValue(), type);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        }<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        <a name="line.59"></a>
+<span class="sourceLineNo">060</span>        /**<a name="line.60"></a>
+<span class="sourceLineNo">061</span>         * Class constructor. Instantiates a new {@code APIFrameType} object with<a name="line.61"></a>
+<span class="sourceLineNo">062</span>         * the given value and name.<a name="line.62"></a>
+<span class="sourceLineNo">063</span>         * <a name="line.63"></a>
+<span class="sourceLineNo">064</span>         * @param idValue Frame type value.<a name="line.64"></a>
+<span class="sourceLineNo">065</span>         * @param name Frame type name.<a name="line.65"></a>
+<span class="sourceLineNo">066</span>         */<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        APIFrameType(int idValue, String name) {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                this.idValue = idValue;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                this.name = name;<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        }<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        <a name="line.71"></a>
+<span class="sourceLineNo">072</span>        /**<a name="line.72"></a>
+<span class="sourceLineNo">073</span>         * Returns the {@code APIFrameType} associated with the given ID value.<a name="line.73"></a>
+<span class="sourceLineNo">074</span>         * <a name="line.74"></a>
+<span class="sourceLineNo">075</span>         * @param value ID value to retrieve {@code APIFrameType}.<a name="line.75"></a>
+<span class="sourceLineNo">076</span>         * <a name="line.76"></a>
+<span class="sourceLineNo">077</span>         * @return The {@code APIFrameType} for the given ID value, {@code #UNKNOWN}<a name="line.77"></a>
+<span class="sourceLineNo">078</span>         *         if it does not supported.<a name="line.78"></a>
+<span class="sourceLineNo">079</span>         */<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        public static APIFrameType get(int value) {<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                APIFrameType type = lookupTable.get(value);<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                if (type == null)<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                        return UNKNOWN;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                return type; <a name="line.84"></a>
+<span class="sourceLineNo">085</span>        }<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        <a name="line.86"></a>
+<span class="sourceLineNo">087</span>        /**<a name="line.87"></a>
+<span class="sourceLineNo">088</span>         * Returns the API frame type value.<a name="line.88"></a>
+<span class="sourceLineNo">089</span>         * <a name="line.89"></a>
+<span class="sourceLineNo">090</span>         * @return The API frame type value.<a name="line.90"></a>
+<span class="sourceLineNo">091</span>         */<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        public int getValue() {<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                return idValue;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        }<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        <a name="line.95"></a>
+<span class="sourceLineNo">096</span>        /**<a name="line.96"></a>
+<span class="sourceLineNo">097</span>         * Returns the API frame type name.<a name="line.97"></a>
+<span class="sourceLineNo">098</span>         * <a name="line.98"></a>
+<span class="sourceLineNo">099</span>         * @return API frame type name.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>         */<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        public String getName() {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                return name;<a name="line.102"></a>
+<span class="sourceLineNo">103</span>        }<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        <a name="line.104"></a>
+<span class="sourceLineNo">105</span>        /*<a name="line.105"></a>
+<span class="sourceLineNo">106</span>         * (non-Javadoc)<a name="line.106"></a>
+<span class="sourceLineNo">107</span>         * @see java.lang.Enum#toString()<a name="line.107"></a>
+<span class="sourceLineNo">108</span>         */<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        @Override<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        public String toString() {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                return "(" + HexUtils.byteArrayToHexString(ByteUtils.intToByteArray(idValue)) + ") " + name;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        }<a name="line.112"></a>
+<span class="sourceLineNo">113</span>}<a name="line.113"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

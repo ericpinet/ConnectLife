@@ -8,11 +8,6 @@
  */
 package com.connectlife.test.coreserver.apiserver;
 
-import com.clapi.Notification;
-
-// external
-
-// internal
 import com.connectlife.coreserver.apiserver.Api;
 
 /**

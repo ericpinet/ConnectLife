@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api.models;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.HashMap;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.digi.xbee.api.utils.HexUtils;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>/**<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * Enumerates the different association indication status.<a name="line.19"></a>
+<span class="sourceLineNo">020</span> */<a name="line.20"></a>
+<span class="sourceLineNo">021</span>public enum AssociationIndicationStatus {<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>        // Enumeration entries<a name="line.23"></a>
+<span class="sourceLineNo">024</span>        SUCCESSFULLY_JOINED(0x00, "Successfully formed or joined a network."),<a name="line.24"></a>
+<span class="sourceLineNo">025</span>        AS_TIMEOUT(0x01, "Active Scan Timeout."),<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        AS_NO_PANS_FOUND(0x02, "Active Scan found no PANs."),<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        AS_ASSOCIATION_NOT_ALLOED(0x03, "Active Scan found PAN, but the CoordinatorAllowAssociation bit is not set."),<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        AS_BEACONS_NOT_SUPPORTED(0x04, "Active Scan found PAN, but Coordinator and End Device are not configured to support beacons."),<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        AS_ID_DOESNT_MATCH(0x05, "Active Scan found PAN, but the Coordinator ID parameter does not match the ID parameter of the End Device."),<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        AS_CHANNEL_DOESNT_MATCH(0x06, "Active Scan found PAN, but the Coordinator CH parameter does not match the CH parameter of the End Device."),<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        ENERGY_SCAN_TIMEOUT(0x07, "Energy Scan Timeout."),<a name="line.31"></a>
+<span class="sourceLineNo">032</span>        COORDINATOR_START_REQUEST_FAILED(0x08, "Coordinator start request failed."),<a name="line.32"></a>
+<span class="sourceLineNo">033</span>        COORDINATOR_INVALID_PARAMETER(0x09, "Coordinator could not start due to invalid parameter."),<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        COORDINATOR_REALIGNMENT(0x0A, "Coordinator Realignment is in progress."),<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        AR_NOT_SENT(0x0B, "Association Request not sent."),<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        AR_TIMED_OUT(0x0C, "Association Request timed out - no reply was received."),<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        AR_INVALID_PARAMETER(0x0D, "Association Request had an Invalid Parameter."),<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        AR_CHANNEL_ACCESS_FAILURE(0x0E, "Association Request Channel Access Failure. Request was not transmitted - CCA failure."),<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        AR_COORDINATOT_ACK_WASNT_RECEIVED(0x0F, "Remote Coordinator did not send an ACK after Association Request was sent."),<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        AR_COORDINATOT_DIDNT_REPLY(0x10, "Remote Coordinator did not reply to the Association Request, but an ACK was received after sending the request."),<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        SYNCHRONIZATION_LOST(0x12, "Sync-Loss - Lost synchronization with a Beaconing Coordinator."),<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        DISSASOCIATED(0x13, " Disassociated - No longer associated to Coordinator."),<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        NO_PANS_FOUND(0x21, "Scan found no PANs."),<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        NO_PANS_WITH_ID_FOUND(0x22, "Scan found no valid PANs based on current SC and ID settings."),<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        NJ_EXPIRED(0x23, "Valid Coordinator or Routers found, but they are not allowing joining (NJ expired)."),<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        NO_JOINABLE_BEACONS_FOUND(0x24, "No joinable beacons were found."),<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        UNEXPECTED_STATE(0x25, "Unexpected state, node should not be attempting to join at this time."),<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        JOIN_FAILED(0x27, "Node Joining attempt failed (typically due to incompatible security settings)."),<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        COORDINATOR_START_FAILED(0x2A, "Coordinator Start attempt failed."),<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        CHECKING_FOR_COORDINATOR(0x2B, "Checking for an existing coordinator."),<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        NETWORK_LEAVE_FAILED(0x2C, "Attempt to leave the network failed."),<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        DEVICE_DIDNT_RESPOND(0xAB, "Attempted to join a device that did not respond."),<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        UNSECURED_KEY_RECEIVED(0xAC, "Secure join error - network security key received unsecured."),<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        KEY_NOT_RECEIVED(0xAD, "Secure join error - network security key not received."),<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        INVALID_SECURITY_KEY(0xAF, "Secure join error - joining device does not have the right preconfigured link key."),<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        SCANNING_NETWORK(0xFF, "Scanning for a network/Attempting to associate.");<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        <a name="line.57"></a>
+<span class="sourceLineNo">058</span>        // Variables<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private final int value;<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        <a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private final String description;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        <a name="line.62"></a>
+<span class="sourceLineNo">063</span>        private final static HashMap&lt;Integer, AssociationIndicationStatus&gt; lookupTable = new HashMap&lt;Integer, AssociationIndicationStatus&gt;();<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        <a name="line.64"></a>
+<span class="sourceLineNo">065</span>        static {<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                for (AssociationIndicationStatus associationIndicationStatus:values())<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                        lookupTable.put(associationIndicationStatus.getValue(), associationIndicationStatus);<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        }<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        <a name="line.69"></a>
+<span class="sourceLineNo">070</span>        /**<a name="line.70"></a>
+<span class="sourceLineNo">071</span>         * Class constructor. Instantiates a new {@code AssociationIndicationStatus} <a name="line.71"></a>
+<span class="sourceLineNo">072</span>         * enumeration entry with the given parameters.<a name="line.72"></a>
+<span class="sourceLineNo">073</span>         * <a name="line.73"></a>
+<span class="sourceLineNo">074</span>         * @param value Association indication status value.<a name="line.74"></a>
+<span class="sourceLineNo">075</span>         * @param description Association indication status description.<a name="line.75"></a>
+<span class="sourceLineNo">076</span>         */<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        AssociationIndicationStatus(int value, String description) {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                this.value = value;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                this.description = description;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        }<a name="line.80"></a>
+<span class="sourceLineNo">081</span>        <a name="line.81"></a>
+<span class="sourceLineNo">082</span>        /**<a name="line.82"></a>
+<span class="sourceLineNo">083</span>         * Returns the association indication status value.<a name="line.83"></a>
+<span class="sourceLineNo">084</span>         * <a name="line.84"></a>
+<span class="sourceLineNo">085</span>         * @return The association indication status value.<a name="line.85"></a>
+<span class="sourceLineNo">086</span>         */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        public int getValue() {<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                return value;<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        }<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        <a name="line.90"></a>
+<span class="sourceLineNo">091</span>        /**<a name="line.91"></a>
+<span class="sourceLineNo">092</span>         * Returns the association indication status description.<a name="line.92"></a>
+<span class="sourceLineNo">093</span>         * <a name="line.93"></a>
+<span class="sourceLineNo">094</span>         * @return The association indication status description.<a name="line.94"></a>
+<span class="sourceLineNo">095</span>         */<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        public String getDescription() {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                return description;<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        }<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        <a name="line.99"></a>
+<span class="sourceLineNo">100</span>        /**<a name="line.100"></a>
+<span class="sourceLineNo">101</span>         * Returns the {@code AssociationIndicationStatus} associated to the <a name="line.101"></a>
+<span class="sourceLineNo">102</span>         * given value.<a name="line.102"></a>
+<span class="sourceLineNo">103</span>         * <a name="line.103"></a>
+<span class="sourceLineNo">104</span>         * @param value Value of the association indication status to retrieve.<a name="line.104"></a>
+<span class="sourceLineNo">105</span>         * @return The association indication status of the associated value, {@code null} <a name="line.105"></a>
+<span class="sourceLineNo">106</span>         *         if it could not be found in the table.<a name="line.106"></a>
+<span class="sourceLineNo">107</span>         */<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        public static AssociationIndicationStatus get(int value) {<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                return lookupTable.get(value);<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        }<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        <a name="line.111"></a>
+<span class="sourceLineNo">112</span>        /*<a name="line.112"></a>
+<span class="sourceLineNo">113</span>         * (non-Javadoc)<a name="line.113"></a>
+<span class="sourceLineNo">114</span>         * @see java.lang.Enum#toString()<a name="line.114"></a>
+<span class="sourceLineNo">115</span>         */<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        @Override<a name="line.116"></a>
+<span class="sourceLineNo">117</span>        public String toString() {<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                return HexUtils.byteToHexString((byte)value) + ": " + description;<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        }<a name="line.119"></a>
+<span class="sourceLineNo">120</span>}<a name="line.120"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

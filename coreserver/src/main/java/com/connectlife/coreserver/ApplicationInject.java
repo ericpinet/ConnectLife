@@ -16,8 +16,10 @@ import com.clapi.CLApiGrpc;
 import com.connectlife.coreserver.apiserver.Api;
 import com.connectlife.coreserver.apiserver.ApiGrpc;
 import com.connectlife.coreserver.apiserver.ApiProcessor;
-import com.connectlife.coreserver.configmanager.Config;
-import com.connectlife.coreserver.configmanager.ConfigSqliteManager;
+import com.connectlife.coreserver.config.Config;
+import com.connectlife.coreserver.config.ConfigSqlite;
+import com.connectlife.coreserver.config.SqliteSettings;
+import com.connectlife.coreserver.config.SqliteSettingsApp;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.console.ConsoleSSH;
 import com.connectlife.coreserver.environment.Environment;
@@ -43,7 +45,8 @@ public class ApplicationInject extends AbstractModule {
 	protected void configure() {
 		
 		// Config
-		bind(Config.class).to(ConfigSqliteManager.class).in(Singleton.class);
+		bind(SqliteSettings.class).to(SqliteSettingsApp.class);
+		bind(Config.class).to(ConfigSqlite.class).in(Singleton.class);
 		
 		// Environment
 		bind(Environment.class).to(EnvironmentJsonFile.class).in(Singleton.class);

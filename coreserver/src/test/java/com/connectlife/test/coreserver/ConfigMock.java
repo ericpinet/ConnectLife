@@ -10,8 +10,8 @@ package com.connectlife.test.coreserver;
 
 import java.util.List;
 
-import com.connectlife.coreserver.configmanager.Config;
-import com.connectlife.coreserver.configmanager.ConfigItem;
+import com.connectlife.coreserver.config.Config;
+import com.connectlife.coreserver.config.ConfigItem;
 
 /**
  * 
@@ -58,7 +58,7 @@ public class ConfigMock implements Config {
 	 * @param _section
 	 * @param _item
 	 * @return
-	 * @see com.connectlife.coreserver.configmanager.Config#getConfig(java.lang.String, java.lang.String)
+	 * @see com.connectlife.coreserver.config.Config#getConfig(java.lang.String, java.lang.String)
 	 */
 	@Override
 	public ConfigItem getConfig(String _section, String _item) {
@@ -69,7 +69,7 @@ public class ConfigMock implements Config {
 	/**
 	 * @param _object
 	 * @return
-	 * @see com.connectlife.coreserver.configmanager.Config#setConfig(com.connectlife.coreserver.configmanager.ConfigItem)
+	 * @see com.connectlife.coreserver.config.Config#setConfig(com.connectlife.coreserver.config.ConfigItem)
 	 */
 	@Override
 	public boolean setConfig(ConfigItem _object) {
@@ -79,7 +79,7 @@ public class ConfigMock implements Config {
 
 	/**
 	 * @return
-	 * @see com.connectlife.coreserver.configmanager.Config#getConfigs()
+	 * @see com.connectlife.coreserver.config.Config#getConfigs()
 	 */
 	@Override
 	public List<ConfigItem> getConfigs() {
@@ -89,7 +89,7 @@ public class ConfigMock implements Config {
 
 	/**
 	 * @return
-	 * @see com.connectlife.coreserver.configmanager.Config#RestoreFactory()
+	 * @see com.connectlife.coreserver.config.Config#RestoreFactory()
 	 */
 	@Override
 	public boolean RestoreFactory() {

@@ -1,0 +1,11 @@
+com.digi.xbee.api
+com.digi.xbee.api.connection
+com.digi.xbee.api.connection.serial
+com.digi.xbee.api.exceptions
+com.digi.xbee.api.io
+com.digi.xbee.api.listeners
+com.digi.xbee.api.models
+com.digi.xbee.api.packet
+com.digi.xbee.api.packet.common
+com.digi.xbee.api.packet.raw
+com.digi.xbee.api.utils

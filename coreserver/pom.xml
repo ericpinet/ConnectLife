@@ -123,6 +123,13 @@
     <artifactId>pi4j-core</artifactId>
     <version>1.0</version>
   </dependency>
+  
+  <!-- Zbee dependancy (RXTX Serial And Parallel I/O Libraries)  -->
+  <dependency>
+	<groupId>org.rxtx</groupId>
+	<artifactId>rxtx</artifactId>
+	<version>2.1.7</version>
+  </dependency>
 
   </dependencies>
 </project>

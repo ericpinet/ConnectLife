@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api.models;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import com.digi.xbee.api.packet.common.RemoteATCommandPacket;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>/**<a name="line.16"></a>
+<span class="sourceLineNo">017</span> * This class lists all the possible options that can be set while transmitting<a name="line.17"></a>
+<span class="sourceLineNo">018</span> * a remote AT Command.<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * <a name="line.19"></a>
+<span class="sourceLineNo">020</span> * &lt;p&gt;These options are usually set as a bitfield meaning that the options <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * can be combined using the '|' operand.&lt;/p&gt;<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * <a name="line.22"></a>
+<span class="sourceLineNo">023</span> * @see RemoteATCommandPacket<a name="line.23"></a>
+<span class="sourceLineNo">024</span> */<a name="line.24"></a>
+<span class="sourceLineNo">025</span>public class RemoteATCommandOptions {<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        <a name="line.26"></a>
+<span class="sourceLineNo">027</span>        /**<a name="line.27"></a>
+<span class="sourceLineNo">028</span>         * No special transmit options (value: {@value}).<a name="line.28"></a>
+<span class="sourceLineNo">029</span>         */<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        public final static int OPTION_NONE = 0x00;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        <a name="line.31"></a>
+<span class="sourceLineNo">032</span>        /**<a name="line.32"></a>
+<span class="sourceLineNo">033</span>         * Disables ACK (value: {@value}).<a name="line.33"></a>
+<span class="sourceLineNo">034</span>         */<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        public final static int OPTION_DISABLE_ACK = 0x01;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        <a name="line.36"></a>
+<span class="sourceLineNo">037</span>        /**<a name="line.37"></a>
+<span class="sourceLineNo">038</span>         * Applies changes in the remote device (value: {@value}).<a name="line.38"></a>
+<span class="sourceLineNo">039</span>         * <a name="line.39"></a>
+<span class="sourceLineNo">040</span>         * &lt;p&gt;If this option is not set, AC command must be sent before changes <a name="line.40"></a>
+<span class="sourceLineNo">041</span>         * will take effect.&lt;/p&gt;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>         */<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        public final static int OPTION_APPLY_CHANGES = 0x02;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        <a name="line.44"></a>
+<span class="sourceLineNo">045</span>        /**<a name="line.45"></a>
+<span class="sourceLineNo">046</span>         * Uses the extended transmission timeout (value: {@value}).<a name="line.46"></a>
+<span class="sourceLineNo">047</span>         * <a name="line.47"></a>
+<span class="sourceLineNo">048</span>         * &lt;p&gt;Setting the extended timeout bit causes the stack to set the extended <a name="line.48"></a>
+<span class="sourceLineNo">049</span>         * transmission timeout for the destination address.&lt;/p&gt;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>         * <a name="line.50"></a>
+<span class="sourceLineNo">051</span>         * &lt;p&gt;Only valid for ZigBee XBee protocol.&lt;/p&gt;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>         */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        public final static int OPTION_EXTENDED_TIMEOUT = 0x40;<a name="line.53"></a>
+<span class="sourceLineNo">054</span>}<a name="line.54"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -34,8 +34,8 @@ import org.apache.logging.log4j.core.appender.RollingFileAppender;
 // internal
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.configmanager.ConfigItem;
-import com.connectlife.coreserver.configmanager.ConfigItem.ConfigType;
+import com.connectlife.coreserver.config.ConfigItem;
+import com.connectlife.coreserver.config.ConfigItem.ConfigType;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**

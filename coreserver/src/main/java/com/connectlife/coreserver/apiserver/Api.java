@@ -8,11 +8,6 @@
  */
 package com.connectlife.coreserver.apiserver;
 
-// external
-import com.clapi.Notification;
-
-// internal
-
 /**
  * Api server of the coreserver. This class is main api server interface
  * for client (Mobile Application).

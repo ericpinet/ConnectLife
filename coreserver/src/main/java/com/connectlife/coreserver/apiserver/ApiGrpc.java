@@ -8,8 +8,8 @@
  */
 package com.connectlife.coreserver.apiserver;
 
-import com.connectlife.coreserver.configmanager.Config;
-import com.connectlife.coreserver.configmanager.ConfigItem;
+import com.connectlife.coreserver.config.Config;
+import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 

@@ -23,8 +23,8 @@ import org.apache.sshd.server.auth.UserAuthPassword;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.session.ServerSession;
 
-import com.connectlife.coreserver.configmanager.Config;
-import com.connectlife.coreserver.configmanager.ConfigItem;
+import com.connectlife.coreserver.config.Config;
+import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 

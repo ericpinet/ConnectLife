@@ -22,7 +22,7 @@ import java.util.Observer;
 
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.apiserver.Api;
-import com.connectlife.coreserver.configmanager.Config;
+import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.gpio.Gpio;
