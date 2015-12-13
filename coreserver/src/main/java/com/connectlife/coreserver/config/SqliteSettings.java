@@ -17,6 +17,12 @@ package com.connectlife.coreserver.config;
 public interface SqliteSettings {
 	
 	/**
+	 * Return the database path from the base application path. (Exemple: data or data/db)
+	 * @return Database path.
+	 */
+	abstract public String getDatabasePath();
+	
+	/**
 	 * Return the database file name from App base path. 
 	 * @return Database file name. 
 	 */

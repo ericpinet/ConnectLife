@@ -19,14 +19,28 @@ import com.connectlife.coreserver.config.SqliteSettings;
 public class SqliteSettingsTest implements SqliteSettings {
 	
 	/**
+	 * Path of the database from the application base path.
+	 */
+	private static final String DATABASE_PATH = "data";
+	
+	/**
 	 * Database filename (from app base path)
 	 */
-	private static final String DATABASE_FILE = "data/config-test.sqlite";
+	private static final String DATABASE_FILE = "config-test.sqlite";
 	
 	/**
 	 * Database timeout (sec)
 	 */ 
 	private static final int DATABASE_TIMEOUT = 30;
+	
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabasePath()
+	 */
+	@Override
+	public String getDatabasePath() {
+		return DATABASE_PATH;
+	}
 
 	/**
 	 * @return

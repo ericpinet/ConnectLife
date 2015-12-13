@@ -17,15 +17,29 @@ package com.connectlife.coreserver.config;
 public class SqliteSettingsApp implements SqliteSettings {
 	
 	/**
-	 * Database filename (from app base path)
+	 * Path of the database from the application base path.
 	 */
-	private static final String DATABASE_FILE = "data/config.sqlite";
+	private static final String DATABASE_PATH = "data";
+	
+	/**
+	 * Database filename
+	 */
+	private static final String DATABASE_FILE = "config.sqlite";
 	
 	/**
 	 * Database timeout (sec)
 	 */ 
 	private static final int DATABASE_TIMEOUT = 30;
 
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabasePath()
+	 */
+	@Override
+	public String getDatabasePath() {
+		return DATABASE_PATH;
+	}
+	
 	/**
 	 * @return
 	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabaseFileName()
@@ -43,4 +57,6 @@ public class SqliteSettingsApp implements SqliteSettings {
 	public int getDatabaseTimeout() {
 		return DATABASE_TIMEOUT;
 	}
+
+	
 }

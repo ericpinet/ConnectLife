@@ -66,7 +66,7 @@ public class ConfigSqliteTest {
 		Injector injector = Guice.createInjector(new ConfigSqliteInjectTest());
 		SqliteSettings settings = injector.getInstance(SqliteSettings.class);
 		
-		m_database_file = Application.getApp().getBasePath() + "/" + settings.getDatabaseFileName();
+		m_database_file = Application.getApp().getBasePath() + "/" + settings.getDatabasePath() + "/" + settings.getDatabaseFileName();
 	}
 
 	/**

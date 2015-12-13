@@ -54,12 +54,12 @@ public class EnvironmentTest implements Observer {
 	 * Environment file name contain the data representing the user, home, 
 	 * zones, rooms, accessories
 	 */
-	private static final String ENV_DATA_FILENAME = "environnement.data";
+	private static final String ENV_DATA_FILENAME = "env.data";
 	
 	/**
 	 * Environment file name backup.
 	 */
-	private static final String ENV_DATA_FILENAME_BACKUP = "environnement.data.bk";
+	private static final String ENV_DATA_FILENAME_BACKUP = "env.data.bk";
 	
 	/**
 	 * Environment to test

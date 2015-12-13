@@ -8,6 +8,7 @@
  */
 package com.connectlife.coreserver.config;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -37,6 +38,11 @@ public class ConfigSqlite implements Config {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(ConfigSqlite.class);
+	
+	/**
+	 * Path of the database from the application base path.
+	 */
+	private final String DATABASE_PATH;
 	
 	/**
 	 * Database file load in setting.
@@ -69,6 +75,7 @@ public class ConfigSqlite implements Config {
 	@Inject
 	public ConfigSqlite(SqliteSettings _setting){
 		m_setting = _setting;
+		DATABASE_PATH = m_setting.getDatabasePath();
 		DATABASE_FILE = m_setting.getDatabaseFileName();
 		DATABASE_TIMEOUT = m_setting.getDatabaseTimeout();
 	}
@@ -276,9 +283,13 @@ public class ConfigSqlite implements Config {
 	    	// load sqlite jdbc driver
 			Class.forName("org.sqlite.JDBC");
 			
+			// ensure that database path exist
+			File directory = new File(DATABASE_PATH);
+			directory.mkdirs();
+			
 			// create a database connection
-			m_logger.info("Load database file '"+DATABASE_FILE+"'");
-			m_connection = DriverManager.getConnection("jdbc:sqlite:"+DATABASE_FILE);
+			m_logger.info("Load database file '"+DATABASE_PATH+"/"+DATABASE_FILE+"'");
+			m_connection = DriverManager.getConnection("jdbc:sqlite:"+DATABASE_PATH+"/"+DATABASE_FILE);
 			
 			// setup timeout for query
 			m_logger.info("Set database default timeout '"+DATABASE_TIMEOUT+"'");
