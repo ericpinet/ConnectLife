@@ -16,7 +16,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-// external
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,9 +25,8 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 
 /**
- * This is the ConfigSqlite for this application. 
- * This class permit to read and write object in
- * SQLite database of the application.
+ * This class implements the Config interface. 
+ * This class can store and restore configuration in a SQLite database.
  * 
  * @author Eric Pinet (pineri01@gmail.com)
  * <br> 2015-09-07

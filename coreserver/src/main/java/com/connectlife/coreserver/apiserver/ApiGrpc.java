@@ -23,7 +23,7 @@ import com.clapi.*;
 
 
 /**
- * 
+ * This is the main application API server for the client application (Mobile device).
  * 
  * @author ericpinet
  * <br> 2015-11-05

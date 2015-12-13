@@ -25,7 +25,7 @@ import com.google.inject.Inject;
 import io.grpc.stub.StreamObserver;
 
 /**
- * Procesor for the client connection at the API.
+ * Procesor for the client connection at the API GRPC.
  * 
  * @author ericpinet
  * <br> 2015-11-07
@@ -74,6 +74,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
+	 * 
 	 * @param request
 	 * @param responseObserver
 	 * @see com.clapi.CLApiGrpc.CLApi#getVersion(com.clapi.GetVersionRequest, io.grpc.stub.StreamObserver)

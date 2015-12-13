@@ -76,13 +76,13 @@ public class Accessory {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param manufacturer
-	 * @param model
-	 * @param serialnumber
-	 * @param services
-	 * @param imageurl
+	 * @param uid 			Uid of the accessory. See UIDGenerator.getUID().
+	 * @param label			Display name at the user.
+	 * @param manufacturer	Manufacturer of the accessory.
+	 * @param model			Model of the accessory.
+	 * @param serialnumber	Serial number of the accessory.
+	 * @param services		List of service of the accessory. See com.clapi.data.Service.
+	 * @param imageurl		Image url for this accessory display at the user.
 	 */
 	public Accessory(String uid, String label, String manufacturer, String model, String serialnumber, List<Service> services,
 			String imageurl) {
@@ -99,8 +99,8 @@ public class Accessory {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param uid
-	 * @param label
+	 * @param uid 	Uid of the accessory. See UIDGenerator.getUID().
+	 * @param label Display name at the user.
 	 */
 	public Accessory(String uid, String label) {
 		super();
@@ -110,6 +110,7 @@ public class Accessory {
 
 	
 	/**
+	 * Return the uid of the accessory. See UIDGenerator.getUID().
 	 * @return the uid
 	 */
 	public String getUid() {
@@ -118,6 +119,7 @@ public class Accessory {
 
 
 	/**
+	 * Set the uid of the accessory. See UIDGenerator.getUID().
 	 * @param uid the uid to set
 	 */
 	public void setUid(String uid) {
@@ -126,6 +128,7 @@ public class Accessory {
 
 
 	/**
+	 * Get the label name of the accessory.
 	 * @return the label
 	 */
 	public String getLabel() {
@@ -133,6 +136,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Set the label name of the accessory.
 	 * @param label the label to set
 	 */
 	public void setLabel(String label) {
@@ -140,6 +144,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Get the manufacturer of the accessory.
 	 * @return the manufacturer
 	 */
 	public String getManufacturer() {
@@ -147,6 +152,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Set the manufacturer of the accessory.
 	 * @param manufacturer the manufacturer to set
 	 */
 	public void setManufacturer(String manufacturer) {
@@ -154,6 +160,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Get the accessory model.
 	 * @return the model
 	 */
 	public String getModel() {
@@ -161,6 +168,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Set the accessory model.
 	 * @param model the model to set
 	 */
 	public void setModel(String model) {
@@ -168,6 +176,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Get the accessory serial number.
 	 * @return the serialnumber
 	 */
 	public String getSerialnumber() {
@@ -175,6 +184,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Set the accessory serial number.
 	 * @param serialnumber the serialnumber to set
 	 */
 	public void setSerialnumber(String serialnumber) {
@@ -182,20 +192,25 @@ public class Accessory {
 	}
 
 	/**
+	 * Return the list of service of the accessory. See com.clapi.data.Service.
 	 * @return the services
+	 * @see com.clapi.data.Service
 	 */
 	public List<Service> getServices() {
 		return services;
 	}
 
 	/**
+	 * Set the list of service of the accessory. See com.clapi.data.Service.
 	 * @param services the services to set
+	 * @see com.clapi.data.Service
 	 */
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
 
 	/**
+	 * Get the url of the accessory image.
 	 * @return the imageurl
 	 */
 	public String getImageurl() {
@@ -203,6 +218,7 @@ public class Accessory {
 	}
 
 	/**
+	 * Set the url of the accessory image.
 	 * @param imageurl the imageurl to set
 	 */
 	public void setImageurl(String imageurl) {

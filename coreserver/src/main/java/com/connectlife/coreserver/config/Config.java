@@ -10,12 +10,9 @@ package com.connectlife.coreserver.config;
 
 import java.util.List;
 
-// external
-
-// internal
-
 /**
  * Interface of the manager of configuration in the application. 
+ * This manager can store and reload configuration.
  * 
  * @author ericpinet
  * <br> 2015-10-17

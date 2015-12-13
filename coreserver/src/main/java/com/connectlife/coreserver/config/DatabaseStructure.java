@@ -10,9 +10,10 @@ package com.connectlife.coreserver.config;
 
 
 /**
- * This class contain all the database structure.
+ * This class contain all the database structure for the ConfigSqlite. 
  * 
  * @author Eric Pinet (pineri01@gmail.com)
+ * @see com.connectlife.coreserver.config.ConfigSqlite
  * <br> 2015-09-07
  */
 public class DatabaseStructure {
