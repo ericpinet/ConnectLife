@@ -55,12 +55,12 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	 * Environment file name contain the data representing the user, home, 
 	 * zones, rooms, accessories
 	 */
-	private static final String ENV_DATA_FILENAME = "environnement.data";
+	private static final String ENV_DATA_FILENAME = "env.data";
 	
 	/**
 	 * Environment file name backup.
 	 */
-	private static final String ENV_DATA_FILENAME_BACKUP = "environnement.data.bk";
+	private static final String ENV_DATA_FILENAME_BACKUP = "env.data.bk";
 	
 	/**
 	 * Logger use for this class.
