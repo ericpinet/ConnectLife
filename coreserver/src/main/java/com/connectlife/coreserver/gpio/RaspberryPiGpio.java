@@ -8,17 +8,22 @@
  */
 package com.connectlife.coreserver.gpio;
 
+import java.util.concurrent.Callable;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.io.gpio.trigger.GpioCallbackTrigger;
 
 /**
- * 
+ * RaspberryPiGpio controller. This class manage the access of the GPIO on Raspberry PI.
  * 
  * @author ericpinet
  * <br> 2015-11-04
@@ -38,8 +43,6 @@ public class RaspberryPiGpio implements Gpio {
 	public boolean init() {
 		
 		// TODO: GPIO 
-
-		/*
 		m_logger.info("<--Pi4J--> GPIO Control Example ... started.");
         
         // create gpio controller
@@ -47,58 +50,87 @@ public class RaspberryPiGpio implements Gpio {
         
         // provision gpio pin #01 as an output pin and turn on
         final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "MyLED", PinState.HIGH);
+        
+        // provision gpio pin #02 as an output pin and turn on
+        final GpioPinDigitalOutput pin2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED2", PinState.HIGH);
+        
+        // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
+        final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_03, PinPullResistance.PULL_DOWN);
 
         // set shutdown state for this pin
         pin.setShutdownOptions(true, PinState.LOW);
+        pin2.setShutdownOptions(true, PinState.LOW);
 
         m_logger.info("--> GPIO state should be: ON");
 
         try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
         
         // turn off gpio pin #01
         pin.low();
+        pin2.low();
         m_logger.info("--> GPIO state should be: OFF");
 
         try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
         // toggle the current state of gpio pin #01 (should turn on)
         pin.toggle();
+        pin2.toggle();
         m_logger.info("--> GPIO state should be: ON");
 
         try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
         // toggle the current state of gpio pin #01  (should turn off)
         pin.toggle();
+        pin2.toggle();
         m_logger.info("--> GPIO state should be: OFF");
         
         try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
         // turn on gpio pin #01 for 1 second and then off
         m_logger.info("--> GPIO state should be: ON for only 1 second");
-        pin.pulse(1000, true); // set second argument to 'true' use a blocking call
+        pin.pulse(250, true); // set second argument to 'true' use a blocking call
+        pin2.pulse(500, true);// set second argument to 'true' use a blocking call
+        
+        System.out.println(" --> GPIO TRIGGER READY ");
+        
+        // create a gpio callback trigger on gpio pin#4; when #4 changes state, perform a callback
+        // invocation on the user defined 'Callable' class instance
+        myButton.addTrigger(new GpioCallbackTrigger(new Callable<Void>() {
+            public Void call() throws Exception {
+                System.out.println(" --> GPIO TRIGGER CALLBACK RECEIVED ");
+                return null;
+            }
+        }));
+        
+        try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        
+        System.out.println(" --> GPIO TRIGGER ENDED ");
         
         // stop all GPIO activity/threads by shutting down the GPIO controller
         // (this method will forcefully shutdown all GPIO monitoring threads and scheduled tasks)
         gpio.shutdown();
-        */
 
-		return false;
+		return true;
 	}
 
 	/**

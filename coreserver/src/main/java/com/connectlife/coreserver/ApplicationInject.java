@@ -27,6 +27,8 @@ import com.connectlife.coreserver.environment.EnvironmentJsonFile;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.gpio.RaspberryPiGpio;
+import com.connectlife.coreserver.gpio.SimulatorGpio;
+import com.connectlife.coreserver.tools.os.OperatingSystem;
 import com.connectlife.coreserver.environment.discover.DiscoveryJmdns;
 
 /**
@@ -60,7 +62,13 @@ public class ApplicationInject extends AbstractModule {
 		bind(Console.class).to(ConsoleSSH.class);
 		
 		// GPIO
-		bind(Gpio.class).to(RaspberryPiGpio.class);	
+		OperatingSystem os = new OperatingSystem();
+		if(os.isLinux()){
+			bind(Gpio.class).to(RaspberryPiGpio.class);	
+		}
+		else{
+			bind(Gpio.class).to(SimulatorGpio.class);
+		}
 	}
 
 }

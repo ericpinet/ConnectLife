@@ -33,6 +33,7 @@ import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.tools.execution.ExecutionMode;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
@@ -346,7 +347,7 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 				FileWriter writer = new FileWriter( _path + _filename);  
 				writer.write(json);  
 				writer.close();
-			   
+
 				ret_value = true;
 			} 
 			catch (IOException e) {  

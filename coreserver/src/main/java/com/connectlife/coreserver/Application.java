@@ -27,6 +27,8 @@ import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.tools.execution.ExecutionMode;
+import com.connectlife.coreserver.tools.os.OperatingSystem;
 
 
 /**
@@ -224,7 +226,7 @@ public class Application implements Observer{
 	 */
 	private boolean initModules(){
 		
-		boolean ret_val = true;
+		boolean ret_val = false;
 		
 		// Check if all module are not null
 		if(m_config != null &&
@@ -245,6 +247,18 @@ public class Application implements Observer{
 					if(	m_api.init() == true &&
 						m_console.init() == true && 
 						m_gpio.init() == true){
+						
+						// in debug mode (give more rights on all files to permit remote debugging)
+						if( ExecutionMode.isDebug() && OperatingSystem.isLinux() ){
+							Process p;
+					        try {
+					            p = Runtime.getRuntime().exec("chmod 777 -R "+getBasePath());
+					            p.waitFor();
+
+					        } catch (Exception e) {
+					            e.printStackTrace();
+					        }
+						}
 						
 						ret_val = true;
 						
