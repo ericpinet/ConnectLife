@@ -62,8 +62,7 @@ public class ApplicationInject extends AbstractModule {
 		bind(Console.class).to(ConsoleSSH.class);
 		
 		// GPIO
-		OperatingSystem os = new OperatingSystem();
-		if(os.isLinux()){
+		if(OperatingSystem.isLinux()){
 			bind(Gpio.class).to(RaspberryPiGpio.class);	
 		}
 		else{
