@@ -16,7 +16,6 @@ package com.connectlife.coreserver.tools.os;
  *  - Mac m_os_name X
  *  - Unix
  *  - Linux
- *  - Raspbian
  * 
  * @author ericpinet
  * <br> 2015-12-13

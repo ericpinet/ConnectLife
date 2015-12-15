@@ -49,14 +49,15 @@ public class RaspberryPiGpio implements Gpio {
         final GpioController gpio = GpioFactory.getInstance();
         
         // provision gpio pin #01 as an output pin and turn on
-        final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "MyLED", PinState.HIGH);
+        final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_00, "MyLED", PinState.LOW);
         
         // provision gpio pin #02 as an output pin and turn on
-        final GpioPinDigitalOutput pin2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED2", PinState.HIGH);
+        final GpioPinDigitalOutput pin2 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_02, "MyLED2", PinState.LOW);
         
         // provision gpio pin #02 as an input pin with its internal pull down resistor enabled
         final GpioPinDigitalInput myButton = gpio.provisionDigitalInputPin(RaspiPin.GPIO_03, PinPullResistance.PULL_DOWN);
 
+        /*
         // set shutdown state for this pin
         pin.setShutdownOptions(true, PinState.LOW);
         pin2.setShutdownOptions(true, PinState.LOW);
@@ -106,20 +107,30 @@ public class RaspberryPiGpio implements Gpio {
         m_logger.info("--> GPIO state should be: ON for only 1 second");
         pin.pulse(250, true); // set second argument to 'true' use a blocking call
         pin2.pulse(500, true);// set second argument to 'true' use a blocking call
-        
+        */
         System.out.println(" --> GPIO TRIGGER READY ");
+        pin2.toggle();
         
         // create a gpio callback trigger on gpio pin#4; when #4 changes state, perform a callback
         // invocation on the user defined 'Callable' class instance
         myButton.addTrigger(new GpioCallbackTrigger(new Callable<Void>() {
             public Void call() throws Exception {
                 System.out.println(" --> GPIO TRIGGER CALLBACK RECEIVED ");
+
+                if( myButton.isHigh() ){
+                	pin.toggle();
+                	pin2.toggle();
+                }
+                else{
+                	pin.toggle();
+                	pin2.toggle();
+                }
                 return null;
             }
         }));
         
         try {
-			Thread.sleep(10000);
+			Thread.sleep(60000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
