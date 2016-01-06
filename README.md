@@ -1,32 +1,28 @@
-# README #
+Connectlife
+============
 
-connectlife-coreserver is the main application server of the ConnectLife System. 
+Connectlife is a home automation system in java. 
 
-### ConnectLife - CoreServer ###
+- **Coreserver**: Main system server install on device without screen.
+- **Simulator**: Simulator of the home device (Helpful for tests).
+- **Clapi**: Client/Server protocol for the Connectlife system.
 
-* Version 1.0.0.0
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Documentation: See the wiki page.
 
-### How do I get set up? ###
+## Requirements
 
-* Install eclipse ([https://eclipse.org/downloads/](https://eclipse.org/downloads/))
-* Setup Apache Thrift Plugin : [http://thrift4eclipse.sourceforge.net/en/install.html](http://thrift4eclipse.sourceforge.net/en/install.html)
-* Build and Install Thrift on your computer : [https://thrift.apache.org/docs/install/os_x](https://thrift.apache.org/docs/install/os_x)
-* Install WindowBuilder plugin for the simulator [http://download.eclipse.org/windowbuilder/WB/release/R201506241200-1/4.5/](http://download.eclipse.org/windowbuilder/WB/release/R201506241200-1/4.5/)
-* Setup eclipse with codes template contained in the eclipse-codetemplate directory present in the repository.
+- N/A
 
-![Capture d’écran 2015-09-29 à 22.06.41.png](https://bitbucket.org/repo/G4bp4k/images/3851133221-Capture%20d%E2%80%99%C3%A9cran%202015-09-29%20%C3%A0%2022.06.41.png)
+## Installation
 
+- N/A
 
-### Contribution guidelines ###
+## Author
 
-* Writing tests - It's important!
-* Code review - It's the rules!
-* Code convention - It's necessary!
-* Javadoc - It's the convention! 
+Eric Pinet, pineri01@gmail.com
+Qiaomei Wang
+Charles Cloutier
 
-### Who do I talk to? ###
+## License
 
-* Eric Pinet
-* Qiaomei Wang
-* Charles Cloutier
+Connectlife is available under the MIT license. See the LICENSE file for more info.
