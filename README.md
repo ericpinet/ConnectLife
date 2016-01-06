@@ -19,9 +19,9 @@ Documentation: See the wiki page.
 
 ## Author
 
-Eric Pinet, pineri01@gmail.com
-Qiaomei Wang
-Charles Cloutier
+- Eric Pinet, pineri01@gmail.com
+- Qiaomei Wang
+- Charles Cloutier
 
 ## License
 
