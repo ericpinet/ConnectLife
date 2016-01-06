@@ -1,9 +1,13 @@
 /**
- *  ConnectLifeApi.proto
- *  coreserver
+ *  clapi.proto
+ *
+ *  This client/server interface is use by the clients applications
+ *  (mobile apps, control panel device) to manage the connect life
+ *  environment.
  *
  *  Created by Eric Pinet <pineri01@gmail.com> on 2015-11-02.
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
+ *
  */
 
 syntax = "proto2";
