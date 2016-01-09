@@ -13,10 +13,15 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
+
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
@@ -26,6 +31,12 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
+import com.clapi.data.Accessory.AccessoryType;
+import com.clapi.data.Characteristic.CharacteristicAccessMode;
+import com.clapi.data.Characteristic.CharacteristicEventType;
+import com.clapi.data.Characteristic.CharacteristicType;
+import com.connectlife.coreserver.environment.UIDGenerator;
+import com.connectlife.simulator.device.Device;
 import com.clapi.client.NotificationListener;
 
 /**
@@ -45,7 +56,9 @@ public class MainWindow implements NotificationListener {
 	private Text textHost;
 	private Text textPort;
 	private Label lblStatus;
+	private Label lblDevice;
 	private CLApiClient client;
+	private Vector<Device> m_devices;
 	
 	private static final String HOST = "127.0.0.1";
 	
@@ -124,15 +137,17 @@ public class MainWindow implements NotificationListener {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		
+		m_devices = new Vector<Device>();
+		
 		shell = new Shell();
-		shell.setSize(328, 210);
+		shell.setSize(328, 255);
 		shell.setText("ConnectLife - Simulator");
 		shell.setLayout(new GridLayout(2, false));
 		new Label(shell, SWT.NONE);
 		new Label(shell, SWT.NONE);
 		
 		Label lblHost = new Label(shell, SWT.NONE);
-		lblHost.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblHost.setText("Host:");
 		
 		textHost = new Text(shell, SWT.BORDER);
@@ -140,7 +155,6 @@ public class MainWindow implements NotificationListener {
 		textHost.setText(HOST);
 		
 		Label lblPort = new Label(shell, SWT.NONE);
-		lblPort.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
 		lblPort.setText("Port:");
 		
 		textPort = new Text(shell, SWT.BORDER);
@@ -149,6 +163,7 @@ public class MainWindow implements NotificationListener {
 		new Label(shell, SWT.NONE);
 		
 		Button btnConnect = new Button(shell, SWT.NONE);
+		btnConnect.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnConnect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
@@ -163,6 +178,7 @@ public class MainWindow implements NotificationListener {
 		new Label(shell, SWT.NONE);
 		
 		Button btnDisconnect = new Button(shell, SWT.NONE);
+		btnDisconnect.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnDisconnect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
@@ -177,8 +193,43 @@ public class MainWindow implements NotificationListener {
 		new Label(shell, SWT.NONE);
 		
 		lblStatus = new Label(shell, SWT.NONE);
-		lblStatus.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true, 1, 1));
+		lblStatus.setAlignment(SWT.CENTER);
+		lblStatus.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
 		lblStatus.setText("Not connected");
+		new Label(shell, SWT.NONE);
+		
+		Button btnCreateDevice = new Button(shell, SWT.NONE);
+		btnCreateDevice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				
+				Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+				Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+				List<Characteristic> characteristics = new ArrayList<Characteristic>();
+				characteristics.add(boolean_light);
+				characteristics.add(dimmable_light);
+				
+				Service dimmable_light_service = new Service(UIDGenerator.getUID(), characteristics);
+				List<Service> services = new ArrayList<Service>();
+				services.add(dimmable_light_service);
+				
+				Device device = new Device("1", "Light", "Philips", "Hue101", "123-1772", services, "", AccessoryType.LIGHT_DIMMABLE);
+				device.startServices();
+				
+				m_devices.addElement(device);
+				lblDevice.setText("Device listen");
+			}
+		});
+		btnCreateDevice.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		btnCreateDevice.setText("Create Device");
+		new Label(shell, SWT.NONE);
+		
+		lblDevice = new Label(shell, SWT.NONE);
+		lblDevice.setAlignment(SWT.CENTER);
+		lblDevice.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		lblDevice.setText("No device");
+		
+		
 	}
 	
 	/**

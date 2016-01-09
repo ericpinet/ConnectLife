@@ -70,7 +70,14 @@
 	<groupId>org.eclipse.jetty</groupId>
 	<artifactId>jetty-server</artifactId>
 	<version>9.3.6.v20151106</version>
-</dependency>
+  </dependency>
+
+  <!-- Bonjour, jmDNS -->
+  <dependency>
+	<groupId>javax.jmdns</groupId>
+	<artifactId>jmdns</artifactId>
+	<version>3.4.1</version>
+  </dependency>
   
   </dependencies>
   

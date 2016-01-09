@@ -14,6 +14,8 @@ import java.util.List;
 
 // internal
 import com.clapi.data.*;
+import com.clapi.data.Accessory.AccessoryProtocolType;
+import com.clapi.data.Accessory.AccessoryType;
 import com.clapi.data.Address.AddressType;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -83,7 +85,9 @@ public class CreateTestData {
 												"100w",
 												"PL001-100-10009",
 												services,
-												"");
+												"",
+												AccessoryType.LIGHT_COLORED_DIMMABLE,
+												AccessoryProtocolType.JSON_SIMULATION);
 		
 		List<Accessory> accessories_leving = new ArrayList<Accessory>();
 		accessories_leving.add(light_leving);
