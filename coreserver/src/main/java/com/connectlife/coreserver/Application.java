@@ -8,20 +8,28 @@
  */
 package com.connectlife.coreserver;
 
-// external
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Iterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+import com.google.inject.Singleton;
 
-// internal
+import java.util.Observable;
+import java.util.Observer;
+
 import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.Consts.ModuleUID;
-import com.connectlife.coreserver.modules.Module;
-import com.connectlife.coreserver.modules.ModuleFactory;
+import com.connectlife.coreserver.apiserver.Api;
+import com.connectlife.coreserver.config.Config;
+import com.connectlife.coreserver.console.Console;
+import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.tools.execution.ExecutionMode;
+import com.connectlife.coreserver.tools.os.OperatingSystem;
+
 
 /**
  * Main application class. All start here!
@@ -31,7 +39,8 @@ import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
  * @author  Eric Pinet (pineri01@gmail.com)
  * <br> 2015-09-07
  */
-public class Application {
+@Singleton
+public class Application implements Observer{
 	
 	/**
 	 * Init logger instance for this class
@@ -39,9 +48,29 @@ public class Application {
 	private static Logger m_logger = LogManager.getLogger(Application.class);
 	
 	/**
-	 * Reference for singleton
+	 * Config manager for the application.
 	 */
-	private static Application m_ref = null;
+	private final Config m_config;
+	
+	/**
+	 * Environment data for the application.
+	 */
+	private final Environment m_environment;
+	
+	/**
+	 * Api manager for the application.
+	 */
+	private final Api m_api;
+	
+	/**
+	 * Console manager for the application.
+	 */
+	private final Console m_console;
+	
+	/**
+	 * GPIO manager for the application.
+	 */
+	private final Gpio m_gpio;
 	
 	/**
 	 * Base path of the application.
@@ -52,6 +81,16 @@ public class Application {
 	 * Indicator if the application must be running.
 	 */
 	private boolean m_is_running;
+	
+	/**
+	 * Singleton reference of this class.
+	 */
+	private static Application m_ref;
+	
+	/**
+	 * Flag to indicate if application is already initialized.
+	 */
+	private boolean m_isInit;
 
 	/**
 	 * Main methode of the application.
@@ -59,73 +98,85 @@ public class Application {
 	 */
 	public static void main(String[] args) {
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
+		Injector injector = Guice.createInjector(new ApplicationInject());
+		Application app = injector.getInstance(Application.class);
 		
-		Application app = Application.getInstance();
-		try{
+		m_ref = app;
+		
+		try {
+			app.startup();
 			
-			if( true == app.init() ){
-			
-				app.setRunning(true);
-				app.run();
-			}
-		}
-		catch(Exception e){
+		} catch (Exception e) {
+			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
-		finally{
-			app.unInitModules();
-		}
-		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
 		
 		System.exit(0);
 	}
 	
 	/**
-	 * Main constructor of the application
+	 * Default constructor
+	 * @param _config Config manager for the application.
+	 * @param _env Environment manager for the application.
+	 * @param _api Api for the application.
+	 * @param _console Console for the application.
+	 * @param _gpio GPIO manager for the application.
 	 */
-	public Application(){
-		
+	@Inject
+	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio){
+		m_logger.debug("Application constructor.");
+		m_config = _config;
+		m_environment = _env;
+		m_api = _api;
+		m_console = _console;
+		m_gpio = _gpio;
+		m_ref = this;
 	}
 	
 	/**
-	 * Return the instance of this application.
+	 * Return the application instance.
 	 * 
-	 * @return Singleton instance of the ApiServer.
+	 * @return Application current running.
 	 */
-	public static Application getInstance(){
-		if(null == m_ref){
-			m_ref = new Application();
-		}
+	public static Application getApp() {
 		return m_ref;
 	}
+
 	
 	/**
 	 * Init all application stuff. 
+	 * 
 	 * @return True is initialization is completed correctly
 	 */
-	public boolean init(){
+	private boolean init(){
 		
 		boolean ret_val = false;
 		
 		m_logger.info("Initialization started ...");
 		
-		// Startup application logging system
-		if( true == initBasePath() &&
-			true == initModules() ){
-			ret_val = true;
-			m_logger.info("Initialization completed.");
+		if(false == m_isInit){
+		
+			// Startup application module
+			if( true == initBasePath() &&
+				true == initModules() ){
+				m_isInit = ret_val = true;
+				m_logger.info("Initialization completed.");
+			}
+			else{
+				m_logger.error("Initialization failed.");
+			}
 		}
-		
-		
+		else{
+			m_logger.warn("Application is already initialized.");
+		}
 		
 		return ret_val;
 	}
 	
 	/**
 	 * Init the base path of the application
+	 * 
 	 * @return True is the base path can be init correctly
 	 */
 	private boolean initBasePath(){
@@ -133,7 +184,6 @@ public class Application {
 		boolean ret_val = false;
 		
 		try {
-			
 			m_base_path = new File(".").getCanonicalPath();
 			m_logger.info("Base path: '"+ m_base_path +"'.");
 			ret_val = true;
@@ -165,7 +215,7 @@ public class Application {
 	/**
 	 * @param _is_running the m_is_running to set
 	 */
-	public void setRunning(boolean _is_running) {
+	private void setRunning(boolean _is_running) {
 		this.m_is_running = _is_running;
 	}
 
@@ -176,26 +226,49 @@ public class Application {
 	 */
 	private boolean initModules(){
 		
-		boolean ret_val = true;
-		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.values().iterator();
+		boolean ret_val = false;
 		
-		// Initialization of DataManager first of all
-		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
-		if( null != data &&
-		   	false == data.isInit() ){
+		// Check if all module are not null
+		if(m_config != null &&
+		   m_environment != null &&
+		   m_api != null &&
+		   m_console != null
+		   ){
 			
-			data.init();
-			
-			while(itr.hasNext()){
-				Module module = itr.next();
-				if( false == module.isInit() && 
-					false == module.init())
-					ret_val = false;
+			// init config first
+			if(m_config.init() == true){
+				
+				// init environment second
+				if(m_environment.init() == true){
+					
+					m_environment.addObserver(this);
+					
+					// init others modules
+					if(	m_api.init() == true &&
+						m_console.init() == true && 
+						m_gpio.init() == true){
+						
+						// in debug mode (give more rights on all files to permit remote debugging)
+						if( ExecutionMode.isDebug() && OperatingSystem.isLinux() ){
+							Process p;
+					        try {
+					            p = Runtime.getRuntime().exec("chmod 777 -R "+getBasePath());
+					            p.waitFor();
+
+					        } catch (Exception e) {
+					            e.printStackTrace();
+					        }
+						}
+						
+						ret_val = true;
+						
+					}
+				}
 			}
+			
 		}
 		else{
-			m_logger.error("Unable to find DataManager.");
+			m_logger.error("Unable to initialize modules. At less one module is null.");
 		}
 		
 		return ret_val;
@@ -206,22 +279,22 @@ public class Application {
 	 */
 	private void unInitModules(){
 		
-		Hashtable<ModuleUID,Module> modules = ModuleFactory.getModules();
-		Iterator<Module> itr = modules.values().iterator();
+		if(m_config != null &&
+		   m_environment != null &&
+		   m_api != null &&
+		   m_console != null &&
+		   m_gpio != null
+		   ){
 			
-		while(itr.hasNext()){
-			Module module = itr.next();
-			if( true == module.isInit() &&
-				Consts.ModuleUID.DATA_MANAGER != module.getModuleUID() ){
-					module.unInit();
-			}
+			m_console.unInit();
+			m_api.unInit();
+			m_environment.unInit();
+			m_config.unInit();
+			m_gpio.unInit();
+			
 		}
-		
-		// UnInitialization of DataManager at the end
-		Module data = modules.get(Consts.ModuleUID.DATA_MANAGER);
-		if( null != data &&
-		   	false == data.isInit() ){
-			data.unInit();
+		else{
+			m_logger.error("Unable to uninitialize modules. At less one module is null.");
 		}
 		
 	}
@@ -231,6 +304,8 @@ public class Application {
 	 */
 	public void run(){
 		
+		setRunning(true);
+		
 		// start the state machine
 		ApplicationStateMachine state_machine = new ApplicationStateMachine();
 		state_machine.start();
@@ -238,11 +313,86 @@ public class Application {
 		// application run
 		while(m_is_running){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(2000);
+				
 			} catch (InterruptedException e) {
-				// no error on interup.
+				m_logger.info("Main application thread was stopted.");
 			}
 		}
 	}
 
+	/**
+	 * Startup the application process.
+	 * This function block until a shutdown as called.
+	 */
+	public void startup() {
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
+		
+		try{
+			if( true == init() ){
+				run();
+			}
+		}
+		catch(Exception e){
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		finally{
+			unInitModules();
+		}
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+	}
+
+	/**
+	 * Shutdown the application.
+	 */
+	public void shutdown() {
+		setRunning(false);
+	}
+	
+	/**
+	 * Return the configuration manager for this application.
+	 * @return Return configuration manager.
+	 */
+	public Config getConfig(){
+		return m_config;
+	}
+	
+	/**
+	 * Return the environment manager for this application.
+	 * @return Return environement manager.
+	 */
+	public Environment getEnvironment(){
+		return m_environment;
+	}
+	
+	/**
+	 * Return the api manager for this application.
+	 * @return Return api manager.
+	 */
+	public Api getApi(){
+		return m_api;
+	}
+	
+	/**
+	 * Return the console manager for this application.
+	 * @return Return console manager.
+	 */
+	public Console getConsole(){
+		return m_console;
+	}
+
+	/**
+	 * @param o
+	 * @param arg
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(m_environment == o){
+			m_logger.info("Environment was updated.");
+		}
+	}
 }

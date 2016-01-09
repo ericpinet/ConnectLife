@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import com.digi.xbee.api.connection.IConnectionInterface;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import com.digi.xbee.api.connection.serial.SerialPortParameters;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.digi.xbee.api.exceptions.InterfaceNotOpenException;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import com.digi.xbee.api.exceptions.OperationNotSupportedException;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import com.digi.xbee.api.exceptions.TimeoutException;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import com.digi.xbee.api.exceptions.XBeeDeviceException;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.digi.xbee.api.exceptions.XBeeException;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.digi.xbee.api.models.AssociationIndicationStatus;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.digi.xbee.api.models.XBee16BitAddress;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.digi.xbee.api.models.XBee64BitAddress;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.digi.xbee.api.models.XBeeProtocol;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.digi.xbee.api.models.XBeeTransmitOptions;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.digi.xbee.api.packet.XBeePacket;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.digi.xbee.api.packet.raw.TX16Packet;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.digi.xbee.api.utils.HexUtils;<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span>/**<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * This class represents a local 802.15.4 device.<a name="line.31"></a>
+<span class="sourceLineNo">032</span> * <a name="line.32"></a>
+<span class="sourceLineNo">033</span> * @see XBeeDevice<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * @see DigiMeshDevice<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * @see DigiPointDevice<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * @see ZigBeeDevice<a name="line.36"></a>
+<span class="sourceLineNo">037</span> */<a name="line.37"></a>
+<span class="sourceLineNo">038</span>public class Raw802Device extends XBeeDevice {<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>        /**<a name="line.40"></a>
+<span class="sourceLineNo">041</span>         * Class constructor. Instantiates a new {@code Raw802Device} object in the <a name="line.41"></a>
+<span class="sourceLineNo">042</span>         * given port name and baud rate.<a name="line.42"></a>
+<span class="sourceLineNo">043</span>         * <a name="line.43"></a>
+<span class="sourceLineNo">044</span>         * @param port Serial port name where 802.15.4 device is attached to.<a name="line.44"></a>
+<span class="sourceLineNo">045</span>         * @param baudRate Serial port baud rate to communicate with the device. <a name="line.45"></a>
+<span class="sourceLineNo">046</span>         *                 Other connection parameters will be set as default (8 <a name="line.46"></a>
+<span class="sourceLineNo">047</span>         *                 data bits, 1 stop bit, no parity, no flow control).<a name="line.47"></a>
+<span class="sourceLineNo">048</span>         * <a name="line.48"></a>
+<span class="sourceLineNo">049</span>         * @throws IllegalArgumentException if {@code baudRate &lt; 0}.<a name="line.49"></a>
+<span class="sourceLineNo">050</span>         * @throws NullPointerException if {@code port == null}.<a name="line.50"></a>
+<span class="sourceLineNo">051</span>         */<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        public Raw802Device(String port, int baudRate) {<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                this(XBee.createConnectiontionInterface(port, baudRate));<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        }<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        <a name="line.55"></a>
+<span class="sourceLineNo">056</span>        /**<a name="line.56"></a>
+<span class="sourceLineNo">057</span>         * Class constructor. Instantiates a new {@code Raw802Device} object in the <a name="line.57"></a>
+<span class="sourceLineNo">058</span>         * given serial port name and settings.<a name="line.58"></a>
+<span class="sourceLineNo">059</span>         * <a name="line.59"></a>
+<span class="sourceLineNo">060</span>         * @param port Serial port name where 802.15.4 device is attached to.<a name="line.60"></a>
+<span class="sourceLineNo">061</span>         * @param baudRate Serial port baud rate to communicate with the device.<a name="line.61"></a>
+<span class="sourceLineNo">062</span>         * @param dataBits Serial port data bits.<a name="line.62"></a>
+<span class="sourceLineNo">063</span>         * @param stopBits Serial port data bits.<a name="line.63"></a>
+<span class="sourceLineNo">064</span>         * @param parity Serial port data bits.<a name="line.64"></a>
+<span class="sourceLineNo">065</span>         * @param flowControl Serial port data bits.<a name="line.65"></a>
+<span class="sourceLineNo">066</span>         * <a name="line.66"></a>
+<span class="sourceLineNo">067</span>         * @throws IllegalArgumentException if {@code baudRate &lt; 0} or<a name="line.67"></a>
+<span class="sourceLineNo">068</span>         *                                  if {@code dataBits &lt; 0} or<a name="line.68"></a>
+<span class="sourceLineNo">069</span>         *                                  if {@code stopBits &lt; 0} or<a name="line.69"></a>
+<span class="sourceLineNo">070</span>         *                                  if {@code parity &lt; 0} or<a name="line.70"></a>
+<span class="sourceLineNo">071</span>         *                                  if {@code flowControl &lt; 0}.<a name="line.71"></a>
+<span class="sourceLineNo">072</span>         * @throws NullPointerException if {@code port == null}.<a name="line.72"></a>
+<span class="sourceLineNo">073</span>         */<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        public Raw802Device(String port, int baudRate, int dataBits, int stopBits, int parity, int flowControl) {<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                this(port, new SerialPortParameters(baudRate, dataBits, stopBits, parity, flowControl));<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        }<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        <a name="line.77"></a>
+<span class="sourceLineNo">078</span>        /**<a name="line.78"></a>
+<span class="sourceLineNo">079</span>         * Class constructor. Instantiates a new {@code Raw802Device} object in the <a name="line.79"></a>
+<span class="sourceLineNo">080</span>         * given serial port name and parameters.<a name="line.80"></a>
+<span class="sourceLineNo">081</span>         * <a name="line.81"></a>
+<span class="sourceLineNo">082</span>         * @param port Serial port name where 802.15.4 device is attached to.<a name="line.82"></a>
+<span class="sourceLineNo">083</span>         * @param serialPortParameters Object containing the serial port parameters.<a name="line.83"></a>
+<span class="sourceLineNo">084</span>         * <a name="line.84"></a>
+<span class="sourceLineNo">085</span>         * @throws NullPointerException if {@code port == null} or<a name="line.85"></a>
+<span class="sourceLineNo">086</span>         *                              if {@code serialPortParameters == null}.<a name="line.86"></a>
+<span class="sourceLineNo">087</span>         * <a name="line.87"></a>
+<span class="sourceLineNo">088</span>         * @see SerialPortParameters<a name="line.88"></a>
+<span class="sourceLineNo">089</span>         */<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        public Raw802Device(String port, SerialPortParameters serialPortParameters) {<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                this(XBee.createConnectiontionInterface(port, serialPortParameters));<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        }<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        <a name="line.93"></a>
+<span class="sourceLineNo">094</span>        /**<a name="line.94"></a>
+<span class="sourceLineNo">095</span>         * Class constructor. Instantiates a new {@code Raw802Device} object with the <a name="line.95"></a>
+<span class="sourceLineNo">096</span>         * given connection interface.<a name="line.96"></a>
+<span class="sourceLineNo">097</span>         * <a name="line.97"></a>
+<span class="sourceLineNo">098</span>         * @param connectionInterface The connection interface with the physical <a name="line.98"></a>
+<span class="sourceLineNo">099</span>         *                            802.15.4 device.<a name="line.99"></a>
+<span class="sourceLineNo">100</span>         * <a name="line.100"></a>
+<span class="sourceLineNo">101</span>         * @throws NullPointerException if {@code connectionInterface == null}<a name="line.101"></a>
+<span class="sourceLineNo">102</span>         * <a name="line.102"></a>
+<span class="sourceLineNo">103</span>         * @see IConnectionInterface<a name="line.103"></a>
+<span class="sourceLineNo">104</span>         */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        public Raw802Device(IConnectionInterface connectionInterface) {<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                super(connectionInterface);<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        }<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        <a name="line.108"></a>
+<span class="sourceLineNo">109</span>        /*<a name="line.109"></a>
+<span class="sourceLineNo">110</span>         * (non-Javadoc)<a name="line.110"></a>
+<span class="sourceLineNo">111</span>         * @see com.digi.xbee.api.XBeeDevice#open()<a name="line.111"></a>
+<span class="sourceLineNo">112</span>         */<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        @Override<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        public void open() throws XBeeException {<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                super.open();<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                if (isRemote())<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                        return;<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                if (xbeeProtocol != XBeeProtocol.RAW_802_15_4)<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                        throw new XBeeDeviceException("XBee device is not a " + getXBeeProtocol().getDescription() + " device, it is a " + xbeeProtocol.getDescription() + " device.");<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        }<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        <a name="line.121"></a>
+<span class="sourceLineNo">122</span>        /*<a name="line.122"></a>
+<span class="sourceLineNo">123</span>         * (non-Javadoc)<a name="line.123"></a>
+<span class="sourceLineNo">124</span>         * @see com.digi.xbee.api.XBeeDevice#getNetwork()<a name="line.124"></a>
+<span class="sourceLineNo">125</span>         */<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        @Override<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        public XBeeNetwork getNetwork() {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                if (!isOpen())<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                        throw new InterfaceNotOpenException();<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                <a name="line.130"></a>
+<span class="sourceLineNo">131</span>                if (network == null)<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                        network = new Raw802Network(this);<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                return network;<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        }<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        <a name="line.135"></a>
+<span class="sourceLineNo">136</span>        /*<a name="line.136"></a>
+<span class="sourceLineNo">137</span>         * (non-Javadoc)<a name="line.137"></a>
+<span class="sourceLineNo">138</span>         * @see com.digi.xbee.api.XBeeDevice#getXBeeProtocol()<a name="line.138"></a>
+<span class="sourceLineNo">139</span>         */<a name="line.139"></a>
+<span class="sourceLineNo">140</span>        @Override<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        public XBeeProtocol getXBeeProtocol() {<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                return XBeeProtocol.RAW_802_15_4;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        }<a name="line.143"></a>
+<span class="sourceLineNo">144</span>        <a name="line.144"></a>
+<span class="sourceLineNo">145</span>        /*<a name="line.145"></a>
+<span class="sourceLineNo">146</span>         * (non-Javadoc)<a name="line.146"></a>
+<span class="sourceLineNo">147</span>         * @see com.digi.xbee.api.XBeeDevice#sendDataAsync(com.digi.xbee.api.models.XBee64BitAddress, byte[])<a name="line.147"></a>
+<span class="sourceLineNo">148</span>         */<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        @Override<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        public void sendDataAsync(XBee64BitAddress address, byte[] data) throws XBeeException {<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                super.sendDataAsync(address, data);<a name="line.151"></a>
+<span class="sourceLineNo">152</span>        }<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        <a name="line.153"></a>
+<span class="sourceLineNo">154</span>        /**<a name="line.154"></a>
+<span class="sourceLineNo">155</span>         * Sends the provided data to the XBee device of the network corresponding <a name="line.155"></a>
+<span class="sourceLineNo">156</span>         * to the given 16-bit address asynchronously.<a name="line.156"></a>
+<span class="sourceLineNo">157</span>         * <a name="line.157"></a>
+<span class="sourceLineNo">158</span>         * &lt;p&gt;Asynchronous transmissions do not wait for answer from the remote <a name="line.158"></a>
+<span class="sourceLineNo">159</span>         * device or for transmit status packet&lt;/p&gt;<a name="line.159"></a>
+<span class="sourceLineNo">160</span>         * <a name="line.160"></a>
+<span class="sourceLineNo">161</span>         * @param address The 16-bit address of the XBee that will receive the data.<a name="line.161"></a>
+<span class="sourceLineNo">162</span>         * @param data Byte array containing data to be sent.<a name="line.162"></a>
+<span class="sourceLineNo">163</span>         * <a name="line.163"></a>
+<span class="sourceLineNo">164</span>         * @throws InterfaceNotOpenException if the device is not open.<a name="line.164"></a>
+<span class="sourceLineNo">165</span>         * @throws NullPointerException if {@code address == null} or <a name="line.165"></a>
+<span class="sourceLineNo">166</span>         *                              if {@code data == null}.<a name="line.166"></a>
+<span class="sourceLineNo">167</span>         * @throws XBeeException if there is any XBee related exception.<a name="line.167"></a>
+<span class="sourceLineNo">168</span>         * <a name="line.168"></a>
+<span class="sourceLineNo">169</span>         * @see com.digi.xbee.api.models.XBee16BitAddress<a name="line.169"></a>
+<span class="sourceLineNo">170</span>         * @see #sendData(RemoteXBeeDevice, byte[])<a name="line.170"></a>
+<span class="sourceLineNo">171</span>         * @see #sendData(XBee16BitAddress, byte[])<a name="line.171"></a>
+<span class="sourceLineNo">172</span>         * @see #sendData(XBee64BitAddress, byte[])<a name="line.172"></a>
+<span class="sourceLineNo">173</span>         * @see #sendDataAsync(RemoteXBeeDevice, byte[])<a name="line.173"></a>
+<span class="sourceLineNo">174</span>         * @see #sendDataAsync(XBee64BitAddress, byte[])<a name="line.174"></a>
+<span class="sourceLineNo">175</span>         */<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        public void sendDataAsync(XBee16BitAddress address, byte[] data) throws XBeeException {<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                // Verify the parameters are not null, if they are null, throw an exception.<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                if (address == null)<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                        throw new NullPointerException("Address cannot be null");<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                if (data == null)<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                        throw new NullPointerException("Data cannot be null");<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                <a name="line.182"></a>
+<span class="sourceLineNo">183</span>                // Check if device is remote.<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                if (isRemote())<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                        throw new OperationNotSupportedException("Cannot send data to a remote device from a remote device.");<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                <a name="line.186"></a>
+<span class="sourceLineNo">187</span>                logger.info(toString() + "Sending data asynchronously to {} &gt;&gt; {}.", address, HexUtils.prettyHexString(data));<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                <a name="line.188"></a>
+<span class="sourceLineNo">189</span>                XBeePacket xbeePacket = new TX16Packet(getNextFrameID(), address, XBeeTransmitOptions.NONE, data);<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                sendAndCheckXBeePacket(xbeePacket, true);<a name="line.190"></a>
+<span class="sourceLineNo">191</span>        }<a name="line.191"></a>
+<span class="sourceLineNo">192</span>        <a name="line.192"></a>
+<span class="sourceLineNo">193</span>        /*<a name="line.193"></a>
+<span class="sourceLineNo">194</span>         * (non-Javadoc)<a name="line.194"></a>
+<span class="sourceLineNo">195</span>         * @see com.digi.xbee.api.XBeeDevice#sendData(com.digi.xbee.api.models.XBee64BitAddress, byte[])<a name="line.195"></a>
+<span class="sourceLineNo">196</span>         */<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        @Override<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        public void sendData(XBee64BitAddress address, byte[] data) throws TimeoutException, XBeeException {<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                super.sendData(address, data);<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        }<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        <a name="line.201"></a>
+<span class="sourceLineNo">202</span>        /**<a name="line.202"></a>
+<span class="sourceLineNo">203</span>         * Sends the provided data to the XBee device of the network corresponding <a name="line.203"></a>
+<span class="sourceLineNo">204</span>         * to the given 16-bit address.<a name="line.204"></a>
+<span class="sourceLineNo">205</span>         * <a name="line.205"></a>
+<span class="sourceLineNo">206</span>         * &lt;p&gt;This method blocks until a success or error response arrives or the <a name="line.206"></a>
+<span class="sourceLineNo">207</span>         * configured receive timeout expires.&lt;/p&gt;<a name="line.207"></a>
+<span class="sourceLineNo">208</span>         * <a name="line.208"></a>
+<span class="sourceLineNo">209</span>         * &lt;p&gt;The received timeout is configured using the {@code setReceiveTimeout}<a name="line.209"></a>
+<span class="sourceLineNo">210</span>         * method and can be consulted with {@code getReceiveTimeout} method.&lt;/p&gt;<a name="line.210"></a>
+<span class="sourceLineNo">211</span>         * <a name="line.211"></a>
+<span class="sourceLineNo">212</span>         * &lt;p&gt;For non-blocking operations use the method <a name="line.212"></a>
+<span class="sourceLineNo">213</span>         * {@link #sendData(XBee16BitAddress, byte[])}.&lt;/p&gt;<a name="line.213"></a>
+<span class="sourceLineNo">214</span>         * <a name="line.214"></a>
+<span class="sourceLineNo">215</span>         * @param address The 16-bit address of the XBee that will receive the data.<a name="line.215"></a>
+<span class="sourceLineNo">216</span>         * @param data Byte array containing data to be sent.<a name="line.216"></a>
+<span class="sourceLineNo">217</span>         * <a name="line.217"></a>
+<span class="sourceLineNo">218</span>         * @throws InterfaceNotOpenException if the device is not open.<a name="line.218"></a>
+<span class="sourceLineNo">219</span>         * @throws NullPointerException if {@code address == null} or <a name="line.219"></a>
+<span class="sourceLineNo">220</span>         *                              if {@code data == null}.<a name="line.220"></a>
+<span class="sourceLineNo">221</span>         * @throws TimeoutException if there is a timeout sending the data.<a name="line.221"></a>
+<span class="sourceLineNo">222</span>         * @throws XBeeException if there is any other XBee related exception.<a name="line.222"></a>
+<span class="sourceLineNo">223</span>         * <a name="line.223"></a>
+<span class="sourceLineNo">224</span>         * @see com.digi.xbee.api.models.XBee16BitAddress<a name="line.224"></a>
+<span class="sourceLineNo">225</span>         * @see XBeeDevice#getReceiveTimeout()<a name="line.225"></a>
+<span class="sourceLineNo">226</span>         * @see XBeeDevice#setReceiveTimeout(int)<a name="line.226"></a>
+<span class="sourceLineNo">227</span>         * @see #sendData(RemoteXBeeDevice, byte[])<a name="line.227"></a>
+<span class="sourceLineNo">228</span>         * @see #sendData(XBee64BitAddress, byte[])<a name="line.228"></a>
+<span class="sourceLineNo">229</span>         * @see #sendDataAsync(RemoteXBeeDevice, byte[])<a name="line.229"></a>
+<span class="sourceLineNo">230</span>         * @see #sendDataAsync(XBee16BitAddress, byte[])<a name="line.230"></a>
+<span class="sourceLineNo">231</span>         * @see #sendDataAsync(XBee64BitAddress, byte[])<a name="line.231"></a>
+<span class="sourceLineNo">232</span>         */<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        public void sendData(XBee16BitAddress address, byte[] data) throws TimeoutException, XBeeException {<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                // Verify the parameters are not null, if they are null, throw an exception.<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                if (address == null)<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                        throw new NullPointerException("Address cannot be null");<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                if (data == null)<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                        throw new NullPointerException("Data cannot be null");<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                <a name="line.239"></a>
+<span class="sourceLineNo">240</span>                // Check if device is remote.<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                if (isRemote())<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                        throw new OperationNotSupportedException("Cannot send data to a remote device from a remote device.");<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                <a name="line.243"></a>
+<span class="sourceLineNo">244</span>                logger.info(toString() + "Sending data to {} &gt;&gt; {}.", address, HexUtils.prettyHexString(data));<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                <a name="line.245"></a>
+<span class="sourceLineNo">246</span>                XBeePacket xbeePacket = new TX16Packet(getNextFrameID(), address, XBeeTransmitOptions.NONE, data);<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                sendAndCheckXBeePacket(xbeePacket, false);<a name="line.247"></a>
+<span class="sourceLineNo">248</span>        }<a name="line.248"></a>
+<span class="sourceLineNo">249</span>        <a name="line.249"></a>
+<span class="sourceLineNo">250</span>        /*<a name="line.250"></a>
+<span class="sourceLineNo">251</span>         * (non-Javadoc)<a name="line.251"></a>
+<span class="sourceLineNo">252</span>         * @see com.digi.xbee.api.AbstractXBeeDevice#set16BitAddress(com.digi.xbee.api.models.XBee16BitAddress)<a name="line.252"></a>
+<span class="sourceLineNo">253</span>         */<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        @Override<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        public void set16BitAddress(XBee16BitAddress xbee16BitAddress) throws TimeoutException, XBeeException {<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                super.set16BitAddress(xbee16BitAddress);<a name="line.256"></a>
+<span class="sourceLineNo">257</span>        }<a name="line.257"></a>
+<span class="sourceLineNo">258</span>        <a name="line.258"></a>
+<span class="sourceLineNo">259</span>        /*<a name="line.259"></a>
+<span class="sourceLineNo">260</span>         * (non-Javadoc)<a name="line.260"></a>
+<span class="sourceLineNo">261</span>         * @see com.digi.xbee.api.AbstractXBeeDevice#getAssociationIndicationStatus()<a name="line.261"></a>
+<span class="sourceLineNo">262</span>         */<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        @Override<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        public AssociationIndicationStatus getAssociationIndicationStatus() throws TimeoutException, XBeeException {<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                return super.getAssociationIndicationStatus();<a name="line.265"></a>
+<span class="sourceLineNo">266</span>        }<a name="line.266"></a>
+<span class="sourceLineNo">267</span>}<a name="line.267"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

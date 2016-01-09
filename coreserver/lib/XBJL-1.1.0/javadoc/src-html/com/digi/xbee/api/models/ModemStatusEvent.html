@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api.models;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.HashMap;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.digi.xbee.api.utils.HexUtils;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>/**<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * Enumerates the different modem status events. This enumeration list is <a name="line.19"></a>
+<span class="sourceLineNo">020</span> * intended to be used within the <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * {@link com.digi.xbee.api.packet.common.ModemStatusPacket} packet.<a name="line.21"></a>
+<span class="sourceLineNo">022</span> */<a name="line.22"></a>
+<span class="sourceLineNo">023</span>public enum ModemStatusEvent {<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span>        // Enumeration elements<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        STATUS_HARDWARE_RESET (0, "Device was reset"),<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        STATUS_WATCHDOG_TIMER_RESET (1, "Watchdog timer was reset"),<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        STATUS_JOINED_NETWORK (2, "Device joined to network"),<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        STATUS_DISASSOCIATED (3, "Device disassociated"),<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        STATUS_ERROR_SYNCHRONIZATION_LOST (4, "Configuration error/synchronization lost"),<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        STATUS_COORDINATOR_REALIGNMENT (5, "Coordinator realignment"),<a name="line.31"></a>
+<span class="sourceLineNo">032</span>        STATUS_COORDINATOR_STARTED (6, "The coordinator started"),<a name="line.32"></a>
+<span class="sourceLineNo">033</span>        STATUS_NETWORK_SECURITY_KEY_UPDATED (7, "Network security key was updated"),<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        STATUS_NETWORK_WOKE_UP (0x0B, "Network Woke Up"),<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        STATUS_NETWORK_WENT_TO_SLEEP (0x0C, "Network Went To Sleep"),<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        STATUS_VOLTAGE_SUPPLY_LIMIT_EXCEEDED (0x0D, "Voltage supply limit exceeded"),<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        STATUS_MODEM_CONFIG_CHANGED_WHILE_JOINING (0x11, " Modem configuration changed while joining"),<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        STATUS_ERROR_STACK (0x80, "Stack error"),<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        STATUS_ERROR_AP_NOT_CONNECTED (0x82, "Send/join command issued without connecting from AP"),<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        STATUS_ERROR_AP_NOT_FOUND (0x83, "Access point not found"),<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        STATUS_ERROR_PSK_NOT_CONFIGURED (0x84, "PSK not configured"),<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        STATUS_ERROR_SSID_NOT_FOUND (0x87, "SSID not found"),<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        STATUS_ERROR_FAILED_JOIN_SECURITY (0x88, "Failed to join with security enabled"),<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        STATUS_ERROR_INVALID_CHANNEL (0x8A, "Invalid channel"),<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        STATUS_ERROR_FAILED_JOIN_AP (0x8E, "Failed to join access point"),<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        STATUS_UNKNOWN (0xFF, "UNKNOWN");<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        <a name="line.47"></a>
+<span class="sourceLineNo">048</span>        // Variables<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private final int id;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        <a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private final String description;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        <a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private final static HashMap&lt;Integer, ModemStatusEvent&gt; lookupTable = new HashMap&lt;Integer, ModemStatusEvent&gt;();<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        <a name="line.54"></a>
+<span class="sourceLineNo">055</span>        static {<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                for (ModemStatusEvent at:values())<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                        lookupTable.put(at.getId(), at);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        }<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        <a name="line.59"></a>
+<span class="sourceLineNo">060</span>        /**<a name="line.60"></a>
+<span class="sourceLineNo">061</span>         * Class constructor. Instantiates a new {@code ModemStatusEvent} <a name="line.61"></a>
+<span class="sourceLineNo">062</span>         * enumeration entry  with the given parameters.<a name="line.62"></a>
+<span class="sourceLineNo">063</span>         * <a name="line.63"></a>
+<span class="sourceLineNo">064</span>         * @param id Modem status ID.<a name="line.64"></a>
+<span class="sourceLineNo">065</span>         * @param description Modem status description.<a name="line.65"></a>
+<span class="sourceLineNo">066</span>         */<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        ModemStatusEvent(int id, String description) {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                this.id = id;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                this.description = description;<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        }<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        <a name="line.71"></a>
+<span class="sourceLineNo">072</span>        /**<a name="line.72"></a>
+<span class="sourceLineNo">073</span>         * Returns the modem status ID.<a name="line.73"></a>
+<span class="sourceLineNo">074</span>         * <a name="line.74"></a>
+<span class="sourceLineNo">075</span>         * @return The modem status ID.<a name="line.75"></a>
+<span class="sourceLineNo">076</span>         */<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        public int getId() {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                return id;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        }<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        <a name="line.80"></a>
+<span class="sourceLineNo">081</span>        /**<a name="line.81"></a>
+<span class="sourceLineNo">082</span>         * Returns the modem status description.<a name="line.82"></a>
+<span class="sourceLineNo">083</span>         * <a name="line.83"></a>
+<span class="sourceLineNo">084</span>         * @return Modem status description.<a name="line.84"></a>
+<span class="sourceLineNo">085</span>         */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        public String getDescription() {<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                return description;<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        }<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        <a name="line.89"></a>
+<span class="sourceLineNo">090</span>        /**<a name="line.90"></a>
+<span class="sourceLineNo">091</span>         * Returns the {@code ModemStatusEvent} associated to the given ID.<a name="line.91"></a>
+<span class="sourceLineNo">092</span>         * <a name="line.92"></a>
+<span class="sourceLineNo">093</span>         * @param id ID of the {@code ModemStatusEvent} to retrieve.<a name="line.93"></a>
+<span class="sourceLineNo">094</span>         * @return The {@code ModemStatusEvent} associated with the given ID.<a name="line.94"></a>
+<span class="sourceLineNo">095</span>         */<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        public static ModemStatusEvent get(int id) {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                ModemStatusEvent status = lookupTable.get(id);<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                if (status != null)<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                        return status;<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                return STATUS_UNKNOWN;<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        }<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        <a name="line.102"></a>
+<span class="sourceLineNo">103</span>        /*<a name="line.103"></a>
+<span class="sourceLineNo">104</span>         * (non-Javadoc)<a name="line.104"></a>
+<span class="sourceLineNo">105</span>         * @see java.lang.Enum#toString()<a name="line.105"></a>
+<span class="sourceLineNo">106</span>         */<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        @Override<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        public String toString() {<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                return HexUtils.byteToHexString((byte)id) + ": " + description;<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        }<a name="line.110"></a>
+<span class="sourceLineNo">111</span>}<a name="line.111"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

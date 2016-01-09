@@ -1,24 +1,28 @@
-# README #
+Connectlife
+============
 
-connectlife-coreserver is the main application server of the ConnectLife System. 
+Connectlife is a home automation system in java. 
 
-### ConnectLife - CoreServer ###
+- **Coreserver**: Main system server install on device without screen.
+- **Simulator**: Simulator of the home device (Helpful for tests).
+- **Clapi**: Client/Server protocol for the Connectlife system.
 
-* Version 1.0.0.0
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Documentation: See the wiki page.
 
-### How do I get set up? ###
+## Requirements
 
-See the wiki developper section for setup you IDE : [https://bitbucket.org/ericpinet/connectlife-coreserver/wiki/Developpers](https://bitbucket.org/ericpinet/connectlife-coreserver/wiki/Developpers)
+- N/A
 
-### Contribution guidelines ###
+## Installation
 
-* Writing tests - It's important!
-* Code review - It's the rules!
-* Code convention - It's necessary!
-* Javadoc - It's the convention! 
+- N/A
 
-### Who do I talk to? ###
+## Author
 
-* Eric Pinet
-* Qiaomei Wang
+- Eric Pinet, pineri01@gmail.com
+- Qiaomei Wang
+- Charles Cloutier
+
+## License
+
+Connectlife is available under the MIT license. See the LICENSE file for more info.

@@ -1,0 +1,224 @@
+/**
+ *  clapi.proto
+ *
+ *  This client/server interface is use by the clients applications
+ *  (mobile apps, control panel device) to manage the connect life
+ *  environment.
+ *
+ *  Created by Eric Pinet <pineri01@gmail.com> on 2015-11-02.
+ *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
+ *
+ */
+
+syntax = "proto2";
+
+package clapi;
+
+option java_multiple_files = true;
+option java_package = "com.clapi";
+option java_outer_classname = "CLApiProtos";
+
+// The CLAPI definition. ////////////////////////////////////////
+service CLApi {
+
+  	// Get version of server.
+  	rpc getVersion (clapi.GetVersionRequest) returns (clapi.GetVersionResponse) {}
+
+	// Check the compatibility of the client/server.
+  	rpc checkCompatibility (clapi.CheckCompatibilityRequest) returns (clapi.CheckCompatibilityResponse) {}
+
+	// Wait next notification. (Asynchrony message).
+	rpc waitNotification (clapi.WaitNotificationRequest) returns (clapi.WaitNotificationResponse) {}
+
+	// Get Data in json format
+	rpc getJsonData(clapi.GetJsonDataRequest) returns (clapi.GetJsonDataResponse) {}
+
+	// Person management
+	rpc addPerson(clapi.AddPersonRequest) returns (clapi.AddPersonResponse) {}
+	rpc updatePerson(clapi.UpdatePersonRequest) returns (clapi.UpdatePersonResponse) {}
+	rpc deletePerson(clapi.DeletePersonRequest) returns (clapi.DeletePersonResponse) {}
+
+	rpc addEmail(clapi.AddEmailRequest) returns (clapi.AddEmailResponse) {}
+	rpc updateEmail(clapi.UpdateEmailRequest) returns (clapi.UpdateEmailResponse) {}
+	rpc deleteEmail(clapi.DeleteEmailRequest) returns (clapi.DeleteEmailResponse) {}
+
+	rpc addPhone(clapi.AddPhoneRequest) returns (clapi.AddPhoneResponse) {}
+	rpc updatePhone(clapi.UpdatePhoneRequest) returns (clapi.UpdatePhoneResponse) {}
+	rpc deletePhone(clapi.DeletePhoneRequest) returns (clapi.DeletePhoneResponse) {}
+
+	rpc addAddress(clapi.AddAddressRequest) returns (clapi.AddAddressResponse) {}
+	rpc updateAddress(clapi.UpdateAddressRequest) returns (clapi.UpdateAddressResponse) {}
+	rpc deleteAddress(clapi.DeleteAddressRequest) returns (clapi.DeleteAddressResponse) {}
+
+}
+
+// Declaration of message request and response //////////////////
+
+// The request/response of getVersion containing nothing
+message GetVersionRequest {
+}
+message GetVersionResponse {
+  required string version = 1;
+}
+
+// The request/response of checkCompatibility containing nothing
+message CheckCompatibilityRequest {
+	required string version = 1;
+}
+message CheckCompatibilityResponse {
+  required bool compatible = 1;
+}
+
+// The request/response for the wait notification
+message WaitNotificationRequest {
+}
+message WaitNotificationResponse{
+	required Notification notification = 1;
+}
+
+// The request/response for getData
+message GetJsonDataRequest {
+}
+message GetJsonDataResponse {
+	required string data = 1;
+}
+
+// The request/response for addPerson
+message AddPersonRequest {
+	required string firstname = 1;
+	optional string lastname = 2;
+	optional string imageurl = 3;
+}
+message AddPersonResponse {
+	required string uid = 1;
+}
+
+// The request/response for updatePerson
+message UpdatePersonRequest {
+	required string uid = 1;
+	required string firstname = 2;
+	optional string lastname = 3;
+	optional string imageurl = 4;
+}
+message UpdatePersonResponse {
+	required string uid = 1;
+}
+
+// The request/response for deletePerson
+message DeletePersonRequest {
+	required string uid = 1;
+}
+message DeletePersonResponse {
+	required string uid = 1;
+}
+
+// The request/response for addEmail
+message AddEmailRequest {
+	required string uid_person = 1;
+	required string email = 2;
+	required int32 type = 3;
+}
+message AddEmailResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateEmail
+message UpdateEmailRequest {
+	required string uid = 1;
+	required string email = 2;
+	required int32 type = 3;
+}
+message UpdateEmailResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteEmail
+message DeleteEmailRequest {
+	required string uid = 1;
+}
+message DeleteEmailResponse {
+	required string uid = 1;
+}
+
+// The request/response for addPhone
+message AddPhoneRequest {
+	required string uid_person = 1;
+	required string phone = 2;
+	required int32 type = 3;
+}
+message AddPhoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for updatePhone
+message UpdatePhoneRequest {
+	required string uid = 1;
+	required string phone = 2;
+	required int32 type = 3;
+}
+message UpdatePhoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for deletePhone
+message DeletePhoneRequest {
+	required string uid = 1;
+}
+message DeletePhoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for addAddress
+message AddAddressRequest {
+	required string uid_person = 1;
+	required string street = 2;
+	optional string city = 4;
+	optional string region = 5;
+	optional string zipcode = 6;
+	optional string country = 7;
+	required int32 type = 8;
+}
+message AddAddressResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateAddress
+message UpdateAddressRequest {
+	required string uid = 1;
+	required string street = 2;
+	optional string city = 4;
+	optional string region = 5;
+	optional string zipcode = 6;
+	optional string country = 7;
+	required int32 type = 8;
+}
+message UpdateAddressResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteAddress
+message DeleteAddressRequest {
+	required string uid = 1;
+}
+message DeleteAddressResponse {
+	required string uid = 1;
+}
+
+// Declaration of base objects ///////////////////////////////////
+
+
+// The notification message.
+message Notification {
+
+	// enum of type
+	enum NotificationType {
+	    ENV_UPDATED = 0;
+	    MESSAGE = 1;
+	}
+
+	// Type of notification
+	required NotificationType type = 1;
+
+	// Data of the notification
+	optional string data = 2;
+}

@@ -1,0 +1,68 @@
+*****************************************************************
+      SolidWorks Corporation - IGES Processor Status Report
+*****************************************************************
+=================================================================
+General Information
+=================================================================
+Sending System Product I.D.  : B+ Pi PCB Assy
+Receiving System Product I.D.: B+ Pi PCB Assy
+File Name                    : E:\Elson Products\Products\Raspberry PI\B Plus Assy\Pi B+ DXF etc\Raspberry Pi Model B+ PCB Assy.IGS
+Sending System               : SolidWorks 2013
+Preprocessor Version         : SolidWorks 2013
+File Creation Date           : 140731.090100
+Model Creation Date          : 140731.090100
+Units                        : MM
+Model Space Scale            : 1
+Author                       : David Elson
+Organization                 : 
+
+
+=================================================================
+Entity Processing Information
+=================================================================
+
+
+=================================================================
+Precision analysis of IGES file:
+=================================================================
+  Most prevalent number of significant digits:               3
+  Highest number of significant digits:                     11
+  Average number of significant digits:                4.59658
+  Maximum distance to origin:                          1730.61
+  Minimum distance to origin:                                0
+  Effective number of significant digits:                   11
+
+
+=================================================================
+Entity Summary
+=================================================================
+-----------------------------------------------------------------
+Type Name                                         Count Converted
+---- ----                                         ----- ---------
+100  Arc                                           1908      1908
+102  Composite curve                              10368     10368
+110  Line                                         22638     22638
+120  Surface of revolution                          801       801
+124  Transformation matrix                         1614      1614
+126  Rational B-spline curve                      29993     29993
+128  Rational B-spline surface                     3981      3981
+142  Curve on a parametric surface                 5184      5184
+144  Trimmed parametric surface                    4782      4782
+308  Subfigure definition                             7         7
+314  Color definition                              1640      1640
+408  Singular subfigure instance                      9         9
+_________________________________________________________________
+
+
+=================================================================
+Result Summary
+=================================================================
+SolidWorks Feature Type                Count
+-----------------------                -----
+Solid feature(s)                       9
+Surface feature(s)                     0
+Curve/Sketch feature(s)                0
+--------------------------------------------
+Start time: dimanche, octobre 25, 2015 14:09:42
+Finish time: dimanche, octobre 25, 2015 14:10:50
+Processing time: 0 days, 00 hours, 01 mins, 08 secs

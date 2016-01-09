@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/**<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2014-2015 Digi International Inc.,<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights not expressly granted are reserved.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> *<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * This Source Code Form is subject to the terms of the Mozilla Public<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * License, v. 2.0. If a copy of the MPL was not distributed with this file,<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * You can obtain one at http://mozilla.org/MPL/2.0/.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> *<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Digi International Inc. 11001 Bren Road East, Minnetonka, MN 55343<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * =======================================================================<a name="line.10"></a>
+<span class="sourceLineNo">011</span> */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>package com.digi.xbee.api.models;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.Arrays;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.digi.xbee.api.utils.HexUtils;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>/**<a name="line.18"></a>
+<span class="sourceLineNo">019</span> * This class represents a 64-bit address (also known as MAC address). <a name="line.19"></a>
+<span class="sourceLineNo">020</span> * <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * &lt;p&gt;The 64-bit address is a unique device address assigned during <a name="line.21"></a>
+<span class="sourceLineNo">022</span> * manufacturing. This address is unique to each physical device.&lt;/p&gt;<a name="line.22"></a>
+<span class="sourceLineNo">023</span> */<a name="line.23"></a>
+<span class="sourceLineNo">024</span>public final class XBee64BitAddress {<a name="line.24"></a>
+<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">026</span>        // Constants<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        /**<a name="line.27"></a>
+<span class="sourceLineNo">028</span>         * 64-bit address reserved for the coordinator (value: 0000000000000000).<a name="line.28"></a>
+<span class="sourceLineNo">029</span>         */<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        public static final XBee64BitAddress COORDINATOR_ADDRESS = new XBee64BitAddress("0000");<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        /**<a name="line.31"></a>
+<span class="sourceLineNo">032</span>         * 64-bit broadcast address (value: 000000000000FFFF).<a name="line.32"></a>
+<span class="sourceLineNo">033</span>         */<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        public static final XBee64BitAddress BROADCAST_ADDRESS = new XBee64BitAddress("FFFF");<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        /**<a name="line.35"></a>
+<span class="sourceLineNo">036</span>         * 64-bit unknown address (value: FFFFFFFFFFFFFFFF).<a name="line.36"></a>
+<span class="sourceLineNo">037</span>         */<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        public static final XBee64BitAddress UNKNOWN_ADDRESS = new XBee64BitAddress("FFFFFFFFFFFFFFFF");<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        <a name="line.39"></a>
+<span class="sourceLineNo">040</span>        private static final String DEVICE_ID_SEPARATOR = "-";<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        private static final String DEVICE_ID_MAC_SEPARATOR = "FF";<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        <a name="line.42"></a>
+<span class="sourceLineNo">043</span>        /**<a name="line.43"></a>
+<span class="sourceLineNo">044</span>         * Pattern for the 64-bit address string: {@value}.<a name="line.44"></a>
+<span class="sourceLineNo">045</span>         */<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        private static final String XBEE_64_BIT_ADDRESS_PATTERN = "(0[xX])?[0-9a-fA-F]{1,16}";<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        <a name="line.47"></a>
+<span class="sourceLineNo">048</span>        private static final int HASH_SEED = 23;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        <a name="line.49"></a>
+<span class="sourceLineNo">050</span>        // Variables<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private final byte[] address;<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        <a name="line.52"></a>
+<span class="sourceLineNo">053</span>        /**<a name="line.53"></a>
+<span class="sourceLineNo">054</span>         * Class constructor. Instantiates a new object of type <a name="line.54"></a>
+<span class="sourceLineNo">055</span>         * {@code XBee64BitAddress} with the given parameters.<a name="line.55"></a>
+<span class="sourceLineNo">056</span>         * <a name="line.56"></a>
+<span class="sourceLineNo">057</span>         * @param address The XBee 64-bit address as byte array.<a name="line.57"></a>
+<span class="sourceLineNo">058</span>         * <a name="line.58"></a>
+<span class="sourceLineNo">059</span>         * @throws IllegalArgumentException if {@code address.length &gt; 8} or<a name="line.59"></a>
+<span class="sourceLineNo">060</span>         *                                  if {@code address.length &lt; 1}.<a name="line.60"></a>
+<span class="sourceLineNo">061</span>         * @throws NullPointerException if {@code address == null}.<a name="line.61"></a>
+<span class="sourceLineNo">062</span>         */<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        public XBee64BitAddress(byte[] address) {<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                if (address == null)<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                        throw new NullPointerException("Address cannot be null.");<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                if (address.length &lt; 1)<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                        throw new IllegalArgumentException("Address must contain at least 1 byte.");<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                if (address.length &gt; 8)<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                        throw new IllegalArgumentException("Address cannot contain more than 8 bytes.");<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                <a name="line.70"></a>
+<span class="sourceLineNo">071</span>                this.address = new byte[8];<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                int diff = this.address.length - address.length;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                for (int i = 0; i &lt; diff; i++)<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                        this.address[i] = 0;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                for (int i = diff; i &lt; this.address.length; i++)<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                        this.address[i] = address[i - diff];<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        }<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        <a name="line.78"></a>
+<span class="sourceLineNo">079</span>        /**<a name="line.79"></a>
+<span class="sourceLineNo">080</span>         * Class constructor. Instantiates a new object of type <a name="line.80"></a>
+<span class="sourceLineNo">081</span>         * {@code XBee64BitAddress} with the given parameters.<a name="line.81"></a>
+<span class="sourceLineNo">082</span>         * <a name="line.82"></a>
+<span class="sourceLineNo">083</span>         * &lt;p&gt;The string must be the hexadecimal representation of a 64-bit <a name="line.83"></a>
+<span class="sourceLineNo">084</span>         * address.&lt;/p&gt;<a name="line.84"></a>
+<span class="sourceLineNo">085</span>         * <a name="line.85"></a>
+<span class="sourceLineNo">086</span>         * @param address The XBee 64-bit address as string.<a name="line.86"></a>
+<span class="sourceLineNo">087</span>         * <a name="line.87"></a>
+<span class="sourceLineNo">088</span>         * @throws IllegalArgumentException if {@code address.length() &lt; 1} or<a name="line.88"></a>
+<span class="sourceLineNo">089</span>         *                                  if {@code address} contains <a name="line.89"></a>
+<span class="sourceLineNo">090</span>         *                                  non-hexadecimal characters and is longer<a name="line.90"></a>
+<span class="sourceLineNo">091</span>         *                                  than 8 bytes.<a name="line.91"></a>
+<span class="sourceLineNo">092</span>         * @throws NullPointerException if {@code address == null}.<a name="line.92"></a>
+<span class="sourceLineNo">093</span>         */<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        public XBee64BitAddress(String address) {<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                if (address == null)<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                        throw new NullPointerException("Address cannot be null.");<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                if (address.length() &lt; 1)<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                        throw new IllegalArgumentException("Address must contain at least 1 character.");<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                if (!address.matches(XBEE_64_BIT_ADDRESS_PATTERN))<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                        throw new IllegalArgumentException("Address must follow this pattern: (0x)0013A20040XXXXXX.");<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                <a name="line.101"></a>
+<span class="sourceLineNo">102</span>                byte[] byteAddress = HexUtils.hexStringToByteArray(address);<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                this.address = new byte[8];<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                int diff = this.address.length - byteAddress.length;<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                for (int i = 0; i &lt; diff; i++)<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                        this.address[i] = 0;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                for (int i = diff; i &lt; this.address.length; i++)<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                        this.address[i] = byteAddress[i - diff];<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        }<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        <a name="line.110"></a>
+<span class="sourceLineNo">111</span>        /**<a name="line.111"></a>
+<span class="sourceLineNo">112</span>         * Class constructor. Instantiates a new object of type <a name="line.112"></a>
+<span class="sourceLineNo">113</span>         * {@code XBee64BitAddress} with the given bytes being {@code b0} the <a name="line.113"></a>
+<span class="sourceLineNo">114</span>         * more significant byte and {@code b7} the less significant byte.<a name="line.114"></a>
+<span class="sourceLineNo">115</span>         * <a name="line.115"></a>
+<span class="sourceLineNo">116</span>         * @param b0 XBee 64-bit address bit 0.<a name="line.116"></a>
+<span class="sourceLineNo">117</span>         * @param b1 XBee 64-bit address bit 1.<a name="line.117"></a>
+<span class="sourceLineNo">118</span>         * @param b2 XBee 64-bit address bit 2.<a name="line.118"></a>
+<span class="sourceLineNo">119</span>         * @param b3 XBee 64-bit address bit 3.<a name="line.119"></a>
+<span class="sourceLineNo">120</span>         * @param b4 XBee 64-bit address bit 4.<a name="line.120"></a>
+<span class="sourceLineNo">121</span>         * @param b5 XBee 64-bit address bit 5.<a name="line.121"></a>
+<span class="sourceLineNo">122</span>         * @param b6 XBee 64-bit address bit 6.<a name="line.122"></a>
+<span class="sourceLineNo">123</span>         * @param b7 XBee 64-bit address bit 7.<a name="line.123"></a>
+<span class="sourceLineNo">124</span>         * <a name="line.124"></a>
+<span class="sourceLineNo">125</span>         * @throws IllegalArgumentException if {@code b0 &gt; 255} or<a name="line.125"></a>
+<span class="sourceLineNo">126</span>         *                                  if {@code b0 &lt; 0} or<a name="line.126"></a>
+<span class="sourceLineNo">127</span>         *                                  if {@code b1 &gt; 255} or<a name="line.127"></a>
+<span class="sourceLineNo">128</span>         *                                  if {@code b1 &lt; 0} or<a name="line.128"></a>
+<span class="sourceLineNo">129</span>         *                                  if {@code b2 &gt; 255} or<a name="line.129"></a>
+<span class="sourceLineNo">130</span>         *                                  if {@code b2 &lt; 0} or<a name="line.130"></a>
+<span class="sourceLineNo">131</span>         *                                  if {@code b3 &gt; 255} or<a name="line.131"></a>
+<span class="sourceLineNo">132</span>         *                                  if {@code b3 &lt; 0} or<a name="line.132"></a>
+<span class="sourceLineNo">133</span>         *                                  if {@code b4 &gt; 255} or<a name="line.133"></a>
+<span class="sourceLineNo">134</span>         *                                  if {@code b4 &lt; 0} or<a name="line.134"></a>
+<span class="sourceLineNo">135</span>         *                                  if {@code b5 &gt; 255} or<a name="line.135"></a>
+<span class="sourceLineNo">136</span>         *                                  if {@code b5 &lt; 0} or<a name="line.136"></a>
+<span class="sourceLineNo">137</span>         *                                  if {@code b6 &gt; 255} or<a name="line.137"></a>
+<span class="sourceLineNo">138</span>         *                                  if {@code b6 &lt; 0} or<a name="line.138"></a>
+<span class="sourceLineNo">139</span>         *                                  if {@code b7 &gt; 255} or<a name="line.139"></a>
+<span class="sourceLineNo">140</span>         *                                  if {@code b7 &lt; 0}.<a name="line.140"></a>
+<span class="sourceLineNo">141</span>         */<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        public XBee64BitAddress(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7) {<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                if (b0 &gt; 255 || b0 &lt; 0)<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                        throw new IllegalArgumentException("B0 must be between 0 and 255.");<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                if (b1 &gt; 255 || b1 &lt; 0)<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                        throw new IllegalArgumentException("B1 must be between 0 and 255.");<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                if (b2 &gt; 255 || b2 &lt; 0)<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                        throw new IllegalArgumentException("B2 must be between 0 and 255.");<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                if (b3 &gt; 255 || b3 &lt; 0)<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                        throw new IllegalArgumentException("B3 must be between 0 and 255.");<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                if (b5 &gt; 255 || b5 &lt; 0)<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                        throw new IllegalArgumentException("B4 must be between 0 and 255.");<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                if (b5 &gt; 255 || b5 &lt; 0)<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                        throw new IllegalArgumentException("B5 must be between 0 and 255.");<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                if (b6 &gt; 255 || b6 &lt; 0)<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                        throw new IllegalArgumentException("B6 must be between 0 and 255.");<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                if (b7 &gt; 255 || b7 &lt; 0)<a name="line.157"></a>
+<span class="sourceLineNo">158</span>                        throw new IllegalArgumentException("B7 must be between 0 and 255.");<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                <a name="line.159"></a>
+<span class="sourceLineNo">160</span>                address = new byte[8];<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                address[0] = (byte) b0;<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                address[1] = (byte) b1;<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                address[2] = (byte) b2;<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                address[3] = (byte) b3;<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                address[4] = (byte) b4;<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                address[5] = (byte) b5;<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                address[6] = (byte) b6;<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                address[7] = (byte) b7;<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        }<a name="line.169"></a>
+<span class="sourceLineNo">170</span>        <a name="line.170"></a>
+<span class="sourceLineNo">171</span>        /**<a name="line.171"></a>
+<span class="sourceLineNo">172</span>         * Returns the XBee 64-bit address value as byte array.<a name="line.172"></a>
+<span class="sourceLineNo">173</span>         * <a name="line.173"></a>
+<span class="sourceLineNo">174</span>         * @return XBee 64-bit address value as byte array.<a name="line.174"></a>
+<span class="sourceLineNo">175</span>         */<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        public byte[] getValue() {<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                return Arrays.copyOf(address, address.length);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>        }<a name="line.178"></a>
+<span class="sourceLineNo">179</span>        <a name="line.179"></a>
+<span class="sourceLineNo">180</span>        /**<a name="line.180"></a>
+<span class="sourceLineNo">181</span>         * Generates the Device ID corresponding to this {@code XBee64BitAddress} <a name="line.181"></a>
+<span class="sourceLineNo">182</span>         * to be used in Device Cloud.<a name="line.182"></a>
+<span class="sourceLineNo">183</span>         * <a name="line.183"></a>
+<span class="sourceLineNo">184</span>         * @return Device ID corresponding to this address.<a name="line.184"></a>
+<span class="sourceLineNo">185</span>         */<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        public String generateDeviceID() {<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                StringBuilder sb = new StringBuilder();<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                for (int i = 0; i &lt; 2; i++) {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                        for (int j = 0; j &lt; 4; j++)<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                                sb.append(HexUtils.byteArrayToHexString(new byte[]{0}));<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                        sb.append(DEVICE_ID_SEPARATOR);<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                }<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                // Here we should have "00000000-00000000-"<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                // Append first three bytes of the MAC Address, discard first 2.<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                sb.append(HexUtils.byteArrayToHexString(new byte[]{address[2], address[3], address[4]}));<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                sb.append(DEVICE_ID_MAC_SEPARATOR);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                sb.append(DEVICE_ID_SEPARATOR);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                sb.append(DEVICE_ID_MAC_SEPARATOR);<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                // Here we should have "00000000-00000000-XXXXXXFF-FF"<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                // Append second three bytes of the MAC Address.<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                sb.append(HexUtils.byteArrayToHexString(new byte[]{address[5], address[6], address[7]}));<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                return sb.toString();<a name="line.202"></a>
+<span class="sourceLineNo">203</span>        }<a name="line.203"></a>
+<span class="sourceLineNo">204</span>        <a name="line.204"></a>
+<span class="sourceLineNo">205</span>        /*<a name="line.205"></a>
+<span class="sourceLineNo">206</span>         * (non-Javadoc)<a name="line.206"></a>
+<span class="sourceLineNo">207</span>         * @see java.lang.Object#equals(java.lang.Object)<a name="line.207"></a>
+<span class="sourceLineNo">208</span>         */<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        @Override<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        public boolean equals(Object obj) {<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                if (!(obj instanceof XBee64BitAddress))<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                        return false;<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                XBee64BitAddress addr = (XBee64BitAddress)obj;<a name="line.213"></a>
+<span class="sourceLineNo">214</span>                return Arrays.equals(addr.getValue(), getValue());<a name="line.214"></a>
+<span class="sourceLineNo">215</span>        }<a name="line.215"></a>
+<span class="sourceLineNo">216</span>        <a name="line.216"></a>
+<span class="sourceLineNo">217</span>        /*<a name="line.217"></a>
+<span class="sourceLineNo">218</span>         * (non-Javadoc)<a name="line.218"></a>
+<span class="sourceLineNo">219</span>         * @see java.lang.Object#hashCode()<a name="line.219"></a>
+<span class="sourceLineNo">220</span>         */<a name="line.220"></a>
+<span class="sourceLineNo">221</span>        @Override<a name="line.221"></a>
+<span class="sourceLineNo">222</span>        public int hashCode() {<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                int hash = HASH_SEED;<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                for (byte b:getValue())<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                        hash = hash * (hash + b);<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                return hash;<a name="line.226"></a>
+<span class="sourceLineNo">227</span>        }<a name="line.227"></a>
+<span class="sourceLineNo">228</span>        <a name="line.228"></a>
+<span class="sourceLineNo">229</span>        /*<a name="line.229"></a>
+<span class="sourceLineNo">230</span>         * (non-Javadoc)<a name="line.230"></a>
+<span class="sourceLineNo">231</span>         * @see java.lang.Object#toString()<a name="line.231"></a>
+<span class="sourceLineNo">232</span>         */<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        @Override<a name="line.233"></a>
+<span class="sourceLineNo">234</span>        public String toString() {<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                return HexUtils.byteArrayToHexString(address);<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        }<a name="line.236"></a>
+<span class="sourceLineNo">237</span>}<a name="line.237"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
