@@ -9,7 +9,7 @@ Connectlife is a home automation system in java.
 
 ## Documentation
 
-1. [IDE Setup](IDE Setup)
+1. [Developpement Environment Setup](https://github.com/ericpinet/ConnectLife/wiki/Developpement-Environment-Setup)
 2. [Raspberry PI](Raspberry PI)
 
 ## Requirements
