@@ -7,3 +7,4 @@ exclude_paths:
 - clapi/doc/**/*
 - simulator/doc/**/*
 - coreserver/doc/**/*
+- coreserver/src/test/**/*
