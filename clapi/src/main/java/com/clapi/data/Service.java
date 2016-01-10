@@ -24,6 +24,11 @@ public class Service {
 	private String uid;
 	
 	/**
+	 * Name of the service.
+	 */
+	private String name;
+	
+	/**
 	 * List of characteristics in the accessory service.
 	 */
 	private List<Characteristic> characteristics;
@@ -32,11 +37,13 @@ public class Service {
 	 * Default constructor. 
 	 * 
 	 * @param uid
+	 * @param name
 	 * @param characteristics
 	 */
-	public Service(String uid, List<Characteristic> characteristics) {
+	public Service(String uid, String name, List<Characteristic> characteristics) {
 		super();
 		this.uid = uid;
+		this.name = name;
 		this.characteristics = characteristics;
 	}
 	
@@ -45,9 +52,11 @@ public class Service {
 	 * 
 	 * @param uid
 	 */
-	public Service(String uid) {
+	public Service(String uid, String name) {
 		super();
 		this.uid = uid;
+		this.name = name;
+		
 	}
 
 	/**
@@ -62,6 +71,20 @@ public class Service {
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param uid the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
