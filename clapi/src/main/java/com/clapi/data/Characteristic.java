@@ -17,6 +17,16 @@ package com.clapi.data;
 public class Characteristic {
 	
 	/**
+	 * Value of boolean true in string
+	 */
+	static private final String BOOLEAN_TRUE = "true";
+	
+	/**
+	 * Value of boolean false in string
+	 */
+	static private final String BOOLEAN_FALSE = "false";
+	
+	/**
 	 * Enum CharacteristicAccessMode for a service characteristic.
 	 * 
 	 * @author ericpinet
@@ -60,6 +70,11 @@ public class Characteristic {
 	private String uid;
 	
 	/**
+	 * Label to describe the characteristic.
+	 */
+	private String label;
+	
+	/**
 	 * Access Mode for the characteristic.
 	 */
 	private CharacteristicAccessMode mode;
@@ -83,13 +98,15 @@ public class Characteristic {
 	 * Defautl constructor. 
 	 * 
 	 * @param uid
+	 * @param label
 	 * @param mode
 	 * @param type
 	 * @param event
 	 */
-	public Characteristic(String uid, CharacteristicAccessMode mode, CharacteristicType type, CharacteristicEventType event, String data) {
+	public Characteristic(String uid, String label, CharacteristicAccessMode mode, CharacteristicType type, CharacteristicEventType event, String data) {
 		super();
 		this.uid = uid;
+		this.label = label;
 		this.mode = mode;
 		this.type = type;
 		this.event = event;
@@ -108,6 +125,20 @@ public class Characteristic {
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	
+	/**
+	 * @return the label
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+	/**
+	 * @param label the label to set
+	 */
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	/**
@@ -154,16 +185,148 @@ public class Characteristic {
 
 	/**
 	 * @return the data
+	 * @throws Exception 
 	 */
-	public String getData() {
-		return data;
+	public String getData() throws Exception {
+		if(type == CharacteristicType.STATIC_STRING){
+			return data;
+		}
+		else{
+			throw new Exception("This characteristic isn't string format.");
+		}
 	}
 
 	/**
 	 * @param data the data to set
+	 * @throws Exception 
 	 */
-	public void setData(String data) {
-		this.data = data;
+	public void setData(String data) throws Exception {
+		if(type == CharacteristicType.STATIC_STRING){
+			this.data = data;
+		}
+		else{
+			throw new Exception("This characteristic isn't string format.");
+		}
+	}
+	
+	/**
+	 * Return the value of characteristic in boolean.
+	 * @return
+	 * @throws Exception 
+	 */
+	public boolean getDataBoolean() throws Exception {
+		if(type == CharacteristicType.BOOLEAN){
+			if(data.equalsIgnoreCase("true")){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			throw new Exception("This characteristic isn't boolean format.");
+		}
+	}
+	
+	/**
+	 * Set the value of characteristic in boolean.
+	 * @param data
+	 * @throws Exception 
+	 */
+	public void setBooleanData(boolean data) throws Exception{
+		if(	type == CharacteristicType.BOOLEAN || 
+			type == CharacteristicType.WRITE_ONLY_BOOLEAN){
+			
+			if(data){
+				this.data = BOOLEAN_TRUE;
+			}
+			else{
+				this.data = BOOLEAN_FALSE;
+			}
+		}
+		else{
+			throw new Exception("This characteristic isn't boolean format.");
+		}
+	}
+	
+	/**
+	 * Return the value of characteristic in integer.
+	 * @return
+	 * @throws Exception 
+	 */
+	public int getDataInteger() throws Exception{
+		int ret_val = 0;
+		if(type == CharacteristicType.INTEGER){
+			try{
+				ret_val = Integer.valueOf(data);
+			}
+			catch(Exception e){
+				ret_val = 0;
+			}
+		}
+		else{
+			throw new Exception("Characteristic isn't integer format.");
+		}
+		return ret_val;
+	}
+	
+	/**
+	 * Set the value of characteristic in integer.
+	 * @param data
+	 * @throws Exception 
+	 */
+	public void setIntegerData(int data) throws Exception{
+		if(type == CharacteristicType.INTEGER){
+			try{
+				this.data = String.valueOf(data);
+			}
+			catch(Exception e){
+				this.data = "";
+			}
+		}
+		else{
+			throw new Exception("Characteristic isn't integer format.");
+		}
+	}
+	
+	/**
+	 * Return the value of characteristic in float.
+	 * @return
+	 * @throws Exception 
+	 */
+	public float getDataFloat() throws Exception{
+		float ret_val = 0;
+		if(type == CharacteristicType.FLOAT){
+			try{
+				ret_val = Float.valueOf(data);
+			}
+			catch(Exception e){
+				ret_val = 0;
+			}
+		}
+		else{
+			throw new Exception("Characteristic isn't float format.");
+		}
+		return ret_val;
+	}
+	
+	/**
+	 * Set the value of characteristic in integer.
+	 * @param data
+	 * @throws Exception 
+	 */
+	public void setFloatData(float data) throws Exception{
+		if(type == CharacteristicType.FLOAT){
+			try{
+				this.data = String.valueOf(data);
+			}
+			catch(Exception e){
+				this.data = "";
+			}
+		}
+		else{
+			throw new Exception("Characteristic isn't float format.");
+		}
 	}
 	
 }

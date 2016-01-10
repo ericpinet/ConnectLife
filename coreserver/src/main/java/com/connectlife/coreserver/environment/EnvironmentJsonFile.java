@@ -404,14 +404,14 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		qiaomei.addToAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
-		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
-		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
 		List<Characteristic> characteristics = new ArrayList<Characteristic>();
 		characteristics.add(boolean_light);
 		characteristics.add(dimmable_light);
 		
 		
-		Service dimmable_light_service = new Service(UIDGenerator.getUID(), characteristics);
+		Service dimmable_light_service = new Service(UIDGenerator.getUID(), "light", characteristics);
 		List<Service> services = new ArrayList<Service>();
 		services.add(dimmable_light_service);
 		

@@ -8,36 +8,35 @@
  */
 package com.connectlife.simulator.device;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Characteristic;
+import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Service;
-import com.clapi.simulator.device.ServiceDefinition;
-import com.google.gson.Gson;
 
 /**
  * Base device for the simulation of accessory.
+ * Call the url of the device like this to change value of characteristic :
+ * 
+ * http://[hostname]:[port]/[service_name]/[characteristic_label]?value=[value]
+ * 
+ * Exemple with dimmable light : 
+ * http://127.0.0.1:51709/light/dimmable?value=0.6
  * 
  * @author ericpinet
  * <br> 2016-01-05
  */
-public class Device extends Accessory {
+public abstract class Device extends Accessory {
 	
 	/**
 	 * Init logger instance for this class
@@ -47,7 +46,7 @@ public class Device extends Accessory {
 	/**
 	 * Device http handler for json services.
 	 */
-	private HttpHandler m_handler;
+	private DeviceHttpHandler m_handler;
 	
 	/**
 	 * Http server of services.
@@ -77,9 +76,24 @@ public class Device extends Accessory {
 	 * @param imageurl
 	 * @param type
 	 */
-	public Device(String uid, String label, String manufacturer, String model, String serialnumber,
+	private Device(String uid, String label, String manufacturer, String model, String serialnumber,
 			List<Service> services, String imageurl, AccessoryType type) {
 		super(uid, label, manufacturer, model, serialnumber, services, imageurl, type, AccessoryProtocolType.JSON_SIMULATION); 
+	}
+	
+	/**
+	 * Constructor for Device without services.
+	 * 
+	 * @param label
+	 * @param manufacturer
+	 * @param model
+	 * @param serialnumber
+	 * @param imageurl
+	 * @param type
+	 */
+	public Device(String label, String manufacturer, String model, String serialnumber,
+			String imageurl, AccessoryType type) {
+		super("", label, manufacturer, model, serialnumber, new ArrayList<Service>(), imageurl, type, AccessoryProtocolType.JSON_SIMULATION); 
 	}
 	
 	/**
@@ -90,7 +104,7 @@ public class Device extends Accessory {
 		boolean ret_val = false;
 		
 		m_server = new Server(0);
-		m_handler = new HttpHandler(this);
+		m_handler = new DeviceHttpHandler(this);
 		m_server.setHandler(m_handler);
 
         Thread thread = new Thread(new Runnable()
@@ -122,7 +136,6 @@ public class Device extends Accessory {
         			m_server.join();
         			
         		} catch (Exception e) {
-        			// TODO Auto-generated catch block
         			m_logger.error(e.getMessage());
         			e.printStackTrace();
         		}
@@ -148,134 +161,79 @@ public class Device extends Accessory {
 	 * @return
 	 */
 	public Accessory getAccessory(){
-		return new Accessory(getUid(), getLabel(), getManufacturer(), getModel(), getSerialnumber(), getServices(), getImageurl(), getType(), getProtocoltype());
-	}
-}
-
-/**
- * Http handler for a device.
- * 
- * 
- * @author ericpinet
- * <br> 2016-01-05
- */
-class HttpHandler extends AbstractHandler {
-	
-	/**
-	 * Device parent of this http handle.
-	 */
-	private Device m_device;
-	
-	/**
-	 * Ip address of the device.
-	 */
-	private String m_ip_address;
-	
-	/**
-	 * Hostname of the device.
-	 */
-	private String m_hostname;
-	
-	/**
-	 * Listen port of the device.
-	 */
-	private int m_listen_port;
-	
-	/**
-	 * Default constructor for the http handler.
-	 * @param _device
-	 */
-	public HttpHandler( Device _device ){
-		m_device = _device;	
-	}
-	
-	/**
-	 * Update the connection information.
-	 */
-	public void updateConnectionInformaiton(){
 		
-		InetAddress addr;
-		try {
-			addr = InetAddress.getLocalHost();
-			
-			// Get IP Address
-			m_ip_address = addr.getHostAddress();
-			
-			// Get hostname
-			m_hostname = addr.getHostName();
-			
-			// listen port
-			m_listen_port = ((ServerConnector)m_device.getServer().getConnectors()[0]).getLocalPort();
-	        
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		return new Accessory(	getUid(), 
+								getLabel(), 
+								getManufacturer(), 
+								getModel(), 
+								getSerialnumber(), 
+								getServices(), 
+								getImageurl(), 
+								getType(), 
+								getProtocoltype());
+	}
+	
+	/**
+	 * Set new characteristic value.
+	 * 
+	 * @param _service_name
+	 * @param _characteristic_label
+	 * @param _data
+	 * @return
+	 */
+	public boolean setNewCharacteristicValue(String _service_name, String _characteristic_label, String _data){
+		boolean ret_val = false;
+		
+		// find the right services
+		Iterator<Service> it = getServices().iterator();
+		while(it.hasNext()){
+			Service service = it.next();
+			if(service.getName().equalsIgnoreCase(_service_name)){
+				
+				// find the right characteristic
+				Iterator<Characteristic> it2 = service.getCharacteristics().iterator();
+				while(it2.hasNext()){
+					Characteristic charac = it2.next();
+					if(charac.getLabel().equalsIgnoreCase(_characteristic_label)){
+						
+						// update characteristic value
+						try {
+							if(charac.getType() == CharacteristicType.STATIC_STRING){
+								charac.setData(_data);
+								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+							}
+							else if (charac.getType() == CharacteristicType.BOOLEAN ||
+									charac.getType() == CharacteristicType.WRITE_ONLY_BOOLEAN){
+								boolean data = Boolean.valueOf(_data);
+								charac.setBooleanData(data);
+								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+							}
+							else if (charac.getType() == CharacteristicType.FLOAT){
+								float data = Float.valueOf(_data);
+								charac.setFloatData(data);
+								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+							}
+							else if (charac.getType() == CharacteristicType.INTEGER){
+								int data = Integer.valueOf(_data);
+								charac.setIntegerData(data);
+								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+							}
+							else if (charac.getType() == CharacteristicType.ENUM){
+								//TODO: Support the Enum format for characteristic in simulation.
+								m_logger.error("Enum format not yet supported.");
+							}
+							
+							ret_val = true;
+						} catch (Exception e) {
+							m_logger.error(e.getMessage());
+							e.printStackTrace();
+						}
+						
+					}// ELSE: didn't find the right characteristic. Do noting. 
+				}
+			}// ELSE: didn't find the right service. Do noting.
 		}
-	}
-
-	/**
-	 * @return the m_ip_address
-	 */
-	public String getIpAddress() {
-		return m_ip_address;
-	}
-
-	/**
-	 * @param m_ip_address the m_ip_address to set
-	 */
-	public void setIpAddress(String _ip_address) {
-		this.m_ip_address = _ip_address;
-	}
-
-	/**
-	 * @return the m_hostname
-	 */
-	public String getHostname() {
-		return m_hostname;
-	}
-
-	/**
-	 * @param m_hostname the m_hostname to set
-	 */
-	public void setHostname(String _hostname) {
-		this.m_hostname = _hostname;
-	}
-
-	/**
-	 * @return the m_port
-	 */
-	public int getPort() {
-		return m_listen_port;
-	}
-
-	/**
-	 * @param m_port the m_port to set
-	 */
-	public void setPort(int _port) {
-		this.m_listen_port = _port;
-	}
-
-	/**
-	 * @param target
-	 * @param baserequest
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 * @throws ServletException
-	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
-	 */
-	@Override
-	public void handle(String target, Request baserequest, HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
 		
-		response.setContentType("text/json; charset=utf-8");
-        response.setStatus(HttpServletResponse.SC_OK);
-        
-        Gson gson = new Gson();
-        
-		String jsonresponse = gson.toJson(new ServiceDefinition(m_ip_address, m_hostname, m_listen_port, m_device.getAccessory()));
-        
-        response.getWriter().println(jsonresponse);
-        baserequest.setHandled(true);
+		return ret_val;
 	}
-	
 }

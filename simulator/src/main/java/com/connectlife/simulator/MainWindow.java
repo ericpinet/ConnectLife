@@ -14,14 +14,11 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
@@ -31,16 +28,12 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
-import com.clapi.data.Accessory.AccessoryType;
-import com.clapi.data.Characteristic.CharacteristicAccessMode;
-import com.clapi.data.Characteristic.CharacteristicEventType;
-import com.clapi.data.Characteristic.CharacteristicType;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.simulator.device.Device;
+import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
 
 /**
- * 
+ * Main window of the simulator application.
  * 
  * @author ericpinet
  * <br> 2015-09-13
@@ -203,20 +196,22 @@ public class MainWindow implements NotificationListener {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				
-				Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
-				Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
-				List<Characteristic> characteristics = new ArrayList<Characteristic>();
-				characteristics.add(boolean_light);
-				characteristics.add(dimmable_light);
+				/*
+				// Create the light
+				Light light = new Light("Light", "Philips", "Hue0", "122-1770", "");
+				light.startServices();				
+				m_devices.addElement(light);
 				
-				Service dimmable_light_service = new Service(UIDGenerator.getUID(), characteristics);
-				List<Service> services = new ArrayList<Service>();
-				services.add(dimmable_light_service);
+				// Create the light dimmable
+				LightDimmable lightdim = new LightDimmable("LightDim", "Philips", "Hue1", "123-1772", "");
+				lightdim.startServices();				
+				m_devices.addElement(lightdim);
+				*/
+				// Create the light colored dimmable
+				LightColoredDimmable lightcoldim = new LightColoredDimmable("LightColorDim", "Philips", "Hue1", "122-2232", "");
+				lightcoldim.startServices();				
+				m_devices.addElement(lightcoldim);
 				
-				Device device = new Device("1", "Light", "Philips", "Hue101", "123-1772", services, "", AccessoryType.LIGHT_DIMMABLE);
-				device.startServices();
-				
-				m_devices.addElement(device);
 				lblDevice.setText("Device listen");
 			}
 		});
@@ -246,12 +241,9 @@ public class MainWindow implements NotificationListener {
 			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
 			m_logger.info( "Get server version : " + client.getVersion() );
-			
 			m_logger.info( "check compatibility with the server : " + client.checkCompatibility() );
 			
-			
 			String json_data = client.getJsonData();
-			
 			Gson gson = new Gson();
 			Data env = gson.fromJson(json_data, Data.class);
 			
@@ -267,7 +259,9 @@ public class MainWindow implements NotificationListener {
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
 			
+			// Client start his listener on the environment change.
 			client.waitNotification();
+			
 			m_logger.info("Connected.");
 			lblStatus.setText("Connected.");
 			
