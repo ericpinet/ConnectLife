@@ -1,0 +1,9 @@
+## excluder directory for Code Climate
+exclude_paths:
+- eclipse-codetemplate/**/*
+- hardware/**/*
+- UI/**/*
+- wiki-documents/**/*
+- clapi/doc/**/*
+- simulator/doc/**/*
+- coreserver/doc/**/*
