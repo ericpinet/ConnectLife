@@ -96,6 +96,25 @@ public class MainWindow implements NotificationListener {
 	    	per.open();
 		}
 	}
+	
+	/**
+	 * Start Accessory window.
+	 * 
+	 * @author ericpinet
+	 * <br> 2015-09-13
+	 */
+	static class startAccessory implements Runnable{
+		//public Home home;
+		public Shell shell;
+		public startAccessory(/*Home _home, */Shell _shell){
+			//home = _home;
+			shell = _shell;
+		}
+		public void run(){
+			AccessoryWindow accessory = new AccessoryWindow(shell, 0/*, home*/);
+			accessory.open();
+		}
+	}
 
 	/**
 	 * Launch the application.
@@ -258,6 +277,9 @@ public class MainWindow implements NotificationListener {
 			while(itrh.hasNext()){
 				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
 			}
+			
+			// start accessory
+			shell.getDisplay().asyncExec( new startAccessory(/*itrh.next(),*/ shell) );
 			
 			// Client start his listener on the environment change.
 			client.waitNotification();
