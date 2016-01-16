@@ -10,11 +10,11 @@ os:
   - linux
 
 script:
-  cd clapi
-  mvn verify
-  mvn compile
-  cd ..
-  cd coreserver
-  mvn verify
-  mvn compile
-  cd ..
+  - cd clapi
+  - mvn verify
+  - mvn compile
+  - cd ..
+  - cd coreserver
+  - mvn verify
+  - mvn compile
+  - cd ..
