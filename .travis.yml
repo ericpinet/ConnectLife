@@ -2,16 +2,12 @@ language: java
 
 sudo: false
 
-before_script:
-  - export MAVEN_SKIP_RC=true
-  - export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=512m"
-  - unset GEM_PATH GEM_HOME IRBRC JRUBY_OPTS
-  - "export PATH=`pwd`/bin:$PATH"
-  - echo $HOME
-
 jdk:
 #  - openjdk7
   - oraclejdk8
 
 os:
   - linux
+
+script:
+  mvn verify
