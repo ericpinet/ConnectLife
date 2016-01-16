@@ -10,11 +10,13 @@ os:
   - linux
 
 script:
+# Compile the clapi
   - cd clapi
   - mvn verify
   - mvn compile
   - cd ..
-  #- cd coreserver
-  #- mvn verify
-  #- mvn compile
-  #- cd ..
+# Compile the coreserver
+  - cd coreserver
+  - mvn verify
+  - mvn compile
+  - cd ..
