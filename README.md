@@ -7,7 +7,10 @@ Connectlife is a home automation system in java.
 - **Simulator**: Simulator of the home device (Helpful for tests).
 - **Clapi**: Client/Server protocol for the Connectlife system.
 
-Documentation: See the wiki page.
+## Documentation
+
+1. [Developpement Environment Setup](https://github.com/ericpinet/ConnectLife/wiki/Developpement-Environment-Setup)
+2. [Raspberry PI](https://github.com/ericpinet/ConnectLife/wiki/Raspberry-PI)
 
 ## Requirements
 
