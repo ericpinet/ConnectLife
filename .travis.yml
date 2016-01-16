@@ -10,4 +10,4 @@ os:
   - linux
 
 script:
-  ./coreserver/mvn verify
+  coreserver/mvn verify
