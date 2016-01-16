@@ -4,7 +4,7 @@
 
   <groupId>com.connectlife</groupId>
   <artifactId>coreserver</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
   <name>coreserver</name>
@@ -13,13 +13,6 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  
-  <repositories>
-   <repository>
-       <id>clapi</id>
-       <url>file:${project.basedir}../clapi/clapi.jar</url>
-   </repository>
-  </repositories>
 
   <dependencies>
     <dependency>
