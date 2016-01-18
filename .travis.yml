@@ -14,12 +14,12 @@ script:
   - cd clapi
   - mvn verify
   - mvn compile
-  - mvn package
-  - mvn install
+  #- mvn package
+  #- mvn install
   - cd ..
 # Compile the coreserver
-  - mvn install:install-file -Dfile=../clapi/bin/clapi-0.0.1.jar -DgroupId=com.clapi -DartifactId=clapi -Dversion=0.0.1 -Dpackaging=jar -DgeneratePom=true
+  #- mvn install:install-file -Dfile=../clapi/bin/clapi-0.0.1.jar -DgroupId=com.clapi -DartifactId=clapi -Dversion=0.0.1 -Dpackaging=jar -DgeneratePom=true
   - cd coreserver
-  - mvn verify
+  #- mvn verify
   - mvn compile
   - cd ..
