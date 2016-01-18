@@ -13,6 +13,7 @@ script:
 - cd ..
 - cd coreserver
 - mvn compile
+- mvn javadoc:javadoc
 - cd ..
 env:
   global:
