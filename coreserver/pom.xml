@@ -130,6 +130,14 @@
 	<artifactId>rxtx</artifactId>
 	<version>2.1.7</version>
   </dependency>
+  
+  <!-- clapi (ConnectLife api) -->
+  <dependency>
+	<groupId>com.clapi</groupId>
+	<artifactId>clapi</artifactId>
+	<version>0.0.1</version>
+	<scope>compile</scope>
+  </dependency>
 
   </dependencies>
 </project>
