@@ -141,7 +141,7 @@ public class CLApiClient {
 	public void waitNotification(){
 		
 		WaitNotificationRequest request = WaitNotificationRequest.newBuilder().build();
-		ListenableFuture<WaitNotificationResponse> future = m_futureStub.waitNotification(request);
+		final ListenableFuture<WaitNotificationResponse> future = m_futureStub.waitNotification(request);
 		future.addListener(new Runnable() {
 		     public void run() {
 		    	 try {

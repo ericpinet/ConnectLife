@@ -1,0 +1,25 @@
+language: java
+
+sudo: false
+
+jdk:
+#  - openjdk7
+  - oraclejdk8
+
+os:
+  - linux
+
+script:
+# Compile the clapi
+  - cd clapi
+  - mvn verify
+  - mvn compile
+  - mvn package
+  - mvn install
+  - cd ..
+  
+# Compile the coreserver
+  - cd coreserver
+  #- mvn verify
+  - mvn compile
+  - cd ..
