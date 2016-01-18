@@ -27,6 +27,7 @@ import com.clapi.data.Data;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
+import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -115,9 +116,14 @@ public class EnvironmentTest implements Observer {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
+		final Application app = injector.getInstance(Application.class);
+		
+		app.startupTest();
 
-		m_path = Application.getApp().getBasePath() + "/" + ENV_DATA_PATH + "/";
-		m_path_backup = Application.getApp().getBasePath() + "/" + ENV_DATA_BACKUP_PATH + "/";
+		m_path = app.getBasePath() + "/" + ENV_DATA_PATH + "/";
+		m_path_backup = app.getBasePath() + "/" + ENV_DATA_BACKUP_PATH + "/";
 		
 		m_filename = m_path + ENV_DATA_FILENAME;
 		m_filename_backup = m_path + ENV_DATA_FILENAME_BACKUP; 

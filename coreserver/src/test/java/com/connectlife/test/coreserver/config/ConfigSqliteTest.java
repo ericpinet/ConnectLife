@@ -23,6 +23,7 @@ import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigFactoryData;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.SqliteSettings;
+import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -66,7 +67,13 @@ public class ConfigSqliteTest {
 		Injector injector = Guice.createInjector(new ConfigSqliteInjectTest());
 		SqliteSettings settings = injector.getInstance(SqliteSettings.class);
 		
-		m_database_file = Application.getApp().getBasePath() + "/" + settings.getDatabasePath() + "/" + settings.getDatabaseFileName();
+		// prepare app object
+		Injector injector2 = Guice.createInjector(new ApplicationInjectTest());
+		final Application app = injector2.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		m_database_file = app.getBasePath() + "/" + settings.getDatabasePath() + "/" + settings.getDatabaseFileName();
 	}
 
 	/**
