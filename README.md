@@ -1,4 +1,4 @@
-Connectlife
+Connectlife [![Build Status](https://travis-ci.org/ericpinet/ConnectLife.svg?branch=master)](https://travis-ci.org/ericpinet/ConnectLife)
 ============
 
 Connectlife is a home automation system in java. 
