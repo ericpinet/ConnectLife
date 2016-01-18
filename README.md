@@ -3,6 +3,8 @@ Connectlife [![Build Status](https://travis-ci.org/ericpinet/ConnectLife.svg?bra
 
 Connectlife is a home automation system in java. 
 
+See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.github.io/ConnectLife/)
+
 - **Coreserver**: Main system server install on device without screen.
 - **Simulator**: Simulator of the home device (Helpful for tests).
 - **Clapi**: Client/Server protocol for the Connectlife system.
