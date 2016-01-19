@@ -4,7 +4,8 @@
 
   echo -e "Publishing javadoc...\n"
 
-  cp -R /home/travis/build/ericpinet/ConnectLife/coreserver/target/site/apidocs $HOME/javadoc-latest
+  cp -R /home/travis/build/ericpinet/ConnectLife/coreserver/target/site/apidocs $HOME/javadoc-latest/coreserver
+  cp -R /home/travis/build/ericpinet/ConnectLife/coreserver/target/site/apidocs $HOME/javadoc-latest/clapi
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
