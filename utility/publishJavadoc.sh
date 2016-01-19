@@ -6,7 +6,7 @@
 
   mkdir $HOME/javadoc-latest
   cp -R /home/travis/build/ericpinet/ConnectLife/coreserver/target/site/apidocs $HOME/javadoc-latest/coreserver
-  cp -R /home/travis/build/ericpinet/ConnectLife/coreserver/target/site/apidocs $HOME/javadoc-latest/clapi
+  cp -R /home/travis/build/ericpinet/ConnectLife/clapi/target/site/apidocs $HOME/javadoc-latest/clapi
 
   cd $HOME
   git config --global user.email "travis@travis-ci.org"
