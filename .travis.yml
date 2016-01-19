@@ -10,9 +10,9 @@ os:
 - linux
 script:
 - cd clapi
-- mvn verify
-- mvn compile
-- mvn package
+#- mvn verify
+#- mvn compile
+#- mvn package
 - mvn install
 - mvn javadoc:javadoc
 - cd ..
