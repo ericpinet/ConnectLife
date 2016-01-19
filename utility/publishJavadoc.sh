@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$TRAVIS_BRANCH" == "master" ]; then
+#if [ "$TRAVIS_BRANCH" == "UpdateJa" ]; then
 
   echo -e "Publishing javadoc...\n"
 
@@ -20,4 +20,4 @@ if [ "$TRAVIS_BRANCH" == "master" ]; then
 
   echo -e "Published Javadoc to gh-pages.\n"
   
-fi
+#fi
