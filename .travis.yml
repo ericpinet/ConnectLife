@@ -13,11 +13,13 @@ script:
 #- mvn verify
 #- mvn compile
 #- mvn package
+- mvn test
 - mvn install
 - mvn javadoc:javadoc
 - cd ..
 - cd coreserver
 - mvn compile
+- mvn test
 - mvn javadoc:javadoc
 - cd ..
 - utility/publishJavadoc.sh
