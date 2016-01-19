@@ -27,7 +27,7 @@ public class SimulatorGpio implements Gpio {
 	private boolean m_isInit;
 
 	/**
-	 * @return
+	 * @return True if the initialization is completed.
 	 * @see com.connectlife.coreserver.gpio.Gpio#init()
 	 */
 	@Override
@@ -40,7 +40,7 @@ public class SimulatorGpio implements Gpio {
 	}
 
 	/**
-	 * @return
+	 * @return True if is initialized.
 	 * @see com.connectlife.coreserver.gpio.Gpio#isInit()
 	 */
 	@Override
