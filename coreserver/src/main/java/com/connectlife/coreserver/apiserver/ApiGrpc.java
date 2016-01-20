@@ -57,7 +57,8 @@ public class ApiGrpc implements Api {
 	
 	/**
 	 * Default constructor of the ApiGrpc.
-	 * @param _config
+	 * @param _config Config manager at use in this ApiGrpc.
+	 * @param _processor CLApi at use in this ApiGrpc.
 	 */
 	@Inject
 	public ApiGrpc(Config _config, CLApiGrpc.CLApi _processor){
@@ -66,7 +67,8 @@ public class ApiGrpc implements Api {
 	}
 
 	/**
-	 * @return
+	 * Initialization of the ApiGrpc
+	 * @return True if the ApiGrpc are correctly initialized.
 	 * @see com.connectlife.coreserver.apiserver.Api#init()
 	 */
 	@Override
@@ -119,7 +121,7 @@ public class ApiGrpc implements Api {
 	}
 
 	/**
-	 * @return
+	 * @return True if initialized.
 	 * @see com.connectlife.coreserver.apiserver.Api#isInit()
 	 */
 	@Override

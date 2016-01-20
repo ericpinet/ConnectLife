@@ -409,12 +409,13 @@ public class Application implements Observer{
 	}
 
 	/**
-	 * @param o
-	 * @param arg
+	 * @param o Reference of the object source
+	 * @param arg Argument of the environment.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		// TODO: Complete this function.
 		if(m_environment == o){
 			m_logger.info("Environment was updated.");
 		}
