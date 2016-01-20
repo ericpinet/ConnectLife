@@ -8,7 +8,7 @@
  */
 package com.clapi.client;
 
-import com.clapi.Notification;
+import com.clapi.protocol.Notification;
 
 /**
  * 

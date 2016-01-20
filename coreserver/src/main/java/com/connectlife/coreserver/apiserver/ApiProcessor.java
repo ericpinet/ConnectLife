@@ -16,8 +16,8 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.clapi.*;
-import com.clapi.Notification.NotificationType;
+import com.clapi.protocol.*;
+import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
