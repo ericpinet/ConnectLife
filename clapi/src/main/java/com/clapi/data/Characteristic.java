@@ -97,11 +97,12 @@ public class Characteristic {
 	/**
 	 * Defautl constructor. 
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param mode
-	 * @param type
-	 * @param event
+	 * @param uid Uid of the characteristic.
+	 * @param label Label of the characteristic.
+	 * @param mode mode of the characteristic.
+	 * @param type type of the characteristic.
+	 * @param event event of the characteristic.
+	 * @param data of the characteristic.
 	 */
 	public Characteristic(String uid, String label, CharacteristicAccessMode mode, CharacteristicType type, CharacteristicEventType event, String data) {
 		super();
@@ -185,7 +186,7 @@ public class Characteristic {
 
 	/**
 	 * @return the data
-	 * @throws Exception 
+	 * @throws Exception When data type is invalid.
 	 */
 	public String getData() throws Exception {
 		if(type == CharacteristicType.STATIC_STRING){
@@ -198,7 +199,7 @@ public class Characteristic {
 
 	/**
 	 * @param data the data to set
-	 * @throws Exception 
+	 * @throws Exception When data type is invalid.
 	 */
 	public void setData(String data) throws Exception {
 		if(type == CharacteristicType.STATIC_STRING){
@@ -211,8 +212,8 @@ public class Characteristic {
 	
 	/**
 	 * Return the value of characteristic in boolean.
-	 * @return
-	 * @throws Exception 
+	 * @return The data.
+	 * @throws Exception When data type is invalid.
 	 */
 	public boolean getDataBoolean() throws Exception {
 		if(type == CharacteristicType.BOOLEAN){
@@ -230,8 +231,8 @@ public class Characteristic {
 	
 	/**
 	 * Set the value of characteristic in boolean.
-	 * @param data
-	 * @throws Exception 
+	 * @param data Data to set.
+	 * @throws Exception When data type is invalid.
 	 */
 	public void setBooleanData(boolean data) throws Exception{
 		if(	type == CharacteristicType.BOOLEAN || 
@@ -251,8 +252,8 @@ public class Characteristic {
 	
 	/**
 	 * Return the value of characteristic in integer.
-	 * @return
-	 * @throws Exception 
+	 * @return The data.
+	 * @throws Exception When data type is invalid.
 	 */
 	public int getDataInteger() throws Exception{
 		int ret_val = 0;
@@ -272,8 +273,8 @@ public class Characteristic {
 	
 	/**
 	 * Set the value of characteristic in integer.
-	 * @param data
-	 * @throws Exception 
+	 * @param data Data to set.
+	 * @throws Exception When data type is invalid.
 	 */
 	public void setIntegerData(int data) throws Exception{
 		if(type == CharacteristicType.INTEGER){
@@ -291,8 +292,8 @@ public class Characteristic {
 	
 	/**
 	 * Return the value of characteristic in float.
-	 * @return
-	 * @throws Exception 
+	 * @return The data.
+	 * @throws Exception When data type is invalid.
 	 */
 	public float getDataFloat() throws Exception{
 		float ret_val = 0;
@@ -312,8 +313,8 @@ public class Characteristic {
 	
 	/**
 	 * Set the value of characteristic in integer.
-	 * @param data
-	 * @throws Exception 
+	 * @param data Data to set.
+	 * @throws Exception When data type is invalid.
 	 */
 	public void setFloatData(float data) throws Exception{
 		if(type == CharacteristicType.FLOAT){

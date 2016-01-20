@@ -57,13 +57,13 @@ public class Person {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param firstname
-	 * @param lastname
-	 * @param emails
-	 * @param phones
-	 * @param addresses
-	 * @param imageurl
+	 * @param uid Uid of the person.
+	 * @param firstname First name of the person.
+	 * @param lastname Last name of the person.
+	 * @param emails Emails of the person.
+	 * @param phones Phones of the person.
+	 * @param addresses Addresses of the person.
+	 * @param imageurl ImageURL of the person.
 	 */
 	public Person(String uid, String firstname, String lastname, List<Email> emails, List<Phone> phones,
 			List<Address> addresses, String imageurl) {
@@ -80,8 +80,8 @@ public class Person {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param firstname
+	 * @param uid Uid of the person.
+	 * @param firstname First name of the person.
 	 */
 	public Person(String uid, String firstname) {
 		super();
@@ -95,13 +95,10 @@ public class Person {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param firstname
-	 * @param lastname
-	 * @param emails
-	 * @param phones
-	 * @param addresses
-	 * @param imageurl
+	 * @param uid Uid of the person.
+	 * @param firstname First name of the person.
+	 * @param lastname Last name of the person.
+	 * @param imageurl ImageURL of the person.
 	 */
 	public Person(String uid, String firstname, String lastname, String imageurl) {
 		super();
@@ -113,8 +110,6 @@ public class Person {
 		this.addresses = new ArrayList<Address>();
 		this.imageurl = imageurl;
 	}
-	
-	
 
 	/**
 	 * @return the uid
@@ -215,7 +210,7 @@ public class Person {
 	}
 
 	/**
-	 * @param email
+	 * @param email Email of the person.
 	 */
 	public void addToEmails(Email email) {
 		this.emails.add(email);
@@ -223,14 +218,14 @@ public class Person {
 	}
 
 	/**
-	 * @param phone
+	 * @param phone Phone of the person.
 	 */
 	public void addToPhones(Phone phone) {
 		this.phones.add(phone);
 	}
 
 	/**
-	 * @param address
+	 * @param address Address of the person.
 	 */
 	public void addToAddress(Address address) {
 		this.addresses.add(address);

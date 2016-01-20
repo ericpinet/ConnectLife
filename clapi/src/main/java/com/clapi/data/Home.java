@@ -41,10 +41,10 @@ public class Home {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param zones
-	 * @param imageurl
+	 * @param uid Uid of the home.
+	 * @param label Label of the home.
+	 * @param zones Zones of the home.
+	 * @param imageurl ImageURL of the home.
 	 */
 	public Home(String uid, String label, List<Zone> zones, String imageurl) {
 		super();
@@ -57,8 +57,8 @@ public class Home {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param label
+	 * @param uid Uid of the home.
+	 * @param label Label of the home.
 	 */
 	public Home(String uid, String label) {
 		super();

@@ -40,10 +40,12 @@ public class ServiceDefinition {
 	public Accessory m_accessory;
 
 	/**
-	 * Default Constructor
+	 * Default constructor.
 	 * 
-	 * @param _port
-	 * @param _accessory
+	 * @param _ip_address Ip address of the service.
+	 * @param _hostname Hostname of the service.
+	 * @param _port Port of the service.
+	 * @param _accessory Accessory of the service.
 	 */
 	public ServiceDefinition(String _ip_address, String _hostname, int _port, Accessory _accessory) {
 		super();
