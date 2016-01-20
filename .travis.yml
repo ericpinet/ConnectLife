@@ -19,7 +19,7 @@ script:
 - cd ..
 - cd coreserver
 - mvn compile
-- mvn test jacoco:report coveralls:report
+- mvn clean test jacoco:report coveralls:report
 - mvn javadoc:javadoc
 - cd ..
 - utility/publishJavadoc.sh
