@@ -11,7 +11,7 @@ package com.connectlife.coreserver;
 // external
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
-import com.clapi.CLApiGrpc;
+import com.clapi.protocol.CLApiGrpc;
 
 import com.connectlife.coreserver.apiserver.Api;
 import com.connectlife.coreserver.apiserver.ApiGrpc;

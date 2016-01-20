@@ -41,10 +41,10 @@ public class Zone {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param rooms
-	 * @param imageurl
+	 * @param uid Uid of the zone.
+	 * @param label Label of the zone.
+	 * @param rooms Rooms of the zone.
+	 * @param imageurl ImageURL of the zone.
 	 */
 	public Zone(String uid, String label, List<Room> rooms, String imageurl) {
 		super();
@@ -57,8 +57,8 @@ public class Zone {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param uid
-	 * @param label
+	 * @param uid Uid of the zone.
+	 * @param label Label of the zone.
 	 */
 	public Zone(String uid, String label) {
 		super();

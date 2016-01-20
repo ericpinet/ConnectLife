@@ -19,7 +19,7 @@ import io.grpc.ServerBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.clapi.*;
+import com.clapi.protocol.*;
 
 
 /**

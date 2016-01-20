@@ -15,7 +15,7 @@ syntax = "proto2";
 package clapi;
 
 option java_multiple_files = true;
-option java_package = "com.clapi";
+option java_package = "com.clapi.protocol";
 option java_outer_classname = "CLApiProtos";
 
 // The CLAPI definition. ////////////////////////////////////////

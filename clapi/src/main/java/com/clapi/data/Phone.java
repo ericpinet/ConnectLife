@@ -47,9 +47,9 @@ public class Phone {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param phone
-	 * @param type
+	 * @param uid Uid of the phone.
+	 * @param phone Phone of the phone.
+	 * @param type Type of the phone.
 	 */
 	public Phone(String uid, String phone, PhoneType type) {
 		super();

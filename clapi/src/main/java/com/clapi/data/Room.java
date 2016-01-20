@@ -41,10 +41,10 @@ public class Room {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param accessories
-	 * @param imageurl
+	 * @param uid Uid of the room.
+	 * @param label Label of the room.
+	 * @param accessories Accessories of the room.
+	 * @param imageurl ImageURL of the room.
 	 */
 	public Room(String uid, String label, List<Accessory> accessories, String imageurl) {
 		super();
@@ -57,8 +57,8 @@ public class Room {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param label
+	 * @param uid Uid of the room.
+	 * @param label Label of the room.
 	 */
 	public Room(String uid, String label) {
 		super();
