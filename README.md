@@ -1,5 +1,7 @@
-Connectlife [![Build Status](https://travis-ci.org/ericpinet/ConnectLife.svg?branch=master)](https://travis-ci.org/ericpinet/ConnectLife) [![Coverage Status](https://coveralls.io/repos/github/ericpinet/ConnectLife/badge.svg?branch=master)](https://coveralls.io/github/ericpinet/ConnectLife?branch=master)
+Connectlife
 ============
+[![Build Status](https://travis-ci.org/ericpinet/ConnectLife.svg?branch=master)](https://travis-ci.org/ericpinet/ConnectLife) [![Coverage Status](https://coveralls.io/repos/github/ericpinet/ConnectLife/badge.png?branch=master)](https://coveralls.io/github/ericpinet/ConnectLife?branch=master)
+
 
 Connectlife is a home automation system in java. 
 
