@@ -50,7 +50,7 @@ public interface Config {
 	/**
 	 * Return all ConfigItem object in the application.
 	 * 
-	 * @return List<ConfigItem> object or null.
+	 * @return List of ConfigItem or null.
 	 */
 	public List<ConfigItem> getConfigs();
 	

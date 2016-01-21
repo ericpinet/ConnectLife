@@ -353,7 +353,7 @@ public class MainWindow implements NotificationListener {
 	 * @see com.clapi.client.NotificationListener#notificationReceive(com.clapi.Notification)
 	 */
 	@Override
-	public void notificationReceive(com.clapi.Notification _notification) {
+	public void notificationReceive(com.clapi.protocol.Notification _notification) {
 		m_logger.info( "WaitNotification recieved." );
 	}
 

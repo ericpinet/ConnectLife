@@ -46,9 +46,9 @@ public class Email {
 	/**
 	 * Default Constructor.
 	 * 
-	 * @param uid
-	 * @param email
-	 * @param type
+	 * @param uid Uid of the email.
+	 * @param email Email of the email.
+	 * @param type Type of the email.
 	 */
 	public Email(String uid, String email, EmailType type) {
 		super();

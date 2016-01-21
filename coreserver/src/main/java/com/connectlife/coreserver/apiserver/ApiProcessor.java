@@ -16,8 +16,8 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.clapi.*;
-import com.clapi.Notification.NotificationType;
+import com.clapi.protocol.*;
+import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
@@ -64,7 +64,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	
 	/**
 	 * Default constructor.
-	 * @param _environment
+	 * @param _environment Environment at use in the ApiProcessor.
 	 */
 	@Inject
 	public ApiProcessor(Environment _environment){
@@ -74,10 +74,9 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * 
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#getVersion(com.clapi.GetVersionRequest, io.grpc.stub.StreamObserver)
+	 * Return the server api version.
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void getVersion(GetVersionRequest request, StreamObserver<GetVersionResponse> responseObserver) {
@@ -89,9 +88,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#checkCompatibility(com.clapi.CheckCompatibilityRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void checkCompatibility(CheckCompatibilityRequest request,
@@ -131,9 +129,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#waitNotification(com.clapi.WaitNotificationRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public synchronized void waitNotification(WaitNotificationRequest request,
@@ -147,7 +144,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	
 	/**
 	 * Send this notification to all client in waiting.
-	 * @param notification
+	 * @param notification Notification to send at all client.
 	 */
 	public synchronized void sendNotificationToAllClient(Notification notification){
 		
@@ -166,9 +163,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#getJsonData(com.clapi.GetJsonDataRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void getJsonData(GetJsonDataRequest request, StreamObserver<GetJsonDataResponse> responseObserver) {
@@ -178,9 +174,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#addPerson(com.clapi.AddPersonRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
@@ -191,9 +186,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#updatePerson(com.clapi.UpdatePersonRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
@@ -202,9 +196,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#deletePerson(com.clapi.DeletePersonRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
@@ -213,9 +206,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#addEmail(com.clapi.AddEmailRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
@@ -224,9 +216,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#updateEmail(com.clapi.UpdateEmailRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void updateEmail(UpdateEmailRequest request, StreamObserver<UpdateEmailResponse> responseObserver) {
@@ -235,9 +226,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#deleteEmail(com.clapi.DeleteEmailRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void deleteEmail(DeleteEmailRequest request, StreamObserver<DeleteEmailResponse> responseObserver) {
@@ -246,8 +236,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param o
-	 * @param arg
+	 * @param o Object source.
+	 * @param arg Argument of the event.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
@@ -263,9 +253,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#addPhone(com.clapi.AddPhoneRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void addPhone(AddPhoneRequest request, StreamObserver<AddPhoneResponse> responseObserver) {
@@ -274,9 +263,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#updatePhone(com.clapi.UpdatePhoneRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void updatePhone(UpdatePhoneRequest request, StreamObserver<UpdatePhoneResponse> responseObserver) {
@@ -285,9 +273,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#deletePhone(com.clapi.DeletePhoneRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void deletePhone(DeletePhoneRequest request, StreamObserver<DeletePhoneResponse> responseObserver) {
@@ -296,9 +283,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#addAddress(com.clapi.AddAddressRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void addAddress(AddAddressRequest request, StreamObserver<AddAddressResponse> responseObserver) {
@@ -307,9 +293,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#updateAddress(com.clapi.UpdateAddressRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void updateAddress(UpdateAddressRequest request, StreamObserver<UpdateAddressResponse> responseObserver) {
@@ -318,9 +303,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
-	 * @see com.clapi.CLApiGrpc.CLApi#deleteAddress(com.clapi.DeleteAddressRequest, io.grpc.stub.StreamObserver)
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 */
 	@Override
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {

@@ -102,6 +102,8 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	
 	/**
 	 * Default constructor of the environment.
+	 * 
+	 * @param _service DiscoveryService at use in this Environment. 
 	 */
 	@Inject
 	public EnvironmentJsonFile(DiscoveryService _service){
@@ -480,7 +482,7 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	}
 
 	/**
-	 * @return
+	 * @return The all data in the environment.
 	 * @see com.connectlife.coreserver.environment.Environment#getData()
 	 */
 	@Override
@@ -498,10 +500,10 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	}
 
 	/**
-	 * @param firstname
-	 * @param lastname
-	 * @param imageurl
-	 * @return
+	 * @param firstname First name of the person.
+	 * @param lastname Last name of the person.
+	 * @param imageurl Url of the image of this person.
+	 * @return The uid of this new person.
 	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override

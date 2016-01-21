@@ -36,9 +36,9 @@ public class Service {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
-	 * @param name
-	 * @param characteristics
+	 * @param uid Uid of the service.
+	 * @param name Name of the service.
+	 * @param characteristics Characteristics of the service.
 	 */
 	public Service(String uid, String name, List<Characteristic> characteristics) {
 		super();
@@ -50,7 +50,8 @@ public class Service {
 	/**
 	 * Default constructor. 
 	 * 
-	 * @param uid
+	 * @param uid Uid of the service.
+	 * @param name of the service.
 	 */
 	public Service(String uid, String name) {
 		super();
@@ -81,7 +82,7 @@ public class Service {
 	}
 
 	/**
-	 * @param uid the name to set
+	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;

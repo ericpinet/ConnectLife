@@ -71,6 +71,7 @@ public class ConfigSqlite implements Config {
 	
 	/**
 	 * Default ConfigSqlite constructor.
+	 * @param _setting Settings at use in this ConfigSqlite.
 	 */
 	@Inject
 	public ConfigSqlite(SqliteSettings _setting){

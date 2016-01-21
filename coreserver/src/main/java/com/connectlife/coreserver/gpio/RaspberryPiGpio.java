@@ -36,7 +36,7 @@ public class RaspberryPiGpio implements Gpio {
 	private final Logger m_logger = LogManager.getLogger(RaspberryPiGpio.class);
 
 	/**
-	 * @return
+	 * @return True if the initialization is completed.
 	 * @see com.connectlife.coreserver.gpio.Gpio#init()
 	 */
 	@Override
@@ -145,7 +145,7 @@ public class RaspberryPiGpio implements Gpio {
 	}
 
 	/**
-	 * @return
+	 * @return True if initialized.
 	 * @see com.connectlife.coreserver.gpio.Gpio#isInit()
 	 */
 	@Override
