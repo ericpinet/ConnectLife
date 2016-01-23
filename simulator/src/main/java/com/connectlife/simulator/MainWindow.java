@@ -342,7 +342,6 @@ public class MainWindow implements NotificationListener {
 		while(it.hasNext()){
 			it.next().stopServices();
 		}
-		
 		devices.removeAllElements();
 	}
 	

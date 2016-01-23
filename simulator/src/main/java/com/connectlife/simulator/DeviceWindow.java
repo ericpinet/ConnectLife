@@ -17,22 +17,24 @@ import org.eclipse.swt.widgets.Label;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Slider;
 import org.eclipse.swt.widgets.Scale;
-import org.eclipse.swt.custom.TableTree;
-import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 
+import com.clapi.data.Characteristic;
+import com.clapi.data.Characteristic.CharacteristicType;
+import com.clapi.data.Service;
 import com.connectlife.simulator.device.Device;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * 
@@ -41,6 +43,11 @@ import org.eclipse.swt.events.SelectionEvent;
  * <br> 2016-01-10
  */
 public class DeviceWindow extends Dialog {
+	
+	/**
+	 * Init logger instance for this class
+	 */
+	private static Logger m_logger = LogManager.getLogger(MainWindow.class);
 
 	protected Object result;
 	protected Shell shlDevices;
@@ -51,8 +58,8 @@ public class DeviceWindow extends Dialog {
 	private Text textModel;
 	private Text textSerialNumber;
 	private Text textSetupInRoom;
-	private Text textString;
 	private List<Device> devices;
+	private Composite composite;
 
 	/**
 	 * Create the dialog.
@@ -87,7 +94,7 @@ public class DeviceWindow extends Dialog {
 	 */
 	private void createContents() {
 		shlDevices = new Shell(getParent(), getStyle());
-		//shlAccessories.setSize(531, 331);
+		shlDevices.setSize(650, 500);
 		shlDevices.setText("Devices");
 		shlDevices.setLayout(new GridLayout(3, false));
 		
@@ -98,6 +105,7 @@ public class DeviceWindow extends Dialog {
 		    	  updateDeviceInformation();
 		      }
 		});
+		list.setSize(150, 200);
 		
 		Label lblUid = new Label(shlDevices, SWT.NONE);
 		lblUid.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -165,49 +173,25 @@ public class DeviceWindow extends Dialog {
 		btnDel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnDel.setText("Del");
 		
-		Label label = new Label(shlDevices, SWT.SEPARATOR | SWT.HORIZONTAL);
+		new Label(shlDevices, SWT.SEPARATOR | SWT.HORIZONTAL);
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
-		new Label(shlDevices, SWT.NONE);
-		
-		Label lblBoolean = new Label(shlDevices, SWT.NONE);
-		lblBoolean.setAlignment(SWT.RIGHT);
-		lblBoolean.setText("Boolean :");
-		
-		Button btnYes = new Button(shlDevices, SWT.RADIO);
-		btnYes.setText("Yes");
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
 		
-		Button btnNo = new Button(shlDevices, SWT.RADIO);
-		btnNo.setText("No");
-		new Label(shlDevices, SWT.NONE);
-		
-		Label lblFloat = new Label(shlDevices, SWT.NONE);
-		lblFloat.setAlignment(SWT.RIGHT);
-		lblFloat.setText("Float :");
-		
-		Scale scaleFloat = new Scale(shlDevices, SWT.NONE);
-		new Label(shlDevices, SWT.NONE);
-		
-		Label lblInteger = new Label(shlDevices, SWT.NONE);
-		lblInteger.setAlignment(SWT.RIGHT);
-		lblInteger.setText("Integer :");
-		
-		Scale scaleInteger = new Scale(shlDevices, SWT.NONE);
-		new Label(shlDevices, SWT.NONE);
-		
-		Label lblString = new Label(shlDevices, SWT.NONE);
-		lblString.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblString.setText("String :");
-		
-		textString = new Text(shlDevices, SWT.BORDER);
-		textString.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		composite = new Composite(shlDevices, SWT.NONE);
+		composite.setLayout(new GridLayout(3, false));
+		GridData gd_composite = new GridData(SWT.LEFT, SWT.CENTER, false, false, 3, 10);
+		gd_composite.heightHint = 300;
+		gd_composite.widthHint = 600;
+		composite.setLayoutData(gd_composite);
 		
 		refreshDeviceList();
 	}
+	
+
 	
 	/**
 	 * Refresh the data in the dialog. Reload the device.
@@ -247,6 +231,110 @@ public class DeviceWindow extends Dialog {
 			this.textModel.setText(device.getModel());
 			this.textSerialNumber.setText(device.getSerialnumber());
 			
-		}// ELSE: No selected item. Do nothing.
+			// TODO: Manage more than 1 services
+			Service service = device.getServices().get(0);
+			updateDeviceCharacteristics(service.getCharacteristics());
+			
+		}
+		else{
+			// No device selected
+			// remove all characteristics showed.
+			removeChracteristics();
+		}
+	}
+	
+	/**
+	 * Update the device characteristics in the user interface.
+	 * Create the control for each characteristics.
+	 */
+	private void updateDeviceCharacteristics(List<Characteristic> _characteristics){
+		
+		// remove the old characteristics from previous device.
+		removeChracteristics();
+		
+		// add new characteristics
+		Iterator<Characteristic> it = _characteristics.iterator();
+		while(it.hasNext()){
+			Characteristic charc = it.next();
+			
+			if(charc.getType() == CharacteristicType.BOOLEAN){
+				createBoolean(charc);
+			}
+			if( charc.getType() == CharacteristicType.INTEGER ||
+				charc.getType() == CharacteristicType.FLOAT ){
+				
+				createIntegerFloat(charc);
+			}
+			else{
+				m_logger.error("This Type of characteristic is not supported yet!");
+			}
+			
+		}
+		
+		composite.layout(true, true);
+	}
+	
+	/**
+	 * Remove the current characteristics from the user interface.
+	 */
+	private void removeChracteristics(){
+		Control[] controls = composite.getChildren();
+		for(int i=0 ; i<controls.length ; i++){
+			controls[i].dispose();
+		}
+		composite.layout(true, true);
+	}
+	
+	/**
+	 * Create a boolean characteristic in the user interface.
+	 * @param _characteristic
+	 */
+	private void createBoolean(Characteristic _characteristic){
+		
+		Label lblBoolean = new Label(composite, SWT.NONE);
+		lblBoolean.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblBoolean.setText(_characteristic.getLabel() + " :");
+		
+		Button btnYes = new Button(composite, SWT.RADIO);
+		btnYes.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
+		btnYes.setText("Yes");
+		try {
+			btnYes.setSelection( _characteristic.getDataBoolean() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		Button btnNo = new Button(composite, SWT.RADIO);
+		btnNo.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
+		btnNo.setText("No");
+		try {
+			btnNo.setSelection( !_characteristic.getDataBoolean() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Create an Integer of Float characteristic in the user interface.
+	 * @param _characteristic
+	 */
+	private void createIntegerFloat(Characteristic _characteristic){
+		Label lbl = new Label(composite, SWT.NONE);
+		lbl.setAlignment(SWT.RIGHT);
+		lbl.setText(_characteristic.getLabel()+" :");
+		
+		Scale scale = new Scale(composite, SWT.NONE);
+		scale.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+		try {
+			
+			if(_characteristic.getType() == CharacteristicType.INTEGER){
+				scale.setSelection(_characteristic.getDataInteger());
+			}
+			else{
+				scale.setSelection((int) _characteristic.getDataFloat());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

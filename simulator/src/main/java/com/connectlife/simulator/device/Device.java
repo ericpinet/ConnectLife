@@ -157,7 +157,6 @@ public abstract class Device extends Accessory {
 			m_jmdns.unregisterAllServices();
 			m_jmdns.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			m_logger.error(e.getMessage());
 			e.printStackTrace();
 		}
