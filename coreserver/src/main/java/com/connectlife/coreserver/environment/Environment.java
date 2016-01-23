@@ -121,7 +121,7 @@ public interface Environment {
 	
 	/**
 	 * Update the person in the data. 
-	 * @param UID of the person.
+	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname Last name of the person.
 	 * @param imageurl image url of the person.
