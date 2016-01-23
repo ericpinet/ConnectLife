@@ -127,4 +127,15 @@ public class EnvironmentMock extends Observable implements Environment {
 	public String updatePerson(String uid, String firstname, String lastname, String imageurl) {
 		return null;
 	}
+	
+	/**
+	 * Delete the person.
+	 * @param uid UID of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String deletePerson(String _uid)
+	{
+		return null;
+	}
 }

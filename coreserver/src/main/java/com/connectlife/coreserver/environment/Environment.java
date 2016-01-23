@@ -128,4 +128,11 @@ public interface Environment {
 	 * @return UID of the person. 
 	 */
 	public String updatePerson(String uid, String firstname, String lastname, String imageurl);
+	
+	/**
+	 * Delete the person.
+	 * @param uid UID of the person.
+	 * @return
+	 */
+	public String deletePerson(String uid);
 }

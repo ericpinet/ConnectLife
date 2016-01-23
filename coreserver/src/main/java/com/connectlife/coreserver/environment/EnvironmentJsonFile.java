@@ -529,4 +529,17 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		environmentChange();
 		return uid;
 	}
+	
+	/**
+	 * Delete the person.
+	 * @param uid UID of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String deletePerson(String _uid)
+	{
+		m_data.deletePerson(_uid);
+		environmentChange();
+		return _uid;
+	}
 }
