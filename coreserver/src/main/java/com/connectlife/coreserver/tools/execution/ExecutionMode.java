@@ -18,7 +18,7 @@ public class ExecutionMode {
 	
 	/**
 	 * Check if the application is use in debug mode.
-	 * @return
+	 * @return True if the application is executed in debug mode.
 	 */
 	public static boolean isDebug(){	    
 		// if local or remote debug return true

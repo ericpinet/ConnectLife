@@ -344,6 +344,30 @@ public class Application implements Observer{
 		
 		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
 	}
+	
+	/**
+	 * Startup application process for test.
+	 * Don't run, just init the application.
+	 */
+	public void startupTest() {
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting for test ...");
+		
+		try{
+			if( true == init() ){
+				// do nothing for test process.
+			}
+		}
+		catch(Exception e){
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		finally{
+			unInitModules();
+		}
+		
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+	}
 
 	/**
 	 * Shutdown the application.
@@ -385,12 +409,13 @@ public class Application implements Observer{
 	}
 
 	/**
-	 * @param o
-	 * @param arg
+	 * @param o Reference of the object source
+	 * @param arg Argument of the environment.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		// TODO: Complete this function.
 		if(m_environment == o){
 			m_logger.info("Environment was updated.");
 		}

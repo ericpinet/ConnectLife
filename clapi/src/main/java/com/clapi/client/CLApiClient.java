@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.clapi.*;
+import com.clapi.protocol.*;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
@@ -71,9 +71,9 @@ public class CLApiClient {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param host
-	 * @param port
-	 * @param _listener
+	 * @param host Host name of the server ConnectLife.
+	 * @param port Port of the server ConnectLife.
+	 * @param _listener Listner of the notification.
 	 */
 	public CLApiClient(String host, int port, NotificationListener _listener) {
 	  m_channel = ManagedChannelBuilder.forAddress(host, port)
@@ -86,7 +86,7 @@ public class CLApiClient {
 	
 	/**
 	 * Get the version of the server.
-	 * @return
+	 * @return Version number of the server.
 	 */
 	public String getVersion(){
 		GetVersionRequest request = GetVersionRequest.newBuilder().build();
@@ -96,7 +96,7 @@ public class CLApiClient {
 	
 	/**
 	 * Check if the client is compatible with the server.
-	 * @return
+	 * @return True if the server and client are compatible.
 	 */
 	public boolean checkCompatibility(){
 		CheckCompatibilityRequest request = CheckCompatibilityRequest.newBuilder().setVersion(	API_CLIENT_VERSION[0] + "." +
@@ -108,7 +108,7 @@ public class CLApiClient {
 	
 	/**
 	 * Get the json data.
-	 * @return
+	 * @return Json representation of the data.
 	 */
 	public String getJsonData(){
 		GetJsonDataRequest request = GetJsonDataRequest.newBuilder().build();
@@ -160,7 +160,7 @@ public class CLApiClient {
 	public void waitNotification(){
 		
 		WaitNotificationRequest request = WaitNotificationRequest.newBuilder().build();
-		ListenableFuture<WaitNotificationResponse> future = m_futureStub.waitNotification(request);
+		final ListenableFuture<WaitNotificationResponse> future = m_futureStub.waitNotification(request);
 		future.addListener(new Runnable() {
 		     public void run() {
 		    	 try {
@@ -182,7 +182,7 @@ public class CLApiClient {
 	/**
 	 * Shutdown the client connection with the server.
 	 * 
-	 * @throws InterruptedException
+	 * @throws InterruptedException If timeout of shutdown is reach.
 	 */
 	public void shutdown() throws InterruptedException {
 	    m_channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);

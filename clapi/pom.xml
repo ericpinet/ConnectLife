@@ -2,9 +2,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.connectlife</groupId>
+  <groupId>com.clapi</groupId>
   <artifactId>clapi</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
 
   <name>clapi</name>
@@ -50,4 +50,18 @@
 	</dependency>
     
   </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <excludePackageNames>com.clapi.protocol</excludePackageNames>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
 </project>

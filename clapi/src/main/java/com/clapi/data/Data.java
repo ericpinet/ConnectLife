@@ -36,9 +36,9 @@ public class Data {
 
 	/**
 	 * Default constructor.
-	 * @param version
-	 * @param persons
-	 * @param homes
+	 * @param version Version of the data.
+	 * @param persons Persons of the data.
+	 * @param homes Homes of the data.
 	 */
 	public Data(int version, List<Person> persons, List<Home> homes) {
 		super();
@@ -49,9 +49,6 @@ public class Data {
 	
 	/**
 	 * Default constructor.
-	 * @param version
-	 * @param persons
-	 * @param homes
 	 */
 	public Data() {
 		super();
@@ -102,14 +99,14 @@ public class Data {
 	}
 	
 	/**
-	 * @param person
+	 * @param person the persons to set
 	 */
 	public void addToPersons(Person person){
 		this.persons.add(person);
 	}
 	
 	/**
-	 * @param home
+	 * @param home The home to add
 	 */
 	public void addToHomes(Home home){
 		this.homes.add(home);

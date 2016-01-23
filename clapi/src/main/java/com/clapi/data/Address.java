@@ -66,13 +66,13 @@ public class Address {
 	/**
 	 * Default Constructor.
 	 * 
-	 * @param uid
-	 * @param type
-	 * @param street
-	 * @param city
-	 * @param region
-	 * @param zipcode
-	 * @param country
+	 * @param uid Uid of the address.
+	 * @param type Type of the address.
+	 * @param street Street of the address.
+	 * @param city City of the address.
+	 * @param region Region of the address.
+	 * @param zipcode Zipcode of the address.
+	 * @param country Country of the address.
 	 */
 	public Address(String uid, AddressType type, String street, String city, String region, String zipcode, String country) {
 		super();
@@ -88,8 +88,9 @@ public class Address {
 	/**
 	 * Default Constructor.
 	 * 
-	 * @param uid
-	 * @param street
+	 * @param uid Uid of the address.
+	 * @param type Type of the address.
+	 * @param street Street of the address.
 	 */
 	public Address(String uid, AddressType type, String street) {
 		super();

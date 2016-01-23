@@ -32,7 +32,7 @@ public class SqliteSettingsApp implements SqliteSettings {
 	private static final int DATABASE_TIMEOUT = 30;
 
 	/**
-	 * @return
+	 * @return The database file path.
 	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabasePath()
 	 */
 	@Override
@@ -41,7 +41,7 @@ public class SqliteSettingsApp implements SqliteSettings {
 	}
 	
 	/**
-	 * @return
+	 * @return The database file name.
 	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabaseFileName()
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class SqliteSettingsApp implements SqliteSettings {
 	}
 
 	/**
-	 * @return
+	 * @return The database timeout.
 	 * @see com.connectlife.coreserver.config.SqliteSettings#getDatabaseTimeout()
 	 */
 	@Override
