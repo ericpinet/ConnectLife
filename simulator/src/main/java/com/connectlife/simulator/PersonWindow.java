@@ -277,5 +277,26 @@ public class PersonWindow extends Dialog {
 			}
 		});
 		btnAdd.setText("Add");
+		new Label(shell, SWT.NONE);
+		
+		Button btnUpdate = new Button(shell, SWT.NONE);
+		btnUpdate.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				try {
+					person.setFirstname(txtFirstname.getText());
+					person.setLastname(txtLastname.getText());
+					//person.setImageurl();
+					client.updatePerson(person.getUid(), person.getFirstname(), person.getLastname(), "");
+					
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnUpdate.setText("Update");
 	}
 }

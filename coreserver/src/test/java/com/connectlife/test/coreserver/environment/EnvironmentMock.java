@@ -113,4 +113,18 @@ public class EnvironmentMock extends Observable implements Environment {
 	public String addPerson(String firstname, String lastname, String imageurl) {
 		return null;
 	}
+	
+	/**
+	 * Update the person in environment.
+	 * @param uid UID of the person.
+	 * @param firstname First name of the person.
+	 * @param lastname  Last name of the person.
+	 * @param imageurl  Image url of the person.
+	 * @return UID of the person. 
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public String updatePerson(String uid, String firstname, String lastname, String imageurl) {
+		return null;
+	}
 }
