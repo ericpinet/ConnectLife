@@ -145,4 +145,21 @@ public class Data {
 			person.setImageurl(imageurl);
 		}
 	}
+	
+	/**
+	 * Delete the person.
+	 * @param _uid UID of the person.
+	 * @return UID of the person to delete.
+	 */
+	public String deletePerson(String _uid)
+	{
+		String uid = "";
+		Person person = getPerson(_uid);
+		if(person != null)
+		{
+			uid = person.getUid();
+			this.persons.remove(person);
+		}
+		return uid;
+	}
 }

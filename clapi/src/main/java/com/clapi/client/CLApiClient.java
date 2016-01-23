@@ -154,6 +154,19 @@ public class CLApiClient {
 	}
 	
 	/**
+	 * Delete the person.
+	 * @param uid UID of the person.
+	 * @return UID of the person.
+	 */
+	public String deletePerson(String uid){
+		DeletePersonRequest request = DeletePersonRequest.newBuilder()
+												   .setUid(uid)
+												   .build();
+		DeletePersonResponse response = m_blockingStub.deletePerson(request);
+		return response.getUid();
+	}
+	
+	/**
 	 * Wait notification. When notification will arrived from server, 
 	 * the listener will be notify.
 	 */
