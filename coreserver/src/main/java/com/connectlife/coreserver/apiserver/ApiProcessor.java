@@ -197,8 +197,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
+		String uid = m_environment.updatePerson(request.getUid(), request.getFirstname(), request.getLastname(), request.getImageurl());
+		UpdatePersonResponse reply = UpdatePersonResponse.newBuilder().setUid(uid).build();
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**

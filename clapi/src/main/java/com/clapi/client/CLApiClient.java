@@ -135,6 +135,25 @@ public class CLApiClient {
 	}
 	
 	/**
+	 * Update person in environment.
+	 * @param uid UID of the person.
+	 * @param firstname First name of the person. 
+	 * @param lastname Last name of the person.
+	 * @param imageurl Image url of the person.
+	 * @return UID of the person.
+	 */
+	public String updatePerson(String uid, String firstname, String lastname, String imageurl){
+		UpdatePersonRequest request = UpdatePersonRequest.newBuilder()
+												   .setUid(uid)
+												   .setFirstname(firstname)
+												   .setLastname(lastname)
+												   .setImageurl(imageurl)
+												   .build();
+		UpdatePersonResponse response = m_blockingStub.updatePerson(request);
+		return response.getUid();
+	}
+	
+	/**
 	 * Wait notification. When notification will arrived from server, 
 	 * the listener will be notify.
 	 */

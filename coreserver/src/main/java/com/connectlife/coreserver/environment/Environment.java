@@ -118,4 +118,14 @@ public interface Environment {
 	 * @return UID of the person. 
 	 */
 	public String addPerson(String firstname, String lastname, String imageurl);
+	
+	/**
+	 * Update the person in the data. 
+	 * @param UID of the person.
+	 * @param firstname First name of the person.
+	 * @param lastname Last name of the person.
+	 * @param imageurl image url of the person.
+	 * @return UID of the person. 
+	 */
+	public String updatePerson(String uid, String firstname, String lastname, String imageurl);
 }

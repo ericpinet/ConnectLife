@@ -114,4 +114,38 @@ public class Data {
 	public void addToHomes(Home home){
 		this.homes.add(home);
 	}
+	
+	/**
+	 * Get the person by uid.
+	 * @param uid UID of the person.
+	 * @return The person.
+	 */
+	public Person getPerson(String uid){
+		Person person = null;
+		for(int i=0; i<this.persons.size(); i++){
+			if(this.persons.get(i).getUid().equals(uid))
+			{
+				person = this.persons.get(i);
+				break;
+			}
+		}
+		return person;
+	}
+	
+	/**
+	 * Update the person information.
+	 * @param uid UID of the person.
+	 * @param firstname First name of the person.
+	 * @param lastname  Last name of the person.
+	 * @param imageurl Image url of the person.
+	 */
+	public void updatePerson(String uid, String firstname, String lastname, String imageurl){
+		Person person = getPerson(uid);
+		if(person!=null)
+		{
+			person.setFirstname(firstname);
+			person.setLastname(lastname);
+			person.setImageurl(imageurl);
+		}
+	}
 }
