@@ -260,7 +260,7 @@ public class DeviceWindow extends Dialog {
 			if(charc.getType() == CharacteristicType.BOOLEAN){
 				createBoolean(charc);
 			}
-			if( charc.getType() == CharacteristicType.INTEGER ||
+			else if( charc.getType() == CharacteristicType.INTEGER ||
 				charc.getType() == CharacteristicType.FLOAT ){
 				
 				createIntegerFloat(charc);

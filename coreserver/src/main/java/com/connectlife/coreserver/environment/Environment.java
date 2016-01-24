@@ -118,4 +118,5 @@ public interface Environment {
 	 * @return UID of the person. 
 	 */
 	public String addPerson(String firstname, String lastname, String imageurl);
+	
 }

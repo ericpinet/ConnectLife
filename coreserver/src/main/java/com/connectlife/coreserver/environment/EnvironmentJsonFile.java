@@ -19,7 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.jmdns.ServiceEvent;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
@@ -36,8 +35,7 @@ import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.discover.DiscoveryListner;
-import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.coreserver.environment.device.DeviceManager;
 
 /**
  * Manager of the environment of the automation.
@@ -45,7 +43,7 @@ import com.connectlife.coreserver.environment.discover.DiscoveryService;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class EnvironmentJsonFile extends Observable implements Environment, DiscoveryListner {
+public class EnvironmentJsonFile extends Observable implements Environment {
 	
 	/**
 	 * Environment data path contain the data representing the user, home, 
@@ -81,7 +79,7 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	private Data m_data;
 	
 	/**
-	 * Flag to indicate if the envrionment is loaded.
+	 * Flag to indicate if the environment is loaded.
 	 */
 	private boolean m_is_loaded;
 	
@@ -96,9 +94,9 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	private String m_path;
 	
 	/**
-	 * Discovery manager of the accessories in the environment
+	 * Service manager of the accessories in the environment
 	 */
-	private DiscoveryService m_discovery_manager;
+	private DeviceManager m_service_manager;
 	
 	/**
 	 * Default constructor of the environment.
@@ -106,10 +104,11 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	 * @param _service DiscoveryService at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentJsonFile(DiscoveryService _service){
-		m_discovery_manager = _service;
+	public EnvironmentJsonFile(DeviceManager _service){
+		m_service_manager = _service;
 		m_is_loaded = false;
 		m_is_saved = false;
+		m_isInit = false;
 	}
 	
 	/**
@@ -178,21 +177,21 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 			}
 		}
 		
-		if( true==ret_val ){
+		// Init the service manager if all is start correctly.
+		if(true == ret_val){
+			ret_val = m_service_manager.init();
 			
-			if(null != m_discovery_manager){
-				m_discovery_manager.addListner(this);
-				m_discovery_manager.start();
+			if(true == ret_val){
+				m_logger.info("Initialization completed.");
 			}
 			else{
-				m_logger.warn("No discovery manager set in the environment.");
+				m_logger.error("Unable to init the service manager of this environment. Environment initialization failed.");
 			}
-			
-			m_logger.info("Initialization completed.");
 		}
-		else
-			m_logger.error("Initialization failed.");
-		
+		else{
+			m_logger.error("Unable to init the environment.");
+		}
+
 		return ret_val;
 	}
 
@@ -232,9 +231,8 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 			saveEnvironment(m_path, ENV_DATA_FILENAME);
 		}
 		
-		if(null != m_discovery_manager){
-			m_discovery_manager.stop();
-			m_discovery_manager = null;
+		if(null != m_service_manager){
+			m_service_manager.unInit();
 		}
 
 		m_logger.info("UnInitialization completed.");
@@ -460,28 +458,6 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	}
 
 	/**
-	 * Callback called when service is discover.
-	 * 
-	 * @param _service Service informations.
-	 * @see com.connectlife.coreserver.environment.discover.DiscoveryListner#serviceDiscover(javax.jmdns.ServiceEvent)
-	 */
-	public void serviceDiscover(ServiceEvent _service) {
-		// TODO
-		m_logger.info("Accessory discovered: "+ _service.getName() + " - " + _service.getType());
-	}
-
-	/**
-	 * Callback called when service is removed.
-	 * 
-	 * @param _service Service information.
-	 * @see com.connectlife.coreserver.environment.discover.DiscoveryListner#serviceRemove(javax.jmdns.ServiceEvent)
-	 */
-	public void serviceRemove(ServiceEvent _service) {
-		// TODO
-		m_logger.info("Accessory removed: "+ _service.getName() + " - " + _service.getType());
-	}
-
-	/**
 	 * @return The all data in the environment.
 	 * @see com.connectlife.coreserver.environment.Environment#getData()
 	 */
@@ -492,6 +468,7 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 	
 	/**
 	 * Indicate that the environment was changes. All observers will be notified.
+	 * TODO: Add automatic save of environment after modification.
 	 */
 	private void environmentChange(){
 		setChanged();

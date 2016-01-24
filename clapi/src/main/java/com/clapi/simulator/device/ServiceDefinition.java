@@ -54,7 +54,5 @@ public class ServiceDefinition {
 		this.m_port = _port;
 		this.m_accessory = _accessory;
 	}
-	
-	
 }
 

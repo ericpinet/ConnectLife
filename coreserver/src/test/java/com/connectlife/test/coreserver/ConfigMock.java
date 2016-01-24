@@ -62,7 +62,6 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public ConfigItem getConfig(String _section, String _item) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -73,7 +72,6 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public boolean setConfig(ConfigItem _object) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -83,7 +81,6 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public List<ConfigItem> getConfigs() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -93,7 +90,6 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public boolean RestoreFactory() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

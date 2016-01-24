@@ -73,6 +73,9 @@ public class ApplicationStateMachine {
 	 */
 	private EasyFlow<FlowContext> m_flow;
 	
+	/**
+	 * Start the state machine.
+	 */
 	public void start(){
 		this.initFlow();
         this.bindFlow();
