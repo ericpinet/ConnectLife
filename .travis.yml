@@ -9,7 +9,7 @@ jdk:
 os:
 - linux
 script:
-- sudo apt-get install graphviz
+- apt-get install graphviz
 - cd clapi
 #- mvn verify
 #- mvn compile
