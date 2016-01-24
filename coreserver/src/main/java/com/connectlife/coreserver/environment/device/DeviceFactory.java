@@ -21,7 +21,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.clapi.simulator.device.ServiceDefinition;
-import com.connectlife.coreserver.environment.Environment;
 import com.google.gson.Gson;
 
 /**
@@ -63,15 +62,16 @@ public abstract class DeviceFactory {
 	/**
 	 * Build a service object with the Bonjour service discovered.
 	 * 
+	 * @param _service The service event from JmDns.
 	 * @return Device ready to use. With monitor and controller.
 	 * @throws Exception If the building process failed , a exception will be generated with the details.
 	 */
-	public static Device buildService(ServiceEvent _service, Environment _environment) throws Exception{
+	public static Device buildService(ServiceEvent _service) throws Exception{
 		
 		Device ret_service = null;
 		
 		// check if the service is valid
-		if(null != _service || null != _environment){
+		if(null != _service){
 			
 			if( _service.getInfo().getApplication().equals(_SERVICE_APPLICATION_HTTP_) ){ // build the service object for HTTP
 				
@@ -101,7 +101,7 @@ public abstract class DeviceFactory {
 			
 		}
 		else{
-			throw new Exception("Service or environment is null.");
+			throw new Exception("Service is null.");
 		}
 		
 		return ret_service;
@@ -110,6 +110,7 @@ public abstract class DeviceFactory {
 	/**
 	 * Build a service definition from url. The url have to return json format service definition.
 	 * 
+	 * @param _url Url of the service.
 	 * @return Return the ServiceDefinition.
 	 * @throws Exception If the building process failed , a exception will be generated with the details.
 	 */

@@ -17,7 +17,6 @@ import javax.jmdns.ServiceEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -140,7 +139,7 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 	public void serviceDiscover(ServiceEvent _service) {
 
 		try {
-			Device service = DeviceFactory.buildService(_service, Application.getApp().getEnvironment());
+			Device service = DeviceFactory.buildService(_service);
 			if(null != service){
 				m_device_services.remove(service);
 				m_device_services.add(service);

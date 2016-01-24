@@ -50,7 +50,7 @@ public class DeviceJson implements Device {
 	 * Return the service definition.
 	 * 
 	 * @return ServiceDefinition of the service.
-	 * @see com.connectlife.coreserver.environment.device.Service#getDefinition()
+	 * @see com.connectlife.coreserver.environment.device.Device#getDefinition()
 	 */
 	@Override
 	public ServiceDefinition getDefinition() {
@@ -69,8 +69,11 @@ public class DeviceJson implements Device {
 	}
 
 	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.device.Service#isSync()
+	 * Indicate if the device is synchronized with the environment of the application.
+	 * If not, you can run the sync().
+	 * 
+	 * @return True if the device is correctly synchronized with the application environment. 
+	 * @see com.connectlife.coreserver.environment.device.Device#isSync()
 	 */
 	@Override
 	public boolean isSync() {
@@ -78,8 +81,10 @@ public class DeviceJson implements Device {
 	}
 
 	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.device.Service#sync()
+	 * Synchronize the device  with the application environment. 
+	 * 
+	 * @return True if the device is correctly synchronized with the application environment.
+	 * @see com.connectlife.coreserver.environment.device.Device#sync()
 	 */
 	@Override
 	public boolean sync() {
