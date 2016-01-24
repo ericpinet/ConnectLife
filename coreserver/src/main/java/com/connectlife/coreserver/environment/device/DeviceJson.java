@@ -152,7 +152,7 @@ public class DeviceJson implements Device {
 	 * If device is unreachable on the network the unregister() will be call. 
 	 * 
 	 * @return True if the device is correctly unregister with the application environment.
-	 * @see com.connectlife.coreserver.environment.device.Device#unynchronize()
+	 * @see com.connectlife.coreserver.environment.device.Device#unregister()
 	 */
 	@Override
 	public boolean unregister() {
