@@ -147,25 +147,4 @@ public class Data implements Cloneable {
 			person.setImageurl(imageurl);
 		}
 	}
-	
-	/**
-	 * Clone the data environment.
-	 * 
-	 * @return Clone of the data.
-	 * @see java.lang.Object#clone()
-	 */
-	public Data clone(){
-		Data data = null;
-	    try {
-	      	data = (Data) super.clone();
-	    } catch(CloneNotSupportedException exception) {
-	    	exception.printStackTrace(System.err);
-	    }
-	    
-	    // Clone field of data.
-	    // TODO : Clone the data all fields
-	    
-	    // return data
-	    return data;
-	}
 }

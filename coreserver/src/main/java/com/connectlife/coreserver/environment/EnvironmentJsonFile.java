@@ -333,9 +333,14 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		boolean ret_value = false;
 		
 		if( null != m_data){
+			
+			// prepare the data to save.
+			// remove not valuable field to save.
+			Data data_to_save = SaveHelper.prepareSave(this);
 		
+			// convert to json.
 			Gson gson = new Gson();
-			String json = gson.toJson(m_data);  
+			String json = gson.toJson(data_to_save);  
 			
 			try {  
 				
