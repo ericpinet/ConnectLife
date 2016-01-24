@@ -67,7 +67,9 @@
             <artifactId>doclet</artifactId>
             <version>5.6.6</version>
           </docletArtifact>
-          <additionalparam>-views -all</additionalparam>
+          <additionalparam>-inferrel -attributes -types -visibility -inferdep -quiet -hide java.* -collpackages java.util.* -qualify -postfixpackage
+                    -nodefontsize 9
+                    -nodefontpackagesize 7</additionalparam>
           <useStandardDocletOptions>true</useStandardDocletOptions>
         </configuration>
       </plugin>
