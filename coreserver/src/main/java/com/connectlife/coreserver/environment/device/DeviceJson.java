@@ -87,8 +87,8 @@ public class DeviceJson implements Device {
 	 * @see com.connectlife.coreserver.environment.device.Device#sync()
 	 */
 	@Override
-	public boolean sync() {
-		// TODO Auto-generated method stub
+	public boolean synchronize() {
+		
 		return false;
 	}
 

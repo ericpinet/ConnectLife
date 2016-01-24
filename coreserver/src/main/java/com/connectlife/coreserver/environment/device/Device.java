@@ -43,8 +43,9 @@ public interface Device {
 	
 	/**
 	 * Synchronize the device  with the application environment. 
+	 * 
 	 * @return True if the device is correctly synchronized with the application environment.
 	 */
-	public boolean sync();
+	public boolean synchronize();
 
 }
