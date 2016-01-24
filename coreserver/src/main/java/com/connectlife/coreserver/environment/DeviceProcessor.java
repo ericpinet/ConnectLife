@@ -31,7 +31,6 @@ public abstract class DeviceProcessor {
 	 * 
 	 * @param _accessory Accessory to synchronize with the environment.
 	 * @return Accessory updated with the UID if it's in the environment, null if the accessory isn't present in the environment.
-	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
 	 */
 	public static Accessory synchronizeAccessory(Accessory _accessory) {
 
@@ -52,7 +51,6 @@ public abstract class DeviceProcessor {
 	 * 
 	 * @param _accessory Accessory to unsynchronized with the environment.
 	 * @return Accessory updated with the register if it's in the environment, null if the accessory isn't present in the environment.
-	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
 	 */
 	public static Accessory unsynchronizeAccessory(Accessory _accessory) {
 

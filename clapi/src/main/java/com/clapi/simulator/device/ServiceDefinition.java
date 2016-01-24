@@ -63,7 +63,7 @@ public class ServiceDefinition {
 	}
 
 	/**
-	 * @param m_ip_address the m_ip_address to set
+	 * @param _ip_address the _ip_address to set
 	 */
 	public void setIpAddress(String _ip_address) {
 		this.m_ip_address = _ip_address;
@@ -77,7 +77,7 @@ public class ServiceDefinition {
 	}
 
 	/**
-	 * @param m_hostname the m_hostname to set
+	 * @param _hostname the _hostname to set
 	 */
 	public void setHostname(String _hostname) {
 		this.m_hostname = _hostname;
@@ -91,7 +91,7 @@ public class ServiceDefinition {
 	}
 
 	/**
-	 * @param m_port the m_port to set
+	 * @param _port the _port to set
 	 */
 	public void setPort(int _port) {
 		this.m_port = _port;
@@ -105,7 +105,7 @@ public class ServiceDefinition {
 	}
 
 	/**
-	 * @param m_accessory the m_accessory to set
+	 * @param _accessory the _accessory to set
 	 */
 	public void setAccessory(Accessory _accessory) {
 		this.m_accessory = _accessory;

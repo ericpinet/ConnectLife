@@ -125,12 +125,13 @@ public class Characteristic {
 	/**
 	 * Constructor for enum characteristic.
 	 * 
-	 * @param uid
-	 * @param label
-	 * @param mode
-	 * @param type
-	 * @param event
-	 * @param enum_item
+	 * @param uid Uid of the characteristic.
+	 * @param label Label of the characteristic.
+	 * @param mode mode of the characteristic.
+	 * @param type type of the characteristic.
+	 * @param event event of the characteristic.
+	 * @param data of the characteristic.
+	 * @param enum_item Enum items of the characteristic.
 	 */
 	public Characteristic(String uid, String label, CharacteristicAccessMode mode, CharacteristicType type, CharacteristicEventType event, String data, List<String> enum_item) {
 		super();
@@ -361,8 +362,9 @@ public class Characteristic {
 	
 	/**
 	 * Return the value of enum characteristic in string.
-	 * @return
-	 * @throws Exception
+	 * 
+	 * @return Return the data String value of enum.
+	 * @throws Exception When data type is invalid.
 	 */
 	public String getDataEnum() throws Exception {
 		String ret_val = "";
@@ -383,7 +385,7 @@ public class Characteristic {
 	/**
 	 * Set the value of enum characteristic.
 	 * @param data the data to set
-	 * @throws Exception 
+	 * @throws Exception When data type is invalid. 
 	 */
 	public void setDataEnum(String data) throws Exception {
 		if(type == CharacteristicType.ENUM){
