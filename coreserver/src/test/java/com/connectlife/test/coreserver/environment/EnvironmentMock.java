@@ -64,7 +64,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public boolean isLoaded() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -74,7 +73,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public boolean isSaved() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -125,6 +123,16 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public String updatePerson(String uid, String firstname, String lastname, String imageurl) {
+		return null;
+	}
+
+	/**
+	 * @param _accessory
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
+	 */
+	@Override
+	public Accessory synchronizeAccessory(Accessory _accessory) {
 		return null;
 	}
 }

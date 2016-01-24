@@ -357,7 +357,6 @@ public class EnvironmentTest implements Observer {
 			ret_val = true;
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret_val;
@@ -397,7 +396,6 @@ public class EnvironmentTest implements Observer {
 			ret_val = true;
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret_val;
@@ -434,7 +432,6 @@ public class EnvironmentTest implements Observer {
 			ret_val = true;
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ret_val;
@@ -447,7 +444,6 @@ public class EnvironmentTest implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		
 	}
 }

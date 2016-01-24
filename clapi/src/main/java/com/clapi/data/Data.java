@@ -17,7 +17,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Data {
+public class Data implements Cloneable {
 	
 	/**
 	 * Version of the data. Increment by one for each change.
@@ -114,6 +114,7 @@ public class Data {
 	
 	/**
 	 * Get the person by uid.
+	 * 
 	 * @param uid UID of the person.
 	 * @return The person.
 	 */
@@ -131,6 +132,7 @@ public class Data {
 	
 	/**
 	 * Update the person information.
+	 * 
 	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname  Last name of the person.
@@ -144,5 +146,26 @@ public class Data {
 			person.setLastname(lastname);
 			person.setImageurl(imageurl);
 		}
+	}
+	
+	/**
+	 * Clone the data environment.
+	 * 
+	 * @return Clone of the data.
+	 * @see java.lang.Object#clone()
+	 */
+	public Data clone(){
+		Data data = null;
+	    try {
+	      	data = (Data) super.clone();
+	    } catch(CloneNotSupportedException exception) {
+	    	exception.printStackTrace(System.err);
+	    }
+	    
+	    // Clone field of data.
+	    // TODO : Clone the data all fields
+	    
+	    // return data
+	    return data;
 	}
 }

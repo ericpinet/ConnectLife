@@ -120,7 +120,8 @@ public interface Environment {
 	public String addPerson(String firstname, String lastname, String imageurl);
 	
 	/**
-	 * Update the person in the data. 
+	 * Update the person in the data.
+	 *  
 	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname Last name of the person.
@@ -128,4 +129,15 @@ public interface Environment {
 	 * @return UID of the person. 
 	 */
 	public String updatePerson(String uid, String firstname, String lastname, String imageurl);
+	
+	/**
+	 * Synchronize the accessory in the environment.
+	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
+	 * If this accessory wasn't in the environment, this function return null.
+	 * 
+	 * @param _accessory Accessory to synchronize with the environment.
+	 * @return Accessory updated with the UID if it's in the environment, null if the accessory isn't present in the environment.
+	 */
+	public Accessory synchronizeAccessory(Accessory _accessory);
+
 }
