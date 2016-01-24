@@ -9,11 +9,28 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.clapi.data.Person
+	c477 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Person </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Address
-	c480 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Address.html">
+	c486 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Address.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Address </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Address.AddressType
+	c487 [label=<<table title="com.clapi.data.Address.AddressType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.AddressType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> AddressType </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Person NAVASSOC com.clapi.data.Address
+	c477:p -> c486:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Address NAVASSOC com.clapi.data.Address.AddressType
+	c486:p -> c487:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

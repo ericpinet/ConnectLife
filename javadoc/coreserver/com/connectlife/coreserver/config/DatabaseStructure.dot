@@ -10,10 +10,15 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.DatabaseStructure
-	c1939 [label=<<table title="com.connectlife.coreserver.config.DatabaseStructure" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatabaseStructure.html">
+	c2080 [label=<<table title="com.connectlife.coreserver.config.DatabaseStructure" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DatabaseStructure.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatabaseStructure </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + VERSION : String </td></tr>
+<tr><td align="left" balign="left"> + DROP_TABLES : String[] </td></tr>
+<tr><td align="left" balign="left"> + CREATE_TABLES : String[] </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 }
 

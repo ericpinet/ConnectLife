@@ -9,12 +9,20 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.clapi.data.Email
+	c462 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Email </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Email.EmailType
-	c457 [label=<<table title="com.clapi.data.Email.EmailType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Email.EmailType.html">
+	c463 [label=<<table title="com.clapi.data.Email.EmailType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Email.EmailType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> EmailType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Email NAVASSOC com.clapi.data.Email.EmailType
+	c462:p -> c463:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

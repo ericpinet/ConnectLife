@@ -9,37 +9,51 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.connectlife.coreserver.environment.device.Device
+	c1557 [label=<<table title="com.connectlife.coreserver.environment.device.Device" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Device.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> Device </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.environment.device.DeviceManager
-	c1432 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceManager.html">
+	c1559 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeviceManager </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.environment.device.DeviceMngr
-	c1433 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceMngr.html">
+	c1560 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceMngr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeviceMngr </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.environment.discover.DiscoveryListner
-	c1435 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryListner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../discover/DiscoveryListner.html">
+	c1562 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryListner" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../discover/DiscoveryListner.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DiscoveryListner </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver.environment.discover </font></td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	//com.connectlife.coreserver.environment.device.DeviceMngr extends java.util.TimerTask
-	c1452:p -> c1433:p [dir=back,arrowtail=empty];
-	//com.connectlife.coreserver.environment.device.DeviceMngr implements com.connectlife.coreserver.environment.device.DeviceManager
-	c1432:p -> c1433:p [dir=back,arrowtail=empty,style=dashed];
-	//com.connectlife.coreserver.environment.device.DeviceMngr implements com.connectlife.coreserver.environment.discover.DiscoveryListner
-	c1435:p -> c1433:p [dir=back,arrowtail=empty,style=dashed];
-	// java.util.TimerTask
-	c1452 [label=<<table title="java.util.TimerTask" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/TimerTask.html">
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.connectlife.coreserver.environment.discover.DiscoveryService
+	c1563 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../discover/DiscoveryService.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> TimerTask </font></td></tr>
+<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
+<tr><td align="center" balign="center"> DiscoveryService </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver.environment.discover </font></td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	//com.connectlife.coreserver.environment.device.DeviceMngr implements com.connectlife.coreserver.environment.device.DeviceManager
+	c1559:p -> c1560:p [dir=back,arrowtail=empty,style=dashed];
+	//com.connectlife.coreserver.environment.device.DeviceMngr implements com.connectlife.coreserver.environment.discover.DiscoveryListner
+	c1562:p -> c1560:p [dir=back,arrowtail=empty,style=dashed];
+	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.discover.DiscoveryService
+	c1560:p -> c1563:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.device.Device
+	c1560:p -> c1557:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.device.Device
+	c1560:p -> c1557:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

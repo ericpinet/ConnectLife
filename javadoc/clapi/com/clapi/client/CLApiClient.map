@@ -1,3 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" id="c573" href="./CLApiClient.html" title="com.clapi.client.CLApiClient" alt="" coords="16,17,107,42"/>
+<area shape="rect" id="c598" href="./NotificationListener.html" title="com.clapi.client.NotificationListener" alt="" coords="15,118,139,157"/>
+<area shape="rect" id="c599" href="./CLApiClient.html" title="com.clapi.client.CLApiClient" alt="" coords="236,11,423,58"/>
+<area shape="rect" id="c600" href="http://java.sun.com/j2se/1.4.2/docs/api/io/grpc/ManagedChannel.html" title="io.grpc.ManagedChannel" alt="" coords="184,119,301,155"/>
+<area shape="rect" id="c601" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApiBlockingStub.html" title="com.clapi.protocol.CLApiGrpc.CLApiBlockingStub" alt="" coords="346,119,489,155"/>
+<area shape="rect" id="c602" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApiFutureStub.html" title="com.clapi.protocol.CLApiGrpc.CLApiFutureStub" alt="" coords="533,119,675,155"/>
 </map>

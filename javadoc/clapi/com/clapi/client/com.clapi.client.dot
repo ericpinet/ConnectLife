@@ -15,12 +15,17 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> NotificationListener </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.client.CLApiClient
 	c65 [label=<<table title="com.clapi.client.CLApiClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./CLApiClient.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CLApiClient </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + API_CLIENT_VERSION : int[] </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.client.CLApiClient NAVASSOC com.clapi.client.NotificationListener
+	c65:p -> c64:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

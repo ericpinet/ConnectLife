@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c1390" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="16,11,128,53"/>
-<area shape="rect" id="c1391" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="27,118,117,143"/>
+<area shape="rect" id="c1513" href="../EnvironmentJsonFile.html" title="com.connectlife.coreserver.environment.EnvironmentJsonFile" alt="" coords="15,11,201,47"/>
+<area shape="rect" id="c1518" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="55,107,161,146"/>
+<area shape="rect" id="c1519" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="65,212,151,236"/>
 </map>

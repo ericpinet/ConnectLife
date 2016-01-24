@@ -9,11 +9,46 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.clapi.data.Service
+	c317 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Service </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic
-	c319 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Characteristic.html">
+	c325 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Characteristic.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Characteristic </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Characteristic.CharacteristicAccessMode
+	c326 [label=<<table title="com.clapi.data.Characteristic.CharacteristicAccessMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicAccessMode.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> CharacteristicAccessMode </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Characteristic.CharacteristicType
+	c327 [label=<<table title="com.clapi.data.Characteristic.CharacteristicType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> CharacteristicType </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Characteristic.CharacteristicEventType
+	c328 [label=<<table title="com.clapi.data.Characteristic.CharacteristicEventType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicEventType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> CharacteristicEventType </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Service NAVASSOC com.clapi.data.Characteristic
+	c317:p -> c325:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicAccessMode
+	c325:p -> c326:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicType
+	c325:p -> c327:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicEventType
+	c325:p -> c328:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

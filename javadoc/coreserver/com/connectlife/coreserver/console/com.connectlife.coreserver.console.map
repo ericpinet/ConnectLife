@@ -1,5 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c355" href="./ConsoleSSH.html" title="com.connectlife.coreserver.console.ConsoleSSH" alt="" coords="15,118,113,143"/>
-<area shape="rect" id="c356" href="./InAppShellFactory.html" title="com.connectlife.coreserver.console.InAppShellFactory" alt="" coords="152,19,280,45"/>
-<area shape="rect" id="c357" href="./Console.html" title="com.connectlife.coreserver.console.Console" alt="" coords="21,11,107,53"/>
+<area shape="rect" id="c355" href="./ConsoleSSH.html" title="com.connectlife.coreserver.console.ConsoleSSH" alt="" coords="15,116,105,140"/>
+<area shape="rect" id="c356" href="./InAppShellFactory.html" title="com.connectlife.coreserver.console.InAppShellFactory" alt="" coords="145,19,263,43"/>
+<area shape="rect" id="c357" href="./Console.html" title="com.connectlife.coreserver.console.Console" alt="" coords="20,11,100,50"/>
 </map>

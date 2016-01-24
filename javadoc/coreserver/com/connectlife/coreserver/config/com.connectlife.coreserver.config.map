@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="c399" href="./SqliteSettingsApp.html" title="com.connectlife.coreserver.config.SqliteSettingsApp" alt="" coords="16,118,141,143"/>
-<area shape="rect" id="c400" href="./ConfigItem.html" title="com.connectlife.coreserver.config.ConfigItem" alt="" coords="175,19,260,45"/>
-<area shape="rect" id="c401" href="./ConfigItem.ConfigType.html" title="com.connectlife.coreserver.config.ConfigItem.ConfigType" alt="" coords="305,11,410,53"/>
-<area shape="rect" id="c402" href="./SqliteSettings.html" title="com.connectlife.coreserver.config.SqliteSettings" alt="" coords="28,11,129,53"/>
-<area shape="rect" id="c403" href="./DatabaseStructure.html" title="com.connectlife.coreserver.config.DatabaseStructure" alt="" coords="454,19,583,45"/>
-<area shape="rect" id="c404" href="./Config.html" title="com.connectlife.coreserver.config.Config" alt="" coords="628,11,713,53"/>
-<area shape="rect" id="c406" href="./ConfigSqlite.html" title="com.connectlife.coreserver.config.ConfigSqlite" alt="" coords="625,118,717,143"/>
-<area shape="rect" id="c405" href="./ConfigFactoryData.html" title="com.connectlife.coreserver.config.ConfigFactoryData" alt="" coords="759,19,889,45"/>
+<area shape="rect" id="c399" href="./SqliteSettingsApp.html" title="com.connectlife.coreserver.config.SqliteSettingsApp" alt="" coords="15,351,131,375"/>
+<area shape="rect" id="c400" href="./ConfigItem.html" title="com.connectlife.coreserver.config.ConfigItem" alt="" coords="173,37,251,61"/>
+<area shape="rect" id="c401" href="./ConfigItem.ConfigType.html" title="com.connectlife.coreserver.config.ConfigItem.ConfigType" alt="" coords="161,147,263,186"/>
+<area shape="rect" id="c402" href="./SqliteSettings.html" title="com.connectlife.coreserver.config.SqliteSettings" alt="" coords="27,246,120,285"/>
+<area shape="rect" id="c403" href="./DatabaseStructure.html" title="com.connectlife.coreserver.config.DatabaseStructure" alt="" coords="295,11,473,87"/>
+<area shape="rect" id="c404" href="./Config.html" title="com.connectlife.coreserver.config.Config" alt="" coords="33,30,113,69"/>
+<area shape="rect" id="c406" href="./ConfigSqlite.html" title="com.connectlife.coreserver.config.ConfigSqlite" alt="" coords="31,155,116,179"/>
+<area shape="rect" id="c405" href="./ConfigFactoryData.html" title="com.connectlife.coreserver.config.ConfigFactoryData" alt="" coords="517,11,731,87"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c526" href="./Data.html" title="com.clapi.data.Data" alt="" coords="34,118,83,143"/>
-<area shape="rect" id="c529" href="http://java.sun.com/j2se/1.4.2/docs/api/java/lang/Cloneable.html" title="java.lang.Cloneable" alt="" coords="16,11,101,53"/>
+<area shape="rect" id="c521" href="./Person.html" title="com.clapi.data.Person" alt="" coords="15,113,73,137"/>
+<area shape="rect" id="c522" href="./Home.html" title="com.clapi.data.Home" alt="" coords="117,113,169,137"/>
+<area shape="rect" id="c532" href="./Data.html" title="com.clapi.data.Data" alt="" coords="71,17,116,41"/>
 </map>

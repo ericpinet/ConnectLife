@@ -10,10 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.clapi.data.Phone
-	c227 [label=<<table title="com.clapi.data.Phone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Phone.html">
+	c233 [label=<<table title="com.clapi.data.Phone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Phone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Phone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Phone.PhoneType
+	c234 [label=<<table title="com.clapi.data.Phone.PhoneType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.PhoneType.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
+<tr><td align="center" balign="center"> PhoneType </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Person
+	c235 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Person </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Phone NAVASSOC com.clapi.data.Phone.PhoneType
+	c233:p -> c234:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Person NAVASSOC com.clapi.data.Phone
+	c235:p -> c233:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

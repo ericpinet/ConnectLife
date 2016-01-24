@@ -14,122 +14,158 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Room </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Service
 	c24 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Service </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Accessory
 	c25 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Accessory </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Accessory.AccessoryType
 	c26 [label=<<table title="com.clapi.data.Accessory.AccessoryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AccessoryType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Accessory.AccessoryProtocolType
 	c27 [label=<<table title="com.clapi.data.Accessory.AccessoryProtocolType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryProtocolType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AccessoryProtocolType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Phone
 	c28 [label=<<table title="com.clapi.data.Phone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Phone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Phone.PhoneType
 	c29 [label=<<table title="com.clapi.data.Phone.PhoneType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.PhoneType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> PhoneType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Person
 	c30 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Person </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Home
 	c31 [label=<<table title="com.clapi.data.Home" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Home.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Home </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic
 	c32 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Characteristic </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic.CharacteristicAccessMode
 	c33 [label=<<table title="com.clapi.data.Characteristic.CharacteristicAccessMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicAccessMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicAccessMode </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic.CharacteristicType
 	c34 [label=<<table title="com.clapi.data.Characteristic.CharacteristicType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic.CharacteristicEventType
 	c35 [label=<<table title="com.clapi.data.Characteristic.CharacteristicEventType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicEventType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicEventType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Zone
 	c36 [label=<<table title="com.clapi.data.Zone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Zone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Zone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Email
 	c37 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Email </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Email.EmailType
 	c38 [label=<<table title="com.clapi.data.Email.EmailType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.EmailType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> EmailType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Address
 	c39 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Address </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Address.AddressType
 	c40 [label=<<table title="com.clapi.data.Address.AddressType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.AddressType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AddressType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Data
 	c41 [label=<<table title="com.clapi.data.Data" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Data.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Data </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Room NAVASSOC com.clapi.data.Accessory
+	c23:p -> c25:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Service NAVASSOC com.clapi.data.Characteristic
+	c24:p -> c32:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Service
+	c25:p -> c24:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryType
+	c25:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryProtocolType
+	c25:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Phone NAVASSOC com.clapi.data.Phone.PhoneType
+	c28:p -> c29:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Person NAVASSOC com.clapi.data.Email
+	c30:p -> c37:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Person NAVASSOC com.clapi.data.Phone
+	c30:p -> c28:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Person NAVASSOC com.clapi.data.Address
+	c30:p -> c39:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Home NAVASSOC com.clapi.data.Zone
+	c31:p -> c36:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicAccessMode
+	c32:p -> c33:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicType
+	c32:p -> c34:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicEventType
+	c32:p -> c35:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Zone NAVASSOC com.clapi.data.Room
+	c36:p -> c23:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Email NAVASSOC com.clapi.data.Email.EmailType
+	c37:p -> c38:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Address NAVASSOC com.clapi.data.Address.AddressType
+	c39:p -> c40:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Data NAVASSOC com.clapi.data.Person
+	c41:p -> c30:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.clapi.data.Data NAVASSOC com.clapi.data.Home
+	c41:p -> c31:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

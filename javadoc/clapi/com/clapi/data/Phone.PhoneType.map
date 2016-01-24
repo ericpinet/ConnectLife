@@ -1,3 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="c250" href="./Phone.PhoneType.html" title="com.clapi.data.Phone.PhoneType" alt="" coords="15,11,121,53"/>
+<area shape="rect" id="c255" href="./Phone.html" title="com.clapi.data.Phone" alt="" coords="39,17,94,41"/>
+<area shape="rect" id="c256" href="./Phone.PhoneType.html" title="com.clapi.data.Phone.PhoneType" alt="" coords="16,107,117,146"/>
 </map>

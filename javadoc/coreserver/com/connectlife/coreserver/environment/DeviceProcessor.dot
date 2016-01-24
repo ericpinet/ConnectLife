@@ -10,10 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.DeviceProcessor
-	c1264 [label=<<table title="com.connectlife.coreserver.environment.DeviceProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceProcessor.html">
+	c1389 [label=<<table title="com.connectlife.coreserver.environment.DeviceProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DeviceProcessor </font></td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.connectlife.coreserver.environment.DeviceProcessor DEPEND com.clapi.data.Accessory
+	c1389:p -> c1412:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+	// com.clapi.data.Accessory
+	c1412 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/data/Accessory.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Accessory </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.data </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 }
 

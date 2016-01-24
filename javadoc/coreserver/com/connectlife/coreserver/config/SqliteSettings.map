@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c1894" href="./SqliteSettingsApp.html" title="com.connectlife.coreserver.config.SqliteSettingsApp" alt="" coords="16,118,141,143"/>
-<area shape="rect" id="c1897" href="./SqliteSettings.html" title="com.connectlife.coreserver.config.SqliteSettings" alt="" coords="28,11,129,53"/>
+<area shape="rect" id="c2035" href="./SqliteSettingsApp.html" title="com.connectlife.coreserver.config.SqliteSettingsApp" alt="" coords="15,212,131,236"/>
+<area shape="rect" id="c2038" href="./SqliteSettings.html" title="com.connectlife.coreserver.config.SqliteSettings" alt="" coords="27,107,120,146"/>
+<area shape="rect" id="c2042" href="./ConfigSqlite.html" title="com.connectlife.coreserver.config.ConfigSqlite" alt="" coords="31,17,116,41"/>
 </map>

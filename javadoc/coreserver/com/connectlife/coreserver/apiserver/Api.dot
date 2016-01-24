@@ -9,20 +9,31 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.connectlife.coreserver.Application
+	c1126 [label=<<table title="com.connectlife.coreserver.Application" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Application.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Application </td></tr>
+<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.apiserver.ApiGrpc
-	c1010 [label=<<table title="com.connectlife.coreserver.apiserver.ApiGrpc" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApiGrpc.html">
+	c1129 [label=<<table title="com.connectlife.coreserver.apiserver.ApiGrpc" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApiGrpc.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApiGrpc </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.apiserver.Api
-	c1011 [label=<<table title="com.connectlife.coreserver.apiserver.Api" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Api.html">
+	c1130 [label=<<table title="com.connectlife.coreserver.apiserver.Api" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Api.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Api </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.connectlife.coreserver.apiserver.ApiGrpc implements com.connectlife.coreserver.apiserver.Api
-	c1011:p -> c1010:p [dir=back,arrowtail=empty,style=dashed];
+	c1130:p -> c1129:p [dir=back,arrowtail=empty,style=dashed];
+	// com.connectlife.coreserver.Application NAVASSOC com.connectlife.coreserver.apiserver.Api
+	c1126:p -> c1130:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	// com.connectlife.coreserver.Application DEPEND com.connectlife.coreserver.apiserver.Api
+	c1126:p -> c1130:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
 }
 

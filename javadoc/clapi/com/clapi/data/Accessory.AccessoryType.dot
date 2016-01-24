@@ -9,12 +9,20 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
+	// com.clapi.data.Accessory
+	c186 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> Accessory </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Accessory.AccessoryType
-	c181 [label=<<table title="com.clapi.data.Accessory.AccessoryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Accessory.AccessoryType.html">
+	c187 [label=<<table title="com.clapi.data.Accessory.AccessoryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Accessory.AccessoryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AccessoryType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryType
+	c186:p -> c187:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 

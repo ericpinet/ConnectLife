@@ -1,4 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c1010" href="./ApiGrpc.html" title="com.connectlife.coreserver.apiserver.ApiGrpc" alt="" coords="25,118,93,143"/>
-<area shape="rect" id="c1011" href="./Api.html" title="com.connectlife.coreserver.apiserver.Api" alt="" coords="16,11,101,53"/>
+<area shape="rect" id="c1126" href="../Application.html" title="com.connectlife.coreserver.Application" alt="" coords="15,11,147,47"/>
+<area shape="rect" id="c1130" href="./Api.html" title="com.connectlife.coreserver.apiserver.Api" alt="" coords="41,107,121,146"/>
+<area shape="rect" id="c1129" href="./ApiGrpc.html" title="com.connectlife.coreserver.apiserver.ApiGrpc" alt="" coords="50,212,113,236"/>
 </map>

@@ -10,19 +10,27 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.SqliteSettingsApp
-	c1894 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
+	c2035 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SqliteSettingsApp </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.config.SqliteSettings
-	c1897 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SqliteSettings.html">
+	c2038 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SqliteSettings.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SqliteSettings </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+	// com.connectlife.coreserver.config.ConfigSqlite
+	c2042 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigSqlite.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> ConfigSqlite </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	//com.connectlife.coreserver.config.SqliteSettingsApp implements com.connectlife.coreserver.config.SqliteSettings
-	c1897:p -> c1894:p [dir=back,arrowtail=empty,style=dashed];
+	c2038:p -> c2035:p [dir=back,arrowtail=empty,style=dashed];
+	// com.connectlife.coreserver.config.ConfigSqlite NAVASSOC com.connectlife.coreserver.config.SqliteSettings
+	c2042:p -> c2038:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
 }
 
