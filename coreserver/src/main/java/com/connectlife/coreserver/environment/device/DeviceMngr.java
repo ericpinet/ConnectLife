@@ -10,6 +10,8 @@ package com.connectlife.coreserver.environment.device;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import javax.jmdns.ServiceEvent;
@@ -28,7 +30,7 @@ import com.google.inject.Inject;
  * @author ericpinet
  * <br> 2016-01-23
  */
-public class DeviceMngr implements DeviceManager, DiscoveryListner {
+public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryListner {
 	
 	/**
 	 * Logger use for this class.
@@ -48,7 +50,27 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 	/**
 	 * List of all managed services.
 	 */
-	private List<Device> m_device_services;
+	private List<Device> m_devices;
+	
+	/**
+	 * List of device that we have to unregister with the application environment.
+	 */
+	private List<Device> m_devices_to_unregister;
+	
+	/**
+	 * Delay before synchronization with the application environment.
+	 */
+	private final int _DELAY_INTERVAL_ = 0;
+	
+	/**
+	 * Interval between the synchronization with the application environment.
+	 */
+	private final int _SYNCHRONIZATION_INTERVAL_ = 1000;
+	
+	/**
+	 * Timer for the synchronization task;
+	 */
+	private Timer m_timer;
 	
 	/**
 	 * Default constructor.
@@ -58,7 +80,9 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 	@Inject
 	public DeviceMngr(DiscoveryService _service){
 		m_discovery_manager = _service;
-		m_device_services = new Vector<Device>();
+		m_devices = new Vector<Device>();
+		m_devices_to_unregister = new Vector<Device>();
+		m_timer = new Timer();
 	}
 
 	/**
@@ -80,6 +104,9 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 			if(null != m_discovery_manager){
 				m_discovery_manager.addListner(this);
 				m_discovery_manager.start();
+				
+				// Start the timer. 
+				m_timer.schedule(this, _DELAY_INTERVAL_, _SYNCHRONIZATION_INTERVAL_); 
 				
 				ret_val = m_isInit = true;
 			}
@@ -117,16 +144,25 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 		
 		m_logger.info("UnInitialization in progress ...");
 		
-		// Stop the service discovery 
-		if(null != m_discovery_manager){
-			m_discovery_manager.stop();
-			m_discovery_manager = null;
+		if(true == m_isInit){
+		
+			// Cancel the timer
+			m_timer.cancel();
+			
+			// Stop the service discovery 
+			if(null != m_discovery_manager){
+				m_discovery_manager.stop();
+				m_discovery_manager = null;
+			}
+			
+			// remove all services registered in the manager
+			m_devices.clear();
+			
+			m_logger.info("UnInitialization completed.");
 		}
-		
-		// remove all services registered in the manager
-		m_device_services.clear();
-		
-		m_logger.info("UnInitialization completed.");
+		else{
+			m_logger.warn("Already unitialized.");
+		}
 	}
 
 	/**
@@ -141,8 +177,8 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 		try {
 			Device service = DeviceFactory.buildService(_service);
 			if(null != service){
-				m_device_services.remove(service);
-				m_device_services.add(service);
+				m_devices.remove(service);
+				m_devices.add(service);
 			}
 			
 		} catch (Exception e) {
@@ -163,16 +199,45 @@ public class DeviceMngr implements DeviceManager, DiscoveryListner {
 		m_logger.info("Service removed : " + _service.getName());
 		
 		// found the service
-		Iterator<Device> it = m_device_services.iterator();
+		Iterator<Device> it = m_devices.iterator();
 		boolean notfound = true;
 		while(notfound && it.hasNext()){
 			Device device = it.next();
 			
 			if( device.getServiceInfo().equals(_service.getInfo()) ){
-				m_device_services.remove(device);
+				m_devices.remove(device);
 				notfound = false;
 			}
 			
+		}
+	}
+
+	/**
+	 * Synchronization of all device with the application environment.
+	 * If device is already synchronized, do noting.
+	 * 
+	 * @see java.util.TimerTask#run()
+	 */
+	@Override
+	public void run() {
+		
+		// pass all device unsynchronized and execute a register
+		Iterator<Device> it = m_devices.iterator();
+		while(it.hasNext()){
+			Device device = it.next();
+			if( false == device.isSyncronized() ){
+				device.register();
+			}
+		}
+		
+		// unregister device
+		Iterator<Device> it2 = m_devices_to_unregister.iterator();
+		while(it2.hasNext()){
+			Device device = it2.next();
+			if( false == device.isRegister() ){
+				device.unregister();
+			}
+			m_devices_to_unregister.remove(device);
 		}
 	}
 }

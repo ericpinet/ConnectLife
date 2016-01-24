@@ -10,7 +10,12 @@ package com.connectlife.coreserver.environment.device;
 
 import javax.jmdns.ServiceInfo;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.clapi.data.Accessory;
 import com.clapi.simulator.device.ServiceDefinition;
+import com.connectlife.coreserver.environment.DeviceProcessor;
 
 /**
  * Service JSON representing a device in the network.
@@ -19,6 +24,11 @@ import com.clapi.simulator.device.ServiceDefinition;
  * <br> 2016-01-23
  */
 public class DeviceJson implements Device {
+	
+	/**
+	 * Logger use for this class.
+	 */
+	private static Logger m_logger = LogManager.getLogger(DeviceJson.class);
 	
 	/**
 	 * Service definition of the service.
@@ -33,7 +43,13 @@ public class DeviceJson implements Device {
 	/**
 	 * Flag to indicate if this service is sync with the application environment.
 	 */
-	private boolean m_isSync;
+	private boolean m_isRegister;
+	
+	/**
+	 * Flag to indicate if the device is synchronized with the application environment. 
+	 * If the device was try to register, it's synchronized.
+	 */
+	private boolean m_isSynchronized;
 	
 	/**
 	 * Default constructor.
@@ -44,7 +60,8 @@ public class DeviceJson implements Device {
 	public DeviceJson(ServiceDefinition _definition, ServiceInfo _service_info){
 		m_service_definition = _definition;
 		m_service_info = _service_info;
-		m_isSync = false;
+		m_isRegister = false;
+		m_isSynchronized = false;
 	}
 
 	/**
@@ -71,26 +88,104 @@ public class DeviceJson implements Device {
 
 	/**
 	 * Indicate if the device is synchronized with the environment of the application.
-	 * If not, you can run the sync().
+	 * If not, you can run the register().
 	 * 
 	 * @return True if the device is correctly synchronized with the application environment. 
-	 * @see com.connectlife.coreserver.environment.device.Device#isSync()
+	 * @see com.connectlife.coreserver.environment.device.Device#isRegister()
 	 */
 	@Override
-	public boolean isSync() {
-		return m_isSync;
+	public boolean isRegister() {
+		return m_isRegister;
+	}
+	
+	/**
+	 * Indicate if the device is synchronized with the environment of the application.
+	 * If not, you can run the register().
+	 * 
+	 * @return True if the device is correctly synchronized with the application environment. 
+	 * @see com.connectlife.coreserver.environment.device.Device#isRegister()
+	 */
+	@Override
+	public boolean isSyncronized(){
+		return m_isSynchronized;
 	}
 
 	/**
-	 * Synchronize the device  with the application environment. 
+	 * Register the device  with the application environment. If the device is already 
+	 * setup in environment, the accessory will be updated with UID. 
+	 * If not, the accessory stay no register.
 	 * 
 	 * @return True if the device is correctly synchronized with the application environment.
-	 * @see com.connectlife.coreserver.environment.device.Device#synchronize()
+	 * @see com.connectlife.coreserver.environment.device.Device#register()
 	 */
 	@Override
-	public boolean synchronize() {
+	public boolean register() {
 		
-		return false;
+		boolean ret_val = false;
+		
+		// check if already synch
+		if(false == m_isRegister){
+			
+			// at the register try, the device is considerate synchronized with the application.
+			m_isSynchronized = true;
+			
+			Accessory accessory = DeviceProcessor.synchronizeAccessory(m_service_definition.getAccessory());
+			if(null != accessory){
+				// Update the service definition with the UID.
+				ret_val = m_isRegister = true;
+				m_service_definition.setAccessory(accessory);
+				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" register.");
+			}
+			else{
+				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not in setup in the application environment.");
+			}
+		}
+		else{
+			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
+		}
+		
+		return ret_val;
+	}
+
+	/**
+	 * Unregister the device  with the application environment. 
+	 * If device is unreachable on the network the unregister() will be call. 
+	 * 
+	 * @return True if the device is correctly unregister with the application environment.
+	 * @see com.connectlife.coreserver.environment.device.Device#unregister()
+	 */
+	@Override
+	public boolean unregister() {
+		boolean ret_val = false;
+		
+		// the device will be unsynchronized after the unregister.
+		m_isSynchronized = false;
+		
+		// check if already synch
+		if(true == m_isRegister){
+			
+			Accessory accessory = DeviceProcessor.unsynchronizeAccessory(m_service_definition.getAccessory());
+			if(null != accessory){
+				// Update the service definition with the register status.
+				m_service_definition.setAccessory(accessory);
+				
+				m_isRegister = false;
+				ret_val = true;
+				
+				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" register.");
+				
+			}
+			else{
+				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not in setup in the application environment.");
+				m_isRegister = false;
+			}
+			
+		}
+		else{
+			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
+		}
+		
+		return ret_val;
 	}
 
 	

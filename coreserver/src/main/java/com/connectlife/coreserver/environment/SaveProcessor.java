@@ -1,5 +1,5 @@
 /**
- *  SaveHelper.java
+ *  SaveProcessor.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-01-23.
@@ -19,12 +19,12 @@ import com.google.gson.Gson;
  * @author ericpinet
  * <br> 2016-01-23
  */
-public abstract class SaveHelper {
+public abstract class SaveProcessor {
 	
 	/**
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
-	private SaveHelper (){
+	private SaveProcessor (){
 	}
 	
 	/**
@@ -42,7 +42,7 @@ public abstract class SaveHelper {
 		ret_data = gson.fromJson(json, Data.class);
 		
 		// Step to prepare the data to save:
-		//   1) Put all accessory register at false
+		//   1) Put all accessory register at false, Register indicate that accessory is correctly connected on the server.
 		//
 		
 		// iterate in home
