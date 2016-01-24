@@ -10,19 +10,19 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.console.ConsoleSSH
-	c1305 [label=<<table title="com.connectlife.coreserver.console.ConsoleSSH" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleSSH.html">
+	c1727 [label=<<table title="com.connectlife.coreserver.console.ConsoleSSH" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleSSH.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConsoleSSH </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.console.Console
-	c1306 [label=<<table title="com.connectlife.coreserver.console.Console" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Console.html">
+	c1729 [label=<<table title="com.connectlife.coreserver.console.Console" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Console.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Console </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.console.ConsoleSSH implements com.connectlife.coreserver.console.Console
-	c1306:p -> c1305:p [dir=back,arrowtail=empty,style=dashed];
+	c1729:p -> c1727:p [dir=back,arrowtail=empty,style=dashed];
 }
 

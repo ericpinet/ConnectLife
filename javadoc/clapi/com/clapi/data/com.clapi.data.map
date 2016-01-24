@@ -1,0 +1,21 @@
+<map id="G" name="G">
+<area shape="rect" id="c23" href="./Room.html" title="com.clapi.data.Room" alt="" coords="16,19,72,45"/>
+<area shape="rect" id="c24" href="./Service.html" title="com.clapi.data.Service" alt="" coords="117,19,182,45"/>
+<area shape="rect" id="c25" href="./Accessory.html" title="com.clapi.data.Accessory" alt="" coords="227,19,309,45"/>
+<area shape="rect" id="c26" href="./Accessory.AccessoryType.html" title="com.clapi.data.Accessory.AccessoryType" alt="" coords="355,11,467,53"/>
+<area shape="rect" id="c27" href="./Accessory.AccessoryProtocolType.html" title="com.clapi.data.Accessory.AccessoryProtocolType" alt="" coords="512,11,672,53"/>
+<area shape="rect" id="c28" href="./Phone.html" title="com.clapi.data.Phone" alt="" coords="717,19,774,45"/>
+<area shape="rect" id="c29" href="./Phone.PhoneType.html" title="com.clapi.data.Phone.PhoneType" alt="" coords="818,11,923,53"/>
+<area shape="rect" id="c30" href="./Person.html" title="com.clapi.data.Person" alt="" coords="968,19,1029,45"/>
+<area shape="rect" id="c31" href="./Home.html" title="com.clapi.data.Home" alt="" coords="1075,19,1131,45"/>
+<area shape="rect" id="c32" href="./Characteristic.html" title="com.clapi.data.Characteristic" alt="" coords="1176,19,1277,45"/>
+<area shape="rect" id="c33" href="./Characteristic.CharacteristicAccessMode.html" title="com.clapi.data.Characteristic.CharacteristicAccessMode" alt="" coords="1322,11,1499,53"/>
+<area shape="rect" id="c34" href="./Characteristic.CharacteristicType.html" title="com.clapi.data.Characteristic.CharacteristicType" alt="" coords="1544,11,1675,53"/>
+<area shape="rect" id="c35" href="./Characteristic.CharacteristicEventType.html" title="com.clapi.data.Characteristic.CharacteristicEventType" alt="" coords="1720,11,1885,53"/>
+<area shape="rect" id="c36" href="./Zone.html" title="com.clapi.data.Zone" alt="" coords="1931,19,1981,45"/>
+<area shape="rect" id="c37" href="./Email.html" title="com.clapi.data.Email" alt="" coords="2027,19,2080,45"/>
+<area shape="rect" id="c38" href="./Email.EmailType.html" title="com.clapi.data.Email.EmailType" alt="" coords="2125,11,2230,53"/>
+<area shape="rect" id="c39" href="./Address.html" title="com.clapi.data.Address" alt="" coords="2275,19,2344,45"/>
+<area shape="rect" id="c40" href="./Address.AddressType.html" title="com.clapi.data.Address.AddressType" alt="" coords="2389,11,2494,53"/>
+<area shape="rect" id="c41" href="./Data.html" title="com.clapi.data.Data" alt="" coords="2539,19,2589,45"/>
+</map>
