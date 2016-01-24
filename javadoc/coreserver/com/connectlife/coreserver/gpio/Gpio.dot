@@ -9,37 +9,54 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.connectlife.coreserver.Application
-	c2302 [label=<<table title="com.connectlife.coreserver.Application" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../Application.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Application </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.gpio.RaspberryPiGpio
-	c2332 [label=<<table title="com.connectlife.coreserver.gpio.RaspberryPiGpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RaspberryPiGpio.html">
+	c2189 [label=<<table title="com.connectlife.coreserver.gpio.RaspberryPiGpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./RaspberryPiGpio.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> RaspberryPiGpio </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + RaspberryPiGpio() </td></tr>
+<tr><td align="left" balign="left"> + init() : boolean </td></tr>
+<tr><td align="left" balign="left"> + isInit() : boolean </td></tr>
+<tr><td align="left" balign="left"> + unInit() </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.gpio.SimulatorGpio
-	c2333 [label=<<table title="com.connectlife.coreserver.gpio.SimulatorGpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SimulatorGpio.html">
+	c2190 [label=<<table title="com.connectlife.coreserver.gpio.SimulatorGpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SimulatorGpio.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SimulatorGpio </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + SimulatorGpio() </td></tr>
+<tr><td align="left" balign="left"> + init() : boolean </td></tr>
+<tr><td align="left" balign="left"> + isInit() : boolean </td></tr>
+<tr><td align="left" balign="left"> + unInit() </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.gpio.Gpio
-	c2334 [label=<<table title="com.connectlife.coreserver.gpio.Gpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Gpio.html">
+	c2191 [label=<<table title="com.connectlife.coreserver.gpio.Gpio" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Gpio.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Gpio </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + init() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isInit() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unInit() </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.gpio.RaspberryPiGpio implements com.connectlife.coreserver.gpio.Gpio
-	c2334:p -> c2332:p [dir=back,arrowtail=empty,style=dashed];
+	c2191:p -> c2189:p [dir=back,arrowtail=empty,style=dashed];
 	//com.connectlife.coreserver.gpio.SimulatorGpio implements com.connectlife.coreserver.gpio.Gpio
-	c2334:p -> c2333:p [dir=back,arrowtail=empty,style=dashed];
-	// com.connectlife.coreserver.Application NAVASSOC com.connectlife.coreserver.gpio.Gpio
-	c2302:p -> c2334:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2191:p -> c2190:p [dir=back,arrowtail=empty,style=dashed];
 }
 

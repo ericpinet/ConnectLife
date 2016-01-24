@@ -10,21 +10,24 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.clapi.simulator.device.ServiceDefinition
-	c69 [label=<<table title="com.clapi.simulator.device.ServiceDefinition" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceDefinition.html">
+	c67 [label=<<table title="com.clapi.simulator.device.ServiceDefinition" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ServiceDefinition.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ServiceDefinition </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Accessory
-	c78 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../../data/Accessory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Accessory </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.data </font></td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.simulator.device.ServiceDefinition NAVASSOC com.clapi.data.Accessory
-	c69:p -> c78:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.simulator.device.ServiceDefinition DEPEND com.clapi.data.Accessory
-	c69:p -> c78:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ServiceDefinition(_ip_address : String, _hostname : String, _port : int, _accessory : Accessory) </td></tr>
+<tr><td align="left" balign="left"> + getIpAddress() : String </td></tr>
+<tr><td align="left" balign="left"> + setIpAddress(_ip_address : String) </td></tr>
+<tr><td align="left" balign="left"> + getHostname() : String </td></tr>
+<tr><td align="left" balign="left"> + setHostname(_hostname : String) </td></tr>
+<tr><td align="left" balign="left"> + getPort() : int </td></tr>
+<tr><td align="left" balign="left"> + setPort(_port : int) </td></tr>
+<tr><td align="left" balign="left"> + getAccessory() : Accessory </td></tr>
+<tr><td align="left" balign="left"> + setAccessory(_accessory : Accessory) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

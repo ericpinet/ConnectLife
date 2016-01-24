@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c127" href="./ApplicationStateMachine.html" title="com.connectlife.coreserver.ApplicationStateMachine" alt="" coords="16,29,171,53"/>
-<area shape="rect" id="c128" href="./ApplicationStateMachine.States.html" title="com.connectlife.coreserver.ApplicationStateMachine.States" alt="" coords="216,22,317,61"/>
-<area shape="rect" id="c129" href="./ApplicationStateMachine.Events.html" title="com.connectlife.coreserver.ApplicationStateMachine.Events" alt="" coords="363,22,464,61"/>
-<area shape="rect" id="c130" href="./ApplicationInject.html" title="com.connectlife.coreserver.ApplicationInject" alt="" coords="509,29,619,53"/>
-<area shape="rect" id="c131" href="./Application.html" title="com.connectlife.coreserver.Application" alt="" coords="664,29,744,53"/>
-<area shape="rect" id="c132" href="./Consts.html" title="com.connectlife.coreserver.Consts" alt="" coords="789,11,944,72"/>
+<area shape="rect" id="c127" href="./ApplicationStateMachine.html" title="com.connectlife.coreserver.ApplicationStateMachine" alt="" coords="15,107,201,197"/>
+<area shape="rect" id="c128" href="./ApplicationStateMachine.States.html" title="com.connectlife.coreserver.ApplicationStateMachine.States" alt="" coords="245,83,433,221"/>
+<area shape="rect" id="c129" href="./ApplicationStateMachine.Events.html" title="com.connectlife.coreserver.ApplicationStateMachine.Events" alt="" coords="477,75,648,229"/>
+<area shape="rect" id="c130" href="./ApplicationInject.html" title="com.connectlife.coreserver.ApplicationInject" alt="" coords="693,107,830,197"/>
+<area shape="rect" id="c131" href="./Application.html" title="com.connectlife.coreserver.Application" alt="" coords="875,11,1453,293"/>
+<area shape="rect" id="c132" href="./Consts.html" title="com.connectlife.coreserver.Consts" alt="" coords="1499,107,1672,197"/>
 </map>

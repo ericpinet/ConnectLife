@@ -9,43 +9,36 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.data.Phone
-	c277 [label=<<table title="com.clapi.data.Phone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Phone </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Person
-	c279 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Person.html">
+	c273 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Person.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Person </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Email
-	c286 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Email </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Address
-	c288 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Address </td></tr>
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String, lastname : String, emails : List&lt;Email&gt;, phones : List&lt;Phone&gt;, addresses : List&lt;Address&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String) </td></tr>
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String, lastname : String, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getFirstname() : String </td></tr>
+<tr><td align="left" balign="left"> + setFirstname(firstname : String) </td></tr>
+<tr><td align="left" balign="left"> + getLastname() : String </td></tr>
+<tr><td align="left" balign="left"> + setLastname(lastname : String) </td></tr>
+<tr><td align="left" balign="left"> + getEmails() : List&lt;Email&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEmails(emails : List&lt;Email&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPhones() : List&lt;Phone&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPhones(phones : List&lt;Phone&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAddresses() : List&lt;Address&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAddresses(addresses : List&lt;Address&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + addToEmails(email : Email) </td></tr>
+<tr><td align="left" balign="left"> + addToPhones(phone : Phone) </td></tr>
+<tr><td align="left" balign="left"> + addToAddress(address : Address) </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Data
-	c290 [label=<<table title="com.clapi.data.Data" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Data.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Data </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Email
-	c279:p -> c286:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Phone
-	c279:p -> c277:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Address
-	c279:p -> c288:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Data NAVASSOC com.clapi.data.Person
-	c290:p -> c279:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

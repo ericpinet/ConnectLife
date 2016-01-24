@@ -1,5 +1,3 @@
 <map id="G" name="G">
-<area shape="rect" id="c141" href="./Service.html" title="com.clapi.data.Service" alt="" coords="33,113,93,137"/>
-<area shape="rect" id="c149" href="./Characteristic.html" title="com.clapi.data.Characteristic" alt="" coords="16,209,109,233"/>
-<area shape="rect" id="c142" href="./Accessory.html" title="com.clapi.data.Accessory" alt="" coords="25,17,100,41"/>
+<area shape="rect" id="c135" href="./Service.html" title="com.clapi.data.Service" alt="" coords="15,11,473,197"/>
 </map>

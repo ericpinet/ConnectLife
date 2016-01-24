@@ -10,26 +10,23 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.clapi.data.Service
-	c141 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Service.html">
+	c135 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Service </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Accessory
-	c142 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Accessory </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Characteristic
-	c149 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Characteristic </td></tr>
+<tr><td align="left" balign="left"> + Service(uid : String, name : String, characteristics : List&lt;Characteristic&gt;) </td></tr>
+<tr><td align="left" balign="left"> + Service(uid : String, name : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getName() : String </td></tr>
+<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
+<tr><td align="left" balign="left"> + getCharacteristics() : List&lt;Characteristic&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCharacteristics(characteristics : List&lt;Characteristic&gt;) </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Service NAVASSOC com.clapi.data.Characteristic
-	c141:p -> c149:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Service
-	c142:p -> c141:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

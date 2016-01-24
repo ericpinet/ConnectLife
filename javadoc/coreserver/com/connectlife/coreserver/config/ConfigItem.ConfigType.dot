@@ -9,20 +9,19 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.connectlife.coreserver.config.ConfigItem
-	c1995 [label=<<table title="com.connectlife.coreserver.config.ConfigItem" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigItem.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ConfigItem </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.config.ConfigItem.ConfigType
-	c1996 [label=<<table title="com.connectlife.coreserver.config.ConfigItem.ConfigType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigItem.ConfigType.html">
+	c1855 [label=<<table title="com.connectlife.coreserver.config.ConfigItem.ConfigType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigItem.ConfigType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.connectlife.coreserver.config.ConfigItem NAVASSOC com.connectlife.coreserver.config.ConfigItem.ConfigType
-	c1995:p -> c1996:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> STRING </td></tr>
+<tr><td align="left" balign="left"> INTEGER </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

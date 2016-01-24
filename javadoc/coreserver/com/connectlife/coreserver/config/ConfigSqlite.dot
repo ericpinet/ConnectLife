@@ -9,29 +9,45 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.connectlife.coreserver.config.SqliteSettings
-	c2202 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettings.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> SqliteSettings </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.config.Config
-	c2204 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Config.html">
+	c2063 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Config.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Config </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + init() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isInit() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unInit() </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getConfig(_section : String, _item : String) : ConfigItem </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getConfigs() : List&lt;ConfigItem&gt; </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + setConfig(_object : ConfigItem) : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + RestoreFactory() : boolean </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigSqlite
-	c2206 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigSqlite.html">
+	c2065 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigSqlite.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigSqlite </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ConfigSqlite(_setting : SqliteSettings) </td></tr>
+<tr><td align="left" balign="left"> + init() : boolean </td></tr>
+<tr><td align="left" balign="left"> + isInit() : boolean </td></tr>
+<tr><td align="left" balign="left"> + unInit() </td></tr>
+<tr><td align="left" balign="left"> + getConfig(_section : String, _item : String) : ConfigItem </td></tr>
+<tr><td align="left" balign="left"> + getConfigs() : List&lt;ConfigItem&gt; </td></tr>
+<tr><td align="left" balign="left"> + setConfig(_object : ConfigItem) : boolean </td></tr>
+<tr><td align="left" balign="left"> + RestoreFactory() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.config.ConfigSqlite implements com.connectlife.coreserver.config.Config
-	c2204:p -> c2206:p [dir=back,arrowtail=empty,style=dashed];
-	// com.connectlife.coreserver.config.ConfigSqlite NAVASSOC com.connectlife.coreserver.config.SqliteSettings
-	c2206:p -> c2202:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c2063:p -> c2065:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -1,7 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="c1557" href="./Device.html" title="com.connectlife.coreserver.environment.device.Device" alt="" coords="132,222,212,261"/>
-<area shape="rect" id="c1559" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="15,17,121,55"/>
-<area shape="rect" id="c1560" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="129,127,215,151"/>
-<area shape="rect" id="c1563" href="../discover/DiscoveryService.html" title="com.connectlife.coreserver.environment.discover.DiscoveryService" alt="" coords="257,216,481,267"/>
-<area shape="rect" id="c1562" href="../discover/DiscoveryListner.html" title="com.connectlife.coreserver.environment.discover.DiscoveryListner" alt="" coords="165,11,389,61"/>
+<area shape="rect" id="c1432" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="16,11,141,133"/>
+<area shape="rect" id="c1433" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="185,193,460,362"/>
+<area shape="rect" id="c1435" href="../discover/DiscoveryListner.html" title="com.connectlife.coreserver.environment.discover.DiscoveryListner" alt="" coords="186,19,459,125"/>
+<area shape="rect" id="c1452" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/TimerTask.html" title="java.util.TimerTask" alt="" coords="503,11,726,133"/>
 </map>

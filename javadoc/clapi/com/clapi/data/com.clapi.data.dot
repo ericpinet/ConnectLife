@@ -14,158 +14,397 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Room </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Room(uid : String, label : String, accessories : List&lt;Accessory&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Room(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getAccessories() : List&lt;Accessory&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAccessories(accessories : List&lt;Accessory&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Service
 	c24 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Service </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Service(uid : String, name : String, characteristics : List&lt;Characteristic&gt;) </td></tr>
+<tr><td align="left" balign="left"> + Service(uid : String, name : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getName() : String </td></tr>
+<tr><td align="left" balign="left"> + setName(name : String) </td></tr>
+<tr><td align="left" balign="left"> + getCharacteristics() : List&lt;Characteristic&gt; </td></tr>
+<tr><td align="left" balign="left"> + setCharacteristics(characteristics : List&lt;Characteristic&gt;) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Accessory
 	c25 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Accessory </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Accessory(uid : String, label : String, manufacturer : String, model : String, serialnumber : String, services : List&lt;Service&gt;, imageurl : String, type : Accessory.AccessoryType, protocoltype : Accessory.AccessoryProtocolType) </td></tr>
+<tr><td align="left" balign="left"> + Accessory(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getManufacturer() : String </td></tr>
+<tr><td align="left" balign="left"> + setManufacturer(manufacturer : String) </td></tr>
+<tr><td align="left" balign="left"> + getModel() : String </td></tr>
+<tr><td align="left" balign="left"> + setModel(model : String) </td></tr>
+<tr><td align="left" balign="left"> + getSerialnumber() : String </td></tr>
+<tr><td align="left" balign="left"> + setSerialnumber(serialnumber : String) </td></tr>
+<tr><td align="left" balign="left"> + getServices() : List&lt;Service&gt; </td></tr>
+<tr><td align="left" balign="left"> + setServices(services : List&lt;Service&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Accessory.AccessoryType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Accessory.AccessoryType) </td></tr>
+<tr><td align="left" balign="left"> + getProtocoltype() : Accessory.AccessoryProtocolType </td></tr>
+<tr><td align="left" balign="left"> + setProtocoltype(protocoltype : Accessory.AccessoryProtocolType) </td></tr>
+<tr><td align="left" balign="left"> + isRegister() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setRegister(isRegister : boolean) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Accessory.AccessoryType
 	c26 [label=<<table title="com.clapi.data.Accessory.AccessoryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AccessoryType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> LIGHT </td></tr>
+<tr><td align="left" balign="left"> LIGHT_DIMMABLE </td></tr>
+<tr><td align="left" balign="left"> LIGHT_COLORED </td></tr>
+<tr><td align="left" balign="left"> LIGHT_COLORED_DIMMABLE </td></tr>
+<tr><td align="left" balign="left"> FAN </td></tr>
+<tr><td align="left" balign="left"> AUTOMATIC_DOOR </td></tr>
+<tr><td align="left" balign="left"> LOCK_MECHANISM </td></tr>
+<tr><td align="left" balign="left"> THERMOSTAT </td></tr>
+<tr><td align="left" balign="left"> SWITCH </td></tr>
+<tr><td align="left" balign="left"> CONTROL_BOARD </td></tr>
+<tr><td align="left" balign="left"> CAM </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Accessory.AccessoryProtocolType
 	c27 [label=<<table title="com.clapi.data.Accessory.AccessoryProtocolType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryProtocolType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AccessoryProtocolType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> JSON_SIMULATION </td></tr>
+<tr><td align="left" balign="left"> HAP </td></tr>
+<tr><td align="left" balign="left"> ZIGBEE </td></tr>
+<tr><td align="left" balign="left"> ZWAVE </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Phone
 	c28 [label=<<table title="com.clapi.data.Phone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Phone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Phone(uid : String, phone : String, type : Phone.PhoneType) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getPhone() : String </td></tr>
+<tr><td align="left" balign="left"> + setPhone(phone : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Phone.PhoneType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Phone.PhoneType) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Phone.PhoneType
 	c29 [label=<<table title="com.clapi.data.Phone.PhoneType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Phone.PhoneType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> PhoneType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> HOME </td></tr>
+<tr><td align="left" balign="left"> WORK </td></tr>
+<tr><td align="left" balign="left"> CELL </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Person
 	c30 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Person </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String, lastname : String, emails : List&lt;Email&gt;, phones : List&lt;Phone&gt;, addresses : List&lt;Address&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String) </td></tr>
+<tr><td align="left" balign="left"> + Person(uid : String, firstname : String, lastname : String, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getFirstname() : String </td></tr>
+<tr><td align="left" balign="left"> + setFirstname(firstname : String) </td></tr>
+<tr><td align="left" balign="left"> + getLastname() : String </td></tr>
+<tr><td align="left" balign="left"> + setLastname(lastname : String) </td></tr>
+<tr><td align="left" balign="left"> + getEmails() : List&lt;Email&gt; </td></tr>
+<tr><td align="left" balign="left"> + setEmails(emails : List&lt;Email&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getPhones() : List&lt;Phone&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPhones(phones : List&lt;Phone&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getAddresses() : List&lt;Address&gt; </td></tr>
+<tr><td align="left" balign="left"> + setAddresses(addresses : List&lt;Address&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + addToEmails(email : Email) </td></tr>
+<tr><td align="left" balign="left"> + addToPhones(phone : Phone) </td></tr>
+<tr><td align="left" balign="left"> + addToAddress(address : Address) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Home
 	c31 [label=<<table title="com.clapi.data.Home" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Home.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Home </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Home(uid : String, label : String, zones : List&lt;Zone&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Home(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getZones() : List&lt;Zone&gt; </td></tr>
+<tr><td align="left" balign="left"> + setZones(zones : List&lt;Zone&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Characteristic
 	c32 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Characteristic </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Characteristic(uid : String, label : String, mode : Characteristic.CharacteristicAccessMode, type : Characteristic.CharacteristicType, event : Characteristic.CharacteristicEventType, data : String) </td></tr>
+<tr><td align="left" balign="left"> + Characteristic(uid : String, label : String, mode : Characteristic.CharacteristicAccessMode, type : Characteristic.CharacteristicType, event : Characteristic.CharacteristicEventType, data : String, enum_item : List&lt;String&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getMode() : Characteristic.CharacteristicAccessMode </td></tr>
+<tr><td align="left" balign="left"> + setMode(mode : Characteristic.CharacteristicAccessMode) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Characteristic.CharacteristicType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Characteristic.CharacteristicType) </td></tr>
+<tr><td align="left" balign="left"> + getEvent() : Characteristic.CharacteristicEventType </td></tr>
+<tr><td align="left" balign="left"> + setEvent(event : Characteristic.CharacteristicEventType) </td></tr>
+<tr><td align="left" balign="left"> + getData() : String </td></tr>
+<tr><td align="left" balign="left"> + setData(data : String) </td></tr>
+<tr><td align="left" balign="left"> + getDataBoolean() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setBooleanData(data : boolean) </td></tr>
+<tr><td align="left" balign="left"> + getDataInteger() : int </td></tr>
+<tr><td align="left" balign="left"> + setIntegerData(data : int) </td></tr>
+<tr><td align="left" balign="left"> + getDataFloat() : float </td></tr>
+<tr><td align="left" balign="left"> + setFloatData(data : float) </td></tr>
+<tr><td align="left" balign="left"> + getDataEnum() : String </td></tr>
+<tr><td align="left" balign="left"> + setDataEnum(data : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Characteristic.CharacteristicAccessMode
 	c33 [label=<<table title="com.clapi.data.Characteristic.CharacteristicAccessMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicAccessMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicAccessMode </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> READ_ONLY </td></tr>
+<tr><td align="left" balign="left"> WRITE_ONLY </td></tr>
+<tr><td align="left" balign="left"> READ_WRITE </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Characteristic.CharacteristicType
 	c34 [label=<<table title="com.clapi.data.Characteristic.CharacteristicType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> BOOLEAN </td></tr>
+<tr><td align="left" balign="left"> ENUM </td></tr>
+<tr><td align="left" balign="left"> FLOAT </td></tr>
+<tr><td align="left" balign="left"> INTEGER </td></tr>
+<tr><td align="left" balign="left"> STATIC_STRING </td></tr>
+<tr><td align="left" balign="left"> WRITE_ONLY_BOOLEAN </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Characteristic.CharacteristicEventType
 	c35 [label=<<table title="com.clapi.data.Characteristic.CharacteristicEventType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.CharacteristicEventType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicEventType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> NO_EVENT </td></tr>
+<tr><td align="left" balign="left"> EVENT </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Zone
 	c36 [label=<<table title="com.clapi.data.Zone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Zone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Zone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Zone(uid : String, label : String, rooms : List&lt;Room&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Zone(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getRooms() : List&lt;Room&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRooms(rooms : List&lt;Room&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Email
 	c37 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Email </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Email(uid : String, email : String, type : Email.EmailType) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getEmail() : String </td></tr>
+<tr><td align="left" balign="left"> + setEmail(email : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Email.EmailType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Email.EmailType) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Email.EmailType
 	c38 [label=<<table title="com.clapi.data.Email.EmailType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.EmailType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> EmailType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> PERSONAL </td></tr>
+<tr><td align="left" balign="left"> WORK </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Address
 	c39 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Address </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Address(uid : String, type : Address.AddressType, street : String, city : String, region : String, zipcode : String, country : String) </td></tr>
+<tr><td align="left" balign="left"> + Address(uid : String, type : Address.AddressType, street : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Address.AddressType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Address.AddressType) </td></tr>
+<tr><td align="left" balign="left"> + getStreet() : String </td></tr>
+<tr><td align="left" balign="left"> + setStreet(street : String) </td></tr>
+<tr><td align="left" balign="left"> + getCity() : String </td></tr>
+<tr><td align="left" balign="left"> + setCity(city : String) </td></tr>
+<tr><td align="left" balign="left"> + getRegion() : String </td></tr>
+<tr><td align="left" balign="left"> + setRegion(region : String) </td></tr>
+<tr><td align="left" balign="left"> + getZipcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setZipcode(zipcode : String) </td></tr>
+<tr><td align="left" balign="left"> + getCountry() : String </td></tr>
+<tr><td align="left" balign="left"> + setCountry(country : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Address.AddressType
 	c40 [label=<<table title="com.clapi.data.Address.AddressType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.AddressType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> AddressType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> HOME </td></tr>
+<tr><td align="left" balign="left"> WORK </td></tr>
+<tr><td align="left" balign="left"> OTHER </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Data
 	c41 [label=<<table title="com.clapi.data.Data" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Data.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Data </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Room NAVASSOC com.clapi.data.Accessory
-	c23:p -> c25:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Service NAVASSOC com.clapi.data.Characteristic
-	c24:p -> c32:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Service
-	c25:p -> c24:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryType
-	c25:p -> c26:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryProtocolType
-	c25:p -> c27:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Phone NAVASSOC com.clapi.data.Phone.PhoneType
-	c28:p -> c29:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Email
-	c30:p -> c37:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Phone
-	c30:p -> c28:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Address
-	c30:p -> c39:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Home NAVASSOC com.clapi.data.Zone
-	c31:p -> c36:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicAccessMode
-	c32:p -> c33:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicType
-	c32:p -> c34:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicEventType
-	c32:p -> c35:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Zone NAVASSOC com.clapi.data.Room
-	c36:p -> c23:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Email NAVASSOC com.clapi.data.Email.EmailType
-	c37:p -> c38:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Address NAVASSOC com.clapi.data.Address.AddressType
-	c39:p -> c40:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Data NAVASSOC com.clapi.data.Person
-	c41:p -> c30:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Data NAVASSOC com.clapi.data.Home
-	c41:p -> c31:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Data(version : int, persons : List&lt;Person&gt;, homes : List&lt;Home&gt;) </td></tr>
+<tr><td align="left" balign="left"> + Data() </td></tr>
+<tr><td align="left" balign="left"> + getVersion() : int </td></tr>
+<tr><td align="left" balign="left"> + setVersion(version : int) </td></tr>
+<tr><td align="left" balign="left"> + getPersons() : List&lt;Person&gt; </td></tr>
+<tr><td align="left" balign="left"> + setPersons(persons : List&lt;Person&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getHomes() : List&lt;Home&gt; </td></tr>
+<tr><td align="left" balign="left"> + setHomes(homes : List&lt;Home&gt;) </td></tr>
+<tr><td align="left" balign="left"> + addToPersons(person : Person) </td></tr>
+<tr><td align="left" balign="left"> + addToHomes(home : Home) </td></tr>
+<tr><td align="left" balign="left"> + getPerson(uid : String) : Person </td></tr>
+<tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

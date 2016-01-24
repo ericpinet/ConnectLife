@@ -9,50 +9,24 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.client.NotificationListener
-	c598 [label=<<table title="com.clapi.client.NotificationListener" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NotificationListener.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> NotificationListener </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.client.CLApiClient
-	c599 [label=<<table title="com.clapi.client.CLApiClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CLApiClient.html">
+	c573 [label=<<table title="com.clapi.client.CLApiClient" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./CLApiClient.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> CLApiClient </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + API_CLIENT_VERSION : int[] </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.client.CLApiClient NAVASSOC io.grpc.ManagedChannel
-	c599:p -> c600:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.client.CLApiClient NAVASSOC com.clapi.protocol.CLApiGrpc.CLApiBlockingStub
-	c599:p -> c601:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.client.CLApiClient NAVASSOC com.clapi.protocol.CLApiGrpc.CLApiFutureStub
-	c599:p -> c602:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.client.CLApiClient NAVASSOC com.clapi.client.NotificationListener
-	c599:p -> c598:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// io.grpc.ManagedChannel
-	c600 [label=<<table title="io.grpc.ManagedChannel" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/io/grpc/ManagedChannel.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> ManagedChannel </font></td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> io.grpc </font></td></tr>
+<tr><td align="left" balign="left"> + CLApiClient(host : String, port : int, _listener : NotificationListener) </td></tr>
+<tr><td align="left" balign="left"> + getVersion() : String </td></tr>
+<tr><td align="left" balign="left"> + checkCompatibility() : boolean </td></tr>
+<tr><td align="left" balign="left"> + getJsonData() : String </td></tr>
+<tr><td align="left" balign="left"> + addPerson(firstname : String, lastname : String, imageurl : String) : String </td></tr>
+<tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) : String </td></tr>
+<tr><td align="left" balign="left"> + waitNotification() </td></tr>
+<tr><td align="left" balign="left"> + shutdown() </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.CLApiGrpc.CLApiFutureStub
-	c602 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApiFutureStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApiFutureStub.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CLApiFutureStub </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol.CLApiGrpc </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.CLApiGrpc.CLApiBlockingStub
-	c601 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApiBlockingStub" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApiBlockingStub.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CLApiBlockingStub </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol.CLApiGrpc </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

@@ -10,42 +10,42 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.device.Device
-	c1432 [label=<<table title="com.connectlife.coreserver.environment.device.Device" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Device.html">
+	c1306 [label=<<table title="com.connectlife.coreserver.environment.device.Device" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Device.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Device </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.connectlife.coreserver.environment.device.DeviceMngr
-	c1435 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceMngr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeviceMngr </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getDefinition() : ServiceDefinition </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getServiceInfo() : ServiceInfo </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isRegister() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + register() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unregister() : boolean </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isSyncronized() : boolean </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.device.DeviceJson
-	c1436 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceJson" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceJson.html">
+	c1310 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceJson" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceJson.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeviceJson </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	//com.connectlife.coreserver.environment.device.DeviceJson implements com.connectlife.coreserver.environment.device.Device
-	c1432:p -> c1436:p [dir=back,arrowtail=empty,style=dashed];
-	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.device.Device
-	c1435:p -> c1432:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.device.Device
-	c1435:p -> c1432:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.environment.device.DeviceJson NAVASSOC com.clapi.simulator.device.ServiceDefinition
-	c1436:p -> c1454:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.environment.device.Device DEPEND com.clapi.simulator.device.ServiceDefinition
-	c1432:p -> c1454:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.environment.device.DeviceJson DEPEND com.clapi.simulator.device.ServiceDefinition
-	c1436:p -> c1454:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.clapi.simulator.device.ServiceDefinition
-	c1454 [label=<<table title="com.clapi.simulator.device.ServiceDefinition" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/simulator/device/ServiceDefinition.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ServiceDefinition </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.simulator.device </font></td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DeviceJson(_definition : ServiceDefinition, _service_info : ServiceInfo) </td></tr>
+<tr><td align="left" balign="left"> + getDefinition() : ServiceDefinition </td></tr>
+<tr><td align="left" balign="left"> + getServiceInfo() : ServiceInfo </td></tr>
+<tr><td align="left" balign="left"> + isRegister() : boolean </td></tr>
+<tr><td align="left" balign="left"> + isSyncronized() : boolean </td></tr>
+<tr><td align="left" balign="left"> + register() : boolean </td></tr>
+<tr><td align="left" balign="left"> + unregister() : boolean </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	//com.connectlife.coreserver.environment.device.DeviceJson implements com.connectlife.coreserver.environment.device.Device
+	c1306:p -> c1310:p [dir=back,arrowtail=empty,style=dashed];
 }
 

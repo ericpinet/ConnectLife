@@ -10,11 +10,20 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.tools.os.OperatingSystem.OperatingSystemType
-	c663 [label=<<table title="com.connectlife.coreserver.tools.os.OperatingSystem.OperatingSystemType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OperatingSystem.OperatingSystemType.html">
+	c626 [label=<<table title="com.connectlife.coreserver.tools.os.OperatingSystem.OperatingSystemType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./OperatingSystem.OperatingSystemType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> OperatingSystemType </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> WINDOWS </td></tr>
+<tr><td align="left" balign="left"> MACOSX </td></tr>
+<tr><td align="left" balign="left"> LINUX </td></tr>
+<tr><td align="left" balign="left"> UNKWOWN </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

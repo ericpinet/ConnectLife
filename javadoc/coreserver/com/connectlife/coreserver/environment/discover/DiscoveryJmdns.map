@@ -1,5 +1,4 @@
 <map id="G" name="G">
-<area shape="rect" id="c1727" href="./DiscoveryListner.html" title="com.connectlife.coreserver.environment.discover.DiscoveryListner" alt="" coords="17,206,127,245"/>
-<area shape="rect" id="c1728" href="./DiscoveryService.html" title="com.connectlife.coreserver.environment.discover.DiscoveryService" alt="" coords="15,11,129,50"/>
-<area shape="rect" id="c1729" href="./DiscoveryJmdns.html" title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" alt="" coords="17,116,127,140"/>
+<area shape="rect" id="c1601" href="./DiscoveryService.html" title="com.connectlife.coreserver.environment.discover.DiscoveryService" alt="" coords="16,11,269,133"/>
+<area shape="rect" id="c1602" href="./DiscoveryJmdns.html" title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" alt="" coords="16,193,269,314"/>
 </map>

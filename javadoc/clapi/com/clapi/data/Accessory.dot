@@ -9,56 +9,38 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.simulator.device.ServiceDefinition
-	c161 [label=<<table title="com.clapi.simulator.device.ServiceDefinition" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../simulator/device/ServiceDefinition.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> ServiceDefinition </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.simulator.device </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Room
-	c162 [label=<<table title="com.clapi.data.Room" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Room.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Room </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Service
-	c163 [label=<<table title="com.clapi.data.Service" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Service.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Service </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Accessory
-	c164 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Accessory.html">
+	c158 [label=<<table title="com.clapi.data.Accessory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Accessory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Accessory </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Accessory.AccessoryType
-	c165 [label=<<table title="com.clapi.data.Accessory.AccessoryType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> AccessoryType </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Accessory.AccessoryProtocolType
-	c166 [label=<<table title="com.clapi.data.Accessory.AccessoryProtocolType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Accessory.AccessoryProtocolType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> AccessoryProtocolType </td></tr>
+<tr><td align="left" balign="left"> + Accessory(uid : String, label : String, manufacturer : String, model : String, serialnumber : String, services : List&lt;Service&gt;, imageurl : String, type : Accessory.AccessoryType, protocoltype : Accessory.AccessoryProtocolType) </td></tr>
+<tr><td align="left" balign="left"> + Accessory(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getManufacturer() : String </td></tr>
+<tr><td align="left" balign="left"> + setManufacturer(manufacturer : String) </td></tr>
+<tr><td align="left" balign="left"> + getModel() : String </td></tr>
+<tr><td align="left" balign="left"> + setModel(model : String) </td></tr>
+<tr><td align="left" balign="left"> + getSerialnumber() : String </td></tr>
+<tr><td align="left" balign="left"> + setSerialnumber(serialnumber : String) </td></tr>
+<tr><td align="left" balign="left"> + getServices() : List&lt;Service&gt; </td></tr>
+<tr><td align="left" balign="left"> + setServices(services : List&lt;Service&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Accessory.AccessoryType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Accessory.AccessoryType) </td></tr>
+<tr><td align="left" balign="left"> + getProtocoltype() : Accessory.AccessoryProtocolType </td></tr>
+<tr><td align="left" balign="left"> + setProtocoltype(protocoltype : Accessory.AccessoryProtocolType) </td></tr>
+<tr><td align="left" balign="left"> + isRegister() : boolean </td></tr>
+<tr><td align="left" balign="left"> + setRegister(isRegister : boolean) </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.simulator.device.ServiceDefinition NAVASSOC com.clapi.data.Accessory
-	c161:p -> c164:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Room NAVASSOC com.clapi.data.Accessory
-	c162:p -> c164:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Service
-	c164:p -> c163:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryType
-	c164:p -> c165:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Accessory NAVASSOC com.clapi.data.Accessory.AccessoryProtocolType
-	c164:p -> c166:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.simulator.device.ServiceDefinition DEPEND com.clapi.data.Accessory
-	c161:p -> c164:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

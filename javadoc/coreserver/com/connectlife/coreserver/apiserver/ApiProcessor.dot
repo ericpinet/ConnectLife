@@ -10,329 +10,79 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.apiserver.ApiProcessor
-	c986 [label=<<table title="com.connectlife.coreserver.apiserver.ApiProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApiProcessor.html">
+	c925 [label=<<table title="com.connectlife.coreserver.apiserver.ApiProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApiProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApiProcessor </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + API_SERVER_VERSION : int[] </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.connectlife.coreserver.environment.Environment
-	c989 [label=<<table title="com.connectlife.coreserver.environment.Environment" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../environment/Environment.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> Environment </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver.environment </font></td></tr>
+<tr><td align="left" balign="left"> + ApiProcessor(_environment : Environment) </td></tr>
+<tr><td align="left" balign="left"> + getVersion(request : GetVersionRequest, responseObserver : StreamObserver&lt;GetVersionResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + checkCompatibility(request : CheckCompatibilityRequest, responseObserver : StreamObserver&lt;CheckCompatibilityResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + waitNotification(request : WaitNotificationRequest, responseObserver : StreamObserver&lt;WaitNotificationResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + sendNotificationToAllClient(notification : Notification) </td></tr>
+<tr><td align="left" balign="left"> + getJsonData(request : GetJsonDataRequest, responseObserver : StreamObserver&lt;GetJsonDataResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + addPerson(request : AddPersonRequest, responseObserver : StreamObserver&lt;AddPersonResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + updatePerson(request : UpdatePersonRequest, responseObserver : StreamObserver&lt;UpdatePersonResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + deletePerson(request : DeletePersonRequest, responseObserver : StreamObserver&lt;DeletePersonResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + addEmail(request : AddEmailRequest, responseObserver : StreamObserver&lt;AddEmailResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + updateEmail(request : UpdateEmailRequest, responseObserver : StreamObserver&lt;UpdateEmailResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + deleteEmail(request : DeleteEmailRequest, responseObserver : StreamObserver&lt;DeleteEmailResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + update(o : Observable, arg : Object) </td></tr>
+<tr><td align="left" balign="left"> + addPhone(request : AddPhoneRequest, responseObserver : StreamObserver&lt;AddPhoneResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + updatePhone(request : UpdatePhoneRequest, responseObserver : StreamObserver&lt;UpdatePhoneResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + deletePhone(request : DeletePhoneRequest, responseObserver : StreamObserver&lt;DeletePhoneResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + addAddress(request : AddAddressRequest, responseObserver : StreamObserver&lt;AddAddressResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + updateAddress(request : UpdateAddressRequest, responseObserver : StreamObserver&lt;UpdateAddressResponse&gt;) </td></tr>
+<tr><td align="left" balign="left"> + deleteAddress(request : DeleteAddressRequest, responseObserver : StreamObserver&lt;DeleteAddressResponse&gt;) </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.apiserver.ApiProcessor implements com.clapi.protocol.CLApiGrpc.CLApi
-	c1017:p -> c986:p [dir=back,arrowtail=empty,style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor NAVASSOC org.apache.logging.log4j.Logger
-	c986:p -> c1022:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.apiserver.ApiProcessor NAVASSOC com.connectlife.coreserver.environment.Environment
-	c986:p -> c989:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.apiserver.ApiProcessor NAVASSOC io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.DeleteAddressRequest
-	c986:p -> c1040:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.Notification
-	c986:p -> c1042:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.UpdatePhoneRequest
-	c986:p -> c1044:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.CheckCompatibilityRequest
-	c986:p -> c1046:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.UpdateAddressRequest
-	c986:p -> c1048:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.AddEmailRequest
-	c986:p -> c1050:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.GetJsonDataRequest
-	c986:p -> c1052:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.DeletePhoneRequest
-	c986:p -> c1054:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.UpdatePersonRequest
-	c986:p -> c1056:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.UpdateEmailRequest
-	c986:p -> c1058:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.DeletePersonRequest
-	c986:p -> c1060:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.GetVersionRequest
-	c986:p -> c1062:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.AddPhoneRequest
-	c986:p -> c1064:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.AddAddressRequest
-	c986:p -> c1066:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.WaitNotificationRequest
-	c986:p -> c1068:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND io.grpc.stub.StreamObserver<V>
-	c986:p -> c1023:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.DeleteEmailRequest
-	c986:p -> c1070:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.connectlife.coreserver.apiserver.ApiProcessor DEPEND com.clapi.protocol.AddPersonRequest
-	c986:p -> c1072:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open, style=dashed];
-	// com.clapi.protocol.AddAddressRequest
-	c1066 [label=<<table title="com.clapi.protocol.AddAddressRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddAddressRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AddAddressRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_PERSON_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + STREET_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + CITY_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + REGION_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + ZIPCODE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + COUNTRY_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.AddAddressRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// io.grpc.stub.StreamObserver<V>
-	c1023 [label=<<table title="io.grpc.stub.StreamObserver" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/io/grpc/stub/StreamObserver.html">
+	c956:p -> c925:p [dir=back,arrowtail=empty,style=dashed];
+	//com.connectlife.coreserver.apiserver.ApiProcessor implements java.util.Observer
+	c957:p -> c925:p [dir=back,arrowtail=empty,style=dashed];
+	// java.util.Observer
+	c957 [label=<<table title="java.util.Observer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Observer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> StreamObserver&lt;V&gt; </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> io.grpc.stub </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.UpdatePersonRequest
-	c1056 [label=<<table title="com.clapi.protocol.UpdatePersonRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdatePersonRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdatePersonRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
+<tr><td align="center" balign="center"> Observer </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + FIRSTNAME_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + LASTNAME_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + IMAGEURL_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.UpdatePersonRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.DeletePhoneRequest
-	c1054 [label=<<table title="com.clapi.protocol.DeletePhoneRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeletePhoneRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeletePhoneRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.DeletePhoneRequest&gt; </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + update(arg0 : Observable, arg1 : Object) </font></td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.AddPhoneRequest
-	c1064 [label=<<table title="com.clapi.protocol.AddPhoneRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddPhoneRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AddPhoneRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_PERSON_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PHONE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.AddPhoneRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// org.apache.logging.log4j.Logger
-	c1022 [label=<<table title="org.apache.logging.log4j.Logger" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/org/apache/logging/log4j/Logger.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
-<tr><td align="center" balign="center"> Logger </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> org.apache.logging.log4j </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.GetJsonDataRequest
-	c1052 [label=<<table title="com.clapi.protocol.GetJsonDataRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/GetJsonDataRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetJsonDataRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.GetJsonDataRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.protocol.CLApiGrpc.CLApi
-	c1017 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApi" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html">
+	c956 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApi" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CLApi </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol.CLApiGrpc </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.UpdatePhoneRequest
-	c1044 [label=<<table title="com.clapi.protocol.UpdatePhoneRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdatePhoneRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdatePhoneRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PHONE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.UpdatePhoneRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.UpdateAddressRequest
-	c1048 [label=<<table title="com.clapi.protocol.UpdateAddressRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdateAddressRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdateAddressRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + STREET_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + CITY_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + REGION_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + ZIPCODE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + COUNTRY_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.UpdateAddressRequest&gt; </td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getVersion(arg0 : GetVersionRequest, arg1 : StreamObserver&lt;GetVersionResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + checkCompatibility(arg0 : CheckCompatibilityRequest, arg1 : StreamObserver&lt;CheckCompatibilityResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + waitNotification(arg0 : WaitNotificationRequest, arg1 : StreamObserver&lt;WaitNotificationResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getJsonData(arg0 : GetJsonDataRequest, arg1 : StreamObserver&lt;GetJsonDataResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addPerson(arg0 : AddPersonRequest, arg1 : StreamObserver&lt;AddPersonResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updatePerson(arg0 : UpdatePersonRequest, arg1 : StreamObserver&lt;UpdatePersonResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deletePerson(arg0 : DeletePersonRequest, arg1 : StreamObserver&lt;DeletePersonResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addEmail(arg0 : AddEmailRequest, arg1 : StreamObserver&lt;AddEmailResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateEmail(arg0 : UpdateEmailRequest, arg1 : StreamObserver&lt;UpdateEmailResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteEmail(arg0 : DeleteEmailRequest, arg1 : StreamObserver&lt;DeleteEmailResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addPhone(arg0 : AddPhoneRequest, arg1 : StreamObserver&lt;AddPhoneResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updatePhone(arg0 : UpdatePhoneRequest, arg1 : StreamObserver&lt;UpdatePhoneResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deletePhone(arg0 : DeletePhoneRequest, arg1 : StreamObserver&lt;DeletePhoneResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addAddress(arg0 : AddAddressRequest, arg1 : StreamObserver&lt;AddAddressResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateAddress(arg0 : UpdateAddressRequest, arg1 : StreamObserver&lt;UpdateAddressResponse&gt;) </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteAddress(arg0 : DeleteAddressRequest, arg1 : StreamObserver&lt;DeleteAddressResponse&gt;) </font></td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.UpdateEmailRequest
-	c1058 [label=<<table title="com.clapi.protocol.UpdateEmailRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdateEmailRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> UpdateEmailRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + EMAIL_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.UpdateEmailRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.CheckCompatibilityRequest
-	c1046 [label=<<table title="com.clapi.protocol.CheckCompatibilityRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CheckCompatibilityRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> CheckCompatibilityRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + VERSION_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.CheckCompatibilityRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.DeleteAddressRequest
-	c1040 [label=<<table title="com.clapi.protocol.DeleteAddressRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeleteAddressRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeleteAddressRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.DeleteAddressRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.DeleteEmailRequest
-	c1070 [label=<<table title="com.clapi.protocol.DeleteEmailRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeleteEmailRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeleteEmailRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.DeleteEmailRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.DeletePersonRequest
-	c1060 [label=<<table title="com.clapi.protocol.DeletePersonRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeletePersonRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeletePersonRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.DeletePersonRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.WaitNotificationRequest
-	c1068 [label=<<table title="com.clapi.protocol.WaitNotificationRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/WaitNotificationRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> WaitNotificationRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.WaitNotificationRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.AddEmailRequest
-	c1050 [label=<<table title="com.clapi.protocol.AddEmailRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddEmailRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AddEmailRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + UID_PERSON_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + EMAIL_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.AddEmailRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.AddPersonRequest
-	c1072 [label=<<table title="com.clapi.protocol.AddPersonRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddPersonRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> AddPersonRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + FIRSTNAME_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + LASTNAME_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + IMAGEURL_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.AddPersonRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.GetVersionRequest
-	c1062 [label=<<table title="com.clapi.protocol.GetVersionRequest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/GetVersionRequest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> GetVersionRequest </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.GetVersionRequest&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.protocol.Notification
-	c1042 [label=<<table title="com.clapi.protocol.Notification" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/Notification.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Notification </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.clapi.protocol </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + TYPE_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + DATA_FIELD_NUMBER : int </td></tr>
-<tr><td align="left" balign="left"> + PARSER : com.google.protobuf.Parser&lt;com.clapi.protocol.Notification&gt; </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

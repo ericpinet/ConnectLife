@@ -9,20 +9,20 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.data.Characteristic
-	c347 [label=<<table title="com.clapi.data.Characteristic" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Characteristic.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Characteristic </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Characteristic.CharacteristicAccessMode
-	c348 [label=<<table title="com.clapi.data.Characteristic.CharacteristicAccessMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Characteristic.CharacteristicAccessMode.html">
+	c342 [label=<<table title="com.clapi.data.Characteristic.CharacteristicAccessMode" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Characteristic.CharacteristicAccessMode.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> CharacteristicAccessMode </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Characteristic NAVASSOC com.clapi.data.Characteristic.CharacteristicAccessMode
-	c347:p -> c348:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> READ_ONLY </td></tr>
+<tr><td align="left" balign="left"> WRITE_ONLY </td></tr>
+<tr><td align="left" balign="left"> READ_WRITE </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

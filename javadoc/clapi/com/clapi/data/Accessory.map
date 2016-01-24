@@ -1,8 +1,3 @@
 <map id="G" name="G">
-<area shape="rect" id="c161" href="../simulator/device/ServiceDefinition.html" title="com.clapi.simulator.device.ServiceDefinition" alt="" coords="106,11,235,47"/>
-<area shape="rect" id="c164" href="./Accessory.html" title="com.clapi.data.Accessory" alt="" coords="133,113,208,137"/>
-<area shape="rect" id="c162" href="./Room.html" title="com.clapi.data.Room" alt="" coords="279,17,331,41"/>
-<area shape="rect" id="c163" href="./Service.html" title="com.clapi.data.Service" alt="" coords="15,211,75,235"/>
-<area shape="rect" id="c165" href="./Accessory.AccessoryType.html" title="com.clapi.data.Accessory.AccessoryType" alt="" coords="120,203,221,242"/>
-<area shape="rect" id="c166" href="./Accessory.AccessoryProtocolType.html" title="com.clapi.data.Accessory.AccessoryProtocolType" alt="" coords="267,203,413,242"/>
+<area shape="rect" id="c158" href="./Accessory.html" title="com.clapi.data.Accessory" alt="" coords="15,11,1361,421"/>
 </map>

@@ -1,24 +1,5 @@
 <map id="G" name="G">
-<area shape="rect" id="c986" href="./ApiProcessor.html" title="com.connectlife.coreserver.apiserver.ApiProcessor" alt="" coords="375,121,569,167"/>
-<area shape="rect" id="c989" href="../environment/Environment.html" title="com.connectlife.coreserver.environment.Environment" alt="" coords="15,283,201,333"/>
-<area shape="rect" id="c1022" href="http://java.sun.com/j2se/1.4.2/docs/api/org/apache/logging/log4j/Logger.html" title="org.apache.logging.log4j.Logger" alt="" coords="245,283,363,333"/>
-<area shape="rect" id="c1023" href="http://java.sun.com/j2se/1.4.2/docs/api/io/grpc/stub/StreamObserver.html" title="io.grpc.stub.StreamObserver" alt="" coords="407,283,537,333"/>
-<area shape="rect" id="c1040" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeleteAddressRequest.html" title="com.clapi.protocol.DeleteAddressRequest" alt="" coords="581,271,1062,345"/>
-<area shape="rect" id="c1042" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/Notification.html" title="com.clapi.protocol.Notification" alt="" coords="1107,264,1523,352"/>
-<area shape="rect" id="c1044" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdatePhoneRequest.html" title="com.clapi.protocol.UpdatePhoneRequest" alt="" coords="1568,257,2045,359"/>
-<area shape="rect" id="c1046" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CheckCompatibilityRequest.html" title="com.clapi.protocol.CheckCompatibilityRequest" alt="" coords="2091,271,2597,345"/>
-<area shape="rect" id="c1048" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdateAddressRequest.html" title="com.clapi.protocol.UpdateAddressRequest" alt="" coords="2643,227,3128,389"/>
-<area shape="rect" id="c1050" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddEmailRequest.html" title="com.clapi.protocol.AddEmailRequest" alt="" coords="3173,257,3627,359"/>
-<area shape="rect" id="c1052" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/GetJsonDataRequest.html" title="com.clapi.protocol.GetJsonDataRequest" alt="" coords="3672,279,4144,337"/>
-<area shape="rect" id="c1054" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeletePhoneRequest.html" title="com.clapi.protocol.DeletePhoneRequest" alt="" coords="4189,271,4662,345"/>
-<area shape="rect" id="c1056" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdatePersonRequest.html" title="com.clapi.protocol.UpdatePersonRequest" alt="" coords="4707,249,5187,367"/>
-<area shape="rect" id="c1058" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/UpdateEmailRequest.html" title="com.clapi.protocol.UpdateEmailRequest" alt="" coords="5232,257,5704,359"/>
-<area shape="rect" id="c1060" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeletePersonRequest.html" title="com.clapi.protocol.DeletePersonRequest" alt="" coords="5749,271,6225,345"/>
-<area shape="rect" id="c1062" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/GetVersionRequest.html" title="com.clapi.protocol.GetVersionRequest" alt="" coords="6269,279,6731,337"/>
-<area shape="rect" id="c1064" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddPhoneRequest.html" title="com.clapi.protocol.AddPhoneRequest" alt="" coords="6776,257,7235,359"/>
-<area shape="rect" id="c1066" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddAddressRequest.html" title="com.clapi.protocol.AddAddressRequest" alt="" coords="7279,227,7747,389"/>
-<area shape="rect" id="c1068" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/WaitNotificationRequest.html" title="com.clapi.protocol.WaitNotificationRequest" alt="" coords="7792,279,8277,337"/>
-<area shape="rect" id="c1070" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/DeleteEmailRequest.html" title="com.clapi.protocol.DeleteEmailRequest" alt="" coords="8322,271,8790,345"/>
-<area shape="rect" id="c1072" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/AddPersonRequest.html" title="com.clapi.protocol.AddPersonRequest" alt="" coords="8835,257,9296,359"/>
-<area shape="rect" id="c1017" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html" title="com.clapi.protocol.CLApiGrpc.CLApi" alt="" coords="401,11,543,61"/>
+<area shape="rect" id="c925" href="./ApiProcessor.html" title="com.connectlife.coreserver.apiserver.ApiProcessor" alt="" coords="225,401,1005,762"/>
+<area shape="rect" id="c956" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html" title="com.clapi.protocol.CLApiGrpc.CLApi" alt="" coords="15,11,697,341"/>
+<area shape="rect" id="c957" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Observer.html" title="java.util.Observer" alt="" coords="741,131,1006,221"/>
 </map>

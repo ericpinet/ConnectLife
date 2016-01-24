@@ -9,29 +9,37 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.connectlife.coreserver.environment.device.DeviceMngr
-	c1684 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../device/DeviceMngr.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DeviceMngr </td></tr>
-<tr><td align="center" balign="center"><font point-size="7.0"> com.connectlife.coreserver.environment.device </font></td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.connectlife.coreserver.environment.discover.DiscoveryService
-	c1687 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiscoveryService.html">
+	c1560 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiscoveryService.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DiscoveryService </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + start() </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + stop() </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addListner(_listner : DiscoveryListner) </font></td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.discover.DiscoveryJmdns
-	c1688 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryJmdns.html">
+	c1561 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryJmdns.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DiscoveryJmdns </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + DiscoveryJmdns() </td></tr>
+<tr><td align="left" balign="left"> + start() </td></tr>
+<tr><td align="left" balign="left"> + stop() </td></tr>
+<tr><td align="left" balign="left"> + addListner(_listner : DiscoveryListner) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.discover.DiscoveryJmdns implements com.connectlife.coreserver.environment.discover.DiscoveryService
-	c1687:p -> c1688:p [dir=back,arrowtail=empty,style=dashed];
-	// com.connectlife.coreserver.environment.device.DeviceMngr NAVASSOC com.connectlife.coreserver.environment.discover.DiscoveryService
-	c1684:p -> c1687:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+	c1560:p -> c1561:p [dir=back,arrowtail=empty,style=dashed];
 }
 

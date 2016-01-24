@@ -9,28 +9,23 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.data.Person
-	c433 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Person </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Email
-	c440 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Email.html">
+	c434 [label=<<table title="com.clapi.data.Email" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Email.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Email </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Email.EmailType
-	c441 [label=<<table title="com.clapi.data.Email.EmailType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Email.EmailType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> EmailType </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Email
-	c433:p -> c440:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Email NAVASSOC com.clapi.data.Email.EmailType
-	c440:p -> c441:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Email(uid : String, email : String, type : Email.EmailType) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getEmail() : String </td></tr>
+<tr><td align="left" balign="left"> + setEmail(email : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Email.EmailType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Email.EmailType) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

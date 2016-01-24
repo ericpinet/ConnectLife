@@ -10,26 +10,25 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.clapi.data.Home
-	c302 [label=<<table title="com.clapi.data.Home" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Home.html">
+	c296 [label=<<table title="com.clapi.data.Home" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Home.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Home </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Zone
-	c307 [label=<<table title="com.clapi.data.Zone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Zone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Zone </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Data
-	c312 [label=<<table title="com.clapi.data.Data" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Data.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Data </td></tr>
+<tr><td align="left" balign="left"> + Home(uid : String, label : String, zones : List&lt;Zone&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Home(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getZones() : List&lt;Zone&gt; </td></tr>
+<tr><td align="left" balign="left"> + setZones(zones : List&lt;Zone&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Home NAVASSOC com.clapi.data.Zone
-	c302:p -> c307:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Data NAVASSOC com.clapi.data.Home
-	c312:p -> c302:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

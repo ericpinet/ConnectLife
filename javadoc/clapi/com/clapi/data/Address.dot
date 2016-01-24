@@ -9,28 +9,32 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.data.Person
-	c477 [label=<<table title="com.clapi.data.Person" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Person.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Person </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Address
-	c486 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Address.html">
+	c480 [label=<<table title="com.clapi.data.Address" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Address.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Address </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Address.AddressType
-	c487 [label=<<table title="com.clapi.data.Address.AddressType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Address.AddressType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
-<tr><td align="center" balign="center"> AddressType </td></tr>
+<tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Person NAVASSOC com.clapi.data.Address
-	c477:p -> c486:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Address NAVASSOC com.clapi.data.Address.AddressType
-	c486:p -> c487:p [taillabel="", label="", headlabel="", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Address(uid : String, type : Address.AddressType, street : String, city : String, region : String, zipcode : String, country : String) </td></tr>
+<tr><td align="left" balign="left"> + Address(uid : String, type : Address.AddressType, street : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getType() : Address.AddressType </td></tr>
+<tr><td align="left" balign="left"> + setType(type : Address.AddressType) </td></tr>
+<tr><td align="left" balign="left"> + getStreet() : String </td></tr>
+<tr><td align="left" balign="left"> + setStreet(street : String) </td></tr>
+<tr><td align="left" balign="left"> + getCity() : String </td></tr>
+<tr><td align="left" balign="left"> + setCity(city : String) </td></tr>
+<tr><td align="left" balign="left"> + getRegion() : String </td></tr>
+<tr><td align="left" balign="left"> + setRegion(region : String) </td></tr>
+<tr><td align="left" balign="left"> + getZipcode() : String </td></tr>
+<tr><td align="left" balign="left"> + setZipcode(zipcode : String) </td></tr>
+<tr><td align="left" balign="left"> + getCountry() : String </td></tr>
+<tr><td align="left" balign="left"> + setCountry(country : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

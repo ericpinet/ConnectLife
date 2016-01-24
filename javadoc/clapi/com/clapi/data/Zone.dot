@@ -9,27 +9,26 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.clapi.data.Room
-	c404 [label=<<table title="com.clapi.data.Room" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Room.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Room </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Home
-	c412 [label=<<table title="com.clapi.data.Home" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Home.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> Home </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
 	// com.clapi.data.Zone
-	c417 [label=<<table title="com.clapi.data.Zone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Zone.html">
+	c411 [label=<<table title="com.clapi.data.Zone" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Zone.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Zone </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
-	// com.clapi.data.Home NAVASSOC com.clapi.data.Zone
-	c412:p -> c417:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
-	// com.clapi.data.Zone NAVASSOC com.clapi.data.Room
-	c417:p -> c404:p [taillabel="", label="", headlabel="*", fontname="Helvetica", fontcolor="black", fontsize=10.0, color="black", arrowhead=open];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Zone(uid : String, label : String, rooms : List&lt;Room&gt;, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + Zone(uid : String, label : String) </td></tr>
+<tr><td align="left" balign="left"> + getUid() : String </td></tr>
+<tr><td align="left" balign="left"> + setUid(uid : String) </td></tr>
+<tr><td align="left" balign="left"> + getLabel() : String </td></tr>
+<tr><td align="left" balign="left"> + setLabel(label : String) </td></tr>
+<tr><td align="left" balign="left"> + getRooms() : List&lt;Room&gt; </td></tr>
+<tr><td align="left" balign="left"> + setRooms(rooms : List&lt;Room&gt;) </td></tr>
+<tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
+<tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

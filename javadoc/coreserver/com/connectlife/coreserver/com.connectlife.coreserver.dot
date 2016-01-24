@@ -14,33 +14,85 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApplicationStateMachine </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ApplicationStateMachine() </td></tr>
+<tr><td align="left" balign="left"> + start() </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.ApplicationStateMachine.States
 	c128 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine.States" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationStateMachine.States.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> States </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> WAITING </td></tr>
+<tr><td align="left" balign="left"> EXECUTE_TRIGGER </td></tr>
+<tr><td align="left" balign="left"> EXECUTE_USER_ACTION </td></tr>
+<tr><td align="left" balign="left"> TERMINATED </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.ApplicationStateMachine.Events
 	c129 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine.Events" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationStateMachine.Events.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Events </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> onTrigger </td></tr>
+<tr><td align="left" balign="left"> onUserAction </td></tr>
+<tr><td align="left" balign="left"> onEndExecuteTrigger </td></tr>
+<tr><td align="left" balign="left"> onEndExecuteUserAction </td></tr>
+<tr><td align="left" balign="left"> onCloseApp </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.ApplicationInject
 	c130 [label=<<table title="com.connectlife.coreserver.ApplicationInject" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ApplicationInject.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApplicationInject </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + ApplicationInject() </td></tr>
+<tr><td align="left" balign="left"> # configure() </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.Application
 	c131 [label=<<table title="com.connectlife.coreserver.Application" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Application.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Application </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + Application(_config : Config, _env : Environment, _api : Api, _console : Console, _gpio : Gpio) </td></tr>
+<tr><td align="left" balign="left"> + main(args : String[]) </td></tr>
+<tr><td align="left" balign="left"> + getApp() : Application </td></tr>
+<tr><td align="left" balign="left"> + getBasePath() : String </td></tr>
+<tr><td align="left" balign="left"> + isRunning() : boolean </td></tr>
+<tr><td align="left" balign="left"> + run() </td></tr>
+<tr><td align="left" balign="left"> + startup() </td></tr>
+<tr><td align="left" balign="left"> + startupTest() </td></tr>
+<tr><td align="left" balign="left"> + shutdown() </td></tr>
+<tr><td align="left" balign="left"> + getConfig() : Config </td></tr>
+<tr><td align="left" balign="left"> + getEnvironment() : Environment </td></tr>
+<tr><td align="left" balign="left"> + getApi() : Api </td></tr>
+<tr><td align="left" balign="left"> + getConsole() : Console </td></tr>
+<tr><td align="left" balign="left"> + update(o : Observable, arg : Object) </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.Consts
 	c132 [label=<<table title="com.connectlife.coreserver.Consts" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Consts.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
@@ -50,6 +102,9 @@ digraph G {
 <tr><td align="left" balign="left"> + APP_NAME : String </td></tr>
 <tr><td align="left" balign="left"> + APP_VERSION : String </td></tr>
 		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=9.0];
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
