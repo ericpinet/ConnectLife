@@ -39,6 +39,7 @@ public class DeviceJson implements Device {
 	 * Default constructor.
 	 * 
 	 * @param _definition Service definition of the service.
+	 * @param _service_info Service information from JmDns
 	 */
 	public DeviceJson(ServiceDefinition _definition, ServiceInfo _service_info){
 		m_service_definition = _definition;
@@ -84,7 +85,7 @@ public class DeviceJson implements Device {
 	 * Synchronize the device  with the application environment. 
 	 * 
 	 * @return True if the device is correctly synchronized with the application environment.
-	 * @see com.connectlife.coreserver.environment.device.Device#sync()
+	 * @see com.connectlife.coreserver.environment.device.Device#synchronize()
 	 */
 	@Override
 	public boolean synchronize() {

@@ -508,9 +508,9 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
-	 * Synchronize the accessory in the environment.<br>
-	 * <li>If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)</li>
-	 * <li>If this accessory wasn't in the environment, this function return null.</li>
+	 * Synchronize the accessory in the environment.
+	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
+	 * If this accessory wasn't in the environment, this function return null.
 	 * 
 	 * @param _accessory Accessory to synchronize with the environment.
 	 * @return Accessory updated with the UID if it's in the environment, null if the accessory isn't present in the environment.
