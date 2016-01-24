@@ -327,7 +327,7 @@ public class MainWindow implements NotificationListener {
 		lightcoldim.startServices();				
 		devices.addElement(lightcoldim);
 		
-		lblDevice.setText("Device listen");
+		lblDevice.setText("Device listen.");
 		
 		// start accessory
 		shell.getDisplay().asyncExec( new startAccessory(devices,  shell) );
@@ -343,6 +343,7 @@ public class MainWindow implements NotificationListener {
 			it.next().stopServices();
 		}
 		devices.removeAllElements();
+		lblDevice.setText("Device stopted.");
 	}
 	
 	
