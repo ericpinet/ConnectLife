@@ -1,5 +1,5 @@
 /**
- *  FindHelper.java
+ *  FindProcessor.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-01-23.
@@ -11,6 +11,7 @@ package com.connectlife.coreserver.environment;
 import java.util.Iterator;
 
 import com.clapi.data.*;
+import com.connectlife.coreserver.Application;
 
 /**
  * Helper the work with environment. Useful function to find element in the environment.
@@ -18,28 +19,27 @@ import com.clapi.data.*;
  * @author ericpinet
  * <br> 2016-01-23
  */
-public abstract class FindHelper {
+public abstract class FindProcessor {
 	
 	/**
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
-	private FindHelper (){
+	private FindProcessor (){
 	}
 	
 	/**
 	 * Find the accessory with this serial number in the environment.
 	 * 
-	 * @param _env Environment where to found.
 	 * @param _serial_number Serial number to be found.
 	 * @return Accessory if found. Null if not found.
 	 */
-	public static Accessory findAccessoryBySerialNumber(Environment _env, String _serial_number){
+	public static Accessory findAccessoryBySerialNumber(String _serial_number){
 		Accessory ret_acc = null;
 		
 		boolean notfound = true;
 		
 		// iterate in home
-		Iterator<Home> ihome = _env.getData().getHomes().iterator();
+		Iterator<Home> ihome = Application.getApp().getEnvironment().getData().getHomes().iterator();
 		while(ihome.hasNext() && notfound){
 			Home home = ihome.next();
 			

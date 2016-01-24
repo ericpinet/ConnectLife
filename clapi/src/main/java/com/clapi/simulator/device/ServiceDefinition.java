@@ -22,22 +22,22 @@ public class ServiceDefinition {
 	/**
 	 * Service IP address.
 	 */
-	public String m_ip_address;
+	private String m_ip_address;
 	
 	/**
 	 * Service hostname.
 	 */
-	public String m_hostname;
+	private String m_hostname;
 	
 	/**
 	 * Service TCP/IP port.
 	 */
-	public int m_port;
+	private int m_port;
 	
 	/**
 	 * Accessory definition
 	 */
-	public Accessory m_accessory;
+	private Accessory m_accessory;
 
 	/**
 	 * Default constructor.
@@ -54,5 +54,63 @@ public class ServiceDefinition {
 		this.m_port = _port;
 		this.m_accessory = _accessory;
 	}
+
+	/**
+	 * @return the m_ip_address
+	 */
+	public String getIpAddress() {
+		return m_ip_address;
+	}
+
+	/**
+	 * @param m_ip_address the m_ip_address to set
+	 */
+	public void setIpAddress(String _ip_address) {
+		this.m_ip_address = _ip_address;
+	}
+
+	/**
+	 * @return the m_hostname
+	 */
+	public String getHostname() {
+		return m_hostname;
+	}
+
+	/**
+	 * @param m_hostname the m_hostname to set
+	 */
+	public void setHostname(String _hostname) {
+		this.m_hostname = _hostname;
+	}
+
+	/**
+	 * @return the m_port
+	 */
+	public int getPort() {
+		return m_port;
+	}
+
+	/**
+	 * @param m_port the m_port to set
+	 */
+	public void setPort(int _port) {
+		this.m_port = _port;
+	}
+
+	/**
+	 * @return the m_accessory
+	 */
+	public Accessory getAccessory() {
+		return m_accessory;
+	}
+
+	/**
+	 * @param m_accessory the m_accessory to set
+	 */
+	public void setAccessory(Accessory _accessory) {
+		this.m_accessory = _accessory;
+	}
+	
+	
 }
 

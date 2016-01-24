@@ -34,18 +34,34 @@ public interface Device {
 	public ServiceInfo getServiceInfo();
 	
 	/**
-	 * Indicate if the device is synchronized with the environment of the application.
-	 * If not, you can run the sync().
+	 * Indicate if the device is register in the environment of the application.
+	 * If not, you can run the register().
+	 * 
+	 * @return True if the device is correctly register with the application environment. 
+	 */
+	public boolean isRegister();
+	
+	/**
+	 * Register the device  with the application environment. 
+	 * 
+	 * @return True if the device is correctly register with the application environment.
+	 */
+	public boolean register();
+	
+	/**
+	 * Unregister the device  with the application environment. 
+	 * If device is unreachable on the network the unregister() will be call. 
+	 * 
+	 * @return True if the device is correctly unregister with the application environment.
+	 */
+	public boolean unregister();
+
+	/**
+	 *  Indicate if the device is synchronized with the environment of the application.
+	 * If not, you can run the register().
 	 * 
 	 * @return True if the device is correctly synchronized with the application environment. 
 	 */
-	public boolean isSync();
-	
-	/**
-	 * Synchronize the device  with the application environment. 
-	 * 
-	 * @return True if the device is correctly synchronized with the application environment.
-	 */
-	public boolean synchronize();
+	boolean isSyncronized();
 
 }

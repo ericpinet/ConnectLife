@@ -94,9 +94,9 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	private String m_path;
 	
 	/**
-	 * Service manager of the accessories in the environment
+	 * Device manager of the accessories in the environment
 	 */
-	private DeviceManager m_service_manager;
+	private DeviceManager m_device_manager;
 	
 	/**
 	 * Default constructor of the environment.
@@ -105,7 +105,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 */
 	@Inject
 	public EnvironmentJsonFile(DeviceManager _service){
-		m_service_manager = _service;
+		m_device_manager = _service;
 		m_is_loaded = false;
 		m_is_saved = false;
 		m_isInit = false;
@@ -177,9 +177,9 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 			}
 		}
 		
-		// Init the service manager if all is start correctly.
+		// Init the device manager if all is start correctly.
 		if(true == ret_val){
-			ret_val = m_service_manager.init();
+			ret_val = m_device_manager.init();
 			
 			if(true == ret_val){
 				m_logger.info("Initialization completed.");
@@ -224,6 +224,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * UnInitialize the EnvironmentJsonFile. Return in empty state ready to initialize again.
 	 */
 	public void unInit() {
+		
 		m_logger.info("UnInitialization in progress ...");
 		
 		if( false == isSaved() ){
@@ -231,8 +232,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 			saveEnvironment(m_path, ENV_DATA_FILENAME);
 		}
 		
-		if(null != m_service_manager){
-			m_service_manager.unInit();
+		if(null != m_device_manager){
+			m_device_manager.unInit();
 		}
 
 		m_logger.info("UnInitialization completed.");
@@ -336,7 +337,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 			
 			// prepare the data to save.
 			// remove not valuable field to save.
-			Data data_to_save = SaveHelper.prepareSave(this);
+			Data data_to_save = SaveProcessor.prepareSave(this);
 		
 			// convert to json.
 			Gson gson = new Gson();
@@ -511,28 +512,4 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		environmentChange();
 		return uid;
 	}
-
-	/**
-	 * Synchronize the accessory in the environment.
-	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
-	 * If this accessory wasn't in the environment, this function return null.
-	 * 
-	 * @param _accessory Accessory to synchronize with the environment.
-	 * @return Accessory updated with the UID if it's in the environment, null if the accessory isn't present in the environment.
-	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
-	 */
-	@Override
-	public Accessory synchronizeAccessory(Accessory _accessory) {
-
-		// find the accessory by the serial number.
-		Accessory accessory = FindHelper.findAccessoryBySerialNumber(this, _accessory.getSerialnumber());
-		
-		if(null != accessory){
-			accessory.setRegister(true);
-		}
-
-		return accessory;
-	}
-
-	
 }
