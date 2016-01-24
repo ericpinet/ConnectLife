@@ -8,8 +8,10 @@ jdk:
 - oraclejdk8
 os:
 - linux
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y graphviz
 script:
-- apt-get install graphviz
 - cd clapi
 #- mvn verify
 #- mvn compile
