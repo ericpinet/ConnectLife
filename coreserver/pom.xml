@@ -157,7 +157,7 @@
             <artifactId>doclet</artifactId>
             <version>5.1</version>
           </docletArtifact>
-          <additionalparam>-views</additionalparam>
+          <additionalparam>-all -view -views</additionalparam>
           <useStandardDocletOptions>true</useStandardDocletOptions>
         </configuration>
       </plugin>

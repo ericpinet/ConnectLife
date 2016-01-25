@@ -24,9 +24,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.clapi.data.Data;
+import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.DeviceProcessor;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
+import com.connectlife.coreserver.environment.FindProcessor;
+import com.connectlife.coreserver.environment.SaveProcessor;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -252,6 +256,112 @@ public class EnvironmentTest implements Observer {
 		
 		// delete env directory and file
 		deleteEnvDirectory();
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindAccessorySerialNumber() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test find a accessory valid
+		Accessory accessory = FindProcessor.findAccessoryBySerialNumber("PL001-100-10009");
+		assertTrue(null != accessory);
+		
+		// test find a accessory invalid
+		Accessory accessory2 = FindProcessor.findAccessoryBySerialNumber("XXXXXXXX");
+		assertTrue(null == accessory2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testSaveProcessor() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test save processor
+		Data data = SaveProcessor.prepareSave(env);
+		assertTrue(null != data);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testSynchronizeDevice() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test synchronize accessory
+		Accessory accessory = DeviceProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		assertTrue(accessory.isRegister());
+		
+		// test synchronize accessory
+		Accessory invalid = CreateTestData.getLightTest();
+		invalid.setSerialnumber("XXXXXXXX");
+		Accessory accessory2 = DeviceProcessor.synchronizeAccessory(invalid);
+		assertTrue(null == accessory2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testUnsynchronizeDevice() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test synchronize accessory
+		Accessory accessory = DeviceProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		assertTrue(accessory.isRegister());
+		
+		// test unsynchronize
+		accessory = DeviceProcessor.unsynchronizeAccessory(CreateTestData.getLightTest());
+		assertFalse(accessory.isRegister());
+		
+		// test synchronize accessory
+		accessory = DeviceProcessor.unsynchronizeAccessory(accessory);
+		assertFalse(accessory.isRegister());
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());

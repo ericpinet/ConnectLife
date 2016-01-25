@@ -154,6 +154,7 @@ public class ConsoleSSH implements Console {
 			
 			try {
 				m_sshd.stop(true);
+				m_isInit = false;
 				
 				m_logger.info("Uninitialization completed.");
 				
