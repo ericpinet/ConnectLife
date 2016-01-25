@@ -158,6 +158,8 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			// remove all services registered in the manager
 			m_devices.clear();
 			
+			m_isInit = false;
+			
 			m_logger.info("UnInitialization completed.");
 		}
 		else{

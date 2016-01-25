@@ -120,5 +120,30 @@ public class CreateTestData {
 		
 		return ret_env;
 	}
+	
+	public static Accessory getLightTest(){
+		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		List<Characteristic> characteristics = new ArrayList<Characteristic>();
+		characteristics.add(boolean_light);
+		characteristics.add(dimmable_light);
+		
+		
+		Service dimmable_light_service = new Service(UIDGenerator.getUID(), "Light", characteristics);
+		List<Service> services = new ArrayList<Service>();
+		services.add(dimmable_light_service);
+		
+		Accessory light_leving = new Accessory(	UIDGenerator.getUID(),
+												"Light",
+												"Philips",
+												"100w",
+												"PL001-100-10009",
+												services,
+												"",
+												AccessoryType.LIGHT_COLORED_DIMMABLE,
+												AccessoryProtocolType.JSON_SIMULATION);
+		
+		return light_leving;
+	}
 
 }
