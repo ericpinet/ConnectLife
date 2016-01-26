@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.environment;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Room;
 
 /**
  * Helper the work with environment. Useful function to manage device in the environment.
@@ -22,6 +23,19 @@ public abstract class DeviceProcessor {
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
 	public void FindProcessor (){
+	}
+	
+	/**
+	 * Register the accessory and link with the room.
+	 * 
+	 * @param _accessory Accessory to register in the application environment.
+	 * @param _room Room to link the accessory.
+	 * @return True if the register is completed.
+	 */
+	public static boolean registerAccessory(Accessory _accessory, Room _room){
+		boolean ret_val = false;
+		// TODO: Complete the register process.
+		return ret_val;
 	}
 	
 	/**
