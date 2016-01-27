@@ -11,6 +11,8 @@ package com.clapi.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.clapi.data.Email.EmailType;
+
 /**
  * Data
  * 
@@ -161,5 +163,45 @@ public class Data {
 			this.persons.remove(person);
 		}
 		return uid;
+	}
+	
+	/**
+	 * Add an email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the email of the person.
+	 * @return UID of the person.
+	 */
+	public String addEmail(String _uid, String _email, int _type)
+	{
+		Person person = this.getPerson(_uid);
+		if(person != null && _email != "")
+		{
+			Email email = new Email(_uid, _email, EmailType.values()[_type]);
+			person.addToEmails(email);
+		}
+		return _uid;
+	}
+	
+	/**
+	 * Update the email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the email of the person.
+	 * @return UID of the person.
+	 */
+	public String updateEmail(String _uid, String _email, int _type)
+	{
+		return "";
+	}
+	
+	/**
+	 * Delete an email of the person.
+	 * @param _uid   UID of the person.
+	 * @return UID of the person.
+	 */
+	public String deleteEmail(String _uid)
+	{
+		return "";
 	}
 }

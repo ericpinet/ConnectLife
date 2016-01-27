@@ -542,4 +542,40 @@ public class EnvironmentJsonFile extends Observable implements Environment, Disc
 		environmentChange();
 		return _uid;
 	}
+	
+	/**
+	 * Add the email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the email of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String addEmail(String _uid, String _email, int _type){
+		m_data.addEmail(_uid, _email, _type);
+		environmentChange();
+		return _uid;
+	}
+	
+	/**
+	 * Update an email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the mail of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String updateEmail(String _uid, String _email, int _type){
+		return _uid;
+	}
+	
+	/**
+	 * Delete the mail of the person.
+	 * @param _uid UID of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String deleteEmail(String _uid){
+		return _uid;
+	}
 }

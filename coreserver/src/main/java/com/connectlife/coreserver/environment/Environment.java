@@ -132,7 +132,32 @@ public interface Environment {
 	/**
 	 * Delete the person.
 	 * @param uid UID of the person.
-	 * @return
+	 * @return UID of the person.
 	 */
 	public String deletePerson(String uid);
+	
+	/**
+	 * Add the email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the email of the person.
+	 * @return UID of the person.
+	 */
+	public String addEmail(String _uid, String _email, int _type);
+	
+	/**
+	 * Update an email of the person.
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the mail of the person.
+	 * @return UID of the person.
+	 */
+	public String updateEmail(String _uid, String _email, int _type);
+	
+	/**
+	 * Delete the mail of the person.
+	 * @param _uid UID of the person.
+	 * @return UID of the person.
+	 */
+	public String deleteEmail(String _uid);
 }
