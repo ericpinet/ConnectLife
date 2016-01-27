@@ -15,6 +15,7 @@ See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.git
 
 1. [Developpement Environment Setup](https://github.com/ericpinet/ConnectLife/wiki/Developpement-Environment-Setup)
 2. [Raspberry PI](https://github.com/ericpinet/ConnectLife/wiki/Raspberry-PI)
+3. [Coreserver](https://github.com/ericpinet/ConnectLife/wiki/Coreserver)
 
 ## Requirements
 
