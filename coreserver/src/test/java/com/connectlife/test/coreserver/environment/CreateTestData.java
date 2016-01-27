@@ -93,7 +93,7 @@ public class CreateTestData {
 		accessories_leving.add(light_leving);
 		
 		// Create room
-		Room leving = new Room(UIDGenerator.getUID(), "Leving room");
+		Room leving = new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", "Leving room");
 		leving.setAccessories(accessories_leving);
 		
 		List<Room> rooms_first_floor = new ArrayList<Room>();

@@ -483,15 +483,15 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
-	 * @param firstname First name of the person.
-	 * @param lastname Last name of the person.
-	 * @param imageurl Url of the image of this person.
+	 * @param _firstname First name of the person.
+	 * @param _lastname Last name of the person.
+	 * @param _imageurl Url of the image of this person.
 	 * @return The uid of this new person.
 	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public String addPerson(String firstname, String lastname, String imageurl) {
-		Person person = new Person(UIDGenerator.getUID(), firstname, lastname, imageurl);
+	public String addPerson(String _firstname, String _lastname, String _imageurl) {
+		Person person = new Person(UIDGenerator.getUID(), _firstname, _lastname, _imageurl);
 		m_data.addToPersons(person);
 		environmentChange();
 		return person.getUid();

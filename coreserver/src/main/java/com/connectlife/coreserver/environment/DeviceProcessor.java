@@ -22,7 +22,7 @@ public abstract class DeviceProcessor {
 	/**
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
-	public void FindProcessor (){
+	private DeviceProcessor (){
 	}
 	
 	/**
@@ -30,12 +30,31 @@ public abstract class DeviceProcessor {
 	 * 
 	 * @param _accessory Accessory to register in the application environment.
 	 * @param _room Room to link the accessory.
-	 * @return True if the register is completed.
+	 * @throws Exception Exception when the register cannot be completed.
 	 */
-	public static boolean registerAccessory(Accessory _accessory, Room _room){
-		boolean ret_val = false;
-		// TODO: Complete the register process.
-		return ret_val;
+	public static void registerAccessory(Accessory _accessory, Room _room) throws Exception{
+
+		// check if the accessory is already register in a room
+		// find the accessory by the serial number.
+		Accessory accessory = FindProcessor.findAccessoryBySerialNumber(_accessory.getSerialnumber());
+		if(null == accessory){
+			// the accessory isn't register
+			// we can add it in the room
+			
+			Room room = FindProcessor.findRoomByUid(_room.getUid());
+			if(null != room){
+				// adding the accessory to the room and register.
+				_accessory.setRegister(true);
+				
+				
+			}
+			else{
+				throw new Exception("The accessory cannot be register. The room is unreacheble.");
+			}
+		}
+		else{
+			throw new Exception("The accessory is already register. Unregister the accessory before retry.");
+		}
 	}
 	
 	/**

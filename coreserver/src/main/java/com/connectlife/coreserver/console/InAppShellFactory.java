@@ -314,8 +314,8 @@ public class InAppShellFactory implements Factory {
                 response += SHELL_CMD_SET_CONFIG + " - Modify the configuration of the system.\n";
                 response += SHELL_CMD_RESTORE_FACTORY_CONFIG + " - Restore the factory configurations of the system.\n";
                 response += SHELL_CMD_OUTPUT_LOG + " - Output the log of the system.\n";
-                response += SHELL_CMD_REGISTER_ACCESSORY + "Register accessory in the environment.\n";
-                response += SHELL_CMD_UNREGISTER_ACCESSORY + "Unregister accessory from the environment.\n";
+                response += SHELL_CMD_REGISTER_ACCESSORY + " - Register accessory in the environment.\n";
+                response += SHELL_CMD_UNREGISTER_ACCESSORY + " - Unregister accessory from the environment.\n";
             }
             else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ALL_CONFIGS)){
             	// OUTPUT CONFIGS
