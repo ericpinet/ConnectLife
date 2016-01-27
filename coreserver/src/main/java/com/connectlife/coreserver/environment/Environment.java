@@ -120,7 +120,8 @@ public interface Environment {
 	public String addPerson(String firstname, String lastname, String imageurl);
 	
 	/**
-	 * Update the person in the data. 
+	 * Update the person in the data.
+	 *  
 	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname Last name of the person.

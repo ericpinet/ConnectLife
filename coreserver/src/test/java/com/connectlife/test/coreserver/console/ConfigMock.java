@@ -6,7 +6,7 @@
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.test.coreserver;
+package com.connectlife.test.coreserver.console;
 
 import java.util.List;
 
@@ -62,6 +62,17 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public ConfigItem getConfig(String _section, String _item) {
+		
+		if(_section.equals("CONSOLE") && _item.equals("TCPIP_PORT")){
+			return new ConfigItem(_section, _item, "0");
+		}
+		else if(_section.equals("CONSOLE") && _item.equals("ADMIN_USERNAME")){
+			return new ConfigItem(_section, _item, "admin");
+		}
+		else if(_section.equals("CONSOLE") && _item.equals("ADMIN_PASSWORD")){
+			return new ConfigItem(_section, _item, "admin");
+		}
+		
 		return null;
 	}
 

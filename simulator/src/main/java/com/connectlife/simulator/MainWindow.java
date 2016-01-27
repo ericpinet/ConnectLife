@@ -15,6 +15,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +32,8 @@ import com.clapi.data.*;
 import com.connectlife.simulator.device.Device;
 import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.DisposeEvent;
 
 /**
  * Main window of the simulator application.
@@ -51,7 +54,7 @@ public class MainWindow implements NotificationListener {
 	private Label lblStatus;
 	private Label lblDevice;
 	private CLApiClient client;
-	private Vector<Device> m_devices;
+	private Vector<Device> devices;
 	
 	private static final String HOST = "127.0.0.1";
 	
@@ -96,6 +99,25 @@ public class MainWindow implements NotificationListener {
 	    	per.open();
 		}
 	}
+	
+	/**
+	 * Start Accessory window.
+	 * 
+	 * @author ericpinet
+	 * <br> 2015-09-13
+	 */
+	static class startAccessory implements Runnable{
+		public List<Device> devices;
+		public Shell shell;
+		public startAccessory(List<Device> _devices, Shell _shell){
+			devices = _devices;
+			shell = _shell;
+		}
+		public void run(){
+			DeviceWindow accessory = new DeviceWindow(shell, 0, devices);
+			accessory.open();
+		}
+	}
 
 	/**
 	 * Launch the application.
@@ -131,10 +153,18 @@ public class MainWindow implements NotificationListener {
 	 */
 	protected void createContents() {
 		
-		m_devices = new Vector<Device>();
+		devices = new Vector<Device>();
 		
 		shell = new Shell();
-		shell.setSize(328, 255);
+		shell.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent e) {
+				Iterator <Device> it = devices.iterator();
+				while(it.hasNext()){
+					it.next().stopServices();
+				}
+			}
+		});
+		shell.setSize(328, 291);
 		shell.setText("ConnectLife - Simulator");
 		shell.setLayout(new GridLayout(2, false));
 		new Label(shell, SWT.NONE);
@@ -160,11 +190,7 @@ public class MainWindow implements NotificationListener {
 		btnConnect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				
-				lblStatus.setText("Connecting to ConnectLife ...");
-				
 				connectionWithServer();
-				
 			}
 		});
 		btnConnect.setText("Connect");
@@ -175,11 +201,7 @@ public class MainWindow implements NotificationListener {
 		btnDisconnect.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				
-				lblStatus.setText("Disconnect ...");
-				
 				disconnect();
-				
 			}
 		});
 		btnDisconnect.setText("Disconnect");
@@ -195,28 +217,22 @@ public class MainWindow implements NotificationListener {
 		btnCreateDevice.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				
-				/*
-				// Create the light
-				Light light = new Light("Light", "Philips", "Hue0", "122-1770", "");
-				light.startServices();				
-				m_devices.addElement(light);
-				
-				// Create the light dimmable
-				LightDimmable lightdim = new LightDimmable("LightDim", "Philips", "Hue1", "123-1772", "");
-				lightdim.startServices();				
-				m_devices.addElement(lightdim);
-				*/
-				// Create the light colored dimmable
-				LightColoredDimmable lightcoldim = new LightColoredDimmable("LightColorDim", "Philips", "Hue1", "122-2232", "");
-				lightcoldim.startServices();				
-				m_devices.addElement(lightcoldim);
-				
-				lblDevice.setText("Device listen");
+				createDevices();
 			}
 		});
 		btnCreateDevice.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
-		btnCreateDevice.setText("Create Device");
+		btnCreateDevice.setText("Create Devices");
+		new Label(shell, SWT.NONE);
+		
+		Button btnDeleteDevices = new Button(shell, SWT.NONE);
+		btnDeleteDevices.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				deleteDevices();
+			}
+		});
+		btnDeleteDevices.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		btnDeleteDevices.setText("Delete Devices");
 		new Label(shell, SWT.NONE);
 		
 		lblDevice = new Label(shell, SWT.NONE);
@@ -232,6 +248,7 @@ public class MainWindow implements NotificationListener {
 	 */
 	private void connectionWithServer(){
 		
+		lblStatus.setText("Connecting to ConnectLife ...");
 		try {
 			
 			if(client!=null){
@@ -277,6 +294,7 @@ public class MainWindow implements NotificationListener {
 	 */
 	private void disconnect(){
 		
+		lblStatus.setText("Disconnect ...");
 		try {
 			if(client != null){
 				client.shutdown();
@@ -288,6 +306,47 @@ public class MainWindow implements NotificationListener {
 		m_logger.info("Not connected.");
 		lblStatus.setText("Not connected.");
 	}
+	
+	/**
+	 * Create devices.
+	 */
+	private void createDevices(){
+		/*
+		// Create the light
+		Light light = new Light("Light", "Philips", "Hue0", "122-1770", "");
+		light.startServices();				
+		m_devices.addElement(light);
+		
+		// Create the light dimmable
+		LightDimmable lightdim = new LightDimmable("LightDim", "Philips", "Hue1", "123-1772", "");
+		lightdim.startServices();				
+		m_devices.addElement(lightdim);
+		*/
+		// Create the light colored dimmable
+		LightColoredDimmable lightcoldim = new LightColoredDimmable("LightColorDim", "Philips", "Hue1", "122-2232", "");
+		lightcoldim.startServices();				
+		devices.addElement(lightcoldim);
+		
+		lblDevice.setText("Device listen.");
+		
+		// start accessory
+		shell.getDisplay().asyncExec( new startAccessory(devices,  shell) );
+	}
+	
+	/**
+	 * Delete all devices.
+	 */
+	private void deleteDevices(){
+		
+		Iterator <Device> it = devices.iterator();
+		while(it.hasNext()){
+			it.next().stopServices();
+		}
+		devices.removeAllElements();
+		lblDevice.setText("Device stopted.");
+	}
+	
+	
 
 	/**
 	 * @param _notification

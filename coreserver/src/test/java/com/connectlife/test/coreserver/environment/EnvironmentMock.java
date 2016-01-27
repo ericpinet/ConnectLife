@@ -64,7 +64,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public boolean isLoaded() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -74,7 +73,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public boolean isSaved() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

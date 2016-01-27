@@ -8,6 +8,9 @@
  */
 package com.clapi.data;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Characteristic for an accessory service. 
  * 
@@ -93,6 +96,11 @@ public class Characteristic {
 	 * Data value.
 	 */
 	private String data;
+	
+	/**
+	 * list of possible value for Enum characteristic.
+	 */
+	private List<String> enum_item;
 
 	/**
 	 * Defautl constructor. 
@@ -112,6 +120,28 @@ public class Characteristic {
 		this.type = type;
 		this.event = event;
 		this.data = data;
+	}
+	
+	/**
+	 * Constructor for enum characteristic.
+	 * 
+	 * @param uid Uid of the characteristic.
+	 * @param label Label of the characteristic.
+	 * @param mode mode of the characteristic.
+	 * @param type type of the characteristic.
+	 * @param event event of the characteristic.
+	 * @param data of the characteristic.
+	 * @param enum_item Enum items of the characteristic.
+	 */
+	public Characteristic(String uid, String label, CharacteristicAccessMode mode, CharacteristicType type, CharacteristicEventType event, String data, List<String> enum_item) {
+		super();
+		this.uid = uid;
+		this.label = label;
+		this.mode = mode;
+		this.type = type;
+		this.event = event;
+		this.data = data;
+		this.enum_item = enum_item;
 	}
 
 	/**
@@ -327,6 +357,56 @@ public class Characteristic {
 		}
 		else{
 			throw new Exception("Characteristic isn't float format.");
+		}
+	}
+	
+	/**
+	 * Return the value of enum characteristic in string.
+	 * 
+	 * @return Return the data String value of enum.
+	 * @throws Exception When data type is invalid.
+	 */
+	public String getDataEnum() throws Exception {
+		String ret_val = "";
+		if(type == CharacteristicType.ENUM){
+			try{
+				ret_val = data;
+			}
+			catch(Exception e){
+				ret_val = "";
+			}
+		}
+		else{
+			throw new Exception("Characteristic isn't enum format.");
+		}
+		return ret_val;
+	}
+	
+	/**
+	 * Set the value of enum characteristic.
+	 * @param data the data to set
+	 * @throws Exception When data type is invalid. 
+	 */
+	public void setDataEnum(String data) throws Exception {
+		if(type == CharacteristicType.ENUM){
+			//check if the new value is a valid enum value
+			boolean found = false;
+			Iterator<String> it = enum_item.iterator();
+			while(found == false && it.hasNext()){
+				String current = it.next();
+				if(current.equalsIgnoreCase(data)){
+					found = true;
+					this.data = data;
+				}
+			}
+			
+			// throw exception if the set data was not a valid enum value
+			if(found==false){
+				throw new Exception("This characteristic isn't string format.");
+			}
+		}
+		else{
+			throw new Exception("This characteristic isn't string format.");
 		}
 	}
 	

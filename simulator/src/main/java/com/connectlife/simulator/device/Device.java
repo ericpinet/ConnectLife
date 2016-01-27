@@ -145,8 +145,21 @@ public abstract class Device extends Accessory {
         // start the thread
         thread.start();
 		
-		
 		return ret_val;
+	}
+	
+	/**
+	 * Stop services.
+	 */
+	public void stopServices(){
+		try {
+			m_server.stop();
+			m_jmdns.unregisterAllServices();
+			m_jmdns.close();
+		} catch (Exception e) {
+			m_logger.error(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -219,8 +232,8 @@ public abstract class Device extends Accessory {
 								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
 							}
 							else if (charac.getType() == CharacteristicType.ENUM){
-								//TODO: Support the Enum format for characteristic in simulation.
-								m_logger.error("Enum format not yet supported.");
+								charac.setDataEnum(_data);
+								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
 							}
 							
 							ret_val = true;

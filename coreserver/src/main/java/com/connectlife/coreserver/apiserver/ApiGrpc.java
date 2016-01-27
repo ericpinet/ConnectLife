@@ -137,6 +137,7 @@ public class ApiGrpc implements Api {
 	public void unInit() {
 		if(m_server!=null){
 			m_server.shutdown();
+			m_isInit = false;
 		}
 	}
 }

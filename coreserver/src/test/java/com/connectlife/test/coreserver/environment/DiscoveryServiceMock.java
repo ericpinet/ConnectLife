@@ -29,7 +29,6 @@ public class DiscoveryServiceMock implements DiscoveryService{
 	 */
 	@Override
 	public void start() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -39,7 +38,6 @@ public class DiscoveryServiceMock implements DiscoveryService{
 	 */
 	@Override
 	public void stop() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -49,7 +47,6 @@ public class DiscoveryServiceMock implements DiscoveryService{
 	 */
 	@Override
 	public void addListner(DiscoveryListner _listner) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -6,7 +6,7 @@
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.test.coreserver;
+package com.connectlife.test.coreserver.apiserver;
 
 import java.util.List;
 
@@ -62,6 +62,12 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public ConfigItem getConfig(String _section, String _item) {
+		if(_section.compareToIgnoreCase("APISERVER")==0 && _item.compareToIgnoreCase("TCPIP_PORT")==0){
+			return new ConfigItem("APISERVER","TCPIP_PORT","9006");
+		}
+		else if(_section.compareToIgnoreCase("APISERVER")==0 && _item.compareToIgnoreCase("TCPIP_PORT_SECURE")==0){
+			return new ConfigItem("APISERVER","TCPIP_PORT","9007");
+		}
 		return null;
 	}
 

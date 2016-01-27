@@ -144,15 +144,25 @@
   <build>
     <plugins>
       
+      <!-- Javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.10.3</version>
         <configuration>
           <excludePackageNames>com.connectlife.test</excludePackageNames>
+          <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+          <docletArtifact>
+            <groupId>org.umlgraph</groupId>
+            <artifactId>doclet</artifactId>
+            <version>5.1</version>
+          </docletArtifact>
+          <additionalparam>-all -view -views</additionalparam>
+          <useStandardDocletOptions>true</useStandardDocletOptions>
         </configuration>
       </plugin>
       
+      <!-- Coveralls -->
       <plugin>
 	    <groupId>org.jacoco</groupId>
 	    <artifactId>jacoco-maven-plugin</artifactId>

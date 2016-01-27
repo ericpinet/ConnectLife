@@ -19,7 +19,7 @@ import com.clapi.data.Email.EmailType;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Data {
+public class Data implements Cloneable {
 	
 	/**
 	 * Version of the data. Increment by one for each change.
@@ -116,6 +116,7 @@ public class Data {
 	
 	/**
 	 * Get the person by uid.
+	 * 
 	 * @param uid UID of the person.
 	 * @return The person.
 	 */
@@ -133,6 +134,7 @@ public class Data {
 	
 	/**
 	 * Update the person information.
+	 * 
 	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname  Last name of the person.

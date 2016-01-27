@@ -1,15 +1,15 @@
 /**
- *  EnvironmentInjectTest.java
+ *  DeviceInjectTest.java
  *  coreserver
  *
  *  Created by ericpinet on 2015-10-31.
  *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.test.coreserver.environment;
+package com.connectlife.test.coreserver.environment.device;
 
-import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.test.coreserver.environment.DiscoveryServiceMock;
 import com.google.inject.AbstractModule;
 
 /**
@@ -18,7 +18,7 @@ import com.google.inject.AbstractModule;
  * @author ericpinet
  * <br> 2015-10-31
  */
-public class EnvironmentInjectTest extends AbstractModule {
+public class DeviceInjectTest extends AbstractModule {
 
 	/**
 	 * 
@@ -27,7 +27,6 @@ public class EnvironmentInjectTest extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(DiscoveryService.class).to(DiscoveryServiceMock.class);
-		bind(DeviceManager.class).to(ServiceManagerMock.class);
 	}
 
 }

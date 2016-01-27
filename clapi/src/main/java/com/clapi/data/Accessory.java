@@ -95,6 +95,11 @@ public class Accessory {
 	 * Protocol type for this accessory.
 	 */
 	private AccessoryProtocolType protocoltype;
+	
+	/**
+	 * Register indicate that the accessory service is correctly connected with the server.
+	 */
+	private boolean isRegister;
 
 	/**
 	 * Default constructor.
@@ -122,6 +127,7 @@ public class Accessory {
 		this.imageurl = imageurl;
 		this.type = type;
 		this.protocoltype = protocoltype;
+		this.isRegister = false;
 	}
 	
 	/**
@@ -134,6 +140,7 @@ public class Accessory {
 		super();
 		this.uid = uid;
 		this.label = label;
+		this.isRegister = false;
 	}
 
 	
@@ -279,5 +286,19 @@ public class Accessory {
 	 */
 	public void setProtocoltype(AccessoryProtocolType protocoltype) {
 		this.protocoltype = protocoltype;
+	}
+
+	/**
+	 * @return the isRegister
+	 */
+	public boolean isRegister() {
+		return isRegister;
+	}
+
+	/**
+	 * @param isRegister the isRegister to set
+	 */
+	public void setRegister(boolean isRegister) {
+		this.isRegister = isRegister;
 	}
 }

@@ -24,7 +24,6 @@ public class GpioMock implements Gpio {
 	 */
 	@Override
 	public boolean init() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -34,7 +33,6 @@ public class GpioMock implements Gpio {
 	 */
 	@Override
 	public boolean isInit() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -44,7 +42,6 @@ public class GpioMock implements Gpio {
 	 */
 	@Override
 	public void unInit() {
-		// TODO Auto-generated method stub
 
 	}
 
