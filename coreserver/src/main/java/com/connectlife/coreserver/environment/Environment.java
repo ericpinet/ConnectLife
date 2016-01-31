@@ -29,6 +29,7 @@ public interface Environment {
 
 	/**
 	 * Return True is the environment data is correctly initialized.
+	 * 
 	 * @return True if the environment data is correctly initialized.
 	 */
 	public boolean isInit();
@@ -54,6 +55,7 @@ public interface Environment {
 	
 	/**
 	 * Return a JSON string representing the environment.
+	 * 
 	 * @return JSON string of the environment.
 	 */
 	public String getJsonEnvironment();
@@ -61,12 +63,14 @@ public interface Environment {
 	/**
 	 * Adds an observer to the set of observers for this object, provided that it 
 	 * is not the same as some observer already in the set.
+	 * 
 	 * @param _o Observer that want to be updated when the environment data was updated.
 	 */
 	public void addObserver(Observer _o);
 	
 	/**
 	 * Deletes an observer from the set of observers of this object.
+	 * 
 	 * @param _o Remove this observer from the environment data.
 	 */
 	public void deleteObserver(Observer _o);
@@ -78,6 +82,7 @@ public interface Environment {
 	
 	/**
 	 * Returns the number of observers of this Observable object.
+	 * 
 	 * @return Number of observers.
 	 */
 	public int countObservers();
@@ -93,12 +98,14 @@ public interface Environment {
 	 * If this object has changed, as indicated by the hasChanged method, then notify all 
 	 * of its observers and then call the clearChanged method to indicate that this object 
 	 * has no longer changed.
+	 * 
 	 * @param _obj Any object.
 	 */
 	public void notifyObservers(Object _obj);
 	
 	/**
 	 * Tests if this object has changed.
+	 * 
 	 * @return True if this object are changed.
 	 */
 	public boolean hasChanged();
@@ -139,6 +146,7 @@ public interface Environment {
 	
 	/**
 	 * Add the email of the person.
+	 * 
 	 * @param _uid   UID of the person.
 	 * @param _email Email of the person.
 	 * @param _type  Type of the email of the person.
@@ -148,6 +156,7 @@ public interface Environment {
 	
 	/**
 	 * Update an email of the person.
+	 * 
 	 * @param _uid   UID of the person.
 	 * @param _email Email of the person.
 	 * @param _type  Type of the mail of the person.
@@ -157,6 +166,7 @@ public interface Environment {
 	
 	/**
 	 * Delete the mail of the person.
+	 * 
 	 * @param _uid UID of the person.
 	 * @return UID of the person.
 	 */
