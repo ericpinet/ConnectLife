@@ -97,7 +97,7 @@ public class PersonWindow extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell();
-		shell.setSize(600, 431);
+		shell.setSize(600, 531);
 		shell.setText(getText());
 		shell.setLayout(new GridLayout(2, false));
 		
@@ -298,5 +298,51 @@ public class PersonWindow extends Dialog {
 			}
 		});
 		btnUpdate.setText("Update");
+		new Label(shell, SWT.NONE);
+		
+		Button button = new Button(shell, SWT.NONE);
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				try {
+					person.setFirstname(txtFirstname.getText());
+					person.setLastname(txtLastname.getText());
+					//person.setImageurl();
+					client.deletePerson(person.getUid());
+					
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
+					e1.printStackTrace();
+				}
+			}
+		});
+		button.setText("Delete");
+		new Label(shell, SWT.NONE);
+		
+		Button btnAddEmail = new Button(shell, SWT.NONE);
+		
+		btnAddEmail.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				try {
+					//client.AddEmail(person.getUid(), txtEmail., _type).deletePerson(person.getUid());
+					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, client);
+					emailWin.open();
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		btnAddEmail.setText("Add Email");
+		new Label(shell, SWT.NONE);
+		
+		Button btnUpdateEmail = new Button(shell, SWT.NONE);
+		btnUpdateEmail.setText("Update Email");
+		new Label(shell, SWT.NONE);
+		
+		Button btnDeleteEmail = new Button(shell, SWT.NONE);
+		btnDeleteEmail.setText("Delete Email");
 	}
 }

@@ -154,6 +154,36 @@ public class CLApiClient {
 	}
 	
 	/**
+	 * Delete the person.
+	 * @param uid UID of the person.
+	 * @return UID of the person.
+	 */
+	public String deletePerson(String uid){
+		DeletePersonRequest request = DeletePersonRequest.newBuilder()
+												   .setUid(uid)
+												   .build();
+		DeletePersonResponse response = m_blockingStub.deletePerson(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Add email of the person.
+	 * @param _uid UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type d'email of the person.
+	 * @return UID of the person.
+	 */
+	public String AddEmail(String _uid, String _email, int _type){
+		AddEmailRequest request = AddEmailRequest.newBuilder()
+												 .setUidPerson(_uid)
+												 .setEmail(_email)
+												 .setType(_type)
+												 .build();
+		AddEmailResponse response = m_blockingStub.addEmail(request);
+		return response.getUid();
+	}
+	
+	/**
 	 * Wait notification. When notification will arrived from server, 
 	 * the listener will be notify.
 	 */

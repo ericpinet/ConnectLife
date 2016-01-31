@@ -372,6 +372,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	
 	/**
 	 * Generate the base environment on new system. 
+	 * 
 	 * @return Environment object build for the base system.
 	 */
 	private Data generateBaseEnvironnment(){
@@ -483,6 +484,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
+	 * Add person in the environment.
+	 * 
 	 * @param firstname First name of the person.
 	 * @param lastname Last name of the person.
 	 * @param imageurl Url of the image of this person.
@@ -499,6 +502,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	
 	/**
 	 * Update the person in environment.
+	 * 
 	 * @param uid UID of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname  Last name of the person.
@@ -511,5 +515,58 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		m_data.updatePerson(uid, firstname, lastname, imageurl);
 		environmentChange();
 		return uid;
+	}
+	
+	/**
+	 * Delete the person.
+	 * 
+	 * @param _uid UID of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String deletePerson(String _uid)
+	{
+		m_data.deletePerson(_uid);
+		environmentChange();
+		return _uid;
+	}
+	
+	/**
+	 * Add the email of the person.
+	 * 
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the email of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String addEmail(String _uid, String _email, int _type){
+		m_data.addEmail(_uid, _email, _type);
+		environmentChange();
+		return _uid;
+	}
+	
+	/**
+	 * Update an email of the person.
+	 * 
+	 * @param _uid   UID of the person.
+	 * @param _email Email of the person.
+	 * @param _type  Type of the mail of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String updateEmail(String _uid, String _email, int _type){
+		return _uid;
+	}
+	
+	/**
+	 * Delete the mail of the person.
+	 * 
+	 * @param _uid UID of the person.
+	 * @return UID of the person.
+	 */
+	@Override
+	public String deleteEmail(String _uid){
+		return _uid;
 	}
 }
