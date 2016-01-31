@@ -515,7 +515,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	
 	/**
 	 * Delete the person.
-	 * @param uid UID of the person.
+	 * @param _uid UID of the person.
 	 * @return UID of the person.
 	 */
 	@Override
