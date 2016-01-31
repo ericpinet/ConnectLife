@@ -404,6 +404,10 @@ digraph G {
 <tr><td align="left" balign="left"> + addToHomes(home : Home) </td></tr>
 <tr><td align="left" balign="left"> + getPerson(uid : String) : Person </td></tr>
 <tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) </td></tr>
+<tr><td align="left" balign="left"> + deletePerson(_uid : String) : String </td></tr>
+<tr><td align="left" balign="left"> + addEmail(_uid : String, _email : String, _type : int) : String </td></tr>
+<tr><td align="left" balign="left"> + updateEmail(_uid : String, _email : String, _type : int) : String </td></tr>
+<tr><td align="left" balign="left"> + deleteEmail(_uid : String) : String </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

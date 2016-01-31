@@ -37,6 +37,8 @@ digraph G {
 <tr><td align="left" balign="left"> + getJsonData() : String </td></tr>
 <tr><td align="left" balign="left"> + addPerson(firstname : String, lastname : String, imageurl : String) : String </td></tr>
 <tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) : String </td></tr>
+<tr><td align="left" balign="left"> + deletePerson(uid : String) : String </td></tr>
+<tr><td align="left" balign="left"> + AddEmail(_uid : String, _email : String, _type : int) : String </td></tr>
 <tr><td align="left" balign="left"> + waitNotification() </td></tr>
 <tr><td align="left" balign="left"> + shutdown() </td></tr>
 		</table></td></tr>
