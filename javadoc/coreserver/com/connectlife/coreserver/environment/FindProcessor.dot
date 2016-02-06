@@ -18,6 +18,7 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + findRoomByUid(_uid : String) : Room </td></tr>
 <tr><td align="left" balign="left"> + findAccessoryBySerialNumber(_serial_number : String) : Accessory </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];

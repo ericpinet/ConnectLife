@@ -18,8 +18,7 @@ digraph G {
 <tr><td align="left" balign="left">  </td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + DeviceProcessor() </td></tr>
-<tr><td align="left" balign="left"> + FindProcessor() </td></tr>
+<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) </td></tr>
 <tr><td align="left" balign="left"> + synchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
 <tr><td align="left" balign="left"> + unsynchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
 		</table></td></tr>
