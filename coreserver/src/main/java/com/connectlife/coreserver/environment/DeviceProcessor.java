@@ -43,10 +43,12 @@ public abstract class DeviceProcessor {
 			
 			Room room = FindProcessor.findRoomByUid(_room.getUid());
 			if(null != room){
-				// adding the accessory to the room and register.
+				// Register the accessory and set a UID.
+				_accessory.setUid(UIDGenerator.getUID());
 				_accessory.setRegister(true);
 				
-				
+				// Adding the accessory in the room.
+				room.getAccessories().add(_accessory);
 			}
 			else{
 				throw new Exception("The accessory cannot be register. The room is unreacheble.");

@@ -203,8 +203,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
+		String uid = m_environment.deletePerson(request.getUid());
+		DeletePersonResponse reply = DeletePersonResponse.newBuilder().setUid(uid).build();
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -213,8 +215,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
+		String uid = m_environment.addEmail(request.getUidPerson(), request.getEmail(), request.getType());
+		AddEmailResponse reply = AddEmailResponse.newBuilder().setUid(uid).build();
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
