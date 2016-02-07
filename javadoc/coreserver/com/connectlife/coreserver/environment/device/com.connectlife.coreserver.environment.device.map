@@ -1,7 +1,7 @@
 <map id="G" name="G">
-<area shape="rect" id="c265" href="./Device.html" title="com.connectlife.coreserver.environment.device.Device" alt="" coords="125,11,350,181"/>
-<area shape="rect" id="c269" href="./DeviceJson.html" title="com.connectlife.coreserver.environment.device.DeviceJson" alt="" coords="16,249,459,418"/>
-<area shape="rect" id="c266" href="./DeviceFactory.html" title="com.connectlife.coreserver.environment.device.DeviceFactory" alt="" coords="394,43,707,149"/>
-<area shape="rect" id="c267" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="752,27,949,165"/>
-<area shape="rect" id="c268" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="713,241,988,426"/>
+<area shape="rect" id="c272" href="./Device.html" title="com.connectlife.coreserver.environment.device.Device" alt="" coords="125,11,350,181"/>
+<area shape="rect" id="c276" href="./DeviceJson.html" title="com.connectlife.coreserver.environment.device.DeviceJson" alt="" coords="16,249,459,418"/>
+<area shape="rect" id="c273" href="./DeviceFactory.html" title="com.connectlife.coreserver.environment.device.DeviceFactory" alt="" coords="394,43,707,149"/>
+<area shape="rect" id="c274" href="./DeviceManager.html" title="com.connectlife.coreserver.environment.device.DeviceManager" alt="" coords="752,27,949,165"/>
+<area shape="rect" id="c275" href="./DeviceMngr.html" title="com.connectlife.coreserver.environment.device.DeviceMngr" alt="" coords="713,241,988,426"/>
 </map>

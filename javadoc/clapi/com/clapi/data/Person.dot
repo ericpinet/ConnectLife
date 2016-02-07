@@ -38,6 +38,7 @@ digraph G {
 <tr><td align="left" balign="left"> + addEmails(email : Email) </td></tr>
 <tr><td align="left" balign="left"> + addPhones(phone : Phone) </td></tr>
 <tr><td align="left" balign="left"> + addAddress(address : Address) </td></tr>
+<tr><td align="left" balign="left"> + updateInformation(_person : Person) </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }

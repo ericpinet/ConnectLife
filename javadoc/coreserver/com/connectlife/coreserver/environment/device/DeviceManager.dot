@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.device.DeviceManager
-	c1390 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceManager.html">
+	c1466 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceManager" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceManager.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DeviceManager </td></tr>
@@ -26,7 +26,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.device.DeviceMngr
-	c1391 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceMngr.html">
+	c1467 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceMngr" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceMngr.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeviceMngr </td></tr>
 		</table></td></tr>
@@ -45,6 +45,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.device.DeviceMngr implements com.connectlife.coreserver.environment.device.DeviceManager
-	c1390:p -> c1391:p [dir=back,arrowtail=empty,style=dashed];
+	c1466:p -> c1467:p [dir=back,arrowtail=empty,style=dashed];
 }
 

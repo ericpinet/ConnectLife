@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.tools.errormanagement.StdOutErrLog
-	c42 [label=<<table title="com.connectlife.coreserver.tools.errormanagement.StdOutErrLog" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StdOutErrLog.html">
+	c43 [label=<<table title="com.connectlife.coreserver.tools.errormanagement.StdOutErrLog" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./StdOutErrLog.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> StdOutErrLog </td></tr>
 		</table></td></tr>

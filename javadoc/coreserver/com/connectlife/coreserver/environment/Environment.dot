@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.Environment
-	c1053 [label=<<table title="com.connectlife.coreserver.environment.Environment" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Environment.html">
+	c1078 [label=<<table title="com.connectlife.coreserver.environment.Environment" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Environment.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Environment </td></tr>
@@ -34,17 +34,16 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + notifyObservers(_obj : Object) </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + hasChanged() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getData() : Data </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addPerson(_firstname : String, _lastname : String, _imageurl : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deletePerson(uid : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteEmail(_uid : String) : String </font></td></tr>
-<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + registerAccessory(_accessory : Accessory, _room : Room) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getFindProcessorReadOnly() : FindProcessor </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addPerson(_person : Person) : Person </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updatePerson(_person : Person) : Person </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + synchronizeAccessory(_accessory : Accessory) : Accessory </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unsynchronizeAccessory(_accessory : Accessory) : Accessory </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + registerAccessory(_accessory : Accessory, _room : Room) : Accessory </font></td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.EnvironmentJsonFile
-	c1056 [label=<<table title="com.connectlife.coreserver.environment.EnvironmentJsonFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EnvironmentJsonFile.html">
+	c1082 [label=<<table title="com.connectlife.coreserver.environment.EnvironmentJsonFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EnvironmentJsonFile.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EnvironmentJsonFile </td></tr>
 		</table></td></tr>
@@ -59,18 +58,17 @@ digraph G {
 <tr><td align="left" balign="left"> + isSaved() : boolean </td></tr>
 <tr><td align="left" balign="left"> + unInit() </td></tr>
 <tr><td align="left" balign="left"> + getDeviceManager() : DeviceManager </td></tr>
+<tr><td align="left" balign="left"> + getFindProcessorReadOnly() : FindProcessor </td></tr>
 <tr><td align="left" balign="left"> + getJsonEnvironment() : String </td></tr>
 <tr><td align="left" balign="left"> + getData() : Data </td></tr>
-<tr><td align="left" balign="left"> + addPerson(_firstname : String, _lastname : String, _imageurl : String) : String </td></tr>
-<tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) : String </td></tr>
-<tr><td align="left" balign="left"> + deletePerson(_uid : String) : String </td></tr>
-<tr><td align="left" balign="left"> + addEmail(_uid : String, _email : String, _type : int) : String </td></tr>
-<tr><td align="left" balign="left"> + updateEmail(_uid : String, _email : String, _type : int) : String </td></tr>
-<tr><td align="left" balign="left"> + deleteEmail(_uid : String) : String </td></tr>
-<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) : String </td></tr>
+<tr><td align="left" balign="left"> + addPerson(_person : Person) : Person </td></tr>
+<tr><td align="left" balign="left"> + updatePerson(_person : Person) : Person </td></tr>
+<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) : Accessory </td></tr>
+<tr><td align="left" balign="left"> + synchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
+<tr><td align="left" balign="left"> + unsynchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.EnvironmentJsonFile implements com.connectlife.coreserver.environment.Environment
-	c1053:p -> c1056:p [dir=back,arrowtail=empty,style=dashed];
+	c1078:p -> c1082:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.Config
-	c1981 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Config.html">
+	c2071 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Config.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Config </td></tr>
@@ -29,7 +29,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigSqlite
-	c1983 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigSqlite.html">
+	c2073 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigSqlite.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigSqlite </td></tr>
 		</table></td></tr>
@@ -48,6 +48,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.config.ConfigSqlite implements com.connectlife.coreserver.config.Config
-	c1981:p -> c1983:p [dir=back,arrowtail=empty,style=dashed];
+	c2071:p -> c2073:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.SqliteSettingsApp
-	c399 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
+	c409 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SqliteSettingsApp </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigItem
-	c400 [label=<<table title="com.connectlife.coreserver.config.ConfigItem" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigItem.html">
+	c410 [label=<<table title="com.connectlife.coreserver.config.ConfigItem" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigItem.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigItem </td></tr>
 		</table></td></tr>
@@ -44,7 +44,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigItem.ConfigType
-	c401 [label=<<table title="com.connectlife.coreserver.config.ConfigItem.ConfigType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigItem.ConfigType.html">
+	c411 [label=<<table title="com.connectlife.coreserver.config.ConfigItem.ConfigType" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigItem.ConfigType.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> ConfigType </td></tr>
@@ -58,7 +58,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.SqliteSettings
-	c402 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettings.html">
+	c412 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettings.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SqliteSettings </td></tr>
@@ -73,7 +73,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.DatabaseStructure
-	c403 [label=<<table title="com.connectlife.coreserver.config.DatabaseStructure" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatabaseStructure.html">
+	c413 [label=<<table title="com.connectlife.coreserver.config.DatabaseStructure" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DatabaseStructure.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DatabaseStructure </td></tr>
 		</table></td></tr>
@@ -88,7 +88,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.Config
-	c404 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Config.html">
+	c414 [label=<<table title="com.connectlife.coreserver.config.Config" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Config.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Config </td></tr>
@@ -107,7 +107,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigFactoryData
-	c405 [label=<<table title="com.connectlife.coreserver.config.ConfigFactoryData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigFactoryData.html">
+	c415 [label=<<table title="com.connectlife.coreserver.config.ConfigFactoryData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigFactoryData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigFactoryData </td></tr>
 		</table></td></tr>
@@ -121,7 +121,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.ConfigSqlite
-	c406 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigSqlite.html">
+	c416 [label=<<table title="com.connectlife.coreserver.config.ConfigSqlite" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConfigSqlite.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigSqlite </td></tr>
 		</table></td></tr>
@@ -140,8 +140,8 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.config.SqliteSettingsApp implements com.connectlife.coreserver.config.SqliteSettings
-	c402:p -> c399:p [dir=back,arrowtail=empty,style=dashed];
+	c412:p -> c409:p [dir=back,arrowtail=empty,style=dashed];
 	//com.connectlife.coreserver.config.ConfigSqlite implements com.connectlife.coreserver.config.Config
-	c404:p -> c406:p [dir=back,arrowtail=empty,style=dashed];
+	c414:p -> c416:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.console.ConsoleSSH
-	c355 [label=<<table title="com.connectlife.coreserver.console.ConsoleSSH" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleSSH.html">
+	c364 [label=<<table title="com.connectlife.coreserver.console.ConsoleSSH" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ConsoleSSH.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConsoleSSH </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.console.InAppShellFactory
-	c356 [label=<<table title="com.connectlife.coreserver.console.InAppShellFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InAppShellFactory.html">
+	c365 [label=<<table title="com.connectlife.coreserver.console.InAppShellFactory" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./InAppShellFactory.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> InAppShellFactory </td></tr>
 		</table></td></tr>
@@ -38,7 +38,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.console.Console
-	c357 [label=<<table title="com.connectlife.coreserver.console.Console" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Console.html">
+	c366 [label=<<table title="com.connectlife.coreserver.console.Console" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Console.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Console </td></tr>
@@ -53,6 +53,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.console.ConsoleSSH implements com.connectlife.coreserver.console.Console
-	c357:p -> c355:p [dir=back,arrowtail=empty,style=dashed];
+	c366:p -> c364:p [dir=back,arrowtail=empty,style=dashed];
 }
 

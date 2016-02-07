@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.ApplicationStateMachine.Events
-	c753 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine.Events" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApplicationStateMachine.Events.html">
+	c771 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine.Events" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApplicationStateMachine.Events.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;enumeration&#187; </td></tr>
 <tr><td align="center" balign="center"> Events </td></tr>
@@ -27,9 +27,9 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.ApplicationStateMachine.Events implements au.com.ds.ef.EventEnum
-	c788:p -> c753:p [dir=back,arrowtail=empty,style=dashed];
+	c807:p -> c771:p [dir=back,arrowtail=empty,style=dashed];
 	// au.com.ds.ef.EventEnum
-	c788 [label=<<table title="au.com.ds.ef.EventEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/au/com/ds/ef/EventEnum.html">
+	c807 [label=<<table title="au.com.ds.ef.EventEnum" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/au/com/ds/ef/EventEnum.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> EventEnum </td></tr>
