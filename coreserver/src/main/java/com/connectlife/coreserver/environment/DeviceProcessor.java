@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.environment;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Room;
 
 /**
  * Helper the work with environment. Useful function to manage device in the environment.
@@ -21,7 +22,41 @@ public abstract class DeviceProcessor {
 	/**
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
-	public void FindProcessor (){
+	private DeviceProcessor (){
+	}
+	
+	/**
+	 * Register the accessory and link with the room.
+	 * 
+	 * @param _accessory Accessory to register in the application environment.
+	 * @param _room Room to link the accessory.
+	 * @throws Exception Exception when the register cannot be completed.
+	 */
+	public static void registerAccessory(Accessory _accessory, Room _room) throws Exception{
+
+		// check if the accessory is already register in a room
+		// find the accessory by the serial number.
+		Accessory accessory = FindProcessor.findAccessoryBySerialNumber(_accessory.getSerialnumber());
+		if(null == accessory){
+			// the accessory isn't register
+			// we can add it in the room
+			
+			Room room = FindProcessor.findRoomByUid(_room.getUid());
+			if(null != room){
+				// Register the accessory and set a UID.
+				_accessory.setUid(UIDGenerator.getUID());
+				_accessory.setRegister(true);
+				
+				// Adding the accessory in the room.
+				room.getAccessories().add(_accessory);
+			}
+			else{
+				throw new Exception("The accessory cannot be register. The room is unreacheble.");
+			}
+		}
+		else{
+			throw new Exception("The accessory is already register. Unregister the accessory before retry.");
+		}
 	}
 	
 	/**

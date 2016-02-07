@@ -99,6 +99,8 @@ public class InAppShellFactory implements Factory {
         private static final String SHELL_CMD_SET_CONFIG = "set config";
         private static final String SHELL_CMD_RESTORE_FACTORY_CONFIG = "restore factory config";
         private static final String SHELL_CMD_OUTPUT_LOG = "output log";
+        private static final String SHELL_CMD_REGISTER_ACCESSORY = "register device";
+        private static final String SHELL_CMD_UNREGISTER_ACCESSORY = "unregistrer device";
 
         /**
          * Input stream of the console.
@@ -239,7 +241,9 @@ public class InAppShellFactory implements Factory {
                 										 	SHELL_CMD_OUTPUT_CONFIG,
                 										 	SHELL_CMD_SET_CONFIG,
                 										 	SHELL_CMD_RESTORE_FACTORY_CONFIG,
-                										 	SHELL_CMD_OUTPUT_LOG
+                										 	SHELL_CMD_OUTPUT_LOG,
+                										 	SHELL_CMD_REGISTER_ACCESSORY,
+                										 	SHELL_CMD_UNREGISTER_ACCESSORY
                 										 	));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
@@ -310,8 +314,11 @@ public class InAppShellFactory implements Factory {
                 response += SHELL_CMD_SET_CONFIG + " - Modify the configuration of the system.\n";
                 response += SHELL_CMD_RESTORE_FACTORY_CONFIG + " - Restore the factory configurations of the system.\n";
                 response += SHELL_CMD_OUTPUT_LOG + " - Output the log of the system.\n";
+                response += SHELL_CMD_REGISTER_ACCESSORY + " - Register accessory in the environment.\n";
+                response += SHELL_CMD_UNREGISTER_ACCESSORY + " - Unregister accessory from the environment.\n";
             }
             else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ALL_CONFIGS)){
+            	// OUTPUT CONFIGS
             	m_logger.info(SHELL_CMD_OUTPUT_ALL_CONFIGS);
             	List<ConfigItem> configs = Application.getApp().getConfig().getConfigs();
             	for(int i=0; i<configs.size(); i++)
@@ -323,6 +330,7 @@ public class InAppShellFactory implements Factory {
             	}
             }
             else if(line.toLowerCase().startsWith(SHELL_CMD_OUTPUT_CONFIG)){
+            	// OUTPUT CONFIG
             	m_logger.info(SHELL_CMD_OUTPUT_CONFIG);
             	
             	// this section is to get the section and item from the text.
@@ -354,6 +362,7 @@ public class InAppShellFactory implements Factory {
             	}
             }
             else if (line.toLowerCase().startsWith(SHELL_CMD_SET_CONFIG)){
+            	// SET CONFIG
             	m_logger.info(SHELL_CMD_SET_CONFIG);
             	
             	// this section is to get the section and item from the text.
@@ -402,6 +411,7 @@ public class InAppShellFactory implements Factory {
             	}
             }
             else if(line.equalsIgnoreCase(SHELL_CMD_RESTORE_FACTORY_CONFIG)){
+            	// RESTORE FACTORY CONFIG
             	m_logger.info(SHELL_CMD_RESTORE_FACTORY_CONFIG);
             	
             	if(Application.getApp().getConfig().RestoreFactory()){
@@ -409,16 +419,69 @@ public class InAppShellFactory implements Factory {
             	}
             }
             else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_LOG)){
-            	  m_logger.info(SHELL_CMD_OUTPUT_LOG);
-            	  org.apache.logging.log4j.core.Logger loggerImpl = (org.apache.logging.log4j.core.Logger)m_logger;
-            	  Appender appender = (loggerImpl).getAppenders().get("File");
-            	  String fileName = ((RollingFileAppender)appender).getFileName();
-            	  try{
-            		  response = new String(Files.readAllBytes(Paths.get(fileName)));  
-            	  }
-            	  catch (Exception e){
-            		  m_logger.warn(e.getMessage());
-            	  }
+            	// OUTPUT LOG
+            	m_logger.info(SHELL_CMD_OUTPUT_LOG);
+            	org.apache.logging.log4j.core.Logger loggerImpl = (org.apache.logging.log4j.core.Logger)m_logger;
+            	Appender appender = (loggerImpl).getAppenders().get("File");
+            	String fileName = ((RollingFileAppender)appender).getFileName();
+            	try{
+            		response = new String(Files.readAllBytes(Paths.get(fileName)));  
+            	}
+            	catch (Exception e){
+            		m_logger.warn(e.getMessage());
+            	}
+            }
+            else if(line.toLowerCase().startsWith(SHELL_CMD_REGISTER_ACCESSORY)){
+            	// REGISTER DEVICE
+            	m_logger.info(SHELL_CMD_REGISTER_ACCESSORY);
+            	
+            	// this section is to get the accessory and room from the arg.
+            	int minLength = (SHELL_CMD_REGISTER_ACCESSORY+" [*][*]").length();
+            	int accessory_start_at = line.indexOf("[");
+            	int accessory_end_at   = line.indexOf("]");
+            	int room_start_at    = line.indexOf("[",accessory_end_at);
+            	int room_end_at      = line.indexOf("]", room_start_at);
+            	
+            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_REGISTER_ACCESSORY.length()) != ' ') || (accessory_start_at + 1 >= accessory_end_at) || (accessory_end_at + 1 != room_start_at) || (room_start_at + 1 >= room_end_at) || (line.length() != room_end_at + 1))
+            	{
+            		response = "Format error! Please use format like : " + SHELL_CMD_REGISTER_ACCESSORY+" [accessory serial number][room uid]";
+            	}
+            	else
+            	{
+                	//String accessory = line.substring(accessory_start_at+1, accessory_end_at).toUpperCase();
+                	//String room      = line.substring(room_start_at+1, room_end_at).toUpperCase();
+                	
+                	// TODO: Complete this function.
+                	
+                	response = "This command is not implemented yet.";
+                	
+            	}
+            }
+            else if(line.toLowerCase().startsWith(SHELL_CMD_UNREGISTER_ACCESSORY)){
+            	// UNREGISTER DEVICE
+            	m_logger.info(SHELL_CMD_UNREGISTER_ACCESSORY);
+            	
+            	// this section is to get the accessory and room from the arg.
+            	int minLength = (SHELL_CMD_UNREGISTER_ACCESSORY+" [*][*]").length();
+            	int accessory_start_at = line.indexOf("[");
+            	int accessory_end_at   = line.indexOf("]");
+            	int room_start_at    = line.indexOf("[",accessory_end_at);
+            	int room_end_at      = line.indexOf("]", room_start_at);
+            	
+            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_UNREGISTER_ACCESSORY.length()) != ' ') || (accessory_start_at + 1 >= accessory_end_at) || (accessory_end_at + 1 != room_start_at) || (room_start_at + 1 >= room_end_at) || (line.length() != room_end_at + 1))
+            	{
+            		response = "Format error! Please use format like : " + SHELL_CMD_UNREGISTER_ACCESSORY+" [accessory serial number][room uid]";
+            	}
+            	else
+            	{
+                	//String accessory = line.substring(accessory_start_at+1, accessory_end_at).toUpperCase();
+                	//String room      = line.substring(room_start_at+1, room_end_at).toUpperCase();
+                	
+                	// TODO: Complete this function.
+                	
+                	response = "This command is not implemented yet.";
+                	
+            	}
             }
             else{	
             	// UNKNOW CMD

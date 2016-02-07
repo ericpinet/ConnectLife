@@ -16,9 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.apiserver.ApiGrpc;
-import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 

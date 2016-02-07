@@ -43,6 +43,7 @@ public interface Device {
 	
 	/**
 	 * Register the device  with the application environment. 
+	 * The device can be register if it's already setup in the environment.
 	 * 
 	 * @return True if the device is correctly register with the application environment.
 	 */

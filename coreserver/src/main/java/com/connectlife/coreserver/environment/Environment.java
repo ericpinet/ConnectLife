@@ -119,12 +119,12 @@ public interface Environment {
 	/**
 	 * Add a person in the data. 
 	 * 
-	 * @param firstname First name of the person.
-	 * @param lastname Last name of the person.
-	 * @param imageurl image url of the person.
+	 * @param _firstname First name of the person.
+	 * @param _lastname Last name of the person.
+	 * @param _imageurl image url of the person.
 	 * @return UID of the person. 
 	 */
-	public String addPerson(String firstname, String lastname, String imageurl);
+	public String addPerson(String _firstname, String _lastname, String _imageurl);
 	
 	/**
 	 * Update the person in the data.
@@ -139,6 +139,7 @@ public interface Environment {
 	
 	/**
 	 * Delete the person.
+	 * 
 	 * @param uid UID of the person.
 	 * @return UID of the person.
 	 */
@@ -171,4 +172,5 @@ public interface Environment {
 	 * @return UID of the person.
 	 */
 	public String deleteEmail(String _uid);
+	
 }

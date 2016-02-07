@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.clapi.data.Data;
+import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.DeviceProcessor;
@@ -282,6 +283,32 @@ public class EnvironmentTest implements Observer {
 		// test find a accessory invalid
 		Accessory accessory2 = FindProcessor.findAccessoryBySerialNumber("XXXXXXXX");
 		assertTrue(null == accessory2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindRoomByUid() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test find a accessory valid
+		Room room = FindProcessor.findRoomByUid("051ad593-c9f1-4cd4-9645-f3f80d7e7c25");
+		assertTrue(null != room);
+		
+		// test find a accessory invalid
+		Room room2 = FindProcessor.findRoomByUid("XXXXXXXX");
+		assertTrue(null == room2);
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
