@@ -8,6 +8,8 @@
  */
 package com.connectlife.coreserver.environment.device;
 
+import java.util.List;
+
 /**
  * The service manager discover, control and monitor all services in the network.
  * 
@@ -33,5 +35,12 @@ public interface DeviceManager {
 	 * UnInitialize the service manager. Return in empty state ready to initialize again.
 	 */
 	public void unInit();
+	
+	/**
+	 * Return the list of the devices in the environment.
+	 * 
+	 * @return Device in the environment.
+	 */
+	public List<Device> getDevices();
 
 }

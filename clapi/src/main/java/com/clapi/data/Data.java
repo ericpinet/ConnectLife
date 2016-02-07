@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.clapi.data.Email.EmailType;
@@ -19,7 +20,7 @@ import com.clapi.data.Email.EmailType;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Data implements Cloneable {
+public class Data {
 	
 	/**
 	 * Version of the data. Increment by one for each change.
@@ -103,14 +104,14 @@ public class Data implements Cloneable {
 	/**
 	 * @param person the persons to set
 	 */
-	public void addToPersons(Person person){
+	public void addPerson(Person person){
 		this.persons.add(person);
 	}
 	
 	/**
 	 * @param home The home to add
 	 */
-	public void addToHomes(Home home){
+	public void addHome(Home home){
 		this.homes.add(home);
 	}
 	
@@ -122,11 +123,13 @@ public class Data implements Cloneable {
 	 */
 	public Person getPerson(String uid){
 		Person person = null;
-		for(int i=0; i<this.persons.size(); i++){
-			if(this.persons.get(i).getUid().equals(uid))
-			{
-				person = this.persons.get(i);
-				break;
+		boolean notfound = true;
+		Iterator<Person> it = persons.iterator();
+		while(it.hasNext() && notfound){
+			Person aperson = it.next();
+			if(aperson.getUid().equals(uid)){
+				notfound = false;
+				person = aperson;
 			}
 		}
 		return person;
@@ -180,7 +183,7 @@ public class Data implements Cloneable {
 		if(person != null && _email != "")
 		{
 			Email email = new Email(_uid, _email, EmailType.values()[_type]);
-			person.addToEmails(email);
+			person.addEmails(email);
 		}
 		return _uid;
 	}

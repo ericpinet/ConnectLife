@@ -10,6 +10,7 @@ package com.connectlife.coreserver.environment;
 
 import java.util.Observer;
 import com.clapi.data.*;
+import com.connectlife.coreserver.environment.device.DeviceManager;
 
 
 /**
@@ -52,6 +53,13 @@ public interface Environment {
 	 * UnInitialize the environment data. Return in empty state ready to initialize again.
 	 */
 	public void unInit();
+	
+	/**
+	 * Return the device manager for the environment.
+	 * 
+	 * @return The device manager of the environment.
+	 */
+	public DeviceManager getDeviceManager();
 	
 	/**
 	 * Return a JSON string representing the environment.
@@ -172,5 +180,14 @@ public interface Environment {
 	 * @return UID of the person.
 	 */
 	public String deleteEmail(String _uid);
+	
+	/**
+	 * Register the accessory in the room.
+	 * 
+	 * @param _accessory Accessory to register.
+	 * @param _room Room where register the accessory.
+	 * @return UID of the accessory after the registration.
+	 */
+	public String registerAccessory(Accessory _accessory, Room _room);
 	
 }

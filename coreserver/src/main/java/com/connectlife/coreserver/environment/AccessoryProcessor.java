@@ -1,5 +1,5 @@
 /**
- *  DeviceProcessor.java
+ *  AccessoryProcessor.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-01-24.
@@ -12,17 +12,17 @@ import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 
 /**
- * Helper the work with environment. Useful function to manage device in the environment.
+ * Helper the work with environment. Useful function to manage accessory in the environment.
  * 
  * @author ericpinet
  * <br> 2016-01-24
  */
-public abstract class DeviceProcessor {
+public abstract class AccessoryProcessor {
 	
 	/**
 	 * Default constructor is private to ensure that is never instantiated.
 	 */
-	private DeviceProcessor (){
+	private AccessoryProcessor (){
 	}
 	
 	/**

@@ -105,7 +105,7 @@ public class HomeWindow extends Dialog {
 		Label lblZones = new Label(shell, SWT.NONE);
 		lblZones.setText("Zones:");
 		
-		Tree tree = new Tree(shell, SWT.BORDER);
+		Tree tree = new Tree(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
 		TreeColumn trclmnName = new TreeColumn(tree, SWT.NONE);
