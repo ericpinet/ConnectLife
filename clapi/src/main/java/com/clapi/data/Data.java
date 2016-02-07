@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.clapi.data.Email.EmailType;
@@ -122,11 +123,13 @@ public class Data {
 	 */
 	public Person getPerson(String uid){
 		Person person = null;
-		for(int i=0; i<this.persons.size(); i++){
-			if(this.persons.get(i).getUid().equals(uid))
-			{
-				person = this.persons.get(i);
-				break;
+		boolean notfound = true;
+		Iterator<Person> it = persons.iterator();
+		while(it.hasNext() && notfound){
+			Person aperson = it.next();
+			if(aperson.getUid().equals(uid)){
+				notfound = false;
+				person = aperson;
 			}
 		}
 		return person;
