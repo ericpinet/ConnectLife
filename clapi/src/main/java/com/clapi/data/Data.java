@@ -19,7 +19,7 @@ import com.clapi.data.Email.EmailType;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Data implements Cloneable {
+public class Data {
 	
 	/**
 	 * Version of the data. Increment by one for each change.
@@ -103,14 +103,14 @@ public class Data implements Cloneable {
 	/**
 	 * @param person the persons to set
 	 */
-	public void addToPersons(Person person){
+	public void addPerson(Person person){
 		this.persons.add(person);
 	}
 	
 	/**
 	 * @param home The home to add
 	 */
-	public void addToHomes(Home home){
+	public void addHome(Home home){
 		this.homes.add(home);
 	}
 	
@@ -180,7 +180,7 @@ public class Data implements Cloneable {
 		if(person != null && _email != "")
 		{
 			Email email = new Email(_uid, _email, EmailType.values()[_type]);
-			person.addToEmails(email);
+			person.addEmails(email);
 		}
 		return _uid;
 	}

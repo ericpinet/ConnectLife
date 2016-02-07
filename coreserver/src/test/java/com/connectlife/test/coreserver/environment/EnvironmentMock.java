@@ -12,6 +12,7 @@ import java.util.Observable;
 
 import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -171,6 +172,28 @@ public class EnvironmentMock extends Observable implements Environment {
 	@Override
 	public String deleteEmail(String _uid)
 	{
+		return null;
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#getDeviceManager()
+	 */
+	@Override
+	public DeviceManager getDeviceManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param _accessory
+	 * @param _room
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#registerAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
+	 */
+	@Override
+	public String registerAccessory(Accessory _accessory, Room _room) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

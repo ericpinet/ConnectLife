@@ -240,6 +240,15 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 	
 	/**
+	 * Return the device manager for the environment.
+	 * 
+	 * @return The device manager of the environment.
+	 */
+	public DeviceManager getDeviceManager(){
+		return m_device_manager;
+	}
+	
+	/**
 	 * Return a JSON string representing the environment.
 	 * 
 	 * @return JSON string of the environment.
@@ -386,31 +395,31 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		Person eric = new Person(UIDGenerator.getUID(), "Eric");
 		eric.setLastname("Pinet");
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
 		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
 		ericadd.setCountry("Canada");
-		eric.addToAddress(ericadd);
+		eric.addAddress(ericadd);
 		persons.add(eric);
 		
 		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
-		qiaomei.addToPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
 		
 		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
-		qiaomei.addToAddress(qiaomeiadd);
+		qiaomei.addAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
 		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
@@ -497,7 +506,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	@Override
 	public String addPerson(String _firstname, String _lastname, String _imageurl) {
 		Person person = new Person(UIDGenerator.getUID(), _firstname, _lastname, _imageurl);
-		m_data.addToPersons(person);
+		m_data.addPerson(person);
 		environmentChange();
 		return person.getUid();
 	}
@@ -570,5 +579,41 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	@Override
 	public String deleteEmail(String _uid){
 		return _uid;
+	}
+	
+	/**
+	 * Register the accessory in the room.
+	 * 
+	 * @param _accessory Accessory to register.
+	 * @param _room Room where register the accessory.
+	 * @return UID of the accessory after the registration.
+	 */
+	public String registerAccessory(Accessory _accessory, Room _room){
+		String ret_uid = null; 
+		// check if the accessory is already register in a room
+		// find the accessory by the serial number.
+		Accessory accessory = FindProcessor.findAccessoryBySerialNumber(_accessory.getSerialnumber());
+		if(null == accessory){
+			// the accessory isn't register
+			// we can add it in the room
+			Room room = FindProcessor.findRoomByUid(_room.getUid());
+			if(null != room){
+				// Register the accessory and set a UID.
+				_accessory.setUid(UIDGenerator.getUID());
+				_accessory.setRegister(true);
+				
+				// Adding the accessory in the room.
+				room.getAccessories().add(_accessory);
+				
+				// indicate that the environment has change.
+				environmentChange();
+				
+				// get the uid for the return value.
+				ret_uid = _accessory.getUid();
+				
+			}// ELSE: Room not found. Do noting uid is already null.
+		}// ELSE: Accessory not found. Do noting uid is already null.
+		
+		return ret_uid;
 	}
 }

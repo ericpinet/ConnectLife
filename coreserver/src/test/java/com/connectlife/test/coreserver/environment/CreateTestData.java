@@ -41,31 +41,31 @@ public class CreateTestData {
 		
 		Person eric = new Person(UIDGenerator.getUID(), "Eric");
 		eric.setLastname("Pinet");
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
 		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
 		ericadd.setCountry("Canada");
-		eric.addToAddress(ericadd);
+		eric.addAddress(ericadd);
 		persons.add(eric);
 		
 		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
-		qiaomei.addToPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
 		
 		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
-		qiaomei.addToAddress(qiaomeiadd);
+		qiaomei.addAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
 		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");

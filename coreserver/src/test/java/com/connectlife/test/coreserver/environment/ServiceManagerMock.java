@@ -8,6 +8,9 @@
  */
 package com.connectlife.test.coreserver.environment;
 
+import java.util.List;
+
+import com.connectlife.coreserver.environment.device.Device;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 
 /**
@@ -42,6 +45,16 @@ public class ServiceManagerMock implements DeviceManager {
 	 */
 	@Override
 	public void unInit() {
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.device.DeviceManager#getDevices()
+	 */
+	@Override
+	public List<Device> getDevices() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

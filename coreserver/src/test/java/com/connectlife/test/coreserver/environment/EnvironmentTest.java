@@ -27,7 +27,7 @@ import com.clapi.data.Data;
 import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.DeviceProcessor;
+import com.connectlife.coreserver.environment.AccessoryProcessor;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
 import com.connectlife.coreserver.environment.FindProcessor;
@@ -351,13 +351,13 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test synchronize accessory
-		Accessory accessory = DeviceProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		Accessory accessory = AccessoryProcessor.synchronizeAccessory(CreateTestData.getLightTest());
 		assertTrue(accessory.isRegister());
 		
 		// test synchronize accessory
 		Accessory invalid = CreateTestData.getLightTest();
 		invalid.setSerialnumber("XXXXXXXX");
-		Accessory accessory2 = DeviceProcessor.synchronizeAccessory(invalid);
+		Accessory accessory2 = AccessoryProcessor.synchronizeAccessory(invalid);
 		assertTrue(null == accessory2);
 		
 		// restore file after test.
@@ -379,15 +379,15 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test synchronize accessory
-		Accessory accessory = DeviceProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		Accessory accessory = AccessoryProcessor.synchronizeAccessory(CreateTestData.getLightTest());
 		assertTrue(accessory.isRegister());
 		
 		// test unsynchronize
-		accessory = DeviceProcessor.unsynchronizeAccessory(CreateTestData.getLightTest());
+		accessory = AccessoryProcessor.unsynchronizeAccessory(CreateTestData.getLightTest());
 		assertFalse(accessory.isRegister());
 		
 		// test synchronize accessory
-		accessory = DeviceProcessor.unsynchronizeAccessory(accessory);
+		accessory = AccessoryProcessor.unsynchronizeAccessory(accessory);
 		assertFalse(accessory.isRegister());
 		
 		// restore file after test.

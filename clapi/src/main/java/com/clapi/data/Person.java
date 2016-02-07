@@ -212,7 +212,7 @@ public class Person {
 	/**
 	 * @param email Email of the person.
 	 */
-	public void addToEmails(Email email) {
+	public void addEmails(Email email) {
 		this.emails.add(email);
 		
 	}
@@ -220,14 +220,14 @@ public class Person {
 	/**
 	 * @param phone Phone of the person.
 	 */
-	public void addToPhones(Phone phone) {
+	public void addPhones(Phone phone) {
 		this.phones.add(phone);
 	}
 
 	/**
 	 * @param address Address of the person.
 	 */
-	public void addToAddress(Address address) {
+	public void addAddress(Address address) {
 		this.addresses.add(address);
 	}
 }

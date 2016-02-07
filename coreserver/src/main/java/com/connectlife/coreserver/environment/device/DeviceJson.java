@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.clapi.data.Accessory;
 import com.clapi.simulator.device.ServiceDefinition;
-import com.connectlife.coreserver.environment.DeviceProcessor;
+import com.connectlife.coreserver.environment.AccessoryProcessor;
 
 /**
  * Service JSON representing a device in the network.
@@ -129,7 +129,7 @@ public class DeviceJson implements Device {
 			// at the register try, the device is considerate synchronized with the application.
 			m_isSynchronized = true;
 			
-			Accessory accessory = DeviceProcessor.synchronizeAccessory(m_service_definition.getAccessory());
+			Accessory accessory = AccessoryProcessor.synchronizeAccessory(m_service_definition.getAccessory());
 			if(null != accessory){
 				// Update the service definition with the UID.
 				ret_val = m_isRegister = true;
@@ -164,7 +164,7 @@ public class DeviceJson implements Device {
 		// check if already synch
 		if(true == m_isRegister){
 			
-			Accessory accessory = DeviceProcessor.unsynchronizeAccessory(m_service_definition.getAccessory());
+			Accessory accessory = AccessoryProcessor.unsynchronizeAccessory(m_service_definition.getAccessory());
 			if(null != accessory){
 				// Update the service definition with the register status.
 				m_service_definition.setAccessory(accessory);

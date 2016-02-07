@@ -77,7 +77,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceAdded(ServiceEvent _service) {
 			  
-			m_logger.info("Service discovered: "+_service.getName() + " - " + _service.getType());
+			m_logger.debug("Service discovered: "+_service.getName() + " - " + _service.getType());
 			m_discover.requestServiceInfo(_service.getType(), _service.getName());
 		}
 		
@@ -89,7 +89,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceRemoved(ServiceEvent _service) {
 
-			m_logger.info("Service removed: "+_service.getName());
+			m_logger.debug("Service removed: "+_service.getName());
 			informListerServiceRemove(_service);
 		}
 		
@@ -101,7 +101,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceResolved(ServiceEvent _service) {
 			
-			m_logger.info("Service resolved: "+_service.getName() + " - " + _service.getType());
+			m_logger.debug("Service resolved: "+_service.getName() + " - " + _service.getType());
 			informListerServiceDiscover(_service);
 		}
 	};
