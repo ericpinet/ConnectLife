@@ -27,7 +27,7 @@ public class FindProcessor {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param _environment
+	 * @param _data Data use in the FindProcessor.
 	 */
 	public FindProcessor(Data _data){
 		m_data = _data;
