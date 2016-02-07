@@ -34,6 +34,50 @@ public class FindProcessor {
 	}
 	
 	/**
+	 * Find person by the uid, last name or first name.
+	 * 
+	 * @param _person Person to find.
+	 * @return Person found, or null if not found.
+	 */
+	public Person findPerson(Person _person){
+		Person ret_person = null;
+		boolean found = false;
+		
+		Iterator<Person> iperson = m_data.getPersons().iterator();
+		while(iperson.hasNext() && false == found){
+			Person person = iperson.next();
+			
+			if(false == _person.getUid().isEmpty()){
+				if(person.getUid().equals(_person.getUid())){
+					found = true;
+					ret_person = person;
+				} // ELSE: Person not found. Do noting.
+			}
+			else{
+				// if the last name is there we try to find the last name
+				if(false == _person.getLastname().isEmpty()){
+					if(person.getLastname().equals(_person.getLastname())){
+						found = true;
+						ret_person = person;
+					} // ELSE: Person not found. Do noting.
+				}
+				else{
+					// if the first name is there we try to find the first name
+					if(false == _person.getFirstname().isEmpty()){
+						if(person.getFirstname().equals(_person.getFirstname())){
+							found = true;
+							ret_person = person;
+						} // ELSE: Person not found. Do noting.
+					}
+				} // ELSE: Nothing else to found.
+			}
+			
+		}// end while person
+		
+		return ret_person;
+	}
+	
+	/**
 	 * Find room by Uid or Label.
 	 * 
 	 * @param _room Room to find. 
@@ -85,7 +129,7 @@ public class FindProcessor {
 	/**
 	 * Find the accessory with this uid, label or serial number in the environment.
 	 * 
-	 * @param _serial_number Serial number to be found.
+	 * @param _accessory Accessory to be found.
 	 * @return Accessory if found. Null if not found.
 	 */
 	public Accessory findAccessory(Accessory _accessory){

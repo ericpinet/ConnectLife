@@ -133,21 +133,23 @@ public interface Environment {
 	public FindProcessor getFindProcessor();
 	
 	/**
-	 * Add a person in the data. 
+	 * Add a person in the data. The uid of the person will be generated
+	 * during the adding process.
 	 * 
 	 * @param _person Person to add in the environment.
-	 * @return UID of the person.
+	 * @return Person added to the environment whit his generated uid.
 	 * @throws Exception If something goes wrong.
 	 */
-	public String addPerson(Person _person) throws Exception;
+	public Person addPerson(Person _person) throws Exception;
 	
 	/**
 	 * Update a person in the data.
 	 * 
 	 * @param _person Person to update in the environment.
+	 * @return Person updated in the environment.
 	 * @throws Exception If something goes wrong.
 	 */
-	public void updatePerson(Person _person) throws Exception;
+	public Person updatePerson(Person _person) throws Exception;
 	
 	/**
 	 * Synchronize the accessory in the environment.
@@ -175,9 +177,9 @@ public interface Environment {
 	 * 
 	 * @param _accessory Accessory to register.
 	 * @param _room Room where register the accessory.
-	 * @return UID of the accessory after the registration.
+	 * @return Accessory Accessory after the registration.
 	 * @throws Exception If something goes wrong.
 	 */
-	public String registerAccessory(Accessory _accessory, Room _room) throws Exception;
+	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception;
 	
 }

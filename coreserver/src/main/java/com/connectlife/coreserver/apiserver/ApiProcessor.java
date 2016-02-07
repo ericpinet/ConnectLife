@@ -181,15 +181,20 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
 		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
-		String uid = "";
+		AddPersonResponse reply = null;
 		try {
-			uid = m_environment.addPerson(person);
+			person = m_environment.addPerson(person);
+			reply = AddPersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			
 		} catch (Exception e) {
+			
+			reply = AddPersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
-		AddPersonResponse reply = AddPersonResponse.newBuilder().setUid(uid).build();
+		
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}

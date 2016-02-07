@@ -520,30 +520,42 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
-	 * Add a person in the data. 
+	 * Add a person in the data. The uid of the person will be generated
+	 * during the adding process.
 	 * 
 	 * @param _person Person to add in the environment.
-	 * @return UID of the person.
+	 * @return Person added to the environment whit his generated uid.
 	 * @throws Exception If something goes wrong.
 	 */
-	public String addPerson(Person _person) throws Exception {
+	public Person addPerson(Person _person) throws Exception {
 		_person.setUid(UIDGenerator.getUID());
 		m_data.getPersons().add(_person);
 		environmentChange();
-		return _person.getUid();
+		return _person;
 	}
 	
 	/**
 	 * Update a person in the data.
 	 * 
 	 * @param _person Person to update in the environment.
+	 * @return Person updated in the environment.
 	 * @throws Exception If something goes wrong.
 	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
 	 */
 	@Override
-	public void updatePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public Person updatePerson(Person _person) throws Exception {
+		Person ret_person = null;
+		ret_person = m_find.findPerson(_person);
+		if(null != ret_person){
+			// update the person information
+			ret_person = _person;
+			// indicate that the environment was changed.
+			environmentChange();
+		}
+		else{
+			throw new Exception("Person not found.");
+		}
+		return ret_person;
 	}
 	
 	/**
@@ -551,11 +563,11 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * 
 	 * @param _accessory Accessory to register.
 	 * @param _room Room where register the accessory.
-	 * @return UID of the accessory after the registration.
+	 * @return Accessory after the registration.
 	 * @throws Exception If something goes wrong.
 	 */
-	public String registerAccessory(Accessory _accessory, Room _room) throws Exception{
-		String ret_uid = null; 
+	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception{
+		Accessory ret_acc = null; 
 		// check if the accessory is already register in a room
 		// find the accessory by the serial number.
 		Accessory accessory = m_find.findAccessory(_accessory);
@@ -575,7 +587,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 				environmentChange();
 				
 				// get the uid for the return value.
-				ret_uid = _accessory.getUid();
+				ret_acc = _accessory;
 				
 			}
 			else{
@@ -586,7 +598,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 			throw new Exception("Accessory not found.");
 		}
 		
-		return ret_uid;
+		return ret_acc;
 	}
 	
 	/**

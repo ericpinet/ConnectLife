@@ -113,47 +113,12 @@ public class EnvironmentMock extends Observable implements Environment {
 	}
 
 	/**
-	 * @param _accessory
-	 * @param _room
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#registerAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
-	 */
-	@Override
-	public String registerAccessory(Accessory _accessory, Room _room) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
 	 * @return
 	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
 	 */
 	@Override
 	public FindProcessor getFindProcessor() {
 		return new FindProcessor(CreateTestData.getData());
-	}
-
-	/**
-	 * @param _person
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.clapi.data.Person)
-	 */
-	@Override
-	public String addPerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 * @param _person
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
-	 */
-	@Override
-	public void updatePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -176,6 +141,43 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param _person
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.clapi.data.Person)
+	 */
+	@Override
+	public Person addPerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param _person
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
+	 */
+	@Override
+	public Person updatePerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param _accessory
+	 * @param _room
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#registerAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
+	 */
+	@Override
+	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
