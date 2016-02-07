@@ -11,7 +11,6 @@ package com.connectlife.coreserver.environment;
 import java.util.Iterator;
 
 import com.clapi.data.*;
-import com.google.gson.Gson;
 
 /**
  * Helper the work with environment. Useful function to save element in the environment.
