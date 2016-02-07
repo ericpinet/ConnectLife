@@ -16,6 +16,7 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.clapi.data.Person;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
@@ -179,8 +180,21 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
-		String uid = m_environment.addPerson(request.getFirstname(), request.getLastname(), request.getImageurl());
-		AddPersonResponse reply = AddPersonResponse.newBuilder().setUid(uid).build();
+		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
+		AddPersonResponse reply = null;
+		try {
+			person = m_environment.addPerson(person);
+			reply = AddPersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddPersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}
@@ -191,8 +205,24 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
-		String uid = m_environment.updatePerson(request.getUid(), request.getFirstname(), request.getLastname(), request.getImageurl());
-		UpdatePersonResponse reply = UpdatePersonResponse.newBuilder().setUid(uid).build();
+		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
+		person.setFirstname(request.getFirstname());
+		person.setLastname(request.getLastname());
+		person.setImageurl(request.getImageurl());
+		UpdatePersonResponse reply = null;
+		try {
+			person = m_environment.updatePerson(person);
+			reply = UpdatePersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = UpdatePersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}
@@ -203,10 +233,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
-		String uid = m_environment.deletePerson(request.getUid());
-		DeletePersonResponse reply = DeletePersonResponse.newBuilder().setUid(uid).build();
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -215,10 +242,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
-		String uid = m_environment.addEmail(request.getUidPerson(), request.getEmail(), request.getType());
-		AddEmailResponse reply = AddEmailResponse.newBuilder().setUid(uid).build();
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		// TODO Auto-generated method stub
 	}
 
 	/**

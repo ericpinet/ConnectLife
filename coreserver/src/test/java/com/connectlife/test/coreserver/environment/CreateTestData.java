@@ -133,7 +133,7 @@ public class CreateTestData {
 		List<Service> services = new ArrayList<Service>();
 		services.add(dimmable_light_service);
 		
-		Accessory light_leving = new Accessory(	UIDGenerator.getUID(),
+		Accessory light_leving = new Accessory(	"",
 												"Light",
 												"Philips",
 												"100w",

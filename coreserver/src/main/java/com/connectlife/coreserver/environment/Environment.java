@@ -119,75 +119,68 @@ public interface Environment {
 	public boolean hasChanged();
 	
 	/**
-	 * Return Data of the environment.
+	 * Return clone of the Data environment.
+	 * 
 	 * @return Data of the environment.
 	 */
 	public Data getData();	
 	
 	/**
-	 * Add a person in the data. 
+	 * Return the find processor of this environment. All data return was in read only state. 
+	 * Change on this data will not affect the current environment data.
 	 * 
-	 * @param _firstname First name of the person.
-	 * @param _lastname Last name of the person.
-	 * @param _imageurl image url of the person.
-	 * @return UID of the person. 
+	 * @return FindProcessor Return the find processor of this environment.
 	 */
-	public String addPerson(String _firstname, String _lastname, String _imageurl);
+	public FindProcessor getFindProcessorReadOnly();
 	
 	/**
-	 * Update the person in the data.
-	 *  
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person.
-	 * @param lastname Last name of the person.
-	 * @param imageurl image url of the person.
-	 * @return UID of the person. 
+	 * Add a person in the data. The uid of the person will be generated
+	 * during the adding process.
+	 * 
+	 * @param _person Person to add in the environment.
+	 * @return Person added to the environment whit his generated uid.
+	 * @throws Exception If something goes wrong.
 	 */
-	public String updatePerson(String uid, String firstname, String lastname, String imageurl);
+	public Person addPerson(Person _person) throws Exception;
 	
 	/**
-	 * Delete the person.
+	 * Update a person in the data.
 	 * 
-	 * @param uid UID of the person.
-	 * @return UID of the person.
+	 * @param _person Person to update in the environment.
+	 * @return Person updated in the environment.
+	 * @throws Exception If something goes wrong.
 	 */
-	public String deletePerson(String uid);
+	public Person updatePerson(Person _person) throws Exception;
 	
 	/**
-	 * Add the email of the person.
+	 * Synchronize the accessory in the environment.
+	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
+	 * If this accessory wasn't in the environment, this function return null.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to synchronize with the environment.
+	 * @return Accessory updated with the UID if it's in the environment
+	 * @throws Exception If something goes wrong.
 	 */
-	public String addEmail(String _uid, String _email, int _type);
+	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception;
 	
 	/**
-	 * Update an email of the person.
+	 * Unsynchronized the accessory in the environment.
+	 * The accessory register will be removed.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the mail of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to unsynchronized with the environment.
+	 * @return Accessory updated with the register if it's in the environment
+	 * @throws Exception If something goes wrong.
 	 */
-	public String updateEmail(String _uid, String _email, int _type);
-	
-	/**
-	 * Delete the mail of the person.
-	 * 
-	 * @param _uid UID of the person.
-	 * @return UID of the person.
-	 */
-	public String deleteEmail(String _uid);
+	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception;
 	
 	/**
 	 * Register the accessory in the room.
 	 * 
 	 * @param _accessory Accessory to register.
 	 * @param _room Room where register the accessory.
-	 * @return UID of the accessory after the registration.
+	 * @return Accessory Accessory after the registration.
+	 * @throws Exception If something goes wrong.
 	 */
-	public String registerAccessory(Accessory _accessory, Room _room);
+	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception;
 	
 }

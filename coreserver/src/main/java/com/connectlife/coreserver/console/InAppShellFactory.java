@@ -39,8 +39,6 @@ import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.ConfigItem.ConfigType;
-import com.connectlife.coreserver.environment.AccessoryProcessor;
-import com.connectlife.coreserver.environment.FindProcessor;
 import com.connectlife.coreserver.environment.device.Device;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
@@ -477,14 +475,14 @@ public class InAppShellFactory implements Factory {
                 	else{
                 	
 	                	// Find the room
-	                	Room room = FindProcessor.findRoomByUid(room_uid);
+	                	Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room(room_uid,"",null, ""));
 	                	if(null == room){
 	                		response = "Room not found.";
 	                	}
 	                	else{
 	                		// Register the device in the room
 	                		try {
-								AccessoryProcessor.registerAccessory(accessory, room);
+	                			Application.getApp().getEnvironment().registerAccessory(accessory, room);
 								response = "Accessory registed.";
 								
 							} catch (Exception e) {
