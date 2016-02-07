@@ -9,10 +9,10 @@ digraph G {
 	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
-	// com.connectlife.coreserver.environment.DeviceProcessor
-	c1264 [label=<<table title="com.connectlife.coreserver.environment.DeviceProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DeviceProcessor.html">
+	// com.connectlife.coreserver.environment.AccessoryProcessor
+	c1222 [label=<<table title="com.connectlife.coreserver.environment.AccessoryProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./AccessoryProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DeviceProcessor </font></td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AccessoryProcessor </font></td></tr>
 		</table></td></tr>
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left">  </td></tr>

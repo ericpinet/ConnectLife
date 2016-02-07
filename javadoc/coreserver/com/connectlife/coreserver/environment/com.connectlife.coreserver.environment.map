@@ -1,8 +1,8 @@
 <map id="G" name="G">
-<area shape="rect" id="c218" href="./Environment.html" title="com.connectlife.coreserver.environment.Environment" alt="" coords="15,11,563,405"/>
-<area shape="rect" id="c221" href="./EnvironmentJsonFile.html" title="com.connectlife.coreserver.environment.EnvironmentJsonFile" alt="" coords="15,465,563,746"/>
-<area shape="rect" id="c219" href="./UIDGenerator.html" title="com.connectlife.coreserver.environment.UIDGenerator" alt="" coords="607,171,737,245"/>
-<area shape="rect" id="c220" href="./SaveProcessor.html" title="com.connectlife.coreserver.environment.SaveProcessor" alt="" coords="781,171,1048,245"/>
-<area shape="rect" id="c222" href="./FindProcessor.html" title="com.connectlife.coreserver.environment.FindProcessor" alt="" coords="1093,163,1520,253"/>
-<area shape="rect" id="c223" href="./DeviceProcessor.html" title="com.connectlife.coreserver.environment.DeviceProcessor" alt="" coords="1565,155,1966,261"/>
+<area shape="rect" id="c218" href="./Environment.html" title="com.connectlife.coreserver.environment.Environment" alt="" coords="15,11,563,437"/>
+<area shape="rect" id="c221" href="./EnvironmentJsonFile.html" title="com.connectlife.coreserver.environment.EnvironmentJsonFile" alt="" coords="15,497,563,810"/>
+<area shape="rect" id="c219" href="./UIDGenerator.html" title="com.connectlife.coreserver.environment.UIDGenerator" alt="" coords="607,187,737,261"/>
+<area shape="rect" id="c220" href="./SaveProcessor.html" title="com.connectlife.coreserver.environment.SaveProcessor" alt="" coords="781,187,1048,261"/>
+<area shape="rect" id="c222" href="./AccessoryProcessor.html" title="com.connectlife.coreserver.environment.AccessoryProcessor" alt="" coords="1093,171,1494,277"/>
+<area shape="rect" id="c223" href="./FindProcessor.html" title="com.connectlife.coreserver.environment.FindProcessor" alt="" coords="1539,179,1965,269"/>
 </map>

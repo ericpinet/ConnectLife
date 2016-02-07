@@ -181,9 +181,9 @@ digraph G {
 <tr><td align="left" balign="left"> + setAddresses(addresses : List&lt;Address&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getImageurl() : String </td></tr>
 <tr><td align="left" balign="left"> + setImageurl(imageurl : String) </td></tr>
-<tr><td align="left" balign="left"> + addToEmails(email : Email) </td></tr>
-<tr><td align="left" balign="left"> + addToPhones(phone : Phone) </td></tr>
-<tr><td align="left" balign="left"> + addToAddress(address : Address) </td></tr>
+<tr><td align="left" balign="left"> + addEmails(email : Email) </td></tr>
+<tr><td align="left" balign="left"> + addPhones(phone : Phone) </td></tr>
+<tr><td align="left" balign="left"> + addAddress(address : Address) </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.data.Home
@@ -400,8 +400,8 @@ digraph G {
 <tr><td align="left" balign="left"> + setPersons(persons : List&lt;Person&gt;) </td></tr>
 <tr><td align="left" balign="left"> + getHomes() : List&lt;Home&gt; </td></tr>
 <tr><td align="left" balign="left"> + setHomes(homes : List&lt;Home&gt;) </td></tr>
-<tr><td align="left" balign="left"> + addToPersons(person : Person) </td></tr>
-<tr><td align="left" balign="left"> + addToHomes(home : Home) </td></tr>
+<tr><td align="left" balign="left"> + addPerson(person : Person) </td></tr>
+<tr><td align="left" balign="left"> + addHome(home : Home) </td></tr>
 <tr><td align="left" balign="left"> + getPerson(uid : String) : Person </td></tr>
 <tr><td align="left" balign="left"> + updatePerson(uid : String, firstname : String, lastname : String, imageurl : String) </td></tr>
 <tr><td align="left" balign="left"> + deletePerson(_uid : String) : String </td></tr>

@@ -24,6 +24,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isLoaded() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isSaved() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unInit() </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getDeviceManager() : DeviceManager </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getJsonEnvironment() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addObserver(_o : Observer) </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteObserver(_o : Observer) </font></td></tr>
@@ -39,6 +40,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteEmail(_uid : String) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + registerAccessory(_accessory : Accessory, _room : Room) : String </font></td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.EnvironmentJsonFile
@@ -56,6 +58,7 @@ digraph G {
 <tr><td align="left" balign="left"> + isLoaded() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isSaved() : boolean </td></tr>
 <tr><td align="left" balign="left"> + unInit() </td></tr>
+<tr><td align="left" balign="left"> + getDeviceManager() : DeviceManager </td></tr>
 <tr><td align="left" balign="left"> + getJsonEnvironment() : String </td></tr>
 <tr><td align="left" balign="left"> + getData() : Data </td></tr>
 <tr><td align="left" balign="left"> + addPerson(_firstname : String, _lastname : String, _imageurl : String) : String </td></tr>
@@ -64,6 +67,7 @@ digraph G {
 <tr><td align="left" balign="left"> + addEmail(_uid : String, _email : String, _type : int) : String </td></tr>
 <tr><td align="left" balign="left"> + updateEmail(_uid : String, _email : String, _type : int) : String </td></tr>
 <tr><td align="left" balign="left"> + deleteEmail(_uid : String) : String </td></tr>
+<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) : String </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.EnvironmentJsonFile extends java.util.Observable

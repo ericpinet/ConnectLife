@@ -24,6 +24,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isLoaded() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + isSaved() : boolean </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + unInit() </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getDeviceManager() : DeviceManager </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + getJsonEnvironment() : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addObserver(_o : Observer) </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteObserver(_o : Observer) </font></td></tr>
@@ -39,6 +40,7 @@ digraph G {
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + addEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + updateEmail(_uid : String, _email : String, _type : int) : String </font></td></tr>
 <tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + deleteEmail(_uid : String) : String </font></td></tr>
+<tr><td align="left" balign="left"><font face="Helvetica-Oblique" point-size="10.0"> + registerAccessory(_accessory : Accessory, _room : Room) : String </font></td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.UIDGenerator
@@ -80,6 +82,7 @@ digraph G {
 <tr><td align="left" balign="left"> + isLoaded() : boolean </td></tr>
 <tr><td align="left" balign="left"> + isSaved() : boolean </td></tr>
 <tr><td align="left" balign="left"> + unInit() </td></tr>
+<tr><td align="left" balign="left"> + getDeviceManager() : DeviceManager </td></tr>
 <tr><td align="left" balign="left"> + getJsonEnvironment() : String </td></tr>
 <tr><td align="left" balign="left"> + getData() : Data </td></tr>
 <tr><td align="left" balign="left"> + addPerson(_firstname : String, _lastname : String, _imageurl : String) : String </td></tr>
@@ -88,10 +91,25 @@ digraph G {
 <tr><td align="left" balign="left"> + addEmail(_uid : String, _email : String, _type : int) : String </td></tr>
 <tr><td align="left" balign="left"> + updateEmail(_uid : String, _email : String, _type : int) : String </td></tr>
 <tr><td align="left" balign="left"> + deleteEmail(_uid : String) : String </td></tr>
+<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) : String </td></tr>
+		</table></td></tr>
+		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// com.connectlife.coreserver.environment.AccessoryProcessor
+	c222 [label=<<table title="com.connectlife.coreserver.environment.AccessoryProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./AccessoryProcessor.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> AccessoryProcessor </font></td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left">  </td></tr>
+		</table></td></tr>
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) </td></tr>
+<tr><td align="left" balign="left"> + synchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
+<tr><td align="left" balign="left"> + unsynchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.FindProcessor
-	c222 [label=<<table title="com.connectlife.coreserver.environment.FindProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FindProcessor.html">
+	c223 [label=<<table title="com.connectlife.coreserver.environment.FindProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FindProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"><font face="Helvetica-Oblique"> FindProcessor </font></td></tr>
 		</table></td></tr>
@@ -101,20 +119,6 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="left" balign="left"> + findRoomByUid(_uid : String) : Room </td></tr>
 <tr><td align="left" balign="left"> + findAccessoryBySerialNumber(_serial_number : String) : Accessory </td></tr>
-		</table></td></tr>
-		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
-	// com.connectlife.coreserver.environment.DeviceProcessor
-	c223 [label=<<table title="com.connectlife.coreserver.environment.DeviceProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceProcessor.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> DeviceProcessor </font></td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left">  </td></tr>
-		</table></td></tr>
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="left" balign="left"> + registerAccessory(_accessory : Accessory, _room : Room) </td></tr>
-<tr><td align="left" balign="left"> + synchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
-<tr><td align="left" balign="left"> + unsynchronizeAccessory(_accessory : Accessory) : Accessory </td></tr>
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.EnvironmentJsonFile implements com.connectlife.coreserver.environment.Environment
