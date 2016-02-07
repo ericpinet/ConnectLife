@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
+import com.rits.cloning.Cloner;
+
 import java.util.Observable;
 
 import com.clapi.data.*;
@@ -97,6 +99,11 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * Device manager of the accessories in the environment
 	 */
 	private DeviceManager m_device_manager;
+	
+	/**
+	 * Find processor linked with this environment.
+	 */
+	private FindProcessor m_find;
 	
 	/**
 	 * Default constructor of the environment.
@@ -191,6 +198,11 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		else{
 			m_logger.error("Unable to init the environment.");
 		}
+		
+		// Init the find processor if all is start correctly
+		if(true == ret_val){
+			m_find = new FindProcessor(m_data);
+		}
 
 		return ret_val;
 	}
@@ -237,6 +249,24 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		}
 
 		m_logger.info("UnInitialization completed.");
+	}
+	
+	/**
+	 * Return the device manager for the environment.
+	 * 
+	 * @return The device manager of the environment.
+	 */
+	public DeviceManager getDeviceManager(){
+		return m_device_manager;
+	}
+	
+	/**
+	 * Return the find processor of this environment.
+	 * 
+	 * @return FindProcessor Return the find processor of this environment.
+	 */
+	public FindProcessor getFindProcessor(){
+		return m_find;
 	}
 	
 	/**
@@ -386,31 +416,31 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		Person eric = new Person(UIDGenerator.getUID(), "Eric");
 		eric.setLastname("Pinet");
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
-		eric.addToEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
-		eric.addToPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
+		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
 		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
 		ericadd.setCountry("Canada");
-		eric.addToAddress(ericadd);
+		eric.addAddress(ericadd);
 		persons.add(eric);
 		
 		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
-		qiaomei.addToEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
-		qiaomei.addToPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
 		
 		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
-		qiaomei.addToAddress(qiaomeiadd);
+		qiaomei.addAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
 		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
@@ -467,12 +497,16 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
+	 * Return a clone of the data environment. 
+	 * Change this data will not affect the environment.
+	 * 
 	 * @return The all data in the environment.
 	 * @see com.connectlife.coreserver.environment.Environment#getData()
 	 */
 	@Override
 	public Data getData() {
-		return m_data;
+		Cloner cloner = new Cloner();
+		return cloner.deepClone(m_data);
 	}
 	
 	/**
@@ -486,89 +520,123 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
-	 * Add person in the environment.
+	 * Add a person in the data. 
 	 * 
-	 * @param _firstname First name of the person.
-	 * @param _lastname Last name of the person.
-	 * @param _imageurl Url of the image of this person.
-	 * @return The uid of this new person.
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public String addPerson(String _firstname, String _lastname, String _imageurl) {
-		Person person = new Person(UIDGenerator.getUID(), _firstname, _lastname, _imageurl);
-		m_data.getPersons().add(person);
-		environmentChange();
-		return person.getUid();
-	}
-	
-	/**
-	 * Update the person in environment.
-	 * 
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person.
-	 * @param lastname  Last name of the person.
-	 * @param imageurl  Image url of the person.
-	 * @return UID of the person. 
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public String updatePerson(String uid, String firstname, String lastname, String imageurl) {
-		m_data.updatePerson(uid, firstname, lastname, imageurl);
-		environmentChange();
-		return uid;
-	}
-	
-	/**
-	 * Delete the person.
-	 * 
-	 * @param _uid UID of the person.
+	 * @param _person Person to add in the environment.
 	 * @return UID of the person.
+	 * @throws Exception If something goes wrong.
 	 */
-	@Override
-	public String deletePerson(String _uid)
-	{
-		m_data.deletePerson(_uid);
+	public String addPerson(Person _person) throws Exception {
+		_person.setUid(UIDGenerator.getUID());
+		m_data.getPersons().add(_person);
 		environmentChange();
-		return _uid;
+		return _person.getUid();
 	}
 	
 	/**
-	 * Add the email of the person.
+	 * Update a person in the data.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
+	 * @param _person Person to update in the environment.
+	 * @throws Exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
 	 */
 	@Override
-	public String addEmail(String _uid, String _email, int _type){
-		m_data.addEmail(_uid, _email, _type);
-		environmentChange();
-		return _uid;
+	public void updatePerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	/**
-	 * Update an email of the person.
+	 * Register the accessory in the room.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the mail of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to register.
+	 * @param _room Room where register the accessory.
+	 * @return UID of the accessory after the registration.
+	 * @throws Exception If something goes wrong.
 	 */
-	@Override
-	public String updateEmail(String _uid, String _email, int _type){
-		return _uid;
+	public String registerAccessory(Accessory _accessory, Room _room) throws Exception{
+		String ret_uid = null; 
+		// check if the accessory is already register in a room
+		// find the accessory by the serial number.
+		Accessory accessory = m_find.findAccessory(_accessory);
+		if(null == accessory){
+			// the accessory isn't register
+			// we can add it in the room
+			Room room = m_find.findRoom(_room);
+			if(null != room){
+				// Register the accessory and set a UID.
+				_accessory.setUid(UIDGenerator.getUID());
+				_accessory.setRegister(true);
+				
+				// Adding the accessory in the room.
+				room.getAccessories().add(_accessory);
+				
+				// indicate that the environment has change.
+				environmentChange();
+				
+				// get the uid for the return value.
+				ret_uid = _accessory.getUid();
+				
+			}
+			else{
+				throw new Exception("Room not found.");
+			}
+		}
+		else{
+			throw new Exception("Accessory not found.");
+		}
+		
+		return ret_uid;
 	}
 	
 	/**
-	 * Delete the mail of the person.
+	 * Synchronize the accessory in the environment.
+	 * If this accessory is already in the environment the Accessory was file with UID and return. 
+	 * (The accessory is found by the serial number).
 	 * 
-	 * @param _uid UID of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to synchronize with the environment.
+	 * @return Accessory updated with the UID if it's in the environment
+	 * @throws Exception If something goes wrong.
 	 */
-	@Override
-	public String deleteEmail(String _uid){
-		return _uid;
+	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception {
+
+		// find the accessory by the serial number.
+		Accessory accessory = m_find.findAccessory(_accessory);
+		
+		// if accessory is find register.
+		if(null != accessory){
+			accessory.setRegister(true);
+			
+			// indicate that the environment has change.
+			environmentChange();
+		}
+
+		return accessory;
 	}
+	
+	/**
+	 * Unsynchronized the accessory in the environment.
+	 * The accessory register will be removed.
+	 * 
+	 * @param _accessory Accessory to unsynchronized with the environment.
+	 * @return Accessory updated with the register if it's in the environment
+	 * @throws Exception If something goes wrong.
+	 */
+	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
+
+		// find the accessory by the serial number.
+		Accessory accessory = m_find.findAccessory(_accessory);
+		
+		// if accessory is find register.
+		if(null != accessory){
+			accessory.setRegister(false);
+			
+			// indicate that the environment has change.
+			environmentChange();
+		}
+
+		return accessory;
+	}
+
+	
 }

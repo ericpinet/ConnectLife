@@ -242,4 +242,15 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			m_devices_to_unregister.remove(device);
 		}
 	}
+
+	/**
+	 * Return the list of the devices in the environment.
+	 * 
+	 * @return Device in the environment.
+	 * @see com.connectlife.coreserver.environment.device.DeviceManager#getDevices()
+	 */
+	@Override
+	public List<Device> getDevices() {
+		return m_devices;
+	}
 }

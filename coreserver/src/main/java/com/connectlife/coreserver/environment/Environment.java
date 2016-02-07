@@ -10,6 +10,7 @@ package com.connectlife.coreserver.environment;
 
 import java.util.Observer;
 import com.clapi.data.*;
+import com.connectlife.coreserver.environment.device.DeviceManager;
 
 
 /**
@@ -52,6 +53,13 @@ public interface Environment {
 	 * UnInitialize the environment data. Return in empty state ready to initialize again.
 	 */
 	public void unInit();
+	
+	/**
+	 * Return the device manager for the environment.
+	 * 
+	 * @return The device manager of the environment.
+	 */
+	public DeviceManager getDeviceManager();
 	
 	/**
 	 * Return a JSON string representing the environment.
@@ -111,66 +119,65 @@ public interface Environment {
 	public boolean hasChanged();
 	
 	/**
-	 * Return Data of the environment.
+	 * Return clone of the Data environment.
+	 * 
 	 * @return Data of the environment.
 	 */
 	public Data getData();	
 	
 	/**
+	 * Return the find processor of this environment.
+	 * 
+	 * @return FindProcessor Return the find processor of this environment.
+	 */
+	public FindProcessor getFindProcessor();
+	
+	/**
 	 * Add a person in the data. 
 	 * 
-	 * @param _firstname First name of the person.
-	 * @param _lastname Last name of the person.
-	 * @param _imageurl image url of the person.
-	 * @return UID of the person. 
-	 */
-	public String addPerson(String _firstname, String _lastname, String _imageurl);
-	
-	/**
-	 * Update the person in the data.
-	 *  
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person.
-	 * @param lastname Last name of the person.
-	 * @param imageurl image url of the person.
-	 * @return UID of the person. 
-	 */
-	public String updatePerson(String uid, String firstname, String lastname, String imageurl);
-	
-	/**
-	 * Delete the person.
-	 * 
-	 * @param uid UID of the person.
+	 * @param _person Person to add in the environment.
 	 * @return UID of the person.
+	 * @throws Exception If something goes wrong.
 	 */
-	public String deletePerson(String uid);
+	public String addPerson(Person _person) throws Exception;
 	
 	/**
-	 * Add the email of the person.
+	 * Update a person in the data.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
+	 * @param _person Person to update in the environment.
+	 * @throws Exception If something goes wrong.
 	 */
-	public String addEmail(String _uid, String _email, int _type);
+	public void updatePerson(Person _person) throws Exception;
 	
 	/**
-	 * Update an email of the person.
+	 * Synchronize the accessory in the environment.
+	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
+	 * If this accessory wasn't in the environment, this function return null.
 	 * 
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the mail of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to synchronize with the environment.
+	 * @return Accessory updated with the UID if it's in the environment
+	 * @throws Exception If something goes wrong.
 	 */
-	public String updateEmail(String _uid, String _email, int _type);
+	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception;
 	
 	/**
-	 * Delete the mail of the person.
+	 * Unsynchronized the accessory in the environment.
+	 * The accessory register will be removed.
 	 * 
-	 * @param _uid UID of the person.
-	 * @return UID of the person.
+	 * @param _accessory Accessory to unsynchronized with the environment.
+	 * @return Accessory updated with the register if it's in the environment
+	 * @throws Exception If something goes wrong.
 	 */
-	public String deleteEmail(String _uid);
+	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception;
+	
+	/**
+	 * Register the accessory in the room.
+	 * 
+	 * @param _accessory Accessory to register.
+	 * @param _room Room where register the accessory.
+	 * @return UID of the accessory after the registration.
+	 * @throws Exception If something goes wrong.
+	 */
+	public String registerAccessory(Accessory _accessory, Room _room) throws Exception;
 	
 }

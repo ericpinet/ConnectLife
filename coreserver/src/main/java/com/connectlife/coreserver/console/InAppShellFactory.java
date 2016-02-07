@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,11 +32,14 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
 
+import com.clapi.data.Accessory;
+import com.clapi.data.Room;
 // internal
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.ConfigItem.ConfigType;
+import com.connectlife.coreserver.environment.device.Device;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -448,13 +452,45 @@ public class InAppShellFactory implements Factory {
             	}
             	else
             	{
-                	//String accessory = line.substring(accessory_start_at+1, accessory_end_at).toUpperCase();
-                	//String room      = line.substring(room_start_at+1, room_end_at).toUpperCase();
+                	String accessory_sn = line.substring(accessory_start_at+1, accessory_end_at);
+                	String room_uid     = line.substring(room_start_at+1, room_end_at);
                 	
-                	// TODO: Complete this function.
+                	Accessory accessory = null;
+                	boolean notfound = true;
                 	
-                	response = "This command is not implemented yet.";
+                	// Find the accessory
+                	List<Device> devices = Application.getApp().getEnvironment().getDeviceManager().getDevices();
+                	Iterator<Device> it = devices.iterator();
+                	while(it.hasNext() && notfound){
+                		Device device = it.next();
+                		if(device.getDefinition().getAccessory().getSerialnumber().equals(accessory_sn)){
+                			accessory = device.getDefinition().getAccessory();
+                			notfound = false;
+                		}
+                	}
                 	
+                	if(notfound){
+                		response = "Accessory not found.";
+                	}
+                	else{
+                	
+	                	// Find the room
+	                	Room room = Application.getApp().getEnvironment().getFindProcessor().findRoom(new Room(room_uid,"",null, ""));
+	                	if(null == room){
+	                		response = "Room not found.";
+	                	}
+	                	else{
+	                		// Register the device in the room
+	                		try {
+	                			Application.getApp().getEnvironment().registerAccessory(accessory, room);
+								response = "Accessory registed.";
+								
+							} catch (Exception e) {
+								m_logger.error(e.getMessage());
+								response = e.getMessage();
+							}
+	                	}
+                	}
             	}
             }
             else if(line.toLowerCase().startsWith(SHELL_CMD_UNREGISTER_ACCESSORY)){

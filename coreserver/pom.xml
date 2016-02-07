@@ -138,6 +138,13 @@
 	<version>0.0.1</version>
 	<scope>compile</scope>
   </dependency>
+  
+  <!-- clonning (deepclone) -->
+  <dependency>
+    <groupId>uk.com.robust-it</groupId>
+    <artifactId>cloning</artifactId>
+    <version>1.9.2</version>
+  </dependency>
 
   </dependencies>
   

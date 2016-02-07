@@ -11,15 +11,13 @@ package com.clapi.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.clapi.data.Email.EmailType;
-
 /**
  * Data
  * 
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Data implements Cloneable {
+public class Data {
 	
 	/**
 	 * Version of the data. Increment by one for each change.

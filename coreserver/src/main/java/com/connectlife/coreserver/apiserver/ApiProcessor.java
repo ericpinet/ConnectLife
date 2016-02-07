@@ -16,6 +16,7 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.clapi.data.Person;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
@@ -179,7 +180,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
-		String uid = m_environment.addPerson(request.getFirstname(), request.getLastname(), request.getImageurl());
+		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
+		String uid = "";
+		try {
+			uid = m_environment.addPerson(person);
+		} catch (Exception e) {
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
 		AddPersonResponse reply = AddPersonResponse.newBuilder().setUid(uid).build();
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
@@ -191,10 +200,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
-		String uid = m_environment.updatePerson(request.getUid(), request.getFirstname(), request.getLastname(), request.getImageurl());
-		UpdatePersonResponse reply = UpdatePersonResponse.newBuilder().setUid(uid).build();
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -203,10 +209,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
-		String uid = m_environment.deletePerson(request.getUid());
-		DeletePersonResponse reply = DeletePersonResponse.newBuilder().setUid(uid).build();
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -215,10 +218,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
-		String uid = m_environment.addEmail(request.getUidPerson(), request.getEmail(), request.getType());
-		AddEmailResponse reply = AddEmailResponse.newBuilder().setUid(uid).build();
-		responseObserver.onNext(reply);
-		responseObserver.onCompleted();
+		// TODO Auto-generated method stub
 	}
 
 	/**

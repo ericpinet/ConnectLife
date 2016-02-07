@@ -36,10 +36,8 @@ public abstract class SaveProcessor {
 	public static Data prepareSave(Environment _env){
 		Data ret_data = null;
 		
-		// create clone of data by object to json and json to object. 
-		Gson gson = new Gson();
-		String json = gson.toJson(_env.getData());
-		ret_data = gson.fromJson(json, Data.class);
+		// Get clone of data environment.
+		ret_data = _env.getData();
 		
 		// Step to prepare the data to save:
 		//   1) Put all accessory register at false, Register indicate that accessory is correctly connected on the server.

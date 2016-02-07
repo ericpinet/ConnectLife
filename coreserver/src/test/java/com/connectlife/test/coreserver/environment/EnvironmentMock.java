@@ -12,6 +12,8 @@ import java.util.Observable;
 
 import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.FindProcessor;
+import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -101,76 +103,69 @@ public class EnvironmentMock extends Observable implements Environment {
 	}
 
 	/**
-	 * @param firstname
-	 * @param lastname
-	 * @param imageurl
 	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
+	 * @see com.connectlife.coreserver.environment.Environment#getDeviceManager()
 	 */
 	@Override
-	public String addPerson(String firstname, String lastname, String imageurl) {
-		return null;
-	}
-	
-	/**
-	 * Update the person in environment.
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person.
-	 * @param lastname  Last name of the person.
-	 * @param imageurl  Image url of the person.
-	 * @return UID of the person. 
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(java.lang.String, java.lang.String, java.lang.String)
-	 */
-	@Override
-	public String updatePerson(String uid, String firstname, String lastname, String imageurl) {
-		return null;
-	}
-	
-	/**
-	 * Delete the person.
-	 * @param uid UID of the person.
-	 * @return UID of the person.
-	 */
-	@Override
-	public String deletePerson(String _uid)
-	{
+	public DeviceManager getDeviceManager() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	/**
-	 * Add the email of the person.
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
+	 * @param _accessory
+	 * @param _room
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#registerAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
 	 */
 	@Override
-	public String addEmail(String _uid, String _email, int _type)
-	{
+	public String registerAccessory(Accessory _accessory, Room _room) {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/**
-	 * Update an email of the person.
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the mail of the person.
-	 * @return UID of the person.
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
 	 */
 	@Override
-	public String updateEmail(String _uid, String _email, int _type)
-	{
+	public FindProcessor getFindProcessor() {
+		return new FindProcessor(CreateTestData.getData());
+	}
+
+	/**
+	 * @param _person
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.clapi.data.Person)
+	 */
+	@Override
+	public String addPerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	/**
-	 * Delete the mail of the person.
-	 * @param _uid UID of the person.
-	 * @return UID of the person.
+	 * @param _accessory
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
 	 */
 	@Override
-	public String deleteEmail(String _uid)
-	{
+	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @param _accessory
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#unsynchronizeAccessory(com.clapi.data.Accessory)
+	 */
+	@Override
+	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
