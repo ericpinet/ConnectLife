@@ -475,7 +475,7 @@ public class InAppShellFactory implements Factory {
                 	else{
                 	
 	                	// Find the room
-	                	Room room = Application.getApp().getEnvironment().getFindProcessor().findRoom(new Room(room_uid,"",null, ""));
+	                	Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room(room_uid,"",null, ""));
 	                	if(null == room){
 	                		response = "Room not found.";
 	                	}

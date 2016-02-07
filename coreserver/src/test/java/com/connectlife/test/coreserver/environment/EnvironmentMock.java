@@ -13,6 +13,7 @@ import java.util.Observable;
 import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.FindProcessor;
+import com.connectlife.coreserver.environment.FindProcessorReadOnly;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.gson.Gson;
@@ -117,8 +118,8 @@ public class EnvironmentMock extends Observable implements Environment {
 	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
 	 */
 	@Override
-	public FindProcessor getFindProcessor() {
-		return new FindProcessor(CreateTestData.getData());
+	public FindProcessor getFindProcessorReadOnly() {
+		return new FindProcessorReadOnly(CreateTestData.getData());
 	}
 
 	/**

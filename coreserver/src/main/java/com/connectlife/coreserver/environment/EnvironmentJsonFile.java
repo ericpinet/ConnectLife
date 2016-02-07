@@ -201,7 +201,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		// Init the find processor if all is start correctly
 		if(true == ret_val){
-			m_find = new FindProcessor(m_data);
+			m_find = new FindProcessorReadWrite(m_data);
 		}
 
 		return ret_val;
@@ -265,8 +265,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * 
 	 * @return FindProcessor Return the find processor of this environment.
 	 */
-	public FindProcessor getFindProcessor(){
-		return m_find;
+	public FindProcessor getFindProcessorReadOnly(){
+		return new FindProcessorReadOnly(m_data);
 	}
 	
 	/**
@@ -548,7 +548,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		ret_person = m_find.findPerson(_person);
 		if(null != ret_person){
 			// update the person information
-			ret_person = _person;
+			ret_person.updateInformation(_person);
+			
 			// indicate that the environment was changed.
 			environmentChange();
 		}

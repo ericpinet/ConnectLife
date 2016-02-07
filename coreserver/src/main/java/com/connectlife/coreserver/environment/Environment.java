@@ -126,11 +126,12 @@ public interface Environment {
 	public Data getData();	
 	
 	/**
-	 * Return the find processor of this environment.
+	 * Return the find processor of this environment. All data return was in read only state. 
+	 * Change on this data will not affect the current environment data.
 	 * 
 	 * @return FindProcessor Return the find processor of this environment.
 	 */
-	public FindProcessor getFindProcessor();
+	public FindProcessor getFindProcessorReadOnly();
 	
 	/**
 	 * Add a person in the data. The uid of the person will be generated

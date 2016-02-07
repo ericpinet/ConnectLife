@@ -275,11 +275,11 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test find a accessory valid
-		Accessory accessory = env.getFindProcessor().findAccessory(new Accessory("", "", "", "", "PL001-100-10009", null, "", null, null));
+		Accessory accessory = env.getFindProcessorReadOnly().findAccessory(new Accessory("", "", "", "", "PL001-100-10009", null, "", null, null));
 		assertTrue(null != accessory);
 		
 		// test find a accessory invalid
-		Accessory accessory2 = env.getFindProcessor().findAccessory(new Accessory("", "", "", "", "XXXXXXXXXX", null, "", null, null));
+		Accessory accessory2 = env.getFindProcessorReadOnly().findAccessory(new Accessory("", "", "", "", "XXXXXXXXXX", null, "", null, null));
 		assertTrue(null == accessory2);
 		
 		// restore file after test.
@@ -301,11 +301,11 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test find a accessory valid
-		Room room = Application.getApp().getEnvironment().getFindProcessor().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
+		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
 		assertTrue(null != room);
 		
 		// test find a accessory invalid
-		Room room2 = Application.getApp().getEnvironment().getFindProcessor().findRoom(new Room("XXXXXXXXXXX", ""));
+		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("XXXXXXXXXXX", ""));
 		assertTrue(null == room2);
 		
 		// restore file after test.

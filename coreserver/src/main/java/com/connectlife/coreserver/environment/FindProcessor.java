@@ -9,7 +9,13 @@
 package com.connectlife.coreserver.environment;
 
 import java.util.Iterator;
-import com.clapi.data.*;
+
+import com.clapi.data.Accessory;
+import com.clapi.data.Data;
+import com.clapi.data.Home;
+import com.clapi.data.Person;
+import com.clapi.data.Room;
+import com.clapi.data.Zone;
 
 /**
  * Find processor for the environment.
@@ -17,21 +23,12 @@ import com.clapi.data.*;
  * @author ericpinet
  * <br> 2016-02-07
  */
-public class FindProcessor {
+public abstract class FindProcessor {
 	
 	/**
 	 * Data environment use by this find processor;
 	 */
-	Data m_data;
-	
-	/**
-	 * Default constructor.
-	 * 
-	 * @param _data Data use in the FindProcessor.
-	 */
-	public FindProcessor(Data _data){
-		m_data = _data;
-	}
+	protected Data m_data;
 	
 	/**
 	 * Find person by the uid, last name or first name.
@@ -190,6 +187,4 @@ public class FindProcessor {
 		
 		return ret_acc;
 	}
-	
-
 }
