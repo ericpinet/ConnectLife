@@ -497,7 +497,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	@Override
 	public String addPerson(String _firstname, String _lastname, String _imageurl) {
 		Person person = new Person(UIDGenerator.getUID(), _firstname, _lastname, _imageurl);
-		m_data.addToPersons(person);
+		m_data.getPersons().add(person);
 		environmentChange();
 		return person.getUid();
 	}
