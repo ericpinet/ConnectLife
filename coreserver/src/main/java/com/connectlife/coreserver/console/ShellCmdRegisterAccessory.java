@@ -9,8 +9,6 @@
 package com.connectlife.coreserver.console;
 
 import java.io.InterruptedIOException;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,8 +16,6 @@ import org.apache.logging.log4j.Logger;
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.FindProcessor;
-import com.connectlife.coreserver.environment.device.Device;
 
 /**
  * Shell command for register accessory in the environment.
