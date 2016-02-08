@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.SqliteSettingsApp
-	c1982 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
+	c3542 [label=<<table title="com.connectlife.coreserver.config.SqliteSettingsApp" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./SqliteSettingsApp.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> SqliteSettingsApp </td></tr>
 		</table></td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.config.SqliteSettings
-	c1985 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SqliteSettings.html">
+	c3545 [label=<<table title="com.connectlife.coreserver.config.SqliteSettings" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./SqliteSettings.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> SqliteSettings </td></tr>
@@ -40,6 +40,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.config.SqliteSettingsApp implements com.connectlife.coreserver.config.SqliteSettings
-	c1985:p -> c1982:p [dir=back,arrowtail=empty,style=dashed];
+	c3545:p -> c3542:p [dir=back,arrowtail=empty,style=dashed];
 }
 

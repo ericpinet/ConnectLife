@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.apiserver.ApiProcessor
-	c947 [label=<<table title="com.connectlife.coreserver.apiserver.ApiProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApiProcessor.html">
+	c1277 [label=<<table title="com.connectlife.coreserver.apiserver.ApiProcessor" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApiProcessor.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApiProcessor </td></tr>
 		</table></td></tr>
@@ -40,11 +40,11 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.apiserver.ApiProcessor implements com.clapi.protocol.CLApiGrpc.CLApi
-	c979:p -> c947:p [dir=back,arrowtail=empty,style=dashed];
+	c1324:p -> c1277:p [dir=back,arrowtail=empty,style=dashed];
 	//com.connectlife.coreserver.apiserver.ApiProcessor implements java.util.Observer
-	c980:p -> c947:p [dir=back,arrowtail=empty,style=dashed];
+	c1325:p -> c1277:p [dir=back,arrowtail=empty,style=dashed];
 	// java.util.Observer
-	c980 [label=<<table title="java.util.Observer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Observer.html">
+	c1325 [label=<<table title="java.util.Observer" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/java/util/Observer.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Observer </td></tr>
@@ -57,7 +57,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.clapi.protocol.CLApiGrpc.CLApi
-	c979 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApi" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html">
+	c1324 [label=<<table title="com.clapi.protocol.CLApiGrpc.CLApi" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="http://java.sun.com/j2se/1.4.2/docs/api/com/clapi/protocol/CLApiGrpc/CLApi.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> CLApi </td></tr>

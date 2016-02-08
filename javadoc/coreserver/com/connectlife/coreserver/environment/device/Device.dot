@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.device.Device
-	c1380 [label=<<table title="com.connectlife.coreserver.environment.device.Device" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Device.html">
+	c1860 [label=<<table title="com.connectlife.coreserver.environment.device.Device" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./Device.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> Device </td></tr>
@@ -28,7 +28,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.device.DeviceJson
-	c1384 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceJson" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceJson.html">
+	c1864 [label=<<table title="com.connectlife.coreserver.environment.device.DeviceJson" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DeviceJson.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DeviceJson </td></tr>
 		</table></td></tr>
@@ -46,6 +46,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.device.DeviceJson implements com.connectlife.coreserver.environment.device.Device
-	c1380:p -> c1384:p [dir=back,arrowtail=empty,style=dashed];
+	c1860:p -> c1864:p [dir=back,arrowtail=empty,style=dashed];
 }
 

@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.config.ConfigFactoryData
-	c2114 [label=<<table title="com.connectlife.coreserver.config.ConfigFactoryData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFactoryData.html">
+	c3719 [label=<<table title="com.connectlife.coreserver.config.ConfigFactoryData" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ConfigFactoryData.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ConfigFactoryData </td></tr>
 		</table></td></tr>

@@ -1,5 +1,20 @@
 <map id="G" name="G">
-<area shape="rect" id="c364" href="./ConsoleSSH.html" title="com.connectlife.coreserver.console.ConsoleSSH" alt="" coords="15,193,225,314"/>
-<area shape="rect" id="c365" href="./InAppShellFactory.html" title="com.connectlife.coreserver.console.InAppShellFactory" alt="" coords="228,27,377,117"/>
-<area shape="rect" id="c366" href="./Console.html" title="com.connectlife.coreserver.console.Console" alt="" coords="57,11,183,133"/>
+<area shape="rect" id="c484" href="./ShellCmdOutputAllConfig.html" title="com.connectlife.coreserver.console.ShellCmdOutputAllConfig" alt="" coords="15,209,401,346"/>
+<area shape="rect" id="c485" href="./ConsoleSSH.html" title="com.connectlife.coreserver.console.ConsoleSSH" alt="" coords="5597,217,5806,338"/>
+<area shape="rect" id="c486" href="./ShellCmdOutputConfig.html" title="com.connectlife.coreserver.console.ShellCmdOutputConfig" alt="" coords="445,209,830,346"/>
+<area shape="rect" id="c487" href="./ShellCmdQuit.html" title="com.connectlife.coreserver.console.ShellCmdQuit" alt="" coords="874,209,1259,346"/>
+<area shape="rect" id="c488" href="./InAppShellFactory.html" title="com.connectlife.coreserver.console.InAppShellFactory" alt="" coords="5809,35,5959,125"/>
+<area shape="rect" id="c489" href="./ShellCmdHelp.html" title="com.connectlife.coreserver.console.ShellCmdHelp" alt="" coords="1303,209,1689,346"/>
+<area shape="rect" id="c490" href="./ShellCmdFactory.html" title="com.connectlife.coreserver.console.ShellCmdFactory" alt="" coords="6004,35,6236,125"/>
+<area shape="rect" id="c491" href="./ShellCmd.html" title="com.connectlife.coreserver.console.ShellCmd" alt="" coords="2591,11,2977,149"/>
+<area shape="rect" id="c493" href="./ShellCmdOutputLog.html" title="com.connectlife.coreserver.console.ShellCmdOutputLog" alt="" coords="1733,209,2118,346"/>
+<area shape="rect" id="c494" href="./ShellCmdRestoreFactoryConfig.html" title="com.connectlife.coreserver.console.ShellCmdRestoreFactoryConfig" alt="" coords="2162,209,2547,346"/>
+<area shape="rect" id="c495" href="./ShellCmdUnregisterAccessory.html" title="com.connectlife.coreserver.console.ShellCmdUnregisterAccessory" alt="" coords="2591,209,2977,346"/>
+<area shape="rect" id="c496" href="./ShellCmdRegisterAccessory.html" title="com.connectlife.coreserver.console.ShellCmdRegisterAccessory" alt="" coords="3021,209,3406,346"/>
+<area shape="rect" id="c497" href="./ShellCmdSetConfig.html" title="com.connectlife.coreserver.console.ShellCmdSetConfig" alt="" coords="3450,209,3835,346"/>
+<area shape="rect" id="c498" href="./ShellCmdOutputEnv.html" title="com.connectlife.coreserver.console.ShellCmdOutputEnv" alt="" coords="3879,209,4265,346"/>
+<area shape="rect" id="c499" href="./ShellCmdVersion.html" title="com.connectlife.coreserver.console.ShellCmdVersion" alt="" coords="4309,209,4694,346"/>
+<area shape="rect" id="c500" href="./ShellCmdExit.html" title="com.connectlife.coreserver.console.ShellCmdExit" alt="" coords="4738,209,5123,346"/>
+<area shape="rect" id="c501" href="./ShellCmdShutdown.html" title="com.connectlife.coreserver.console.ShellCmdShutdown" alt="" coords="5167,209,5553,346"/>
+<area shape="rect" id="c492" href="./Console.html" title="com.connectlife.coreserver.console.Console" alt="" coords="5639,19,5764,141"/>
 </map>

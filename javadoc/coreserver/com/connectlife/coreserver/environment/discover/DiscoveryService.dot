@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.environment.discover.DiscoveryService
-	c1640 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiscoveryService.html">
+	c2210 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryService" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DiscoveryService.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> DiscoveryService </td></tr>
@@ -25,7 +25,7 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// com.connectlife.coreserver.environment.discover.DiscoveryJmdns
-	c1641 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryJmdns.html">
+	c2211 [label=<<table title="com.connectlife.coreserver.environment.discover.DiscoveryJmdns" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DiscoveryJmdns.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DiscoveryJmdns </td></tr>
 		</table></td></tr>
@@ -40,6 +40,6 @@ digraph G {
 		</table></td></tr>
 		</table>>, fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//com.connectlife.coreserver.environment.discover.DiscoveryJmdns implements com.connectlife.coreserver.environment.discover.DiscoveryService
-	c1640:p -> c1641:p [dir=back,arrowtail=empty,style=dashed];
+	c2210:p -> c2211:p [dir=back,arrowtail=empty,style=dashed];
 }
 

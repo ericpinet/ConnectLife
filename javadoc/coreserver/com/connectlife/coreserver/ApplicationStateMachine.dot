@@ -10,7 +10,7 @@ digraph G {
 	nodesep=0.25;
 	ranksep=0.5;
 	// com.connectlife.coreserver.ApplicationStateMachine
-	c684 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApplicationStateMachine.html">
+	c924 [label=<<table title="com.connectlife.coreserver.ApplicationStateMachine" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ApplicationStateMachine.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ApplicationStateMachine </td></tr>
 		</table></td></tr>
