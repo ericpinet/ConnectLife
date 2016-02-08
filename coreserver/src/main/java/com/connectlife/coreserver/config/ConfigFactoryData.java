@@ -40,5 +40,4 @@ public class ConfigFactoryData {
             {"CONSOLE" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
             {"CONSOLE" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"}
        };
-
 }
