@@ -307,8 +307,8 @@ public class ConsoleSSHTest {
 	public void testShellCmdSetConfig(){
 		
 		ShellCmdSetConfig cmd = new ShellCmdSetConfig();		
-		assertTrue(cmd.checkLineForCommandCompatibility("set config [AGISERVER][TCPIP_PORT]"));
-		assertFalse(cmd.checkLineForCommandCompatibility("vset config [AGISERVER][TCPIP_PORT]"));
+		assertTrue(cmd.checkLineForCommandCompatibility("set config [AGISERVER][TCPIP_PORT] 9000"));
+		assertFalse(cmd.checkLineForCommandCompatibility("vset config [AGISERVER][TCPIP_PORT] 0999"));
 		
 		cmd.getCommand();
 		cmd.getHelp();
