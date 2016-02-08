@@ -9,10 +9,7 @@
 package com.clapi.data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import com.clapi.data.Email.EmailType;
 
 /**
  * Data
@@ -99,114 +96,5 @@ public class Data {
 	 */
 	public void setHomes(List<Home> homes) {
 		this.homes = homes;
-	}
-	
-	/**
-	 * @param person the persons to set
-	 */
-	public void addPerson(Person person){
-		this.persons.add(person);
-	}
-	
-	/**
-	 * @param home The home to add
-	 */
-	public void addHome(Home home){
-		this.homes.add(home);
-	}
-	
-	/**
-	 * Get the person by uid.
-	 * 
-	 * @param uid UID of the person.
-	 * @return The person.
-	 */
-	public Person getPerson(String uid){
-		Person person = null;
-		boolean notfound = true;
-		Iterator<Person> it = persons.iterator();
-		while(it.hasNext() && notfound){
-			Person aperson = it.next();
-			if(aperson.getUid().equals(uid)){
-				notfound = false;
-				person = aperson;
-			}
-		}
-		return person;
-	}
-	
-	/**
-	 * Update the person information.
-	 * 
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person.
-	 * @param lastname  Last name of the person.
-	 * @param imageurl Image url of the person.
-	 */
-	public void updatePerson(String uid, String firstname, String lastname, String imageurl){
-		Person person = getPerson(uid);
-		if(person!=null)
-		{
-			person.setFirstname(firstname);
-			person.setLastname(lastname);
-			person.setImageurl(imageurl);
-		}
-	}
-	
-	/**
-	 * Delete the person.
-	 * @param _uid UID of the person.
-	 * @return UID of the person to delete.
-	 */
-	public String deletePerson(String _uid)
-	{
-		String uid = "";
-		Person person = getPerson(_uid);
-		if(person != null)
-		{
-			uid = person.getUid();
-			this.persons.remove(person);
-		}
-		return uid;
-	}
-	
-	/**
-	 * Add an email of the person.
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
-	 */
-	public String addEmail(String _uid, String _email, int _type)
-	{
-		Person person = this.getPerson(_uid);
-		if(person != null && _email != "")
-		{
-			Email email = new Email(_uid, _email, EmailType.values()[_type]);
-			person.addEmails(email);
-		}
-		return _uid;
-	}
-	
-	/**
-	 * Update the email of the person.
-	 * @param _uid   UID of the person.
-	 * @param _email Email of the person.
-	 * @param _type  Type of the email of the person.
-	 * @return UID of the person.
-	 */
-	public String updateEmail(String _uid, String _email, int _type)
-	{
-		return "";
-	}
-	
-	/**
-	 * Delete an email of the person.
-	 * @param _uid   UID of the person.
-	 * @return UID of the person.
-	 */
-	public String deleteEmail(String _uid)
-	{
-		return "";
 	}
 }

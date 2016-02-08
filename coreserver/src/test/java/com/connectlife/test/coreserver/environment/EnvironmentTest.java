@@ -27,10 +27,8 @@ import com.clapi.data.Data;
 import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.AccessoryProcessor;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
-import com.connectlife.coreserver.environment.FindProcessor;
 import com.connectlife.coreserver.environment.SaveProcessor;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
@@ -277,11 +275,11 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test find a accessory valid
-		Accessory accessory = FindProcessor.findAccessoryBySerialNumber("PL001-100-10009");
+		Accessory accessory = env.getFindProcessorReadOnly().findAccessory(new Accessory("", "", "", "", "PL001-100-10009", null, "", null, null));
 		assertTrue(null != accessory);
 		
 		// test find a accessory invalid
-		Accessory accessory2 = FindProcessor.findAccessoryBySerialNumber("XXXXXXXX");
+		Accessory accessory2 = env.getFindProcessorReadOnly().findAccessory(new Accessory("", "", "", "", "XXXXXXXXXX", null, "", null, null));
 		assertTrue(null == accessory2);
 		
 		// restore file after test.
@@ -303,11 +301,11 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test find a accessory valid
-		Room room = FindProcessor.findRoomByUid("051ad593-c9f1-4cd4-9645-f3f80d7e7c25");
+		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
 		assertTrue(null != room);
 		
 		// test find a accessory invalid
-		Room room2 = FindProcessor.findRoomByUid("XXXXXXXX");
+		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("XXXXXXXXXXX", ""));
 		assertTrue(null == room2);
 		
 		// restore file after test.
@@ -351,13 +349,23 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test synchronize accessory
-		Accessory accessory = AccessoryProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		Accessory accessory = null;
+		try {
+			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertTrue(accessory.isRegister());
 		
 		// test synchronize accessory
 		Accessory invalid = CreateTestData.getLightTest();
 		invalid.setSerialnumber("XXXXXXXX");
-		Accessory accessory2 = AccessoryProcessor.synchronizeAccessory(invalid);
+		Accessory accessory2 = null;
+		try {
+			accessory2 = env.synchronizeAccessory(invalid);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertTrue(null == accessory2);
 		
 		// restore file after test.
@@ -379,15 +387,28 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test synchronize accessory
-		Accessory accessory = AccessoryProcessor.synchronizeAccessory(CreateTestData.getLightTest());
+		Accessory accessory = null;
+		try {
+			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertTrue(accessory.isRegister());
 		
 		// test unsynchronize
-		accessory = AccessoryProcessor.unsynchronizeAccessory(CreateTestData.getLightTest());
+		try {
+			accessory = env.unsynchronizeAccessory(accessory);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertFalse(accessory.isRegister());
 		
-		// test synchronize accessory
-		accessory = AccessoryProcessor.unsynchronizeAccessory(accessory);
+		// test unsynchronize accessory
+		try {
+			accessory = env.unsynchronizeAccessory(accessory);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		assertFalse(accessory.isRegister());
 		
 		// restore file after test.

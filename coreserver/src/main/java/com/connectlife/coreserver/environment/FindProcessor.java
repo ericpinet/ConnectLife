@@ -2,7 +2,7 @@
  *  FindProcessor.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-01-23.
+ *  Created by ericpinet on 2016-02-07.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -10,52 +10,111 @@ package com.connectlife.coreserver.environment;
 
 import java.util.Iterator;
 
-import com.clapi.data.*;
-import com.connectlife.coreserver.Application;
+import com.clapi.data.Accessory;
+import com.clapi.data.Data;
+import com.clapi.data.Home;
+import com.clapi.data.Person;
+import com.clapi.data.Room;
+import com.clapi.data.Zone;
 
 /**
- * Helper the work with environment. Useful function to find element in the environment.
+ * Find processor for the environment.
  * 
  * @author ericpinet
- * <br> 2016-01-23
+ * <br> 2016-02-07
  */
 public abstract class FindProcessor {
 	
 	/**
-	 * Default constructor is private to ensure that is never instantiated.
+	 * Data environment use by this find processor;
 	 */
-	private FindProcessor (){
+	protected Data m_data;
+	
+	/**
+	 * Find person by the uid, last name or first name.
+	 * 
+	 * @param _person Person to find.
+	 * @return Person found, or null if not found.
+	 */
+	public Person findPerson(Person _person){
+		Person ret_person = null;
+		boolean found = false;
+		
+		Iterator<Person> iperson = m_data.getPersons().iterator();
+		while(iperson.hasNext() && false == found){
+			Person person = iperson.next();
+			
+			if(false == _person.getUid().isEmpty()){
+				if(person.getUid().equals(_person.getUid())){
+					found = true;
+					ret_person = person;
+				} // ELSE: Person not found. Do noting.
+			}
+			else{
+				// if the last name is there we try to find the last name
+				if(false == _person.getLastname().isEmpty()){
+					if(person.getLastname().equals(_person.getLastname())){
+						found = true;
+						ret_person = person;
+					} // ELSE: Person not found. Do noting.
+				}
+				else{
+					// if the first name is there we try to find the first name
+					if(false == _person.getFirstname().isEmpty()){
+						if(person.getFirstname().equals(_person.getFirstname())){
+							found = true;
+							ret_person = person;
+						} // ELSE: Person not found. Do noting.
+					}
+				} // ELSE: Nothing else to found.
+			}
+			
+		}// end while person
+		
+		return ret_person;
 	}
 	
 	/**
-	 * Find room by Uid.
+	 * Find room by Uid or Label.
 	 * 
-	 * @param _uid Uid of the room to find.
+	 * @param _room Room to find. 
 	 * @return Room found, null if not found.
 	 */
-	public static Room findRoomByUid(String _uid){
+	public Room findRoom(Room _room){
 		Room ret_room = null;
-		boolean notfound = true;
+		boolean found = false;
 		
 		// iterate in home
-		Iterator<Home> ihome = Application.getApp().getEnvironment().getData().getHomes().iterator();
-		while(ihome.hasNext() && notfound){
+		Iterator<Home> ihome = m_data.getHomes().iterator();
+		while(ihome.hasNext() && false == found){
 			Home home = ihome.next();
 			
 			// iterate in zone
 			Iterator<Zone> izone = home.getZones().iterator();
-			while(izone.hasNext() && notfound){
+			while(izone.hasNext() && false == found){
 				Zone zone = izone.next();
 				
 				// iterate in room
 				Iterator<Room> iroom = zone.getRooms().iterator();
-				while(iroom.hasNext() && notfound){
+				while(iroom.hasNext() && false == found){
 					Room room = iroom.next();
-					if(room.getUid().equals(_uid)){
-						notfound = false;
-						ret_room = room;
-						
-					} // ELSE: Room not found. Do noting.
+					
+					// if the uid is there we try to find the uid
+					if(false == _room.getUid().isEmpty()){
+						if(room.getUid().equals(_room.getUid())){
+							found = true;
+							ret_room = room;
+						} // ELSE: Room not found. Do noting.
+					}
+					else{
+						// if the label is there we try to find the label
+						if(false == _room.getLabel().isEmpty()){
+							if(room.getLabel().equals(_room.getLabel())){
+								found = true;
+								ret_room = room;
+							} // ELSE: Room not found. Do noting.
+						}// ELSE: Nothing else to found.
+					}
 				}// WHILE: Rooms
 			}// WHILE: Zones
 		}// WHILE: Homes
@@ -65,41 +124,61 @@ public abstract class FindProcessor {
 	
 	
 	/**
-	 * Find the accessory with this serial number in the environment.
+	 * Find the accessory with this uid, label or serial number in the environment.
 	 * 
-	 * @param _serial_number Serial number to be found.
+	 * @param _accessory Accessory to be found.
 	 * @return Accessory if found. Null if not found.
 	 */
-	public static Accessory findAccessoryBySerialNumber(String _serial_number){
+	public Accessory findAccessory(Accessory _accessory){
 		Accessory ret_acc = null;
 		
-		boolean notfound = true;
+		boolean found = false;
 		
 		// iterate in home
-		Iterator<Home> ihome = Application.getApp().getEnvironment().getData().getHomes().iterator();
-		while(ihome.hasNext() && notfound){
+		Iterator<Home> ihome = m_data.getHomes().iterator();
+		while(ihome.hasNext() && false == found){
 			Home home = ihome.next();
 			
 			// iterate in zone
 			Iterator<Zone> izone = home.getZones().iterator();
-			while(izone.hasNext() && notfound){
+			while(izone.hasNext() && false == found){
 				Zone zone = izone.next();
 				
 				// iterate in room
 				Iterator<Room> iroom = zone.getRooms().iterator();
-				while(iroom.hasNext() && notfound){
+				while(iroom.hasNext() && false == found){
 					Room room = iroom.next();
 					
 					// iterate in accessory
 					Iterator<Accessory> iaccessory = room.getAccessories().iterator();
-					while(iaccessory.hasNext() && notfound){
+					while(iaccessory.hasNext() && false == found){
 						Accessory accessory = iaccessory.next();
 						
-						if(accessory.getSerialnumber().equals(_serial_number)){
-							notfound = false;
-							ret_acc = accessory;
-							
-						} // ELSE: Accessory not found. Do noting.
+						// if the uid is there we try to find the uid
+						if(false == _accessory.getUid().isEmpty()){
+							if(accessory.getUid().equals(_accessory.getUid())){
+								found = true;
+								ret_acc = accessory;
+							} // ELSE: Accessory not found. Do noting.
+						}
+						else{
+							// if the serial number is there we try to find the serial number
+							if(false == _accessory.getSerialnumber().isEmpty()){
+								if(accessory.getSerialnumber().equals(_accessory.getSerialnumber())){
+									found = true;
+									ret_acc = accessory;
+								} // ELSE: Accessory not found. Do noting.
+							}
+							else{
+								// if the label is there we try to find the label
+								if(false == _accessory.getLabel().isEmpty()){
+									if(accessory.getLabel().equals(_accessory.getLabel())){
+										found = true;
+										ret_acc = accessory;
+									} // ELSE: Accessory not found. Do noting.
+								}// ELSE: Nothing else to find.
+							}
+						}
 						
 					}// WHILE: Accessories
 				}// WHILE: Rooms
@@ -108,5 +187,4 @@ public abstract class FindProcessor {
 		
 		return ret_acc;
 	}
-
 }

@@ -18,7 +18,6 @@ import org.apache.logging.log4j.Logger;
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.environment.AccessoryProcessor;
 import com.connectlife.coreserver.environment.FindProcessor;
 import com.connectlife.coreserver.environment.device.Device;
 
@@ -106,43 +105,18 @@ public class ShellCmdRegisterAccessory implements ShellCmd {
     	{
         	String accessory_sn = _line.substring(accessory_start_at+1, accessory_end_at);
         	String room_uid     = _line.substring(room_start_at+1, room_end_at);
+        		
+    		// Register the device in the room
+    		try {
+    			Application.getApp().getEnvironment().registerAccessory(new Accessory("", accessory_sn), new Room(room_uid, ""));
+				response = "Accessory registed.";
+				
+			} catch (Exception e) {
+				m_logger.error(e.getMessage());
+				response = e.getMessage();
+			}
+            	
         	
-        	Accessory accessory = null;
-        	boolean notfound = true;
-        	
-        	// Find the accessory
-        	List<Device> devices = Application.getApp().getEnvironment().getDeviceManager().getDevices();
-        	Iterator<Device> it = devices.iterator();
-        	while(it.hasNext() && notfound){
-        		Device device = it.next();
-        		if(device.getDefinition().getAccessory().getSerialnumber().equals(accessory_sn)){
-        			accessory = device.getDefinition().getAccessory();
-        			notfound = false;
-        		}
-        	}
-        	
-        	if(notfound){
-        		response = "Accessory not found.";
-        	}
-        	else{
-        	
-            	// Find the room
-            	Room room = FindProcessor.findRoomByUid(room_uid);
-            	if(null == room){
-            		response = "Room not found.";
-            	}
-            	else{
-            		// Register the device in the room
-            		try {
-						AccessoryProcessor.registerAccessory(accessory, room);
-						response = "Accessory registed.";
-						
-					} catch (Exception e) {
-						m_logger.error(e.getMessage());
-						response = e.getMessage();
-					}
-            	}
-        	}
     	}
     	return response;
 	}

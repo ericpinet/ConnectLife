@@ -261,7 +261,7 @@ public class InAppShellFactory implements Factory {
             		cmd_executed = true;
             	}
             }
-            
+
             if(false == cmd_executed){
             	// UNKNOW CMD
                 response = "Command not found: \"" + _line + "\"";

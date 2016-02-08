@@ -230,4 +230,19 @@ public class Person {
 	public void addAddress(Address address) {
 		this.addresses.add(address);
 	}
+	
+	/**
+	 * Update the person information.
+	 * 
+	 * @param _person Person information to use in the update.
+	 */
+	public void updateInformation(Person _person){
+		setUid(_person.getUid());
+		setFirstname(_person.getFirstname());
+		setLastname(_person.getLastname());
+		setImageurl(_person.getImageurl());
+		setAddresses(_person.getAddresses());
+		setEmails(_person.getEmails());
+		setPhones(_person.getPhones());
+	}
 }
