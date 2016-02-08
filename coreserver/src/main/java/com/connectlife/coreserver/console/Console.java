@@ -8,12 +8,8 @@
  */
 package com.connectlife.coreserver.console;
 
-// external
-
-// internal
-
 /**
- * 
+ * User console interface.
  * 
  * @author ericpinet
  * <br> 2015-10-17

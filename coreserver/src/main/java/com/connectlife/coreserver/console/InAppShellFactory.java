@@ -8,7 +8,6 @@
  */
 package com.connectlife.coreserver.console;
 
-// external
 import org.apache.sshd.common.Factory;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
@@ -22,26 +21,13 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.Appender;
-import org.apache.logging.log4j.core.appender.RollingFileAppender;
 
-import com.clapi.data.Accessory;
-import com.clapi.data.Room;
-// internal
-import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.config.ConfigItem;
-import com.connectlife.coreserver.config.ConfigItem.ConfigType;
-import com.connectlife.coreserver.environment.AccessoryProcessor;
-import com.connectlife.coreserver.environment.FindProcessor;
-import com.connectlife.coreserver.environment.device.Device;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -94,19 +80,7 @@ public class InAppShellFactory implements Factory {
         /**
          * List of all command.
          */
-        private static final String SHELL_CMD_OUTPUT_ENV = "output env";
-        private static final String SHELL_CMD_SHUTDOWN = "shutdown";
-        private static final String SHELL_CMD_QUIT = "quit";
-        private static final String SHELL_CMD_EXIT = "exit";
-        private static final String SHELL_CMD_VERSION = "version";
-        private static final String SHELL_CMD_HELP = "help";
-        private static final String SHELL_CMD_OUTPUT_ALL_CONFIGS = "output configs";
-        private static final String SHELL_CMD_OUTPUT_CONFIG = "output config";
-        private static final String SHELL_CMD_SET_CONFIG = "set config";
-        private static final String SHELL_CMD_RESTORE_FACTORY_CONFIG = "restore factory config";
-        private static final String SHELL_CMD_OUTPUT_LOG = "output log";
-        private static final String SHELL_CMD_REGISTER_ACCESSORY = "register device";
-        private static final String SHELL_CMD_UNREGISTER_ACCESSORY = "unregistrer device";
+        private static final List<ShellCmd> m_commands = ShellCmdFactory.getCommands();
 
         /**
          * Input stream of the console.
@@ -237,20 +211,13 @@ public class InAppShellFactory implements Factory {
                 
                 // setup m_reader.
                 m_reader.setPrompt(SHELL_PROMPT);
-                m_reader.addCompleter(new StringsCompleter(	SHELL_CMD_OUTPUT_ENV,
-                											SHELL_CMD_SHUTDOWN,
-                										 	SHELL_CMD_QUIT,
-                										 	SHELL_CMD_EXIT, 
-                										 	SHELL_CMD_VERSION, 
-                										 	SHELL_CMD_HELP,
-                										 	SHELL_CMD_OUTPUT_ALL_CONFIGS,
-                										 	SHELL_CMD_OUTPUT_CONFIG,
-                										 	SHELL_CMD_SET_CONFIG,
-                										 	SHELL_CMD_RESTORE_FACTORY_CONFIG,
-                										 	SHELL_CMD_OUTPUT_LOG,
-                										 	SHELL_CMD_REGISTER_ACCESSORY,
-                										 	SHELL_CMD_UNREGISTER_ACCESSORY
-                										 	));
+                Vector<String> params = new Vector<String>();
+                Iterator<ShellCmd> it = m_commands.iterator();
+                while(it.hasNext()){
+                	ShellCmd cmd = it.next();
+                	params.add(cmd.getCommand());
+                }                
+                m_reader.addCompleter(new StringsCompleter(params));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
                 m_writer.println("****************************************************");
@@ -264,7 +231,7 @@ public class InAppShellFactory implements Factory {
                 }
 
             } catch (InterruptedIOException e) {
-                // Ignore
+            	// do nothing, the user quit the console.
             } catch (Exception e) {
                 m_logger.error("Error executing shell...", e);
     			StdOutErrLog.tieSystemOutAndErrToLog();
@@ -277,258 +244,32 @@ public class InAppShellFactory implements Factory {
         /**
          * Handle user input of the shell.
          * 
-         * @param line Line enter by the user in cmd shell.
+         * @param _line Line enter by the user in cmd shell.
          * @throws InterruptedIOException Exception can occur during the handle of user input.
          */
-        private void handleUserInput(String line) throws InterruptedIOException {
-
-            if ( line.equalsIgnoreCase(SHELL_CMD_QUIT) ||
-                 line.equalsIgnoreCase(SHELL_CMD_EXIT))
-                throw new InterruptedIOException();
-
-            String response = "";
+        private void handleUserInput(String _line) throws InterruptedIOException {
+        	
+        	String response = "";
+        	boolean cmd_executed = false;
+        	
+        	Iterator<ShellCmd> it = m_commands.iterator();
+            while(it.hasNext() && false == cmd_executed){
+            	ShellCmd cmd = it.next();
+            	
+            	if( cmd.checkLineForCommandCompatibility(_line) ){
+            		response = cmd.execute(_line);
+            		cmd_executed = true;
+            	}
+            }
             
-            if (line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ENV)){
-            	// SHUTDOWN
-            	m_logger.info(SHELL_CMD_OUTPUT_ENV);
-                response = Application.getApp().getEnvironment().getJsonEnvironment();
-                
-            }else if (line.equalsIgnoreCase(SHELL_CMD_SHUTDOWN)){
-            	// SHUTDOWN
-            	m_logger.info(SHELL_CMD_SHUTDOWN);
-                response = "shutdown m_in progress...";
-                
-                Application.getApp().shutdown();
-                
-                throw new InterruptedIOException();
-                
-            }else if (line.equalsIgnoreCase(SHELL_CMD_VERSION)){
-            	// VERSION
-            	m_logger.info(SHELL_CMD_VERSION);
-                response = Consts.APP_NAME + " " + Consts.APP_VERSION;
-            }
-            else if (line.equalsIgnoreCase(SHELL_CMD_HELP)){
-            	// HELP
-            	m_logger.info(SHELL_CMD_HELP);
-                response = SHELL_CMD_QUIT + " - exit console cli.\n";
-                response += SHELL_CMD_EXIT + " - exit console cli.\n";
-                response += SHELL_CMD_OUTPUT_ENV + " - output the system environment (JSON).\n";
-                response += SHELL_CMD_SHUTDOWN + " - shutdown the system.\n";
-                response += SHELL_CMD_VERSION + " - return the version of the system.\n";
-                response += SHELL_CMD_OUTPUT_ALL_CONFIGS + " - return the configurations of the system.\n";
-                response += SHELL_CMD_OUTPUT_CONFIG + " - return the specific configuration of the system.\n";
-                response += SHELL_CMD_SET_CONFIG + " - Modify the configuration of the system.\n";
-                response += SHELL_CMD_RESTORE_FACTORY_CONFIG + " - Restore the factory configurations of the system.\n";
-                response += SHELL_CMD_OUTPUT_LOG + " - Output the log of the system.\n";
-                response += SHELL_CMD_REGISTER_ACCESSORY + " - Register accessory in the environment.\n";
-                response += SHELL_CMD_UNREGISTER_ACCESSORY + " - Unregister accessory from the environment.\n";
-            }
-            else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_ALL_CONFIGS)){
-            	// OUTPUT CONFIGS
-            	m_logger.info(SHELL_CMD_OUTPUT_ALL_CONFIGS);
-            	List<ConfigItem> configs = Application.getApp().getConfig().getConfigs();
-            	for(int i=0; i<configs.size(); i++)
-            	{
-                	response += String.format("%1$-" + 20 + "s", configs.get(i).getSection())+ " " + 
-                				String.format("%1$-" + 20 + "s", configs.get(i).getItem()) + " " + 
-                				String.format("%1$-" + 20 + "s", configs.get(i).getType().toString()) + " " +
-                				String.format("%1$-" + 20 + "s", configs.get(i).getValueToString()) +"\n"; 
-            	}
-            }
-            else if(line.toLowerCase().startsWith(SHELL_CMD_OUTPUT_CONFIG)){
-            	// OUTPUT CONFIG
-            	m_logger.info(SHELL_CMD_OUTPUT_CONFIG);
-            	
-            	// this section is to get the section and item from the text.
-            	int minLength = (SHELL_CMD_OUTPUT_CONFIG+" [*][*]").length();
-            	int section_start_at = line.indexOf("[");
-            	int section_end_at   = line.indexOf("]");
-            	int item_start_at    = line.indexOf("[",section_end_at);
-            	int item_end_at      = line.indexOf("]", item_start_at);
-            	
-            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_OUTPUT_CONFIG.length()) != ' ') || (section_start_at + 1 >= section_end_at) || (section_end_at + 1 != item_start_at) || (item_start_at + 1 >= item_end_at) || (line.length() != item_end_at + 1))
-            	{
-            		response = "Format error! Please use format like : " + SHELL_CMD_OUTPUT_CONFIG+" [section][item]";
-            	}
-            	else
-            	{
-                	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
-                	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
-                	
-                	ConfigItem config = Application.getApp().getConfig().getConfig(section, item);
-                	if(config == null){
-                		response = "This configuration doesn't exist.";
-                	}
-                	else{
-                    	response = String.format("%1$-" + 20 + "s", config.getSection())+ " " +
-	             				   String.format("%1$-" + 20 + "s", config.getItem()) + " " +
-	             				   String.format("%1$-" + 20 + "s", config.getType().toString()) + " " +
-	             				   String.format("%1$-" + 20 + "s", config.getValueToString()) +"\n"; 		
-                	}
-            	}
-            }
-            else if (line.toLowerCase().startsWith(SHELL_CMD_SET_CONFIG)){
-            	// SET CONFIG
-            	m_logger.info(SHELL_CMD_SET_CONFIG);
-            	
-            	// this section is to get the section and item from the text.
-            	int minLength = (SHELL_CMD_SET_CONFIG+" [*][*] *").length();
-            	int section_start_at = line.indexOf("[");
-            	int section_end_at   = line.indexOf("]");
-            	int item_start_at    = line.indexOf("[",section_end_at);
-            	int item_end_at      = line.indexOf("]", item_start_at);
-            	String strValue      = item_end_at+2 < line.length() ? line.substring(item_end_at+2) : "";
-            	boolean   isValideValue = true;
-            	response = null;
-            	if (line.length() < minLength || 
-            		strValue.equals("") ||
-            		(line.charAt(SHELL_CMD_SET_CONFIG.length()) != ' ') || 
-            		(section_start_at + 1 >= section_end_at) || 
-            		(section_end_at + 1 != item_start_at) || 
-            		(item_start_at + 1 >= item_end_at) || 
-            		(line.length() <= item_end_at + 1) || 
-            		(line.charAt(item_end_at+1) != ' '))
-            	{
-            		response = "Format error! Please use format like : " + SHELL_CMD_SET_CONFIG+" [section][item] value";
-            	}
-            	else
-            	{
-                	String section = line.substring(section_start_at+1, section_end_at).toUpperCase();
-                	String item    = line.substring(item_start_at+1, item_end_at).toUpperCase();
-                	
-                	ConfigItem config = Application.getApp().getConfig().getConfig(section, item);
-                	if(config == null){
-                		response = "This configuration doesn't exist.";
-                	}
-                	else{
-                    	if(config.getType() == ConfigType.INTEGER){
-                			isValideValue = strValue.matches("^\\d+$");
-                		}
-                    	
-                    	if(!isValideValue){
-                    		response = "Format error! The value is not valide !";
-                    	}
-                    	else{
-                    		if(Application.getApp().getConfig().setConfig(new ConfigItem(section, item, strValue))){
-                    			response = "Config is updated.";	
-                    		}
-                    	}
-                	} 
-            	}
-            }
-            else if(line.equalsIgnoreCase(SHELL_CMD_RESTORE_FACTORY_CONFIG)){
-            	// RESTORE FACTORY CONFIG
-            	m_logger.info(SHELL_CMD_RESTORE_FACTORY_CONFIG);
-            	
-            	if(Application.getApp().getConfig().RestoreFactory()){
-            		response = "The Configurations are restored.";
-            	}
-            }
-            else if(line.equalsIgnoreCase(SHELL_CMD_OUTPUT_LOG)){
-            	// OUTPUT LOG
-            	m_logger.info(SHELL_CMD_OUTPUT_LOG);
-            	org.apache.logging.log4j.core.Logger loggerImpl = (org.apache.logging.log4j.core.Logger)m_logger;
-            	Appender appender = (loggerImpl).getAppenders().get("File");
-            	String fileName = ((RollingFileAppender)appender).getFileName();
-            	try{
-            		response = new String(Files.readAllBytes(Paths.get(fileName)));  
-            	}
-            	catch (Exception e){
-            		m_logger.warn(e.getMessage());
-            	}
-            }
-            else if(line.toLowerCase().startsWith(SHELL_CMD_REGISTER_ACCESSORY)){
-            	// REGISTER DEVICE
-            	m_logger.info(SHELL_CMD_REGISTER_ACCESSORY);
-            	
-            	// this section is to get the accessory and room from the arg.
-            	int minLength = (SHELL_CMD_REGISTER_ACCESSORY+" [*][*]").length();
-            	int accessory_start_at = line.indexOf("[");
-            	int accessory_end_at   = line.indexOf("]");
-            	int room_start_at    = line.indexOf("[",accessory_end_at);
-            	int room_end_at      = line.indexOf("]", room_start_at);
-            	
-            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_REGISTER_ACCESSORY.length()) != ' ') || (accessory_start_at + 1 >= accessory_end_at) || (accessory_end_at + 1 != room_start_at) || (room_start_at + 1 >= room_end_at) || (line.length() != room_end_at + 1))
-            	{
-            		response = "Format error! Please use format like : " + SHELL_CMD_REGISTER_ACCESSORY+" [accessory serial number][room uid]";
-            	}
-            	else
-            	{
-                	String accessory_sn = line.substring(accessory_start_at+1, accessory_end_at);
-                	String room_uid     = line.substring(room_start_at+1, room_end_at);
-                	
-                	Accessory accessory = null;
-                	boolean notfound = true;
-                	
-                	// Find the accessory
-                	List<Device> devices = Application.getApp().getEnvironment().getDeviceManager().getDevices();
-                	Iterator<Device> it = devices.iterator();
-                	while(it.hasNext() && notfound){
-                		Device device = it.next();
-                		if(device.getDefinition().getAccessory().getSerialnumber().equals(accessory_sn)){
-                			accessory = device.getDefinition().getAccessory();
-                			notfound = false;
-                		}
-                	}
-                	
-                	if(notfound){
-                		response = "Accessory not found.";
-                	}
-                	else{
-                	
-	                	// Find the room
-	                	Room room = FindProcessor.findRoomByUid(room_uid);
-	                	if(null == room){
-	                		response = "Room not found.";
-	                	}
-	                	else{
-	                		// Register the device in the room
-	                		try {
-								AccessoryProcessor.registerAccessory(accessory, room);
-								response = "Accessory registed.";
-								
-							} catch (Exception e) {
-								m_logger.error(e.getMessage());
-								response = e.getMessage();
-							}
-	                	}
-                	}
-            	}
-            }
-            else if(line.toLowerCase().startsWith(SHELL_CMD_UNREGISTER_ACCESSORY)){
-            	// UNREGISTER DEVICE
-            	m_logger.info(SHELL_CMD_UNREGISTER_ACCESSORY);
-            	
-            	// this section is to get the accessory and room from the arg.
-            	int minLength = (SHELL_CMD_UNREGISTER_ACCESSORY+" [*][*]").length();
-            	int accessory_start_at = line.indexOf("[");
-            	int accessory_end_at   = line.indexOf("]");
-            	int room_start_at    = line.indexOf("[",accessory_end_at);
-            	int room_end_at      = line.indexOf("]", room_start_at);
-            	
-            	if((line.length() < minLength) || (line.charAt(SHELL_CMD_UNREGISTER_ACCESSORY.length()) != ' ') || (accessory_start_at + 1 >= accessory_end_at) || (accessory_end_at + 1 != room_start_at) || (room_start_at + 1 >= room_end_at) || (line.length() != room_end_at + 1))
-            	{
-            		response = "Format error! Please use format like : " + SHELL_CMD_UNREGISTER_ACCESSORY+" [accessory serial number][room uid]";
-            	}
-            	else
-            	{
-                	//String accessory = line.substring(accessory_start_at+1, accessory_end_at).toUpperCase();
-                	//String room      = line.substring(room_start_at+1, room_end_at).toUpperCase();
-                	
-                	// TODO: Complete this function.
-                	
-                	response = "This command is not implemented yet.";
-                	
-            	}
-            }
-            else{	
+            if(false == cmd_executed){
             	// UNKNOW CMD
-            	m_logger.info(line);
-                response = "Command not found: \"" + line + "\"";
+                response = "Command not found: \"" + _line + "\"";
             }
-
+            
             m_writer.println(response);
             m_writer.flush();
+            
         }
     }
 }
