@@ -9,6 +9,7 @@
 package com.connectlife.test.coreserver;
 
 import java.util.List;
+import java.util.Vector;
 
 import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -81,7 +82,7 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public List<ConfigItem> getConfigs() {
-		return null;
+		return new Vector<ConfigItem>();
 	}
 
 	/**

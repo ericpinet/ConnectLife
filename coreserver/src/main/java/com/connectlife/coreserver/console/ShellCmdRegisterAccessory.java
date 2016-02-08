@@ -69,7 +69,7 @@ public class ShellCmdRegisterAccessory implements ShellCmd {
 	 * @return True if the line in compatible with this command.
 	 */
 	public boolean checkLineForCommandCompatibility(String _line){
-		return _line.equals(SHELL_CMD);
+		return _line.startsWith(SHELL_CMD);
 	}
 
 	/**
