@@ -85,7 +85,10 @@ public class ShellCmdRestoreFactoryConfig implements ShellCmd {
 		m_logger.info(SHELL_CMD);
     	
     	if(Application.getApp().getConfig().RestoreFactory()){
-    		response = "The Configurations are restored.";
+    		response = "Restore the factory configuration.";
+    	}
+    	else{
+    		response = "Error. Unable to restore factory configuration.";
     	}
     	
     	return response;
