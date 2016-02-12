@@ -1,5 +1,5 @@
 language: java
-sudo: true
+sudo: false
 cache:
   directories:
   - .autoconf
@@ -9,7 +9,7 @@ jdk:
 os:
 - linux
 before_install:
-  - sudo apt-get install -y graphviz
+#  - sudo apt-get install -y graphviz
   - pip install --user codecov
 after_success:
   - codecov
