@@ -1,5 +1,5 @@
 language: java
-sudo: true
+sudo: false
 cache:
   directories:
   - .autoconf
@@ -9,20 +9,19 @@ jdk:
 os:
 - linux
 before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install -y graphviz
+#  - sudo apt-get install -y graphviz
+  - pip install --user codecov
+after_success:
+  - codecov
 script:
 - cd clapi
-#- mvn verify
-#- mvn compile
-#- mvn package
 - mvn test
 - mvn install
 - mvn javadoc:javadoc
 - cd ..
 - cd coreserver
+- mvn clean test
 - mvn compile
-- mvn clean test jacoco:report coveralls:report
 - mvn javadoc:javadoc
 - cd ..
 - utility/publishJavadoc.sh
