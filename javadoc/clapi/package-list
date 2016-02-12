@@ -1,3 +1,4 @@
 com.clapi.client
 com.clapi.data
+com.clapi.protocol
 com.clapi.simulator.device
