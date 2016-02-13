@@ -315,7 +315,7 @@ public class ConfigSqlite implements Config {
 					}
 				}
 			}catch (SQLException e) {
-				m_logger.warn("Database version isn't the right version. Database must be rebuild.");
+				m_logger.warn("Unable load the database version. Database must be rebuild.");
 			}
 			
 			// if version not the same
