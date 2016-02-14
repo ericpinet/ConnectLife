@@ -37,6 +37,11 @@ public interface DeviceManager {
 	public void unInit();
 	
 	/**
+	 * Force all devices to synchronization with the environment.
+	 */
+	public void forceSynchronizationOfAllDevices();
+	
+	/**
 	 * Return the list of the devices in the environment.
 	 * 
 	 * @return Device in the environment.

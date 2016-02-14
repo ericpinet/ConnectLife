@@ -60,6 +60,15 @@ public class EnvironmentMock extends Observable implements Environment {
 	public void unInit() {
 		m_is_init = false;
 	}
+	
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#save()
+	 */
+	@Override
+	public boolean save() {
+		return false;
+	}
 
 	/**
 	 * @return
@@ -109,7 +118,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public DeviceManager getDeviceManager() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -130,7 +138,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -142,7 +149,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -154,7 +160,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Person addPerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -166,7 +171,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Person updatePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -178,7 +182,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public Person deletePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -187,15 +190,11 @@ public class EnvironmentMock extends Observable implements Environment {
 	 * @param _room
 	 * @return
 	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#registerAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
+	 * @see com.connectlife.coreserver.environment.Environment#addAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
 	 */
 	@Override
-	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception {
-		// TODO Auto-generated method stub
+	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception {
 		return null;
 	}
 
-	
-
-	
 }

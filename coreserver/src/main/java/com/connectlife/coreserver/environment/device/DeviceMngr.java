@@ -166,6 +166,21 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			m_logger.warn("Already unitialized.");
 		}
 	}
+	
+	/**
+	 * Force all devices to synchronization with the environment.
+	 * @see com.connectlife.coreserver.environment.device.DeviceManager#forceResynchronizationOfAllDevices()
+	 */
+	@Override
+	public void forceSynchronizationOfAllDevices() {
+		// to force the synchronization of all devices, all devices set at unsynchronize.
+		Iterator<Device> it = m_devices.iterator();
+		while(it.hasNext()){
+			Device device = it.next();
+			device.unsynchronize();
+		}
+		
+	}
 
 	/**
 	 * Callback when a service is discovered.
@@ -179,7 +194,6 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 		try {
 			Device service = DeviceFactory.buildService(_service);
 			if(null != service){
-				m_devices.remove(service);
 				m_devices.add(service);
 			}
 			
@@ -200,7 +214,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	public void serviceRemove(ServiceEvent _service) {
 		m_logger.info("Service removed : " + _service.getName());
 		
-		// found the service
+		// Remove the service
 		Iterator<Device> it = m_devices.iterator();
 		boolean notfound = true;
 		while(notfound && it.hasNext()){
@@ -208,6 +222,8 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			
 			if( device.getServiceInfo().equals(_service.getInfo()) ){
 				m_devices.remove(device);
+				m_devices_to_unregister.remove(device);
+				m_devices_to_unregister.add(device);
 				notfound = false;
 			}
 			
@@ -223,23 +239,29 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	@Override
 	public void run() {
 		
-		// pass all device unsynchronized and execute a register
-		Iterator<Device> it = m_devices.iterator();
-		while(it.hasNext()){
-			Device device = it.next();
-			if( false == device.isSyncronized() ){
-				device.register();
+		try{
+			
+			// pass all device unsynchronized and execute a register
+			Iterator<Device> it = m_devices.iterator();
+			while(it.hasNext()){
+				Device device = it.next();
+				if( false == device.isSyncronized() ){
+					device.register();
+				}
+			}
+			
+			// unregister device
+			Iterator<Device> it2 = m_devices_to_unregister.iterator();
+			while(it2.hasNext()){
+				Device device = it2.next();
+				if( true == device.isRegister() ){
+					device.unregister();
+				}
+				it2.remove();
 			}
 		}
-		
-		// unregister device
-		Iterator<Device> it2 = m_devices_to_unregister.iterator();
-		while(it2.hasNext()){
-			Device device = it2.next();
-			if( false == device.isRegister() ){
-				device.unregister();
-			}
-			m_devices_to_unregister.remove(device);
+		catch (Exception e){
+			m_logger.warn("Error in timer execution: "+e.getMessage());
 		}
 	}
 
@@ -253,4 +275,5 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	public List<Device> getDevices() {
 		return m_devices;
 	}
+
 }

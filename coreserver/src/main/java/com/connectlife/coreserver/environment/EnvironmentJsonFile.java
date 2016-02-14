@@ -108,11 +108,11 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	/**
 	 * Default constructor of the environment.
 	 * 
-	 * @param _service DiscoveryService at use in this Environment. 
+	 * @param devicemngr DeviceManager at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentJsonFile(DeviceManager _service){
-		m_device_manager = _service;
+	public EnvironmentJsonFile(DeviceManager devicemngr){
+		m_device_manager = devicemngr;
 		m_is_loaded = false;
 		m_is_saved = false;
 		m_isInit = false;
@@ -249,6 +249,27 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		}
 
 		m_logger.info("UnInitialization completed.");
+	}
+	
+	/**
+	 * Save the environment.
+	 * 
+	 * @return True if the environment is saved.
+	 * @see com.connectlife.coreserver.environment.Environment#save()
+	 */
+	@Override
+	public boolean save() {
+		boolean ret_val = false;
+		
+		if( false == isSaved() ){
+			ret_val = saveEnvironment(m_path, ENV_DATA_FILENAME);
+		}
+		else{
+			m_logger.info("Environment is already saved. Don't execute save.");
+			ret_val = true;
+		}	
+		
+		return ret_val;
 	}
 	
 	/**
@@ -581,22 +602,25 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * @return Accessory after the registration.
 	 * @throws Exception If something goes wrong.
 	 */
-	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception{
+	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception{
 		Accessory ret_acc = null; 
-		// check if the accessory is already register in a room
+		// check if the accessory is already added in a room
 		// find the accessory by the serial number.
 		Accessory accessory = m_find.findAccessory(_accessory);
 		if(null == accessory){
-			// the accessory isn't register
+			// the accessory isn't added
 			// we can add it in the room
 			Room room = m_find.findRoom(_room);
 			if(null != room){
-				// Register the accessory and set a UID.
+
+				// add the accessory and set a UID.
 				_accessory.setUid(UIDGenerator.getUID());
-				_accessory.setRegister(true);
 				
 				// Adding the accessory in the room.
 				room.getAccessories().add(_accessory);
+				
+				// force all device to try again a synchronization
+				m_device_manager.forceSynchronizationOfAllDevices();
 				
 				// indicate that the environment has change.
 				environmentChange();
@@ -610,7 +634,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 			}
 		}
 		else{
-			throw new Exception("Accessory not found.");
+			// the acessory was already added in a room
+			throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
 		}
 		
 		return ret_acc;
@@ -632,6 +657,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		// if accessory is find register.
 		if(null != accessory){
+			accessory.update(_accessory);
 			accessory.setRegister(true);
 			
 			// indicate that the environment has change.
@@ -656,6 +682,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		// if accessory is find register.
 		if(null != accessory){
+			
+			// unregister the accessory
 			accessory.setRegister(false);
 			
 			// indicate that the environment has change.
@@ -664,8 +692,5 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 
 		return accessory;
 	}
-
-	
-
 	
 }

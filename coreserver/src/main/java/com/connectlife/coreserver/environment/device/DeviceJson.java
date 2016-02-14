@@ -110,6 +110,17 @@ public class DeviceJson implements Device {
 	public boolean isSyncronized(){
 		return m_isSynchronized;
 	}
+	
+	/**
+	 * Unsynchronized the device with the environment. 
+	 * The device manage will try to synchronize again.
+	 * 
+	 * @see com.connectlife.coreserver.environment.device.Device#unsynchronize()
+	 */
+	@Override
+	public void unsynchronize() {
+		m_isSynchronized = false;
+	}
 
 	/**
 	 * Register the device  with the application environment. If the device is already 
@@ -187,12 +198,11 @@ public class DeviceJson implements Device {
 				m_isRegister = false;
 				ret_val = true;
 				
-				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" register.");
+				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" unregister.");
 				
 			}
 			else{
 				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not setup in the application environment.");
-				m_isRegister = false;
 			}
 			
 		}
@@ -202,7 +212,4 @@ public class DeviceJson implements Device {
 		
 		return ret_val;
 	}
-
-	
-
 }
