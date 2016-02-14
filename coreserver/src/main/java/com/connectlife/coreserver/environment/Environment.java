@@ -153,6 +153,15 @@ public interface Environment {
 	public Person updatePerson(Person _person) throws Exception;
 	
 	/**
+	 * Delete a person in the data.
+	 * 
+	 * @param _person Person to delete in the environment.
+	 * @return Person deleted in the environment.
+	 * @throws Exception If something goes wrong.
+	 */
+	public Person deletePerson(Person _person) throws Exception;
+	
+	/**
 	 * Synchronize the accessory in the environment.
 	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
 	 * If this accessory wasn't in the environment, this function return null.

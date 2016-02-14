@@ -560,6 +560,20 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 	
 	/**
+	 * Delete a person in the data.
+	 * 
+	 * @param _person Person to delete in the environment.
+	 * @return Person deleted in the environment.
+	 * @throws Exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.clapi.data.Person)
+	 */
+	@Override
+	public Person deletePerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
 	 * Register the accessory in the room.
 	 * 
 	 * @param _accessory Accessory to register.
@@ -650,6 +664,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 
 		return accessory;
 	}
+
+	
 
 	
 }
