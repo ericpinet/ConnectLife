@@ -233,7 +233,24 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
+		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
+		//Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
+		DeletePersonResponse reply = null;
+		try {
+			person = m_environment.deletePerson(person);
+			reply = DeletePersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeletePersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
