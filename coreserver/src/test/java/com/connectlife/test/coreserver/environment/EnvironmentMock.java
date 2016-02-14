@@ -169,6 +169,18 @@ public class EnvironmentMock extends Observable implements Environment {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * @param _person
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.clapi.data.Person)
+	 */
+	@Override
+	public Person deletePerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/**
 	 * @param _accessory
@@ -182,6 +194,8 @@ public class EnvironmentMock extends Observable implements Environment {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 	
 }
