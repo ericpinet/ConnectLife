@@ -169,7 +169,8 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	
 	/**
 	 * Force all devices to synchronization with the environment.
-	 * @see com.connectlife.coreserver.environment.device.DeviceManager#forceResynchronizationOfAllDevices()
+	 * 
+	 * @see com.connectlife.coreserver.environment.device.DeviceManager#forceSynchronizationOfAllDevices()
 	 */
 	@Override
 	public void forceSynchronizationOfAllDevices() {

@@ -244,11 +244,11 @@ public class ConsoleSSHTest {
 	}
 	
 	@Test
-	public void testShellCmdRegisterAccessory(){
+	public void testShellCmdAddAccessory(){
 		
 		ShellCmdAddAccessory cmd = new ShellCmdAddAccessory();		
-		assertTrue(cmd.checkLineForCommandCompatibility("register accessory [1][2]"));
-		assertFalse(cmd.checkLineForCommandCompatibility("register accessorry [1][2]"));
+		assertTrue(cmd.checkLineForCommandCompatibility("add accessory [1][2]"));
+		assertFalse(cmd.checkLineForCommandCompatibility("add accessorry [1][2]"));
 		
 		cmd.getCommand();
 		cmd.getHelp();
@@ -264,11 +264,11 @@ public class ConsoleSSHTest {
 	}
 	
 	@Test
-	public void testShellCmdUnregisterAccessory(){
+	public void testShellCmdRemoveAccessory(){
 		
 		ShellCmdRemoveAccessory cmd = new ShellCmdRemoveAccessory();		
-		assertTrue(cmd.checkLineForCommandCompatibility("unregister accessory [1][2]"));
-		assertFalse(cmd.checkLineForCommandCompatibility("unsregister accessorry [1][2]"));
+		assertTrue(cmd.checkLineForCommandCompatibility("remove accessory [1][2]"));
+		assertFalse(cmd.checkLineForCommandCompatibility("remove accessorry [1][2]"));
 		
 		cmd.getCommand();
 		cmd.getHelp();
