@@ -122,6 +122,71 @@ public abstract class FindProcessor {
 		return ret_room;
 	}
 	
+	/**
+	 * Find the room where the accessory is added.
+	 * 
+	 * @param _accessory Accessory added in a room.
+	 * @return Room where the accessory is located. Null if not found.
+	 */
+	public Room findRoom(Accessory _accessory){
+		Room ret_room = null;
+		
+		boolean found = false;
+		
+		// iterate in home
+		Iterator<Home> ihome = m_data.getHomes().iterator();
+		while(ihome.hasNext() && false == found){
+			Home home = ihome.next();
+			
+			// iterate in zone
+			Iterator<Zone> izone = home.getZones().iterator();
+			while(izone.hasNext() && false == found){
+				Zone zone = izone.next();
+				
+				// iterate in room
+				Iterator<Room> iroom = zone.getRooms().iterator();
+				while(iroom.hasNext() && false == found){
+					Room room = iroom.next();
+					
+					// iterate in accessory
+					Iterator<Accessory> iaccessory = room.getAccessories().iterator();
+					while(iaccessory.hasNext() && false == found){
+						Accessory accessory = iaccessory.next();
+						
+						// if the uid is there we try to find the uid
+						if(false == _accessory.getUid().isEmpty()){
+							if(accessory.getUid().equals(_accessory.getUid())){
+								found = true;
+								ret_room = room;
+							} // ELSE: Accessory not found. Do noting.
+						}
+						else{
+							// if the serial number is there we try to find the serial number
+							if(false == _accessory.getSerialnumber().isEmpty()){
+								if(accessory.getSerialnumber().equals(_accessory.getSerialnumber())){
+									found = true;
+									ret_room = room;
+								} // ELSE: Accessory not found. Do noting.
+							}
+							else{
+								// if the label is there we try to find the label
+								if(false == _accessory.getLabel().isEmpty()){
+									if(accessory.getLabel().equals(_accessory.getLabel())){
+										found = true;
+										ret_room = room;
+									} // ELSE: Accessory not found. Do noting.
+								}// ELSE: Nothing else to find.
+							}
+						}
+						
+					}// WHILE: Accessories
+				}// WHILE: Rooms
+			}// WHILE: Zones
+		}// WHILE: Homes
+		
+		return ret_room;
+	}
+	
 	
 	/**
 	 * Find the accessory with this uid, label or serial number in the environment.
