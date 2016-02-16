@@ -10,8 +10,8 @@ Connectlife is a home automation system in java.
 See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.github.io/ConnectLife/)
 
 - **Coreserver**: Main system server install on device without screen. ([Javadoc API](http://ericpinet.github.io/ConnectLife/javadoc/coreserver/))
-- **Simulator**: Simulator of the home device (Helpful for tests).
 - **Clapi**: Client/Server protocol for the Connectlife system. ([Javadoc API](http://ericpinet.github.io/ConnectLife/javadoc/clapi/))
+- **Simulator**: Simulator of the home device (Helpful for tests).
 
 ## Documentation
 
