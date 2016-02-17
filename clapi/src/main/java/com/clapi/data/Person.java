@@ -11,6 +11,8 @@ package com.clapi.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.clapi.data.Email.EmailType;
+
 /**
  * Person.
  * 
@@ -214,7 +216,24 @@ public class Person {
 	 */
 	public void addEmails(Email email) {
 		this.emails.add(email);
-		
+	}
+	
+	/**
+	 * Update the mail.
+	 * @param uid UID of the mail.
+	 * @param mail New mail.
+	 * @param type Type of the mail.
+	 */
+	public void updateEmail(String uid, String mail, EmailType type)
+	{
+		for(int i = 0; i < emails.size(); i++)
+		{
+			if(emails.get(i).getUid().equals(uid))
+			{
+				emails.get(i).setEmail(mail);
+				emails.get(i).setType(type);
+			}
+		}
 	}
 
 	/**

@@ -9,9 +9,11 @@
 package com.connectlife.coreserver.environment;
 
 import java.util.Iterator;
+import java.util.List;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Data;
+import com.clapi.data.Email;
 import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
@@ -74,6 +76,53 @@ public abstract class FindProcessor {
 		return ret_person;
 	}
 	
+	/**
+	 * Find person by the uid of the mail or the mail address.
+	 * 
+	 * @param _email Email to find.
+	 * @return Person found, or null if not found.
+	 */
+	public Person findPerson(Email _email){
+		Person ret_person = null;
+		boolean found = false;
+		
+		Iterator<Person> iperson = m_data.getPersons().iterator();
+		while(iperson.hasNext() && false == found){
+			Person person = iperson.next();
+			
+			if(false == _email.getUid().isEmpty()){
+				List<Email> emails = person.getEmails();
+				for(int i=0; i<emails.size(); i++)
+				{
+					if(emails.get(i).getUid().equals(_email.getUid()))
+					{
+						ret_person = person;
+						found = true;
+						break;
+					}
+				}
+			}
+			else{
+				// if the last name is there we try to find the last name
+				if(false == _email.getEmail().isEmpty()){
+					
+					List<Email> emails = person.getEmails();
+					for(int i=0; i<emails.size(); i++)
+					{
+						if(emails.get(i).getEmail().equals(_email.getEmail()))
+						{
+							ret_person = person;
+							found = true;
+							break;
+						}
+					}
+				}
+			}
+			
+		}// end while person
+		
+		return ret_person;
+	}
 	/**
 	 * Find room by Uid or Label.
 	 * 

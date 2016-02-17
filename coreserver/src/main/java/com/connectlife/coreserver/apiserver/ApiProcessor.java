@@ -285,8 +285,23 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updateEmail(UpdateEmailRequest request, StreamObserver<UpdateEmailResponse> responseObserver) {
-		// TODO Auto-generated method stub
+		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Email(request.getUid(), "", EmailType.PERSONAL));
+		UpdateEmailResponse reply = null;
+		try {
+			person.updateEmail(request.getUid(), request.getEmail(), EmailType.values()[request.getType()]);
+			reply = UpdateEmailResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			m_environment.updatePerson(person);
+		} catch (Exception e) {
+			
+			reply = UpdateEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
 		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();	
 	}
 
 	/**

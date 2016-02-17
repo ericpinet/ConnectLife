@@ -183,6 +183,24 @@ public class CLApiClient {
 		return response.getUid();
 	}
 	
+	
+	/**
+	 * Update the email of the person.
+	 * @param _uid UID of the mail.
+	 * @param _email Email to update.
+	 * @param _type  Type d'email of the person.
+	 * @return UID of the mail.
+	 */
+	public String UpdateEmail(String _uid, String _email, int _type){
+		UpdateEmailRequest request = UpdateEmailRequest.newBuilder()
+												 	   .setUid(_uid)
+												 	   .setEmail(_email)
+												 	   .setType(_type)
+												 	   .build();
+		UpdateEmailResponse response = m_blockingStub.updateEmail(request);
+		return response.getUid();
+	}
+	
 	/**
 	 * Wait notification. When notification will arrived from server, 
 	 * the listener will be notify.
