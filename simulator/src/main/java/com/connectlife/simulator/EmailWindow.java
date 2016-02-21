@@ -5,8 +5,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.clapi.client.CLApiClient;
-import com.clapi.data.Email;
-import com.clapi.data.Email.EmailType;
 import com.clapi.data.Person;
 import org.eclipse.swt.widgets.Combo;
 import org.apache.logging.log4j.LogManager;
@@ -91,12 +89,10 @@ public class EmailWindow extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					if(emailId < 0)
-					{
+					if(emailId < 0){
 						client.AddEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
 					}
-					else
-					{
+					else{
 						client.UpdateEmail(person.getEmails().get(emailId).getUid(), text.getText(), comboType.getSelectionIndex());
 					}
 					shlEmail.close();

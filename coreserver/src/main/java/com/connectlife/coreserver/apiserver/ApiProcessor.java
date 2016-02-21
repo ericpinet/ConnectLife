@@ -22,6 +22,7 @@ import com.clapi.data.Person;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 
@@ -263,9 +264,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUidPerson(), "", "", ""));
 		AddEmailResponse reply = null;
 		try {
-			person.addEmails(new Email(request.getUidPerson(), request.getEmail(), EmailType.values()[request.getType()]));
-			reply = AddEmailResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			Email email = new Email(UIDGenerator.getUID(), request.getEmail(), EmailType.values()[request.getType()]);
+			person.addEmails(email);
 			m_environment.updatePerson(person);
+			
+			reply = AddEmailResponse.newBuilder().setUid(email.getUid()).build(); // uid is return to client.
+			
 		} catch (Exception e) {
 			
 			reply = AddEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
@@ -288,9 +292,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Email(request.getUid(), "", EmailType.PERSONAL));
 		UpdateEmailResponse reply = null;
 		try {
-			person.updateEmail(request.getUid(), request.getEmail(), EmailType.values()[request.getType()]);
-			reply = UpdateEmailResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
+			Email email = new Email(request.getUid(), request.getEmail(), EmailType.values()[request.getType()]);
+			person.updateEmail(email);
 			m_environment.updatePerson(person);
+			
+			reply = UpdateEmailResponse.newBuilder().setUid(email.getUid()).build(); // uid is return to client.
+			
 		} catch (Exception e) {
 			
 			reply = UpdateEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
@@ -312,23 +319,6 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void deleteEmail(DeleteEmailRequest request, StreamObserver<DeleteEmailResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	/**
-	 * @param o Object source.
-	 * @param arg Argument of the event.
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		if(m_environment == o){
-			m_logger.info("Environment was updated, send new environment at all client.");
-			
-			sendNotificationToAllClient( Notification.newBuilder()
-													 .setType(NotificationType.ENV_UPDATED)
-													 .setData(m_environment.getJsonEnvironment())
-													 .build() );
-		}
 	}
 
 	/**
@@ -389,5 +379,22 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * @param o Object source.
+	 * @param arg Argument of the event.
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		if(m_environment == o){
+			m_logger.info("Environment was updated, send new environment at all client.");
+			
+			sendNotificationToAllClient( Notification.newBuilder()
+													 .setType(NotificationType.ENV_UPDATED)
+													 .setData(m_environment.getJsonEnvironment())
+													 .build() );
+		}
 	}
 }

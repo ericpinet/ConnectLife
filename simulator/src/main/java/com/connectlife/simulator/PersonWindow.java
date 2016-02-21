@@ -325,7 +325,7 @@ public class PersonWindow extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, tableEmail.getSelectionIndex(), client);
+					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, -1, client);
 					emailWin.open();
 				} catch (Exception e1) {
 					m_logger.error(e1.getMessage());

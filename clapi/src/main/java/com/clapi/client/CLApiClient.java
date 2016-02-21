@@ -168,6 +168,7 @@ public class CLApiClient {
 	
 	/**
 	 * Add email of the person.
+	 * 
 	 * @param _uid UID of the person.
 	 * @param _email Email of the person.
 	 * @param _type  Type d'email of the person.
@@ -186,6 +187,7 @@ public class CLApiClient {
 	
 	/**
 	 * Update the email of the person.
+	 * 
 	 * @param _uid UID of the mail.
 	 * @param _email Email to update.
 	 * @param _type  Type d'email of the person.
