@@ -14,10 +14,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.clapi.protocol.AddPersonRequest;
+import com.clapi.protocol.AddPersonResponse;
 import com.clapi.protocol.CheckCompatibilityRequest;
 import com.clapi.protocol.CheckCompatibilityResponse;
+import com.clapi.protocol.GetJsonDataRequest;
+import com.clapi.protocol.GetJsonDataResponse;
 import com.clapi.protocol.GetVersionRequest;
 import com.clapi.protocol.GetVersionResponse;
+import com.clapi.protocol.Notification;
+import com.clapi.protocol.Notification.NotificationType;
+import com.clapi.protocol.UpdatePersonRequest;
+import com.clapi.protocol.UpdatePersonResponse;
+import com.clapi.protocol.WaitNotificationRequest;
+import com.clapi.protocol.WaitNotificationResponse;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.apiserver.ApiProcessor;
@@ -83,6 +93,8 @@ public class ApiProcessorTest {
 		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
 		app = injector_app.getInstance(Application.class);
 		
+		app.startupTest();
+		
 		// Response
 		StreamObserver<GetVersionResponse> so = new StreamObserver<GetVersionResponse>() {
             @Override
@@ -107,6 +119,8 @@ public class ApiProcessorTest {
 		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
 		app = injector_app.getInstance(Application.class);
 		
+		app.startupTest();
+		
 		// Response
 		StreamObserver<CheckCompatibilityResponse> so = new StreamObserver<CheckCompatibilityResponse>() {
             @Override
@@ -124,4 +138,126 @@ public class ApiProcessorTest {
         api.checkCompatibility(CheckCompatibilityRequest.newBuilder().setVersion("0.0.0.0").build(), so);
 	}
 
+	@Test
+	public void testWaitNotification(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<WaitNotificationResponse> so = new StreamObserver<WaitNotificationResponse>() {
+            @Override
+            public void onNext(WaitNotificationResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.waitNotification(WaitNotificationRequest.newBuilder().build(), so);
+	}
+	
+	@Test
+	public void testSendNotificationToAllClients(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+        // Execute API
+		api.sendNotificationToAllClient(Notification.newBuilder().setType(NotificationType.ENV_UPDATED).build());
+		
+		// Execute API
+		api.sendNotificationToAllClient(Notification.newBuilder().setType(NotificationType.MESSAGE).build());
+	}
+	
+	@Test
+	public void testGetJsonData(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<GetJsonDataResponse> so = new StreamObserver<GetJsonDataResponse>() {
+            @Override
+            public void onNext(GetJsonDataResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.getJsonData(GetJsonDataRequest.newBuilder().build(), so);
+	}
+	
+	@Test
+	public void testAddPerson(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<AddPersonResponse> so = new StreamObserver<AddPersonResponse>() {
+            @Override
+            public void onNext(AddPersonResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.addPerson(AddPersonRequest.newBuilder().setFirstname("Eric").setLastname("Pinet").setImageurl("").build(), so);
+	}
+	
+	@Test
+	public void testUpdatePerson(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<UpdatePersonResponse> so = new StreamObserver<UpdatePersonResponse>() {
+            @Override
+            public void onNext(UpdatePersonResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.updatePerson(UpdatePersonRequest.newBuilder().setUid("1").setFirstname("Eric").setLastname("Pinet").setImageurl("").build(), so);
+	}
 }
