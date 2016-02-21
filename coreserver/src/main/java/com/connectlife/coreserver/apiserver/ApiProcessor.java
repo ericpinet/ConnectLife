@@ -297,7 +297,6 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			m_environment.updatePerson(person);
 			
 			reply = UpdateEmailResponse.newBuilder().setUid(email.getUid()).build(); // uid is return to client.
-			
 		} catch (Exception e) {
 			
 			reply = UpdateEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
