@@ -371,7 +371,7 @@ public class EnvironmentTest implements Observer {
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
 	}
-	/*
+	
 	@Test
 	public void testUnsynchronizeDevice() {
 		
@@ -413,7 +413,7 @@ public class EnvironmentTest implements Observer {
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
-	}*/
+	}
 	
 	
 	private void deleteEnvDirectory(){
