@@ -14,16 +14,23 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.clapi.data.Email.EmailType;
+import com.clapi.protocol.AddEmailRequest;
+import com.clapi.protocol.AddEmailResponse;
 import com.clapi.protocol.AddPersonRequest;
 import com.clapi.protocol.AddPersonResponse;
 import com.clapi.protocol.CheckCompatibilityRequest;
 import com.clapi.protocol.CheckCompatibilityResponse;
+import com.clapi.protocol.DeletePersonRequest;
+import com.clapi.protocol.DeletePersonResponse;
 import com.clapi.protocol.GetJsonDataRequest;
 import com.clapi.protocol.GetJsonDataResponse;
 import com.clapi.protocol.GetVersionRequest;
 import com.clapi.protocol.GetVersionResponse;
 import com.clapi.protocol.Notification;
 import com.clapi.protocol.Notification.NotificationType;
+import com.clapi.protocol.UpdateEmailRequest;
+import com.clapi.protocol.UpdateEmailResponse;
 import com.clapi.protocol.UpdatePersonRequest;
 import com.clapi.protocol.UpdatePersonResponse;
 import com.clapi.protocol.WaitNotificationRequest;
@@ -259,5 +266,83 @@ public class ApiProcessorTest {
 		
         // Execute API
 		api.updatePerson(UpdatePersonRequest.newBuilder().setUid("1").setFirstname("Eric").setLastname("Pinet").setImageurl("").build(), so);
+	}
+	
+	@Test
+	public void testDeletePerson(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<DeletePersonResponse> so = new StreamObserver<DeletePersonResponse>() {
+            @Override
+            public void onNext(DeletePersonResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.deletePerson(DeletePersonRequest.newBuilder().setUid("1").build(), so);
+	}
+	
+	@Test
+	public void testAddEmail(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<AddEmailResponse> so = new StreamObserver<AddEmailResponse>() {
+            @Override
+            public void onNext(AddEmailResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.addEmail(AddEmailRequest.newBuilder().setUidPerson("1").setEmail("pineri01@gmail.com").setType(1).build(), so);
+	}
+	
+	@Test
+	public void testUpdateEmail(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+		// Response
+		StreamObserver<UpdateEmailResponse> so = new StreamObserver<UpdateEmailResponse>() {
+            @Override
+            public void onNext(UpdateEmailResponse response) {}
+            @Override
+            public void onError(Throwable t) {}
+            @Override
+            public void onCompleted() {}
+        };
+		
+        // Execute API
+		api.updateEmail(UpdateEmailRequest.newBuilder().setUid("1").setEmail("pineri01@gmail.com").setType(1).build(), so);
 	}
 }
