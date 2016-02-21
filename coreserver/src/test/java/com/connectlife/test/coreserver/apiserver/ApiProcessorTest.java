@@ -8,6 +8,8 @@
  */
 package com.connectlife.test.coreserver.apiserver;
 
+import java.util.Observable;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -344,5 +346,21 @@ public class ApiProcessorTest {
 		
         // Execute API
 		api.updateEmail(UpdateEmailRequest.newBuilder().setUid("1").setEmail("pineri01@gmail.com").setType(1).build(), so);
+	}
+	
+	@Test
+	public void testUpdatel(){
+		// Api
+		Injector injector = Guice.createInjector(new ApiProcessorInjectTest());
+		api = injector.getInstance(ApiProcessor.class);
+		
+		// App
+		Injector injector_app = Guice.createInjector(new ApplicationInjectTest());
+		app = injector_app.getInstance(Application.class);
+		
+		app.startupTest();
+		
+        // Execute API
+		api.update((Observable)app.getEnvironment(), null);
 	}
 }
