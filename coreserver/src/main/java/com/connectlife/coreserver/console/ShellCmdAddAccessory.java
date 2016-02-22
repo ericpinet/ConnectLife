@@ -1,5 +1,5 @@
 /**
- *  ShellCmdRegisterAccessory.java
+ *  ShellCmdAddAccessory.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-02-07.
@@ -18,27 +18,27 @@ import com.clapi.data.Room;
 import com.connectlife.coreserver.Application;
 
 /**
- * Shell command for register accessory in the environment.
+ * Shell command for add accessory in the environment.
  * 
  * @author ericpinet
  * <br> 2016-02-07
  */
-public class ShellCmdRegisterAccessory implements ShellCmd {
+public class ShellCmdAddAccessory implements ShellCmd {
 	
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdRegisterAccessory.class);
+    private static final Logger m_logger = LogManager.getLogger(ShellCmdAddAccessory.class);
 
 	/**
 	 * Shell command.
 	 */
-	private static final String SHELL_CMD = "register accessory";
+	private static final String SHELL_CMD = "add accessory";
 	
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Register accessory in the environment.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Add accessory in the environment.\n";
 	 
 	/**
 	 * Get the shell command.
@@ -104,8 +104,19 @@ public class ShellCmdRegisterAccessory implements ShellCmd {
         		
     		// Register the device in the room
     		try {
-    			Application.getApp().getEnvironment().registerAccessory(new Accessory("", accessory_sn), new Room(room_uid, ""));
-				response = "Accessory registed.";
+    			Application.getApp().getEnvironment().addAccessory( new Accessory(	"",				// uid 
+    																				"", 			// label 
+    																				"", 			// manufacturer
+    																				"", 			// model
+    																				accessory_sn, 	// serialnumber, 
+    																				null, 			//List<Service>
+    																				"", 			// imageurl
+    																				null, 			// AccessoryType
+    																				null), 			// AccessoryProtocolType
+    					
+    															 	new Room(		room_uid, 		// uid 
+    															 					"")); 			// label
+				response = "Accessory added.";
 				
 			} catch (Exception e) {
 				m_logger.error(e.getMessage());

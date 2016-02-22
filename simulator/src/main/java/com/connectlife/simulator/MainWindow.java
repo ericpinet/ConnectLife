@@ -29,6 +29,7 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
+import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.simulator.device.Device;
 import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
@@ -55,6 +56,8 @@ public class MainWindow implements NotificationListener {
 	private Label lblDevice;
 	private CLApiClient client;
 	private Vector<Device> devices;
+	public static HomeWindow homewindow = null;
+	
 	
 	private static final String HOST = "127.0.0.1";
 	
@@ -95,8 +98,8 @@ public class MainWindow implements NotificationListener {
 			shell = _shell;
 		}
 		public void run(){
-			HomeWindow per = new HomeWindow(shell, 0, home);
-	    	per.open();
+			homewindow = new HomeWindow(shell, 0, home);
+			homewindow.open();
 		}
 	}
 	
@@ -255,7 +258,7 @@ public class MainWindow implements NotificationListener {
 				client.shutdown();
 			}
 			
-			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
+			client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
 			m_logger.info( "Get server version : " + client.getVersion() );
 			m_logger.info( "check compatibility with the server : " + client.checkCompatibility() );
@@ -355,6 +358,24 @@ public class MainWindow implements NotificationListener {
 	@Override
 	public void notificationReceive(com.clapi.protocol.Notification _notification) {
 		m_logger.info( "WaitNotification recieved." );
+		
+		if(_notification.getType() == NotificationType.ENV_UPDATED){
+			
+			if(homewindow != null){
+				Gson gson = new Gson();
+				Data env = gson.fromJson(_notification.getData(), Data.class);
+				
+				Display.getDefault().syncExec(new Runnable() {
+				    public void run() {
+				    	homewindow.UpdateData(env.getHomes().get(0));
+				    }
+				});
+				
+				
+			}
+		}
+		
+		client.waitNotification();
 	}
 
 }

@@ -33,11 +33,12 @@ public abstract class ShellCmdFactory {
 		commands.add(new ShellCmdOutputEnv());
 		commands.add(new ShellCmdOutputLog());
 		commands.add(new ShellCmdQuit());
-		commands.add(new ShellCmdRegisterAccessory());
+		commands.add(new ShellCmdAddAccessory());
 		commands.add(new ShellCmdRestoreFactoryConfig());
+		commands.add(new ShellCmdSaveEnv());
 		commands.add(new ShellCmdSetConfig());
 		commands.add(new ShellCmdShutdown());
-		commands.add(new ShellCmdUnregisterAccessory());
+		commands.add(new ShellCmdRemoveAccessory());
 		commands.add(new ShellCmdVersion());
 		
 		return commands;

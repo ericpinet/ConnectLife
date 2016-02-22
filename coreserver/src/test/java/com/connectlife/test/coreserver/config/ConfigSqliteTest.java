@@ -161,6 +161,23 @@ public class ConfigSqliteTest {
 	}
 	
 	@Test
+	public void testGetConfigs() {
+		
+		// prepare config object
+		Injector injector = Guice.createInjector(new ConfigSqliteInjectTest());
+		Config config = injector.getInstance(Config.class);
+		
+		// delete old test config database
+		deleteDatabase();
+		
+		// init the config
+		assertTrue(config.init());
+		
+		// compare the config with the factory data size
+		assertTrue(config.getConfigs().size() == ConfigFactoryData.ItemConfig.length );
+	}
+	
+	@Test
 	public void testSetConfig() {
 		
 		// prepare config object
