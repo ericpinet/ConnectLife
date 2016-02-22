@@ -56,6 +56,11 @@ public interface Device {
 	 * @return True if the device is correctly unregister with the application environment.
 	 */
 	public boolean unregister();
+	
+	/**
+	 * Unsynchronized the device with the environment. The device manage will try to synchronize again.
+	 */
+	public void unsynchronize();
 
 	/**
 	 *  Indicate if the device is synchronized with the environment of the application.

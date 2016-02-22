@@ -300,12 +300,42 @@ public class EnvironmentTest implements Observer {
 		env = injector.getInstance(EnvironmentJsonFile.class);
 		assertTrue(env.init());
 		
-		// test find a accessory valid
+		// test find a room valid
 		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
 		assertTrue(null != room);
 		
-		// test find a accessory invalid
+		// test find a room invalid
 		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("XXXXXXXXXXX", ""));
+		assertTrue(null == room2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindRoomByAccessory() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentJsonFile.class);
+		assertTrue(env.init());
+		
+		// test find a accessory valid
+		Accessory accessory = env.getFindProcessorReadOnly().findAccessory(new Accessory("", "", "", "", "PL001-100-10009", null, "", null, null));
+		assertTrue(null != accessory);
+		
+		// test find a room valid
+		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(accessory);
+		assertTrue(null != room);
+		
+		// test find a room invalid
+		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Accessory("invalid",""));
 		assertTrue(null == room2);
 		
 		// restore file after test.

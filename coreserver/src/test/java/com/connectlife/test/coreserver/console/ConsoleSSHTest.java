@@ -27,11 +27,11 @@ import com.connectlife.coreserver.console.ShellCmdOutputConfig;
 import com.connectlife.coreserver.console.ShellCmdOutputEnv;
 import com.connectlife.coreserver.console.ShellCmdOutputLog;
 import com.connectlife.coreserver.console.ShellCmdQuit;
-import com.connectlife.coreserver.console.ShellCmdRegisterAccessory;
+import com.connectlife.coreserver.console.ShellCmdAddAccessory;
 import com.connectlife.coreserver.console.ShellCmdRestoreFactoryConfig;
 import com.connectlife.coreserver.console.ShellCmdSetConfig;
 import com.connectlife.coreserver.console.ShellCmdShutdown;
-import com.connectlife.coreserver.console.ShellCmdUnregisterAccessory;
+import com.connectlife.coreserver.console.ShellCmdRemoveAccessory;
 import com.connectlife.coreserver.console.ShellCmdVersion;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.inject.Guice;
@@ -244,11 +244,11 @@ public class ConsoleSSHTest {
 	}
 	
 	@Test
-	public void testShellCmdRegisterAccessory(){
+	public void testShellCmdAddAccessory(){
 		
-		ShellCmdRegisterAccessory cmd = new ShellCmdRegisterAccessory();		
-		assertTrue(cmd.checkLineForCommandCompatibility("register accessory [1][2]"));
-		assertFalse(cmd.checkLineForCommandCompatibility("register accessorry [1][2]"));
+		ShellCmdAddAccessory cmd = new ShellCmdAddAccessory();		
+		assertTrue(cmd.checkLineForCommandCompatibility("add accessory [1][2]"));
+		assertFalse(cmd.checkLineForCommandCompatibility("add accessorry [1][2]"));
 		
 		cmd.getCommand();
 		cmd.getHelp();
@@ -264,11 +264,11 @@ public class ConsoleSSHTest {
 	}
 	
 	@Test
-	public void testShellCmdUnregisterAccessory(){
+	public void testShellCmdRemoveAccessory(){
 		
-		ShellCmdUnregisterAccessory cmd = new ShellCmdUnregisterAccessory();		
-		assertTrue(cmd.checkLineForCommandCompatibility("unregister accessory [1][2]"));
-		assertFalse(cmd.checkLineForCommandCompatibility("unsregister accessorry [1][2]"));
+		ShellCmdRemoveAccessory cmd = new ShellCmdRemoveAccessory();		
+		assertTrue(cmd.checkLineForCommandCompatibility("remove accessory [1][2]"));
+		assertFalse(cmd.checkLineForCommandCompatibility("remove accessorry [1][2]"));
 		
 		cmd.getCommand();
 		cmd.getHelp();

@@ -1,5 +1,5 @@
 /**
- *  ShellCmdRegisterAccessory.java
+ *  ShellCmdAddAccessory.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-02-07.
@@ -19,22 +19,22 @@ import org.apache.logging.log4j.Logger;
  * @author ericpinet
  * <br> 2016-02-07
  */
-public class ShellCmdUnregisterAccessory implements ShellCmd {
+public class ShellCmdRemoveAccessory implements ShellCmd {
 	
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdUnregisterAccessory.class);
+    private static final Logger m_logger = LogManager.getLogger(ShellCmdRemoveAccessory.class);
 
 	/**
 	 * Shell command.
 	 */
-	private static final String SHELL_CMD = "unregister accessory";
+	private static final String SHELL_CMD = "remove accessory";
 	
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Unregister accessory in the environment.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Remove accessory in the environment.\n";
 	 
 	/**
 	 * Get the shell command.

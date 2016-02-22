@@ -55,6 +55,13 @@ public interface Environment {
 	public void unInit();
 	
 	/**
+	 * Save the environment.
+	 * 
+	 * @return True if the environment is saved.
+	 */
+	public boolean save();
+	
+	/**
 	 * Return the device manager for the environment.
 	 * 
 	 * @return The device manager of the environment.
@@ -183,13 +190,13 @@ public interface Environment {
 	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception;
 	
 	/**
-	 * Register the accessory in the room.
+	 * Add the accessory in the room.
 	 * 
 	 * @param _accessory Accessory to register.
 	 * @param _room Room where register the accessory.
 	 * @return Accessory Accessory after the registration.
 	 * @throws Exception If something goes wrong.
 	 */
-	public Accessory registerAccessory(Accessory _accessory, Room _room) throws Exception;
+	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception;
 	
 }

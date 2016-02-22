@@ -53,8 +53,15 @@ public class ServiceManagerMock implements DeviceManager {
 	 */
 	@Override
 	public List<Device> getDevices() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * 
+	 * @see com.connectlife.coreserver.environment.device.DeviceManager#forceSynchronizationOfAllDevices()
+	 */
+	@Override
+	public void forceSynchronizationOfAllDevices() {
 	}
 
 }
