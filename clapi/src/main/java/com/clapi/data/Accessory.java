@@ -9,6 +9,9 @@
 package com.clapi.data;
 
 import java.util.List;
+import java.util.Vector;
+
+import com.rits.cloning.Cloner;
 
 /**
  * Accessory.
@@ -140,6 +143,13 @@ public class Accessory {
 		super();
 		this.uid = uid;
 		this.label = label;
+		this.manufacturer = "";
+		this.model = "";
+		this.serialnumber = "";
+		this.services = new Vector<Service>();
+		this.imageurl = "";
+		this.type = null;
+		this.protocoltype = null;
 		this.isRegister = false;
 	}
 
@@ -300,5 +310,23 @@ public class Accessory {
 	 */
 	public void setRegister(boolean isRegister) {
 		this.isRegister = isRegister;
+	}
+	
+	/**
+	 * Update the accessory.
+	 * @param accessory
+	 */
+	public void update(Accessory accessory) {
+		Cloner cloner = new Cloner();
+		Accessory temp = cloner.deepClone(accessory);
+		this.imageurl = temp.imageurl;
+		this.isRegister = temp.isRegister;
+		this.label = temp.label;
+		this.manufacturer = temp.manufacturer;
+		this.model = temp.model;
+		this.protocoltype = temp.protocoltype;
+		this.serialnumber = temp.serialnumber;
+		this.services = temp.services;
+		this.type = temp.type;
 	}
 }

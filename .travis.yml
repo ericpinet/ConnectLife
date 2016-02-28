@@ -20,7 +20,7 @@ script:
 - mvn javadoc:javadoc
 - cd ..
 - cd coreserver
-- mvn clean test
+- mvn test
 - mvn compile
 - mvn javadoc:javadoc
 - cd ..

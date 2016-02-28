@@ -9,6 +9,7 @@
 package com.connectlife.test.coreserver.console;
 
 import java.util.List;
+import java.util.Vector;
 
 import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -92,7 +93,9 @@ public class ConfigMock implements Config {
 	 */
 	@Override
 	public List<ConfigItem> getConfigs() {
-		return null;
+		Vector<ConfigItem> items = new Vector<ConfigItem>();
+		items.addElement(new ConfigItem("CONSOLE", "TCPIP_PORT", "0"));
+		return items;
 	}
 
 	/**
