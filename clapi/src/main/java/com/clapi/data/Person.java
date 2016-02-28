@@ -9,9 +9,8 @@
 package com.clapi.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
-import com.clapi.data.Email.EmailType;
 
 /**
  * Person.
@@ -220,18 +219,21 @@ public class Person {
 	
 	/**
 	 * Update the mail.
-	 * @param uid UID of the mail.
-	 * @param mail New mail.
-	 * @param type Type of the mail.
+	 * 
+	 * @param email Email object at update.
 	 */
-	public void updateEmail(String uid, String mail, EmailType type)
+	public void updateEmail(Email email)
 	{
-		for(int i = 0; i < emails.size(); i++)
-		{
-			if(emails.get(i).getUid().equals(uid))
-			{
-				emails.get(i).setEmail(mail);
-				emails.get(i).setType(type);
+		boolean found = false;
+		Iterator<Email> it = emails.iterator();
+		
+		while(it.hasNext() && found == false){
+			
+			Email aemail = it.next();
+			if(aemail.getUid().equals(email.getUid())){
+				found = true;
+				aemail.setEmail(email.getEmail());
+				aemail.setType(email.getType());
 			}
 		}
 	}

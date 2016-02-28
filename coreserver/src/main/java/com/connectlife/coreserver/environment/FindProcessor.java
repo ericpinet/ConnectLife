@@ -9,7 +9,6 @@
 package com.connectlife.coreserver.environment;
 
 import java.util.Iterator;
-import java.util.List;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Data;
@@ -86,40 +85,40 @@ public abstract class FindProcessor {
 		Person ret_person = null;
 		boolean found = false;
 		
+		// lookup in persons list
 		Iterator<Person> iperson = m_data.getPersons().iterator();
 		while(iperson.hasNext() && false == found){
 			Person person = iperson.next();
 			
+			// find email by uid
 			if(false == _email.getUid().isEmpty()){
-				List<Email> emails = person.getEmails();
-				for(int i=0; i<emails.size(); i++)
-				{
-					if(emails.get(i).getUid().equals(_email.getUid()))
-					{
+
+				// lookup in emails list by uid.
+				Iterator<Email> iemail = person.getEmails().iterator();
+				while(iemail.hasNext() && false == found){
+					Email email = iemail.next();
+					if(email.getUid().equals(_email.getUid())){
 						ret_person = person;
 						found = true;
-						break;
 					}
-				}
+				}// WHILE: email
 			}
 			else{
-				// if the last name is there we try to find the last name
+				// find email by email
 				if(false == _email.getEmail().isEmpty()){
 					
-					List<Email> emails = person.getEmails();
-					for(int i=0; i<emails.size(); i++)
-					{
-						if(emails.get(i).getEmail().equals(_email.getEmail()))
-						{
+					// lookup in emails list by uid.
+					Iterator<Email> iemail = person.getEmails().iterator();
+					while(iemail.hasNext() && false == found){
+						Email email = iemail.next();
+						if(email.getEmail().equals(_email.getEmail())){
 							ret_person = person;
 							found = true;
-							break;
 						}
-					}
-				}
-			}
-			
-		}// end while person
+					}// WHILE: email
+				}// ELSE: do nothing.
+			}// ENDIF by UID or EMAIL
+		}// WHILE: person
 		
 		return ret_person;
 	}
@@ -293,7 +292,6 @@ public abstract class FindProcessor {
 								}// ELSE: Nothing else to find.
 							}
 						}
-						
 					}// WHILE: Accessories
 				}// WHILE: Rooms
 			}// WHILE: Zones
