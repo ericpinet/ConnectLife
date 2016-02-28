@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Data;
+import com.clapi.data.Email;
 import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
@@ -74,6 +75,53 @@ public abstract class FindProcessor {
 		return ret_person;
 	}
 	
+	/**
+	 * Find person by the uid of the mail or the mail address.
+	 * 
+	 * @param _email Email to find.
+	 * @return Person found, or null if not found.
+	 */
+	public Person findPerson(Email _email){
+		Person ret_person = null;
+		boolean found = false;
+		
+		// lookup in persons list
+		Iterator<Person> iperson = m_data.getPersons().iterator();
+		while(iperson.hasNext() && false == found){
+			Person person = iperson.next();
+			
+			// find email by uid
+			if(false == _email.getUid().isEmpty()){
+
+				// lookup in emails list by uid.
+				Iterator<Email> iemail = person.getEmails().iterator();
+				while(iemail.hasNext() && false == found){
+					Email email = iemail.next();
+					if(email.getUid().equals(_email.getUid())){
+						ret_person = person;
+						found = true;
+					}
+				}// WHILE: email
+			}
+			else{
+				// find email by email
+				if(false == _email.getEmail().isEmpty()){
+					
+					// lookup in emails list by uid.
+					Iterator<Email> iemail = person.getEmails().iterator();
+					while(iemail.hasNext() && false == found){
+						Email email = iemail.next();
+						if(email.getEmail().equals(_email.getEmail())){
+							ret_person = person;
+							found = true;
+						}
+					}// WHILE: email
+				}// ELSE: do nothing.
+			}// ENDIF by UID or EMAIL
+		}// WHILE: person
+		
+		return ret_person;
+	}
 	/**
 	 * Find room by Uid or Label.
 	 * 
@@ -244,7 +292,6 @@ public abstract class FindProcessor {
 								}// ELSE: Nothing else to find.
 							}
 						}
-						
 					}// WHILE: Accessories
 				}// WHILE: Rooms
 			}// WHILE: Zones

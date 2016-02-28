@@ -590,8 +590,16 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 */
 	@Override
 	public Person deletePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Person ret_person = null;
+		ret_person = m_find.findPerson(_person);
+		if(null != ret_person){
+			m_data.getPersons().remove(ret_person);
+			environmentChange();
+		}
+		else{
+			throw new Exception("Person not found.");
+		}
+		return ret_person;
 	}
 	
 	/**
