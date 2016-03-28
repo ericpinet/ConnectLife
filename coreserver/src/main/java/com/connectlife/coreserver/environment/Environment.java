@@ -34,20 +34,6 @@ public interface Environment {
 	 * @return True if the environment data is correctly initialized.
 	 */
 	public boolean isInit();
-	
-	/**
-	 * Return True is the environment data is correctly Loaded.
-	 * 
-	 * @return True if this module is loaded.
-	 */
-	public boolean isLoaded();
-	
-	/**
-	 * Return True is the environment data is correctly saved.
-	 * 
-	 * @return True is the environment is saved.
-	 */
-	public boolean isSaved();
 
 	/**
 	 * UnInitialize the environment data. Return in empty state ready to initialize again.

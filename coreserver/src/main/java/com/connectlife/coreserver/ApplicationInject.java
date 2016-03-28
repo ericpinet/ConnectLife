@@ -22,6 +22,8 @@ import com.connectlife.coreserver.config.SqliteSettings;
 import com.connectlife.coreserver.config.SqliteSettingsApp;
 import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.console.ConsoleSSH;
+import com.connectlife.coreserver.environment.DataManager;
+import com.connectlife.coreserver.environment.DataManagerJsonFile;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
 import com.connectlife.coreserver.environment.device.DeviceManager;
@@ -56,6 +58,7 @@ public class ApplicationInject extends AbstractModule {
 		bind(Environment.class).to(EnvironmentJsonFile.class).in(Singleton.class);
 		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
 		bind(DeviceManager.class).to(DeviceMngr.class);
+		bind(DataManager.class).to(DataManagerJsonFile.class);
 		
 		// Api 
 		bind(Api.class).to(ApiGrpc.class);

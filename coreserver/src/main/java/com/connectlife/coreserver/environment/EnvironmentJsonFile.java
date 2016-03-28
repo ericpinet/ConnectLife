@@ -11,16 +11,9 @@ package com.connectlife.coreserver.environment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
 import com.google.inject.Inject;
 import com.rits.cloning.Cloner;
 
@@ -35,8 +28,6 @@ import com.clapi.data.Characteristic.CharacteristicEventType;
 import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
-import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 
 /**
@@ -46,23 +37,6 @@ import com.connectlife.coreserver.environment.device.DeviceManager;
  * <br> 2015-09-09
  */
 public class EnvironmentJsonFile extends Observable implements Environment {
-	
-	/**
-	 * Environment data path contain the data representing the user, home, 
-	 * zones, rooms, accessories
-	 */
-	private static final String ENV_DATA_PATH = "data";
-	
-	/**
-	 * Environment file name contain the data representing the user, home, 
-	 * zones, rooms, accessories
-	 */
-	private static final String ENV_DATA_FILENAME = "env.data";
-	
-	/**
-	 * Environment file name backup.
-	 */
-	private static final String ENV_DATA_FILENAME_BACKUP = "env.data.bk";
 	
 	/**
 	 * Logger use for this class.
@@ -75,30 +49,14 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	private boolean m_isInit;
 	
 	/**
-	 * Environment data system. This is the main data 
-	 * saved and loaded from environment data file.
-	 */
-	private Data m_data;
-	
-	/**
-	 * Flag to indicate if the environment is loaded.
-	 */
-	private boolean m_is_loaded;
-	
-	/**
-	 * Flag to indicate if the environment is saved.
-	 */
-	private boolean m_is_saved;
-	
-	/**
-	 * Path for the environment file.
-	 */
-	private String m_path;
-	
-	/**
 	 * Device manager of the accessories in the environment
 	 */
 	private DeviceManager m_device_manager;
+	
+	/**
+	 * Data manager for the environment data.
+	 */
+	private DataManager m_data_manager;
 	
 	/**
 	 * Find processor linked with this environment.
@@ -108,13 +66,13 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	/**
 	 * Default constructor of the environment.
 	 * 
-	 * @param devicemngr DeviceManager at use in this Environment. 
+	 * @param _datamngr DataManager at use in this Environment.
+	 * @param _devicemngr DeviceManager at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentJsonFile(DeviceManager devicemngr){
-		m_device_manager = devicemngr;
-		m_is_loaded = false;
-		m_is_saved = false;
+	public EnvironmentJsonFile(DataManager _datamngr, DeviceManager _devicemngr){
+		m_data_manager = _datamngr;
+		m_device_manager = _devicemngr;
 		m_isInit = false;
 	}
 	
@@ -128,80 +86,81 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		m_logger.info("Initialization in progress ...");
 		
-		m_path = Application.getApp().getBasePath() + "/" + ENV_DATA_PATH + "/";
-		
-		// check if environment directory exist and load if exist
-		if( true == checkEnvironmentExist(m_path, ENV_DATA_FILENAME) ){
+		if( true == m_data_manager.init() ){
 			
-			// file environment exist, try to load it.
-			if( true == loadEnvironment(m_path, ENV_DATA_FILENAME) ){
-				// loading completed with success.
-				ret_val = m_is_loaded = m_is_saved = m_isInit = true;
-				m_logger.info("Environment loaded.");
-			}
-			else{
-				// loading failed. 
-				m_logger.error("Environment load failed! Try to load backup.");
+			// check if environment directory exist and load if exist
+			if( true == m_data_manager.checkEnvironmentExist() ){
 				
-				// try to load last backup
-				if( true == loadEnvironment(m_path, ENV_DATA_FILENAME_BACKUP) ){
+				// file environment exist, try to load it.
+				if( true == m_data_manager.loadEnvironment() ){
+					// loading completed with success.
+					ret_val = m_isInit = true;
+					m_logger.info("Environment loaded.");
+				}
+				else{
+					// loading failed. 
+					m_logger.error("Environment load failed! Try to load backup.");
 					
-					m_logger.info("Environment backup loaded. Try to save the restored environment.");
-					
-					if(true == saveEnvironment(m_path, ENV_DATA_FILENAME)){
-						m_logger.info("Restore completed.");
-						ret_val = m_is_loaded = m_is_saved = m_isInit = true;
+					// try to load last backup
+					if( true == m_data_manager.loadEnvironmentBackup() ){
+						
+						m_logger.info("Environment backup loaded. Try to save the restored environment.");
+						
+						if(true == m_data_manager.saveEnvironment()){
+							m_logger.info("Restore completed.");
+							ret_val = m_isInit = true;
+						}
+						else{
+							m_logger.error("Unable to restore backup.");
+						}
 					}
 					else{
-						m_logger.error("Unable to restore backup.");
+						m_logger.error("Environment backup load failed!");
+					}
+				}
+			}
+			else{
+				// create the initial environment
+				m_logger.info("No environment file exist. Create the base environment.");
+				
+				Data temp_env = this.generateBaseEnvironnment();
+				if(null != temp_env){
+					
+					m_data_manager.setData(temp_env);
+					
+					if( true == m_data_manager.saveEnvironment() ){
+						ret_val = m_isInit = true;
+						
+						// generate a backup file
+						if(false == m_data_manager.saveEnvironmentBackup()){
+							m_logger.warn("Unable to save backup environment file.");
+						}
 					}
 				}
 				else{
-					m_logger.error("Environment backup load failed!");
+					m_logger.error("Unable to generate the base environment.");
 				}
 			}
-		}
-		else{
-			// create the initial environment
-			m_logger.info("No environment file exist. Create the base environment.");
 			
-			Data temp_env = this.generateBaseEnvironnment();
-			if(null != temp_env){
-				
-				m_data = temp_env;
-				
-				if( true == saveEnvironment(m_path, ENV_DATA_FILENAME) ){
-					ret_val = m_is_loaded = m_is_saved = m_isInit = true;
-					
-					// generate a backup file
-					if(false == saveEnvironment(m_path, ENV_DATA_FILENAME_BACKUP)){
-						m_logger.warn("Unable to save backup environment file.");
-					}
-				}
-			}
-			else{
-				m_logger.error("Unable to generate the base environment.");
-			}
-		}
-		
-		// Init the device manager if all is start correctly.
-		if(true == ret_val){
-			ret_val = m_device_manager.init();
-			
+			// Init the device manager if all is start correctly.
 			if(true == ret_val){
-				m_logger.info("Initialization completed.");
+				ret_val = m_device_manager.init();
+				
+				if(true == ret_val){
+					m_logger.info("Initialization completed.");
+				}
+				else{
+					m_logger.error("Unable to init the service manager of this environment. Environment initialization failed.");
+				}
 			}
 			else{
-				m_logger.error("Unable to init the service manager of this environment. Environment initialization failed.");
+				m_logger.error("Unable to init the environment.");
 			}
-		}
-		else{
-			m_logger.error("Unable to init the environment.");
-		}
-		
-		// Init the find processor if all is start correctly
-		if(true == ret_val){
-			m_find = new FindProcessorReadWrite(m_data);
+			
+			// Init the find processor if all is start correctly
+			if(true == ret_val){
+				m_find = new FindProcessorReadWrite(m_data_manager.getData());
+			}
 		}
 
 		return ret_val;
@@ -213,24 +172,6 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	public boolean isInit() {
 		return m_isInit;
 	}
-	
-	/**
-	 * Return True is the EnvironmentJsonFile is correctly Loaded.
-	 * 
-	 * @return True if this module is loaded.
-	 */
-	public boolean isLoaded() {
-		return m_is_loaded;
-	}
-	
-	/**
-	 * Return True is the EnvironmentJsonFile is correctly saved.
-	 * 
-	 * @return True is the environmment is saved.
-	 */
-	public boolean isSaved() {
-		return m_is_saved;
-	}
 
 	/**
 	 * UnInitialize the EnvironmentJsonFile. Return in empty state ready to initialize again.
@@ -239,9 +180,9 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		m_logger.info("UnInitialization in progress ...");
 		
-		if( false == isSaved() ){
+		if( false == m_data_manager.isSaved() ){
 			m_logger.warn("Environment is clossing when not saved. Force save environment before closing.");
-			saveEnvironment(m_path, ENV_DATA_FILENAME);
+			m_data_manager.saveEnvironment();
 		}
 		
 		if(null != m_device_manager){
@@ -261,8 +202,8 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	public boolean save() {
 		boolean ret_val = false;
 		
-		if( false == isSaved() ){
-			ret_val = saveEnvironment(m_path, ENV_DATA_FILENAME);
+		if( false == m_data_manager.isSaved() ){
+			ret_val = m_data_manager.saveEnvironment();
 		}
 		else{
 			m_logger.info("Environment is already saved. Don't execute save.");
@@ -287,7 +228,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * @return FindProcessor Return the find processor of this environment.
 	 */
 	public FindProcessor getFindProcessorReadOnly(){
-		return new FindProcessorReadOnly(m_data);
+		return new FindProcessorReadOnly(m_data_manager.getData());
 	}
 	
 	/**
@@ -298,130 +239,14 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	public String getJsonEnvironment(){
 		String ret_val = "";
 		if(true == m_isInit &&
-		   null != m_data){
+		   null != m_data_manager.getData()){
 			
 			Gson gson = new Gson();
-			ret_val = gson.toJson(m_data);
+			ret_val = gson.toJson(m_data_manager.getData());
 		}
 		return ret_val;
 	}
 	
-	/**
-	 * Check if environment file already exist. 
-	 * 
-	 * @param _path Path of the environment file.
-	 * @param _filename File name of the environment file.
-	 * @return True if environment file exist.
-	 */
-	private boolean checkEnvironmentExist(String _path, String _filename){
-		
-		boolean ret_val = false;
-		
-		File f = new File(m_path, ENV_DATA_FILENAME);
-		if(f.exists() && !f.isDirectory()){
-			ret_val = true;
-		}
-		
-		return ret_val;
-			
-	}
-	
-	/**
-	 * Load environment data from file.
-	 * 
-	 * @param _path Path of the environment file.
-	 * @param _filename File name of the environment file.
-	 * @return True if the load successed.
-	 */
-	private boolean loadEnvironment(String _path, String _filename){
-		boolean ret_value = false;
-
-		m_logger.info("Loading environment file: " + _path + _filename + "...");
-		
-		BufferedReader br;
-		try {
-			
-			br = new BufferedReader( new FileReader( _path + _filename) );
-			
-			// load json file and convert to object
-			Gson gson = new Gson();
-			Data env_obj = gson.fromJson(br, Data.class);
-			
-			if(null != env_obj){
-				m_data = env_obj;
-				ret_value = true;
-			}
-			else{
-				m_logger.warn("Nothing to load in environment file : " + _path + _filename);
-			}
-			
-		} 
-		catch (FileNotFoundException e) {
-			m_logger.error(e.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			e.printStackTrace();
-		}
-		catch (JsonParseException e){
-			m_logger.error(e.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			e.printStackTrace();
-		}
-		catch (Exception e){
-			m_logger.error(e.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			e.printStackTrace();
-		}
-			     
-		return ret_value;
-	}
-	
-	/**
-	 * Save the environment in file.
-	 * 
-	 * @param _path Paht of the environment file.
-	 * @param _filename File name of the environment file.
-	 * @return True if save succeded.
-	 */
-	private boolean saveEnvironment(String _path, String _filename){
-		
-		boolean ret_value = false;
-		
-		if( null != m_data){
-			
-			// prepare the data to save.
-			// remove not valuable field to save.
-			Data data_to_save = SaveProcessor.prepareSave(this);
-		
-			// convert to json.
-			Gson gson = new Gson();
-			String json = gson.toJson(data_to_save);  
-			
-			try {  
-				
-				m_logger.info("Saving file environment: " + _path + _filename);
-				
-				// ensure the path exist before saving file
-				File directory = new File(_path);
-				directory.mkdirs();
-				
-				FileWriter writer = new FileWriter( _path + _filename);  
-				writer.write(json);  
-				writer.close();
-
-				ret_value = true;
-			} 
-			catch (IOException e) {  
-				m_logger.error(e.getMessage());
-				StdOutErrLog.tieSystemOutAndErrToLog();
-				e.printStackTrace(); 
-			}
-		}
-		else{
-			m_logger.info("Notthing to save in environment");
-		}
-		  
-		return ret_value;
-	}
 	
 	/**
 	 * Generate the base environment on new system. 
@@ -527,7 +352,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	@Override
 	public Data getData() {
 		Cloner cloner = new Cloner();
-		return cloner.deepClone(m_data);
+		return cloner.deepClone(m_data_manager.getData());
 	}
 	
 	/**
@@ -537,7 +362,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	private void environmentChange(){
 		setChanged();
 		notifyObservers();
-		m_is_saved = false;
+		m_data_manager.setUnsaved();
 	}
 
 	/**
@@ -550,7 +375,7 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 */
 	public Person addPerson(Person _person) throws Exception {
 		_person.setUid(UIDGenerator.getUID());
-		m_data.getPersons().add(_person);
+		m_data_manager.getData().getPersons().add(_person);
 		environmentChange();
 		return _person;
 	}

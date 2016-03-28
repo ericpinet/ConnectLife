@@ -72,24 +72,6 @@ public class EnvironmentMock extends Observable implements Environment {
 
 	/**
 	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#isLoaded()
-	 */
-	@Override
-	public boolean isLoaded() {
-		return false;
-	}
-
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#isSaved()
-	 */
-	@Override
-	public boolean isSaved() {
-		return false;
-	}
-
-	/**
-	 * @return
 	 * @see com.connectlife.coreserver.environment.Environment#getJsonEnvironment()
 	 */
 	@Override

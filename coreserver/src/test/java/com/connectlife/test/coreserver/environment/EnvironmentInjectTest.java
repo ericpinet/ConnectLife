@@ -8,6 +8,8 @@
  */
 package com.connectlife.test.coreserver.environment;
 
+import com.connectlife.coreserver.environment.DataManager;
+import com.connectlife.coreserver.environment.DataManagerJsonFile;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.inject.AbstractModule;
@@ -28,6 +30,7 @@ public class EnvironmentInjectTest extends AbstractModule {
 	protected void configure() {
 		bind(DiscoveryService.class).to(DiscoveryServiceMock.class);
 		bind(DeviceManager.class).to(ServiceManagerMock.class);
+		bind(DataManager.class).to(DataManagerJsonFile.class);
 	}
 
 }
