@@ -102,6 +102,7 @@ public interface DataManager {
 	/**
 	 * Set the new Data environment.
 	 * 
+	 * @param _data Set the new data environment.
 	 * @return Data of the environment.
 	 */
 	public void setData(Data _data);

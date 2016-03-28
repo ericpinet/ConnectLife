@@ -29,7 +29,6 @@ import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentJsonFile;
-import com.connectlife.coreserver.environment.SaveProcessor;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -337,28 +336,6 @@ public class EnvironmentTest implements Observer {
 		// test find a room invalid
 		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Accessory("invalid",""));
 		assertTrue(null == room2);
-		
-		// restore file after test.
-		assertTrue(restoreEnvFileFromBackupTest());
-	}
-	
-	@Test
-	public void testSaveProcessor() {
-		
-		// prepare file to test
-		assertTrue(moveEnvFileInBackupTest());
-				
-		// create env directory and file valid
-		createValidDataEnv();
-		
-		// init the environment
-		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
-		assertTrue(env.init());
-		
-		// test save processor
-		Data data = SaveProcessor.prepareSave(env);
-		assertTrue(null != data);
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
