@@ -16,6 +16,8 @@ import org.apache.logging.log4j.Logger;
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
 
 /**
  * Shell command for add accessory in the environment.
@@ -102,28 +104,29 @@ public class ShellCmdAddAccessory implements ShellCmd {
         	String accessory_sn = _line.substring(accessory_start_at+1, accessory_end_at);
         	String room_uid     = _line.substring(room_start_at+1, room_end_at);
         		
-    		// Register the device in the room
+    		// Add the accessory in the room
     		try {
-    			Application.getApp().getEnvironment().addAccessory( new Accessory(	"",				// uid 
-    																				"", 			// label 
-    																				"", 			// manufacturer
-    																				"", 			// model
-    																				accessory_sn, 	// serialnumber, 
-    																				null, 			//List<Service>
-    																				"", 			// imageurl
-    																				null, 			// AccessoryType
-    																				null), 			// AccessoryProtocolType
+    			CmdAddAccessory command = CmdFactory.getCmdAddAccesssory(new Accessory(	"",				// uid 
+    																					"", 			// label 
+    																					"", 			// manufacturer
+    																					"", 			// model
+    																					accessory_sn, 	// serialnumber, 
+    																					null, 			//List<Service>
+    																					"", 			// imageurl
+    																					null, 			// AccessoryType
+    																					null), 			// AccessoryProtocolType
     					
-    															 	new Room(		room_uid, 		// uid 
-    															 					"")); 			// label
+    															 	new Room(			room_uid, 		// uid 
+    															 						""));
+    			
+    			Application.getApp().getEnvironment().executeCommand(command);
+    			
 				response = "Accessory added.";
 				
 			} catch (Exception e) {
 				m_logger.error(e.getMessage());
 				response = e.getMessage();
 			}
-            	
-        	
     	}
     	return response;
 	}

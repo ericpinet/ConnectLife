@@ -28,7 +28,10 @@ import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.EnvironmentJsonFile;
+import com.connectlife.coreserver.environment.EnvironmentManager;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
+import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -152,7 +155,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// delete env directory and file
@@ -172,7 +175,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// delete env directory and file
@@ -192,7 +195,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// delete env directory and file
@@ -212,7 +215,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertFalse(env.init());
 		
 		// delete env directory and file
@@ -230,7 +233,7 @@ public class EnvironmentTest implements Observer {
 				
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		
 		assertTrue(env.init());
 		
@@ -270,7 +273,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a accessory valid
@@ -296,7 +299,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a room valid
@@ -322,7 +325,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a accessory valid
@@ -342,7 +345,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testSynchronizeDevice() {
+	public void testRegisterDevice() {
 		
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
@@ -352,24 +355,28 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
-		// test synchronize accessory
+		// test register accessory
 		Accessory accessory = null;
 		try {
-			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertTrue(accessory.isRegister());
 		
-		// test synchronize accessory
+		// test register a invalid accessory
 		Accessory invalid = CreateTestData.getLightTest();
 		invalid.setSerialnumber("XXXXXXXX");
 		Accessory accessory2 = null;
 		try {
-			accessory2 = env.synchronizeAccessory(invalid);
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(invalid);
+			env.executeCommand(command);
+			accessory2 = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -380,7 +387,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testUnsynchronizeDevice() {
+	public void testUnregisterDevice() {
 		
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
@@ -390,29 +397,35 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
-		// test synchronize accessory
+		// test register accessory
 		Accessory accessory = null;
 		try {
-			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertTrue(accessory.isRegister());
 		
-		// test unsynchronize
+		// test unregister
 		try {
-			accessory = env.unsynchronizeAccessory(accessory);
+			CmdUnregisterAccessory command = CmdFactory.getCmdUnregisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertFalse(accessory.isRegister());
 		
-		// test unsynchronize accessory
+		// test unregister a unregistered accessory
 		try {
-			accessory = env.unsynchronizeAccessory(accessory);
+			CmdUnregisterAccessory command = CmdFactory.getCmdUnregisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

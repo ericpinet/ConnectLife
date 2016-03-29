@@ -1,5 +1,5 @@
 /**
- *  EnvironmentJsonFile.java
+ *  EnvironmentManager.java
  *  coreserver
  *
  *  Created by ericpinet on 2015-09-09.
@@ -28,7 +28,12 @@ import com.clapi.data.Characteristic.CharacteristicEventType;
 import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
+import com.connectlife.coreserver.environment.cmd.Cmd;
+import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
+import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.environment.find.FindProcessorReadOnly;
+import com.connectlife.coreserver.environment.find.FindProcessorReadWrite;
 
 /**
  * Manager of the environment of the automation.
@@ -36,12 +41,12 @@ import com.connectlife.coreserver.environment.device.DeviceManager;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class EnvironmentJsonFile extends Observable implements Environment {
+public class EnvironmentManager extends Observable implements Environment, EnvironmentContext {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(EnvironmentJsonFile.class);
+	private static Logger m_logger = LogManager.getLogger(EnvironmentManager.class);
 	
 	/**
 	 * Flag to indicate if the module is correctly initialized.
@@ -70,14 +75,14 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	 * @param _devicemngr DeviceManager at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentJsonFile(DataManager _datamngr, DeviceManager _devicemngr){
+	public EnvironmentManager(DataManager _datamngr, DeviceManager _devicemngr){
 		m_data_manager = _datamngr;
 		m_device_manager = _devicemngr;
 		m_isInit = false;
 	}
 	
 	/**
-	 * Initialization of the EnvironmentJsonFile.
+	 * Initialization of the EnvironmentManager.
 	 * 
 	 * @return True if initialization completed with success.
 	 */
@@ -167,14 +172,14 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 
 	/**
-	 * Return True is the EnvironmentJsonFile is correctly initialized.
+	 * Return True is the EnvironmentManager is correctly initialized.
 	 */
 	public boolean isInit() {
 		return m_isInit;
 	}
 
 	/**
-	 * UnInitialize the EnvironmentJsonFile. Return in empty state ready to initialize again.
+	 * UnInitialize the EnvironmentManager. Return in empty state ready to initialize again.
 	 */
 	public void unInit() {
 		
@@ -223,12 +228,30 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 	}
 	
 	/**
+	 * Return the data manager for the environment.
+	 * 
+	 * @return The data manager of the environment.
+	 */
+	public DataManager getDataManager(){
+		return m_data_manager;
+	}
+	
+	/**
 	 * Return the find processor of this environment.
 	 * 
 	 * @return FindProcessor Return the find processor of this environment.
 	 */
 	public FindProcessor getFindProcessorReadOnly(){
 		return new FindProcessorReadOnly(m_data_manager.getData());
+	}
+	
+	/**
+	 * Return the find processor of the context.
+	 * 
+	 * @return Find processor for the context.
+	 */
+	public FindProcessor getFindProcessorReadWrite(){
+		return m_find;
 	}
 	
 	/**
@@ -247,6 +270,108 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		return ret_val;
 	}
 	
+	/**
+	 * Return a clone of the data environment. 
+	 * Change this data will not affect the environment.
+	 * 
+	 * @return The all data in the environment.
+	 * @see com.connectlife.coreserver.environment.Environment#getData()
+	 */
+	@Override
+	public Data getData() {
+		Cloner cloner = new Cloner();
+		return cloner.deepClone(m_data_manager.getData());
+	}
+	
+	/**
+	 * Indicate that the environment was changes. All observers will be notified.
+	 * TODO: Add automatic save of environment after modification.
+	 */
+	private void environmentChange(){
+		setChanged();
+		notifyObservers();
+		m_data_manager.setUnsaved();
+	}
+	
+	/**
+	 * Execute the command on the environment data.
+	 * 
+	 * @param _cmd Command to execute. See the CmdFactory to build command.
+	 * @throws Exception Exception if something goes wrong.
+	 */
+	public synchronized void executeCommand(Cmd _cmd) throws Exception{
+
+		_cmd.setContext(this);	// set the context of the execution
+		
+		try {
+			_cmd.validContext(); 	// validate the context
+			_cmd.execute();			// execute command on the context
+			
+			// check if the data was changed by the execution of the context
+			if( true == _cmd.isDataChanged() )
+				environmentChange();
+			
+		}catch (Exception exception){
+			throw exception;
+		}
+	}
+
+	/**
+	 * Add a person in the data. The uid of the person will be generated
+	 * during the adding process.
+	 * 
+	 * @param _person Person to add in the environment.
+	 * @return Person added to the environment whit his generated uid.
+	 * @throws Exception If something goes wrong.
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
+	 */
+	public Person addPerson(Person _person) throws Exception {
+		_person.setUid(UIDGenerator.getUID());
+		m_data_manager.getData().getPersons().add(_person);
+		environmentChange();
+		return _person;
+	}
+	
+	/**
+	 * Update a person in the data.
+	 * 
+	 * @param _person Person to update in the environment.
+	 * @return Person updated in the environment.
+	 * @throws Exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
+	 */
+	@Override
+	public Person updatePerson(Person _person) throws Exception {
+		Person ret_person = null;
+		ret_person = m_find.findPerson(_person);
+		if(null != ret_person){
+			// update the person information
+			ret_person.updateInformation(_person);
+			
+			// indicate that the environment was changed.
+			environmentChange();
+		}
+		else{
+			throw new Exception("Person not found.");
+		}
+		return ret_person;
+	}
+	
+	/**
+	 * Delete a person in the data.
+	 * 
+	 * @param _person Person to delete in the environment.
+	 * @return Person deleted in the environment.
+	 * @throws Exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.clapi.data.Person)
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
+	 */
+	@Override
+	public Person deletePerson(Person _person) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	/**
 	 * Generate the base environment on new system. 
@@ -341,181 +466,4 @@ public class EnvironmentJsonFile extends Observable implements Environment {
 		
 		return ret_env;
 	}
-
-	/**
-	 * Return a clone of the data environment. 
-	 * Change this data will not affect the environment.
-	 * 
-	 * @return The all data in the environment.
-	 * @see com.connectlife.coreserver.environment.Environment#getData()
-	 */
-	@Override
-	public Data getData() {
-		Cloner cloner = new Cloner();
-		return cloner.deepClone(m_data_manager.getData());
-	}
-	
-	/**
-	 * Indicate that the environment was changes. All observers will be notified.
-	 * TODO: Add automatic save of environment after modification.
-	 */
-	private void environmentChange(){
-		setChanged();
-		notifyObservers();
-		m_data_manager.setUnsaved();
-	}
-
-	/**
-	 * Add a person in the data. The uid of the person will be generated
-	 * during the adding process.
-	 * 
-	 * @param _person Person to add in the environment.
-	 * @return Person added to the environment whit his generated uid.
-	 * @throws Exception If something goes wrong.
-	 */
-	public Person addPerson(Person _person) throws Exception {
-		_person.setUid(UIDGenerator.getUID());
-		m_data_manager.getData().getPersons().add(_person);
-		environmentChange();
-		return _person;
-	}
-	
-	/**
-	 * Update a person in the data.
-	 * 
-	 * @param _person Person to update in the environment.
-	 * @return Person updated in the environment.
-	 * @throws Exception If something goes wrong.
-	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
-	 */
-	@Override
-	public Person updatePerson(Person _person) throws Exception {
-		Person ret_person = null;
-		ret_person = m_find.findPerson(_person);
-		if(null != ret_person){
-			// update the person information
-			ret_person.updateInformation(_person);
-			
-			// indicate that the environment was changed.
-			environmentChange();
-		}
-		else{
-			throw new Exception("Person not found.");
-		}
-		return ret_person;
-	}
-	
-	/**
-	 * Delete a person in the data.
-	 * 
-	 * @param _person Person to delete in the environment.
-	 * @return Person deleted in the environment.
-	 * @throws Exception If something goes wrong.
-	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.clapi.data.Person)
-	 */
-	@Override
-	public Person deletePerson(Person _person) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 * Register the accessory in the room.
-	 * 
-	 * @param _accessory Accessory to register.
-	 * @param _room Room where register the accessory.
-	 * @return Accessory after the registration.
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception{
-		Accessory ret_acc = null; 
-		// check if the accessory is already added in a room
-		// find the accessory by the serial number.
-		Accessory accessory = m_find.findAccessory(_accessory);
-		if(null == accessory){
-			// the accessory isn't added
-			// we can add it in the room
-			Room room = m_find.findRoom(_room);
-			if(null != room){
-
-				// add the accessory and set a UID.
-				_accessory.setUid(UIDGenerator.getUID());
-				
-				// Adding the accessory in the room.
-				room.getAccessories().add(_accessory);
-				
-				// force all device to try again a synchronization
-				m_device_manager.forceSynchronizationOfAllDevices();
-				
-				// indicate that the environment has change.
-				environmentChange();
-				
-				// get the uid for the return value.
-				ret_acc = _accessory;
-				
-			}
-			else{
-				throw new Exception("Room not found.");
-			}
-		}
-		else{
-			// the acessory was already added in a room
-			throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
-		}
-		
-		return ret_acc;
-	}
-	
-	/**
-	 * Synchronize the accessory in the environment.
-	 * If this accessory is already in the environment the Accessory was file with UID and return. 
-	 * (The accessory is found by the serial number).
-	 * 
-	 * @param _accessory Accessory to synchronize with the environment.
-	 * @return Accessory updated with the UID if it's in the environment
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception {
-
-		// find the accessory by the serial number.
-		Accessory accessory = m_find.findAccessory(_accessory);
-		
-		// if accessory is find register.
-		if(null != accessory){
-			accessory.update(_accessory);
-			accessory.setRegister(true);
-			
-			// indicate that the environment has change.
-			environmentChange();
-		}
-
-		return accessory;
-	}
-	
-	/**
-	 * Unsynchronized the accessory in the environment.
-	 * The accessory register will be removed.
-	 * 
-	 * @param _accessory Accessory to unsynchronized with the environment.
-	 * @return Accessory updated with the register if it's in the environment
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
-
-		// find the accessory by the serial number.
-		Accessory accessory = m_find.findAccessory(_accessory);
-		
-		// if accessory is find register.
-		if(null != accessory){
-			
-			// unregister the accessory
-			accessory.setRegister(false);
-			
-			// indicate that the environment has change.
-			environmentChange();
-		}
-
-		return accessory;
-	}
-	
 }

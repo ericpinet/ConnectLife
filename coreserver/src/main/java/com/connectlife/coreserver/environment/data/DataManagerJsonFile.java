@@ -6,7 +6,7 @@
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.coreserver.environment;
+package com.connectlife.coreserver.environment.data;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -249,7 +249,7 @@ public class DataManagerJsonFile implements DataManager {
 	 * Save the environment file
 	 * 
 	 * @return True if save succeed.
-	 * @see com.connectlife.coreserver.environment.DataManager#saveEnvironment()
+	 * @see com.connectlife.coreserver.environment.data.DataManager#saveEnvironment()
 	 */
 	public boolean saveEnvironment(){
 		return saveEnvironment(false); // false for the backup
@@ -259,7 +259,7 @@ public class DataManagerJsonFile implements DataManager {
 	 * Save the backup environment file
 	 * 
 	 * @return True if save succeed.
-	 * @see com.connectlife.coreserver.environment.DataManager#saveEnvironment()
+	 * @see com.connectlife.coreserver.environment.data.DataManager#saveEnvironment()
 	 */
 	public boolean saveEnvironmentBackup(){
 		return saveEnvironment(true); // true for the backup
@@ -367,7 +367,7 @@ public class DataManagerJsonFile implements DataManager {
 	 * Return the data environment.
 	 * 
 	 * @return Environment data.
-	 * @see com.connectlife.coreserver.environment.DataManager#getData()
+	 * @see com.connectlife.coreserver.environment.data.DataManager#getData()
 	 */
 	@Override
 	public Data getData() {
@@ -378,7 +378,7 @@ public class DataManagerJsonFile implements DataManager {
 	 * Set new data environment.
 	 * 
 	 * @param _data Set the new data environment.
-	 * @see com.connectlife.coreserver.environment.DataManager#setData(com.clapi.data.Data)
+	 * @see com.connectlife.coreserver.environment.data.DataManager#setData(com.clapi.data.Data)
 	 */
 	@Override
 	public void setData(Data _data) {

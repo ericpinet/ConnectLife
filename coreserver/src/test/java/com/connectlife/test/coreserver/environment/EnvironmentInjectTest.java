@@ -8,8 +8,8 @@
  */
 package com.connectlife.test.coreserver.environment;
 
-import com.connectlife.coreserver.environment.DataManager;
-import com.connectlife.coreserver.environment.DataManagerJsonFile;
+import com.connectlife.coreserver.environment.data.DataManager;
+import com.connectlife.coreserver.environment.data.DataManagerJsonFile;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.google.inject.AbstractModule;
