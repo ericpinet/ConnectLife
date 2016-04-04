@@ -24,11 +24,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.clapi.data.Data;
+import com.clapi.data.Person;
 import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentManager;
+import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
@@ -166,7 +168,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testInitWithEnvFile() {
+	public void testInitUnitWithEnvFile() {
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
 		
@@ -177,6 +179,9 @@ public class EnvironmentTest implements Observer {
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
 		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
+		
+		// uninit environment
+		env.unInit();
 		
 		// delete env directory and file
 		deleteEnvDirectory();
@@ -198,6 +203,9 @@ public class EnvironmentTest implements Observer {
 		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
+		// uninit environment
+		env.unInit();
+		
 		// delete env directory and file
 		deleteEnvDirectory();
 		
@@ -217,6 +225,46 @@ public class EnvironmentTest implements Observer {
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
 		env = injector.getInstance(EnvironmentManager.class);
 		assertFalse(env.init());
+		
+		// uninit environment
+		env.unInit();
+		
+		// delete env directory and file
+		deleteEnvDirectory();
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testSaveEnvFile() {
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+		
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// save
+		assertTrue(env.save());
+		
+		// update environment data
+		CmdAddPerson cmd = CmdFactory.getCmdAddPerson(new Person("", "Eric"));
+		try {
+			env.executeCommand(cmd);
+		} catch (Exception e) {
+			fail("Exception on save environment.");
+		}
+		
+		// save after updated
+		assertTrue(env.save());
+		
+		// uninit environment
+		env.unInit();
 		
 		// delete env directory and file
 		deleteEnvDirectory();
