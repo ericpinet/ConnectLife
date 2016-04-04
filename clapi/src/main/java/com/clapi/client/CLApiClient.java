@@ -10,6 +10,7 @@ package com.clapi.client;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -203,6 +204,8 @@ public class CLApiClient {
 				} catch (ExecutionException e) {
 					m_logger.error(e.getMessage());
 					e.printStackTrace();
+				} catch (StatusRuntimeException e){
+					m_logger.warn(e.getMessage());
 				}
 		     }
 		   }, MoreExecutors.newDirectExecutorService());
