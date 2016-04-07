@@ -10,7 +10,8 @@ package com.connectlife.coreserver.environment;
 
 import java.util.Observer;
 import com.clapi.data.*;
-import com.connectlife.coreserver.environment.device.DeviceManager;
+import com.connectlife.coreserver.environment.cmd.Cmd;
+import com.connectlife.coreserver.environment.find.FindProcessor;
 
 
 /**
@@ -34,20 +35,6 @@ public interface Environment {
 	 * @return True if the environment data is correctly initialized.
 	 */
 	public boolean isInit();
-	
-	/**
-	 * Return True is the environment data is correctly Loaded.
-	 * 
-	 * @return True if this module is loaded.
-	 */
-	public boolean isLoaded();
-	
-	/**
-	 * Return True is the environment data is correctly saved.
-	 * 
-	 * @return True is the environment is saved.
-	 */
-	public boolean isSaved();
 
 	/**
 	 * UnInitialize the environment data. Return in empty state ready to initialize again.
@@ -60,13 +47,6 @@ public interface Environment {
 	 * @return True if the environment is saved.
 	 */
 	public boolean save();
-	
-	/**
-	 * Return the device manager for the environment.
-	 * 
-	 * @return The device manager of the environment.
-	 */
-	public DeviceManager getDeviceManager();
 	
 	/**
 	 * Return a JSON string representing the environment.
@@ -130,7 +110,15 @@ public interface Environment {
 	 * 
 	 * @return Data of the environment.
 	 */
-	public Data getData();	
+	public Data getData();
+	
+	/**
+	 * Execute the command on the environment data.
+	 * 
+	 * @param _cmd Command to execute. See the CmdFactory to build command.
+	 * @throws Exception Exception if something goes wrong.
+	 */
+	public void executeCommand(Cmd _cmd) throws Exception;
 	
 	/**
 	 * Return the find processor of this environment. All data return was in read only state. 
@@ -147,6 +135,7 @@ public interface Environment {
 	 * @param _person Person to add in the environment.
 	 * @return Person added to the environment whit his generated uid.
 	 * @throws Exception If something goes wrong.
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
 	 */
 	public Person addPerson(Person _person) throws Exception;
 	
@@ -156,6 +145,7 @@ public interface Environment {
 	 * @param _person Person to update in the environment.
 	 * @return Person updated in the environment.
 	 * @throws Exception If something goes wrong.
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
 	 */
 	public Person updatePerson(Person _person) throws Exception;
 	
@@ -165,38 +155,8 @@ public interface Environment {
 	 * @param _person Person to delete in the environment.
 	 * @return Person deleted in the environment.
 	 * @throws Exception If something goes wrong.
+	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
 	 */
 	public Person deletePerson(Person _person) throws Exception;
-	
-	/**
-	 * Synchronize the accessory in the environment.
-	 * If this accessory is already in the environment the Accessory was file with UID and return. (The accessory is found by the serial number)
-	 * If this accessory wasn't in the environment, this function return null.
-	 * 
-	 * @param _accessory Accessory to synchronize with the environment.
-	 * @return Accessory updated with the UID if it's in the environment
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception;
-	
-	/**
-	 * Unsynchronized the accessory in the environment.
-	 * The accessory register will be removed.
-	 * 
-	 * @param _accessory Accessory to unsynchronized with the environment.
-	 * @return Accessory updated with the register if it's in the environment
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception;
-	
-	/**
-	 * Add the accessory in the room.
-	 * 
-	 * @param _accessory Accessory to register.
-	 * @param _room Room where register the accessory.
-	 * @return Accessory Accessory after the registration.
-	 * @throws Exception If something goes wrong.
-	 */
-	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception;
 	
 }
