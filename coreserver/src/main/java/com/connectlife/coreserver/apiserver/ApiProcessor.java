@@ -20,6 +20,8 @@ import com.clapi.data.Person;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 
@@ -183,7 +185,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
 		AddPersonResponse reply = null;
 		try {
-			person = m_environment.addPerson(person);
+			CmdAddPerson cmd = CmdFactory.getCmdAddPerson(person);
+			m_environment.executeCommand(cmd);
 			reply = AddPersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
 			
 		} catch (Exception e) {
