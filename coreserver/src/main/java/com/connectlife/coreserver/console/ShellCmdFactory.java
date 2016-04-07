@@ -31,6 +31,7 @@ public abstract class ShellCmdFactory {
 		commands.add(new ShellCmdOutputAllConfig());
 		commands.add(new ShellCmdOutputConfig());
 		commands.add(new ShellCmdOutputEnv());
+		commands.add(new ShellCmdOutputEnvFormatted());
 		commands.add(new ShellCmdOutputLog());
 		commands.add(new ShellCmdQuit());
 		commands.add(new ShellCmdAddAccessory());
