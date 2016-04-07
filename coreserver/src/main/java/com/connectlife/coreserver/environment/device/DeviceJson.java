@@ -16,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import com.clapi.data.Accessory;
 import com.clapi.simulator.device.ServiceDefinition;
 import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
+import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -143,7 +146,10 @@ public class DeviceJson implements Device {
 			
 			Accessory accessory = null;
 			try {
-				accessory = Application.getApp().getEnvironment().synchronizeAccessory(m_service_definition.getAccessory());
+				CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(m_service_definition.getAccessory());
+				Application.getApp().getEnvironment().executeCommand(command);
+				accessory = command.getAccessory();
+				
 			} catch (Exception e) {
 				m_logger.error(e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
@@ -185,7 +191,10 @@ public class DeviceJson implements Device {
 			
 			Accessory accessory = null;
 			try {
-				accessory = Application.getApp().getEnvironment().unsynchronizeAccessory(m_service_definition.getAccessory());
+				CmdUnregisterAccessory command = CmdFactory.getCmdUnregisterAccesssory(m_service_definition.getAccessory());
+				Application.getApp().getEnvironment().executeCommand(command);
+				accessory = command.getAccessory();
+				
 			} catch (Exception e) {
 				m_logger.error(e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
