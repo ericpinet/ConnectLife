@@ -30,6 +30,7 @@ import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentManager;
+import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
@@ -351,7 +352,7 @@ public class EnvironmentTest implements Observer {
 		assertTrue(env.init());
 		
 		// test find a room valid
-		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
+		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("5", ""));
 		assertTrue(null != room);
 		
 		// test find a room invalid
@@ -387,6 +388,98 @@ public class EnvironmentTest implements Observer {
 		// test find a room invalid
 		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Accessory("invalid",""));
 		assertTrue(null == room2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testGetJsonData() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test json data
+		Data data = env.getData();
+		Gson gson = new Gson();
+		String json = gson.toJson(data);
+		
+		assertTrue(env.getJsonEnvironment().equals(json));
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testGetData() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test get data return not null
+		assertNotNull(env.getData());
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testAddAccessory() throws Exception {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test add accessory
+		CmdAddAccessory cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("5",""));
+		env.executeCommand(cmd);
+		
+		// test add same accessory in same room
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("5",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
+		
+		// test add accessory
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("1", "test"), new Room("5",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
+		
+		// test add accessory
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("6",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());

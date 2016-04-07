@@ -22,7 +22,6 @@ import com.clapi.data.Characteristic.CharacteristicEventType;
 import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
-import com.connectlife.coreserver.environment.UIDGenerator;
 
 
 /**
@@ -39,14 +38,14 @@ public class CreateTestData {
 		// Person
 		List<Person> persons = new ArrayList<Person>();
 		
-		Person eric = new Person(UIDGenerator.getUID(), "Eric");
+		Person eric = new Person("1", "Eric");
 		eric.setLastname("Pinet");
-		eric.addEmails(new Email(UIDGenerator.getUID(), "pineri01@gmail.com", EmailType.PERSONAL));
-		eric.addEmails(new Email(UIDGenerator.getUID(), "eric.pinet@imagemsoft.com", EmailType.WORK));
-		eric.addEmails(new Email(UIDGenerator.getUID(), "eric_pinet@hotmail.com", EmailType.OTHER));
-		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 998-2481", PhoneType.CELL));
-		eric.addPhones(new Phone(UIDGenerator.getUID(), "418 548-1684", PhoneType.OTHER));
-		Address ericadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
+		eric.addEmails(new Email("1.1", "pineri01@gmail.com", EmailType.PERSONAL));
+		eric.addEmails(new Email("1.2", "eric.pinet@imagemsoft.com", EmailType.WORK));
+		eric.addEmails(new Email("1.3", "eric_pinet@hotmail.com", EmailType.OTHER));
+		eric.addPhones(new Phone("1.4", "418 998-2481", PhoneType.CELL));
+		eric.addPhones(new Phone("1.5", "418 548-1684", PhoneType.OTHER));
+		Address ericadd = new Address("1.6", AddressType.HOME, "2353 rue du cuir");
 		ericadd.setCity("Québec");
 		ericadd.setRegion("Québec");
 		ericadd.setZipcode("G3E0G3");
@@ -54,13 +53,13 @@ public class CreateTestData {
 		eric.addAddress(ericadd);
 		persons.add(eric);
 		
-		Person qiaomei = new Person(UIDGenerator.getUID(), "Qiaomei");
+		Person qiaomei = new Person("2", "Qiaomei");
 		qiaomei.setLastname("Wang");
-		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
-		qiaomei.addEmails(new Email(UIDGenerator.getUID(), "qiaomei.wang@frima.com", EmailType.WORK));
-		qiaomei.addPhones(new Phone(UIDGenerator.getUID(), "438 348-1699", PhoneType.CELL));
+		qiaomei.addEmails(new Email("2.1", "qiaomei.wang.wqm@gmail.com", EmailType.PERSONAL));
+		qiaomei.addEmails(new Email("2.2", "qiaomei.wang@frima.com", EmailType.WORK));
+		qiaomei.addPhones(new Phone("2.3", "438 348-1699", PhoneType.CELL));
 		
-		Address qiaomeiadd = new Address(UIDGenerator.getUID(), AddressType.HOME, "2353 rue du cuir");
+		Address qiaomeiadd = new Address("2.4", AddressType.HOME, "2353 rue du cuir");
 		qiaomeiadd.setCity("Québec");
 		qiaomeiadd.setRegion("Québec");
 		qiaomeiadd.setZipcode("G3E0G3");
@@ -68,18 +67,18 @@ public class CreateTestData {
 		qiaomei.addAddress(qiaomeiadd);
 		persons.add(qiaomei);
 		
-		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
-		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		Characteristic boolean_light = new Characteristic("3.1", "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic("3.2", "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
 		List<Characteristic> characteristics = new ArrayList<Characteristic>();
 		characteristics.add(boolean_light);
 		characteristics.add(dimmable_light);
 		
 		
-		Service dimmable_light_service = new Service(UIDGenerator.getUID(), "Light", characteristics);
+		Service dimmable_light_service = new Service("3", "Light", characteristics);
 		List<Service> services = new ArrayList<Service>();
 		services.add(dimmable_light_service);
 		
-		Accessory light_leving = new Accessory(	"051ad593-c9f1-4cd4-9645-f3f80d7e7abd",
+		Accessory light_leving = new Accessory(	"4",
 												"Light",
 												"Philips",
 												"100w",
@@ -93,21 +92,21 @@ public class CreateTestData {
 		accessories_leving.add(light_leving);
 		
 		// Create room
-		Room leving = new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", "Leving room");
+		Room leving = new Room("5", "Leving room");
 		leving.setAccessories(accessories_leving);
 		
 		List<Room> rooms_first_floor = new ArrayList<Room>();
 		rooms_first_floor.add(leving);
 		
 		// Create zone
-		Zone first_floor = new Zone(UIDGenerator.getUID(), "First floor");
+		Zone first_floor = new Zone("6", "First floor");
 		first_floor.setRooms(rooms_first_floor);
 		
 		List<Zone> home1_zones = new ArrayList<Zone>();
 		home1_zones.add(first_floor);
 		
 		// Create home
-		Home home1 = new Home(UIDGenerator.getUID(), "Home");
+		Home home1 = new Home("7", "Home");
 		home1.setZones(home1_zones);
 		
 		List<Home> homes = new ArrayList<Home>();
@@ -122,14 +121,14 @@ public class CreateTestData {
 	}
 	
 	public static Accessory getLightTest(){
-		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
-		Characteristic dimmable_light = new Characteristic(UIDGenerator.getUID(), "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
+		Characteristic boolean_light = new Characteristic("3.1", "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");
+		Characteristic dimmable_light = new Characteristic("3.2", "Dimmable", CharacteristicAccessMode.READ_WRITE, CharacteristicType.FLOAT, CharacteristicEventType.EVENT, "1.0");
 		List<Characteristic> characteristics = new ArrayList<Characteristic>();
 		characteristics.add(boolean_light);
 		characteristics.add(dimmable_light);
 		
 		
-		Service dimmable_light_service = new Service(UIDGenerator.getUID(), "Light", characteristics);
+		Service dimmable_light_service = new Service("3", "Light", characteristics);
 		List<Service> services = new ArrayList<Service>();
 		services.add(dimmable_light_service);
 		
