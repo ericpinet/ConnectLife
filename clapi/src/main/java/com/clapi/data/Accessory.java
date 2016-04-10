@@ -19,7 +19,7 @@ import com.rits.cloning.Cloner;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Accessory {
+public class Accessory implements DataObj {
 
 	/**
 	 * Enum AccessoryType
@@ -328,5 +328,17 @@ public class Accessory {
 		this.serialnumber = temp.serialnumber;
 		this.services = temp.services;
 		this.type = temp.type;
+	}
+
+	/**
+	 * Return children of this class.
+	 * 
+	 * @return Children of this class.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DataObj> getChildren() {
+		return (List<DataObj>)(Object)getServices();
 	}
 }

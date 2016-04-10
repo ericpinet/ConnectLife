@@ -8,13 +8,15 @@
  */
 package com.clapi.data;
 
+import java.util.List;
+
 /**
  * Address.
  * 
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Address {
+public class Address implements DataObj {
 	
 	/**
 	 * Enum AddressType
@@ -195,5 +197,16 @@ public class Address {
 	 */
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	/**
+	 * Return children of this object.
+	 * 
+	 * @return Children of this object.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@Override
+	public List<DataObj> getChildren() {
+		return null;
 	}
 }

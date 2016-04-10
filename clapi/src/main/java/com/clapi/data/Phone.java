@@ -8,13 +8,15 @@
  */
 package com.clapi.data;
 
+import java.util.List;
+
 /**
  * Phone number.
  * 
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Phone {
+public class Phone implements DataObj {
 	
 	/**
 	 * Enum PhoneType
@@ -98,5 +100,16 @@ public class Phone {
 	 */
 	public void setType(PhoneType type) {
 		this.type = type;
+	}
+	
+	/**
+	 * Return children of this object.
+	 * 
+	 * @return Children of this object.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@Override
+	public List<DataObj> getChildren() {
+		return null;
 	}
 }

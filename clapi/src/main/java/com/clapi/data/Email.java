@@ -8,13 +8,15 @@
  */
 package com.clapi.data;
 
+import java.util.List;
+
 /**
  * Email address. 
  * 
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Email {
+public class Email implements DataObj {
 	
 	/**
 	 * Enum EmailType
@@ -97,5 +99,16 @@ public class Email {
 	 */
 	public void setType(EmailType type) {
 		this.type = type;
+	}
+
+	/**
+	 * Return children of this object.
+	 * 
+	 * @return Children of this object.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@Override
+	public List<DataObj> getChildren() {
+		return null;
 	}
 }
