@@ -57,6 +57,7 @@ public class ApplicationInject extends AbstractModule {
 		// Environment
 		bind(Environment.class).to(EnvironmentManager.class).in(Singleton.class);
 		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
+		//bind(DiscoveryService.class).to(DiscoveryZigbee.class);
 		bind(DeviceManager.class).to(DeviceMngr.class);
 		bind(DataManager.class).to(DataManagerJsonFile.class);
 		
