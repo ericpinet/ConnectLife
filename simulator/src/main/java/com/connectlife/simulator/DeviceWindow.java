@@ -58,6 +58,7 @@ public class DeviceWindow extends Dialog {
 	private Text textSerialNumber;
 	private List<Device> devices;
 	private Composite composite;
+	private Button btnApply;
 
 	/**
 	 * Create the dialog.
@@ -149,7 +150,9 @@ public class DeviceWindow extends Dialog {
 		btnAdd.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnAdd.setText("Add");
 		new Label(shlDevices, SWT.NONE);
-		new Label(shlDevices, SWT.NONE);
+		
+		btnApply = new Button(shlDevices, SWT.NONE);
+		btnApply.setText("Apply");
 		
 		Button btnDel = new Button(shlDevices, SWT.NONE);
 		btnDel.addMouseListener(new MouseAdapter() {

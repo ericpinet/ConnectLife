@@ -146,6 +146,13 @@
     <artifactId>cloning</artifactId>
     <version>1.9.2</version>
   </dependency>
+  
+  <!-- Appache commons lang (EqualsBuilder for objects compare)  -->
+  <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.4</version>
+  </dependency>
 
   </dependencies>
   

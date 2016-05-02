@@ -241,29 +241,59 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	public void run() {
 		
 		try{
+			// update register status for all device.
+			updateRegister();
 			
-			// pass all device unsynchronized and execute a register
-			Iterator<Device> it = m_devices.iterator();
-			while(it.hasNext()){
-				Device device = it.next();
-				if( false == device.isSyncronized() ){
-					device.register();
-				}
-			}
+			// update characteristic of all no beacon device
+			updateDeviceStatus();
 			
-			// unregister device
-			Iterator<Device> it2 = m_devices_to_unregister.iterator();
-			while(it2.hasNext()){
-				Device device = it2.next();
-				if( true == device.isRegister() ){
-					device.unregister();
-				}
-				it2.remove();
-			}
 		}
 		catch (Exception e){
 			m_logger.warn("Error in timer execution: "+e.getMessage());
 		}
+	}
+	
+	/**
+	 * Update the register status for all devices. 
+	 * 
+	 * @throws Exception If something goes wrong.
+	 */
+	private void updateRegister() throws Exception {
+		
+		// pass all device unsynchronized and execute a register
+		Iterator<Device> it = m_devices.iterator();
+		while(it.hasNext()){
+			Device device = it.next();
+			if( false == device.isSyncronized() ){
+				device.register();
+			}
+		}
+		
+		// unregister device
+		Iterator<Device> it2 = m_devices_to_unregister.iterator();
+		while(it2.hasNext()){
+			Device device = it2.next();
+			if( true == device.isRegister() ){
+				device.unregister();
+			}
+			it2.remove();
+		}
+	}
+	
+	/**
+	 * Update all no beacon device.
+	 * 
+	 * @throws Exception If something goes wrong.
+	 */
+	private void updateDeviceStatus() throws Exception {
+		
+		// Return all device no beacon. So we have to polling the status and update environment if it's changed,
+		/*List<Device> devices = m_devices.stream()
+										.filter( r -> r.isRegister() )
+										.filter( r -> r.getDefinition().getAccessory().getProtocoltype() == AccessoryProtocolType.JSON_SIMULATION )
+										.collect(Collectors.toList());*/
+		
+		// TODO: Compare the accessory with the new service result, if is changed, update the environment.
 	}
 
 	/**

@@ -29,6 +29,7 @@ public interface Device {
 	
 	/**
 	 * Return the service info
+	 * 
 	 * @return ServiceInfo of the device.
 	 */
 	public ServiceInfo getServiceInfo();
