@@ -17,7 +17,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Characteristic {
+public class Characteristic implements DataObj {
 	
 	/**
 	 * Value of boolean true in string
@@ -408,6 +408,17 @@ public class Characteristic {
 		else{
 			throw new Exception("This characteristic isn't string format.");
 		}
+	}
+
+	/**
+	 * Return the children of this object.
+	 * 
+	 * @return Children of this object.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@Override
+	public List<DataObj> getChildren() {
+		return null;
 	}
 	
 }
