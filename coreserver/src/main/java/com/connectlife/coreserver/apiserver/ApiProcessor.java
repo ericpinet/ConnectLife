@@ -23,6 +23,8 @@ import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.UIDGenerator;
+import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
 
@@ -186,7 +188,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
 		AddPersonResponse reply = null;
 		try {
-			person = m_environment.addPerson(person);
+			CmdAddPerson cmd = CmdFactory.getCmdAddPerson(person);
+			m_environment.executeCommand(cmd);
 			reply = AddPersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
 			
 		} catch (Exception e) {
@@ -290,7 +293,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updateEmail(UpdateEmailRequest request, StreamObserver<UpdateEmailResponse> responseObserver) {
-		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Email(request.getUid(), "", EmailType.PERSONAL));
+		Person person = null; /* TODO: m_environment.getFindProcessorReadOnly().findPerson(new Email(request.getUid(), "", EmailType.PERSONAL));*/
 		UpdateEmailResponse reply = null;
 		try {
 			Email email = new Email(request.getUid(), request.getEmail(), EmailType.values()[request.getType()]);

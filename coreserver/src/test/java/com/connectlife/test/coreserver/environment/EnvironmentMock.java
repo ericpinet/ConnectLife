@@ -12,10 +12,10 @@ import java.util.Observable;
 
 import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.FindProcessor;
-import com.connectlife.coreserver.environment.FindProcessorReadOnly;
-import com.connectlife.coreserver.environment.device.DeviceManager;
+import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.environment.find.FindProcessorReadOnly;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -72,24 +72,6 @@ public class EnvironmentMock extends Observable implements Environment {
 
 	/**
 	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#isLoaded()
-	 */
-	@Override
-	public boolean isLoaded() {
-		return false;
-	}
-
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#isSaved()
-	 */
-	@Override
-	public boolean isSaved() {
-		return false;
-	}
-
-	/**
-	 * @return
 	 * @see com.connectlife.coreserver.environment.Environment#getJsonEnvironment()
 	 */
 	@Override
@@ -114,42 +96,11 @@ public class EnvironmentMock extends Observable implements Environment {
 
 	/**
 	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#getDeviceManager()
-	 */
-	@Override
-	public DeviceManager getDeviceManager() {
-		return null;
-	}
-
-	/**
-	 * @return
 	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
 	 */
 	@Override
 	public FindProcessor getFindProcessorReadOnly() {
 		return new FindProcessorReadOnly(CreateTestData.getData());
-	}
-
-	/**
-	 * @param _accessory
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#synchronizeAccessory(com.clapi.data.Accessory)
-	 */
-	@Override
-	public Accessory synchronizeAccessory(Accessory _accessory) throws Exception {
-		return null;
-	}
-
-	/**
-	 * @param _accessory
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#unsynchronizeAccessory(com.clapi.data.Accessory)
-	 */
-	@Override
-	public Accessory unsynchronizeAccessory(Accessory _accessory) throws Exception {
-		return null;
 	}
 
 	/**
@@ -186,15 +137,14 @@ public class EnvironmentMock extends Observable implements Environment {
 	}
 
 	/**
-	 * @param _accessory
-	 * @param _room
-	 * @return
+	 * @param _cmd
 	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#addAccessory(com.clapi.data.Accessory, com.clapi.data.Room)
+	 * @see com.connectlife.coreserver.environment.Environment#executeCommand(com.connectlife.coreserver.environment.cmd.Cmd)
 	 */
 	@Override
-	public Accessory addAccessory(Accessory _accessory, Room _room) throws Exception {
-		return null;
+	public void executeCommand(Cmd _cmd) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

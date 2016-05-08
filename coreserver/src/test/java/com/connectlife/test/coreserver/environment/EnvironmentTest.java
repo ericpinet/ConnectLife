@@ -24,12 +24,17 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.clapi.data.Data;
+import com.clapi.data.Person;
 import com.clapi.data.Room;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.EnvironmentJsonFile;
-import com.connectlife.coreserver.environment.SaveProcessor;
+import com.connectlife.coreserver.environment.EnvironmentManager;
+import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
+import com.connectlife.coreserver.environment.cmd.CmdFactory;
+import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -153,7 +158,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// delete env directory and file
@@ -164,7 +169,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testInitWithEnvFile() {
+	public void testInitUnitWithEnvFile() {
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
 		
@@ -173,8 +178,11 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
+		
+		// uninit environment
+		env.unInit();
 		
 		// delete env directory and file
 		deleteEnvDirectory();
@@ -193,8 +201,11 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
+		
+		// uninit environment
+		env.unInit();
 		
 		// delete env directory and file
 		deleteEnvDirectory();
@@ -213,8 +224,48 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertFalse(env.init());
+		
+		// uninit environment
+		env.unInit();
+		
+		// delete env directory and file
+		deleteEnvDirectory();
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testSaveEnvFile() {
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+		
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// save
+		assertTrue(env.save());
+		
+		// update environment data
+		CmdAddPerson cmd = CmdFactory.getCmdAddPerson(new Person("", "Eric"));
+		try {
+			env.executeCommand(cmd);
+		} catch (Exception e) {
+			fail("Exception on save environment.");
+		}
+		
+		// save after updated
+		assertTrue(env.save());
+		
+		// uninit environment
+		env.unInit();
 		
 		// delete env directory and file
 		deleteEnvDirectory();
@@ -231,7 +282,7 @@ public class EnvironmentTest implements Observer {
 				
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		
 		assertTrue(env.init());
 		
@@ -271,7 +322,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a accessory valid
@@ -297,16 +348,94 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a room valid
-		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("051ad593-c9f1-4cd4-9645-f3f80d7e7c25", ""));
+		Room room = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("5", ""));
 		assertTrue(null != room);
 		
 		// test find a room invalid
 		Room room2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findRoom(new Room("XXXXXXXXXXX", ""));
 		assertTrue(null == room2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindPersonByUid() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test find a person valid
+		Person person = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("1", "", "", ""));
+		assertTrue(null != person);
+		
+		// test find a person invalid.
+		Person person2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("XXXX", "", "", ""));
+		assertTrue(null == person2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindPersonByFirstName() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test find a person valid
+		Person person = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("", "Eric", "", ""));
+		assertTrue(null != person);
+		
+		// test find a person invalid.
+		Person person2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("", "XXXX", "", ""));
+		assertTrue(null == person2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testFindPersonByLastName() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test find a person valid
+		Person person = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("", "", "Wang", ""));
+		assertTrue(null != person);
+		
+		// test find a person invalid.
+		Person person2 = Application.getApp().getEnvironment().getFindProcessorReadOnly().findPerson(new Person("", "", "XXXX", ""));
+		assertTrue(null == person2);
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
@@ -323,7 +452,7 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
 		// test find a accessory valid
@@ -343,7 +472,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testSaveProcessor() {
+	public void testGetJsonData() {
 		
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
@@ -353,19 +482,22 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
-		// test save processor
-		Data data = SaveProcessor.prepareSave(env);
-		assertTrue(null != data);
+		// test json data
+		Data data = env.getData();
+		Gson gson = new Gson();
+		String json = gson.toJson(data);
+		
+		assertTrue(env.getJsonEnvironment().equals(json));
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
 	}
 	
 	@Test
-	public void testSynchronizeDevice() {
+	public void testGetData() {
 		
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
@@ -375,24 +507,95 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
-		// test synchronize accessory
+		// test get data return not null
+		assertNotNull(env.getData());
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testAddAccessory() throws Exception {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test add accessory
+		CmdAddAccessory cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("5",""));
+		env.executeCommand(cmd);
+		
+		// test add same accessory in same room
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("5",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
+		
+		// test add accessory
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("1", "test"), new Room("5",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
+		
+		// test add accessory
+		cmd = CmdFactory.getCmdAddAccesssory(new Accessory("", "test"), new Room("6",""));
+		try{
+			env.executeCommand(cmd);
+			fail("A exception must be raise!");
+		}catch(Exception e){
+		}
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testRegisterDevice() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test register accessory
 		Accessory accessory = null;
 		try {
-			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertTrue(accessory.isRegister());
 		
-		// test synchronize accessory
+		// test register a invalid accessory
 		Accessory invalid = CreateTestData.getLightTest();
 		invalid.setSerialnumber("XXXXXXXX");
 		Accessory accessory2 = null;
 		try {
-			accessory2 = env.synchronizeAccessory(invalid);
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(invalid);
+			env.executeCommand(command);
+			accessory2 = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -403,7 +606,7 @@ public class EnvironmentTest implements Observer {
 	}
 	
 	@Test
-	public void testUnsynchronizeDevice() {
+	public void testUnregisterDevice() {
 		
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
@@ -413,29 +616,35 @@ public class EnvironmentTest implements Observer {
 		
 		// init the environment
 		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
-		env = injector.getInstance(EnvironmentJsonFile.class);
+		env = injector.getInstance(EnvironmentManager.class);
 		assertTrue(env.init());
 		
-		// test synchronize accessory
+		// test register accessory
 		Accessory accessory = null;
 		try {
-			accessory = env.synchronizeAccessory(CreateTestData.getLightTest());
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertTrue(accessory.isRegister());
 		
-		// test unsynchronize
+		// test unregister
 		try {
-			accessory = env.unsynchronizeAccessory(accessory);
+			CmdUnregisterAccessory command = CmdFactory.getCmdUnregisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		assertFalse(accessory.isRegister());
 		
-		// test unsynchronize accessory
+		// test unregister a unregistered accessory
 		try {
-			accessory = env.unsynchronizeAccessory(accessory);
+			CmdUnregisterAccessory command = CmdFactory.getCmdUnregisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

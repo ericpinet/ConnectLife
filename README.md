@@ -2,9 +2,6 @@ Connectlife
 ============
 [![Build Status](https://travis-ci.org/ericpinet/ConnectLife.svg?branch=master)](https://travis-ci.org/ericpinet/ConnectLife) [![codecov.io](https://codecov.io/github/ericpinet/ConnectLife/coverage.svg?branch=master)](https://codecov.io/github/ericpinet/ConnectLife?branch=master)
 
-![codecov.io](https://codecov.io/github/ericpinet/ConnectLife/branch.svg?branch=master)
-
-
 Connectlife is a home automation system in java. 
 
 See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.github.io/ConnectLife/)

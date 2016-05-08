@@ -6,7 +6,7 @@
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.coreserver.environment;
+package com.connectlife.coreserver.environment.find;
 
 import com.clapi.data.Data;
 

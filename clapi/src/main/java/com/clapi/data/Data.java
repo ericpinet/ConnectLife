@@ -20,11 +20,6 @@ import java.util.List;
 public class Data {
 	
 	/**
-	 * Version of the data. Increment by one for each change.
-	 */
-	private int version;
-	
-	/**
 	 * List of the persons in data.
 	 */
 	private List<Person> persons;
@@ -36,13 +31,11 @@ public class Data {
 
 	/**
 	 * Default constructor.
-	 * @param version Version of the data.
 	 * @param persons Persons of the data.
 	 * @param homes Homes of the data.
 	 */
-	public Data(int version, List<Person> persons, List<Home> homes) {
+	public Data(List<Person> persons, List<Home> homes) {
 		super();
-		this.version = version;
 		this.persons = persons;
 		this.homes = homes;
 	}
@@ -54,20 +47,6 @@ public class Data {
 		super();
 		this.persons = new ArrayList<Person>();
 		this.homes = new ArrayList<Home>();
-	}
-
-	/**
-	 * @return the version
-	 */
-	public int getVersion() {
-		return version;
-	}
-
-	/**
-	 * @param version the version to set
-	 */
-	public void setVersion(int version) {
-		this.version = version;
 	}
 
 	/**

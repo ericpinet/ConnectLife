@@ -25,6 +25,7 @@ import com.connectlife.coreserver.console.ShellCmdHelp;
 import com.connectlife.coreserver.console.ShellCmdOutputAllConfig;
 import com.connectlife.coreserver.console.ShellCmdOutputConfig;
 import com.connectlife.coreserver.console.ShellCmdOutputEnv;
+import com.connectlife.coreserver.console.ShellCmdOutputEnvFormatted;
 import com.connectlife.coreserver.console.ShellCmdOutputLog;
 import com.connectlife.coreserver.console.ShellCmdQuit;
 import com.connectlife.coreserver.console.ShellCmdAddAccessory;
@@ -203,6 +204,26 @@ public class ConsoleSSHTest {
 		
 		try {
 			String response = cmd.execute("output env");
+			
+			assertTrue(response != null);
+			
+		} catch (InterruptedIOException e) {
+			//do nothing.
+		}
+	}
+	
+	@Test
+	public void testShellCmdOutputEnvFormatted(){
+		
+		ShellCmdOutputEnvFormatted cmd = new ShellCmdOutputEnvFormatted();		
+		assertTrue(cmd.checkLineForCommandCompatibility("output env formatted"));
+		assertFalse(cmd.checkLineForCommandCompatibility("output env for2"));
+		
+		cmd.getCommand();
+		cmd.getHelp();
+		
+		try {
+			String response = cmd.execute("output env formatted");
 			
 			assertTrue(response != null);
 			

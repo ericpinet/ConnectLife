@@ -11,6 +11,7 @@ package com.clapi.data;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Person.
@@ -18,7 +19,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Person {
+public class Person implements DataObj {
 	
 	/**
 	 * UID of the person. This UID most be generator by the server.
@@ -265,5 +266,21 @@ public class Person {
 		setAddresses(_person.getAddresses());
 		setEmails(_person.getEmails());
 		setPhones(_person.getPhones());
+	}
+	
+	/**
+	 * Return children of this object.
+	 * 
+	 * @return Children of this object.
+	 * @see com.clapi.data.DataObj#getChildren()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DataObj> getChildren() {
+		List<DataObj> ret_obj = new Vector<DataObj>();
+		ret_obj.addAll(getPhones());
+		ret_obj.addAll(getAddresses());
+		ret_obj.addAll(getEmails());
+		return (List<DataObj>)(Object)ret_obj;
 	}
 }
