@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import javax.jmdns.ServiceEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.clapi.data.Accessory.AccessoryProtocolType;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -288,12 +290,23 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	private void updateDeviceStatus() throws Exception {
 		
 		// Return all device no beacon. So we have to polling the status and update environment if it's changed,
-		/*List<Device> devices = m_devices.stream()
+		List<Device> devices = m_devices.stream()
 										.filter( r -> r.isRegister() )
-										.filter( r -> r.getDefinition().getAccessory().getProtocoltype() == AccessoryProtocolType.JSON_SIMULATION )
-										.collect(Collectors.toList());*/
+										.filter( r -> r.getAccessory().getProtocoltype() == AccessoryProtocolType.JSON_SIMULATION )
+										.collect(Collectors.toList());
 		
-		// TODO: Compare the accessory with the new service result, if is changed, update the environment.
+		// Compare the accessory with the new service result, 
+		// if is changed, update the environment.
+		Iterator<Device> idevice = devices.iterator();
+		
+		while (idevice.hasNext()) {
+			Device device = idevice.next();
+			
+			if (true == device.isCharacteristicUpdated()) {
+				device.updateEnvironment();
+				
+			}// ENDIF: Do noting.
+		}// END WHILE
 	}
 
 	/**
