@@ -74,6 +74,23 @@ public class DeviceMngrTest {
 		assertTrue(devicemngr.isInit());
 	}
 	
+	public void testSynchAll() {
+		Injector injector = Guice.createInjector(new DeviceInjectTest());
+		DeviceMngr devicemngr = injector.getInstance(DeviceMngr.class);
+		
+		assertTrue(devicemngr.init());
+		
+		devicemngr.forceSynchronizationOfAllDevices();
+		
+		assertTrue(devicemngr.isInit());
+		
+		devicemngr.unInit();
+		
+		devicemngr.forceSynchronizationOfAllDevices();
+		
+		assertFalse(devicemngr.isInit());
+	}
+	
 	@Test
 	public void testInitTwice() {
 		Injector injector = Guice.createInjector(new DeviceInjectTest());

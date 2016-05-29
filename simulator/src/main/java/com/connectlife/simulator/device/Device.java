@@ -21,6 +21,7 @@ import org.eclipse.jetty.server.Server;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Characteristic;
+import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Service;
 
@@ -209,38 +210,45 @@ public abstract class Device extends Accessory {
 					Characteristic charac = it2.next();
 					if(charac.getLabel().equalsIgnoreCase(_characteristic_label)){
 						
-						// update characteristic value
-						try {
-							if(charac.getType() == CharacteristicType.STATIC_STRING){
-								charac.setData(_data);
-								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
-							}
-							else if (charac.getType() == CharacteristicType.BOOLEAN ||
-									charac.getType() == CharacteristicType.WRITE_ONLY_BOOLEAN){
-								boolean data = Boolean.valueOf(_data);
-								charac.setBooleanData(data);
-								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
-							}
-							else if (charac.getType() == CharacteristicType.FLOAT){
-								float data = Float.valueOf(_data);
-								charac.setFloatData(data);
-								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
-							}
-							else if (charac.getType() == CharacteristicType.INTEGER){
-								int data = Integer.valueOf(_data);
-								charac.setIntegerData(data);
-								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
-							}
-							else if (charac.getType() == CharacteristicType.ENUM){
-								charac.setDataEnum(_data);
-								m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
-							}
+						// check if is write characteristics
+						if (charac.getMode() == CharacteristicAccessMode.READ_WRITE ||
+									charac.getMode() == CharacteristicAccessMode.WRITE_ONLY) {
 							
-							ret_val = true;
-						} catch (Exception e) {
-							m_logger.error(e.getMessage());
-							e.printStackTrace();
-						}
+							// update characteristic value
+							try {
+								if(charac.getType() == CharacteristicType.STATIC_STRING){
+									charac.setData(_data);
+									m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+								}
+								else if (charac.getType() == CharacteristicType.BOOLEAN ||
+										charac.getType() == CharacteristicType.WRITE_ONLY_BOOLEAN){
+									boolean data = Boolean.valueOf(_data);
+									charac.setBooleanData(data);
+									m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+								}
+								else if (charac.getType() == CharacteristicType.FLOAT){
+									float data = Float.valueOf(_data);
+									charac.setFloatData(data);
+									m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+								}
+								else if (charac.getType() == CharacteristicType.INTEGER){
+									int data = Integer.valueOf(_data);
+									charac.setIntegerData(data);
+									m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+								}
+								else if (charac.getType() == CharacteristicType.ENUM){
+									charac.setDataEnum(_data);
+									m_logger.info("Set new value for " + _service_name + "." + _characteristic_label + " = " +_data);
+								}
+								
+								ret_val = true;
+
+							} catch (Exception e) {
+								m_logger.error(e.getMessage());
+								e.printStackTrace();
+							}
+						
+						}// ELSE: characteristic is read only. Do noting.
 						
 					}// ELSE: didn't find the right characteristic. Do noting. 
 				}

@@ -10,10 +10,12 @@ package com.connectlife.coreserver.environment.device;
 
 import javax.jmdns.ServiceInfo;
 
-import com.clapi.simulator.device.ServiceDefinition;
+import com.clapi.data.Accessory;
 
 /**
- * Device on the network.
+ * Device on the network. 
+ * 
+ * A device is a Accessory in the network. 
  * 
  * @author ericpinet
  * <br> 2016-01-23
@@ -21,14 +23,15 @@ import com.clapi.simulator.device.ServiceDefinition;
 public interface Device {
 	
 	/**
-	 * Return the service definition.
+	 * Return the accessory linked with this device service.
 	 * 
-	 * @return ServiceDefinition of the device.
+	 * @return Accessory linked with this device.
 	 */
-	public ServiceDefinition getDefinition(); 
+	public Accessory getAccessory();
 	
 	/**
 	 * Return the service info
+	 * 
 	 * @return ServiceInfo of the device.
 	 */
 	public ServiceInfo getServiceInfo();
@@ -63,11 +66,25 @@ public interface Device {
 	public void unsynchronize();
 
 	/**
-	 *  Indicate if the device is synchronized with the environment of the application.
+	 * Indicate if the device is synchronized with the environment of the application.
 	 * If not, you can run the register().
 	 * 
 	 * @return True if the device is correctly synchronized with the application environment. 
 	 */
-	boolean isSyncronized();
+	public boolean isSyncronized();
+	
+	/**
+	 * Update the device data in the application environment.
+	 * 
+	 * @return True if it correctly updated.
+	 */
+	public boolean updateEnvironment();
+	
+	/**
+	 * Indicate if the device characteristic was changed since last load.
+	 * 
+	 * @return True is the characteristic was updated.
+	 */
+	public boolean isCharacteristicUpdated();
 
 }

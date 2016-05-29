@@ -59,6 +59,18 @@ public class ApplicationTest {
 	}
 	
 	@Test
+	public void accessorTest() {
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
+		final Application app = injector.getInstance(Application.class);
+		
+		assertNotNull(app.getApi());
+		assertNull(app.getBasePath());
+		assertNotNull(app.getConfig());
+		assertNotNull(app.getConsole());
+		assertNotNull(app.getEnvironment());
+	}
+	
+	@Test
 	public void startupTest() {
 		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		final Application app = injector.getInstance(Application.class);
