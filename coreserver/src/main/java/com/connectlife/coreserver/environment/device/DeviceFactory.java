@@ -66,7 +66,7 @@ public abstract class DeviceFactory {
 	 * @return Device ready to use. With monitor and controller.
 	 * @throws Exception If the building process failed , a exception will be generated with the details.
 	 */
-	public static Device buildService(ServiceEvent _service) throws Exception{
+	public static Device buildService(ServiceEvent _service) throws Exception {
 		
 		Device ret_service = null;
 		

@@ -179,6 +179,10 @@ public class DeviceHttpHandler extends AbstractHandler {
 	
 	/**
 	 * Process the request if the client ask a characteristic change.
+	 * <p>
+	 * Sample of update request : 
+	 * <p>
+	 * http://192.168.2.10:52262/light/light?value=true
 	 * 
 	 * @param target
 	 * @param baserequest
