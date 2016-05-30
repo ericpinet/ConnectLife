@@ -102,7 +102,7 @@ public class Accessory implements DataObj {
 	/**
 	 * Register indicate that the accessory service is correctly connected with the server.
 	 */
-	private boolean isRegister;
+	private boolean isregister;
 
 	/**
 	 * Default constructor.
@@ -130,7 +130,7 @@ public class Accessory implements DataObj {
 		this.imageurl = imageurl;
 		this.type = type;
 		this.protocoltype = protocoltype;
-		this.isRegister = false;
+		this.isregister = false;
 	}
 	
 	/**
@@ -150,7 +150,7 @@ public class Accessory implements DataObj {
 		this.imageurl = "";
 		this.type = null;
 		this.protocoltype = null;
-		this.isRegister = false;
+		this.isregister = false;
 	}
 
 	
@@ -253,6 +253,13 @@ public class Accessory implements DataObj {
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
+	
+	/**
+	 * @param service the service to add.
+	 */
+	public void addService(Service service) {
+		this.services.add(service);
+	}
 
 	/**
 	 * Get the url of the accessory image.
@@ -299,17 +306,17 @@ public class Accessory implements DataObj {
 	}
 
 	/**
-	 * @return the isRegister
+	 * @return the isregister
 	 */
 	public boolean isRegister() {
-		return isRegister;
+		return isregister;
 	}
 
 	/**
-	 * @param isRegister the isRegister to set
+	 * @param isregister the isregister to set
 	 */
 	public void setRegister(boolean isRegister) {
-		this.isRegister = isRegister;
+		this.isregister = isRegister;
 	}
 	
 	/**
@@ -320,7 +327,7 @@ public class Accessory implements DataObj {
 		Cloner cloner = new Cloner();
 		Accessory temp = cloner.deepClone(accessory);
 		this.imageurl = temp.imageurl;
-		this.isRegister = temp.isRegister;
+		this.isregister = temp.isregister;
 		this.label = temp.label;
 		this.manufacturer = temp.manufacturer;
 		this.model = temp.model;

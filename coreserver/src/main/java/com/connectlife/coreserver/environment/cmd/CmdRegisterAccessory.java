@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.clapi.data.Accessory;
-import com.connectlife.coreserver.environment.find.FindProcessor;
 
 /**
  * Command to register a accessory in the environment.
@@ -52,6 +51,10 @@ public class CmdRegisterAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
+		// TODO: Complete command
+		throw new Exception("Not implemented yet!");
+		
+		/*
 		// Get the find processor
 		FindProcessor find = m_context.getFindProcessorReadWrite();
 		
@@ -79,6 +82,7 @@ public class CmdRegisterAccessory extends CmdDefault {
 		}
 		
 		m_logger.info("Execution completed.");
+		*/
 	}
 	
 	/**

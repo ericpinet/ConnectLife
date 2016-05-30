@@ -146,6 +146,13 @@
     <artifactId>cloning</artifactId>
     <version>1.9.2</version>
   </dependency>
+  
+  <!-- http://mvnrepository.com/artifact/org.neo4j/neo4j -->
+  <dependency>
+    <groupId>org.neo4j</groupId>
+    <artifactId>neo4j</artifactId>
+    <version>3.0.1</version>
+  </dependency>
 
   </dependencies>
   

@@ -14,8 +14,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.connectlife.coreserver.Application;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * Shell command for output the environment in json format formatted in the console screen.
@@ -86,9 +84,7 @@ public class ShellCmdOutputEnvFormatted implements ShellCmd {
 		
     	m_logger.debug(SHELL_CMD);
     	
-    	Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String json = gson.toJson(Application.getApp().getEnvironment().getData());
-        response = json;
+    	response = Application.getApp().getEnvironment().getJsonFormattedEnvironment();
         
 		return response;
 	}

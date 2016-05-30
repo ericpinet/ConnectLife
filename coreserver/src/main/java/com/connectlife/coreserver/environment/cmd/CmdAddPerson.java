@@ -53,6 +53,9 @@ public class CmdAddPerson extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
+		// TODO: Complete command
+		throw new Exception("Not implemented yet!");
+		/*
 		// prepare the data
 		Data data = m_context.getDataManager().getData();
 		
@@ -77,6 +80,7 @@ public class CmdAddPerson extends CmdDefault {
 		this.m_data_is_changed = true;
 		
 		m_logger.info("Execution completed.");
+		*/
 	}
 	
 }

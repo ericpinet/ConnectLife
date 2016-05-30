@@ -15,7 +15,6 @@ import com.clapi.data.Accessory;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.environment.UIDGenerator;
-import com.connectlife.coreserver.environment.find.FindProcessor;
 
 /**
  * Command to change value of a characteristic for an Accessory.

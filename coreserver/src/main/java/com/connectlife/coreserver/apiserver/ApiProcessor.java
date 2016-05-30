@@ -208,11 +208,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
-		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
+		UpdatePersonResponse reply = null;
+		/*Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
 		person.setFirstname(request.getFirstname());
 		person.setLastname(request.getLastname());
 		person.setImageurl(request.getImageurl());
-		UpdatePersonResponse reply = null;
+		
 		try {
 			person = m_environment.updatePerson(person);
 			reply = UpdatePersonResponse.newBuilder().setUid(person.getUid()).build(); // uid is return to client.
@@ -224,7 +225,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
-		}
+		}*/
 		
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();

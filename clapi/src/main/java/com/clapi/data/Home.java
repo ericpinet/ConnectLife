@@ -107,6 +107,13 @@ public class Home implements DataObj {
 	public void setZones(List<Zone> zones) {
 		this.zones = zones;
 	}
+	
+	/**
+	 * @param zone the zone to add
+	 */
+	public void addZone(Zone zone) {
+		this.zones.add(zone);
+	}
 
 	/**
 	 * @return the imageurl

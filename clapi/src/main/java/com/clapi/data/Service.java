@@ -101,6 +101,13 @@ public class Service implements DataObj {
 	public void setCharacteristics(List<Characteristic> characteristics) {
 		this.characteristics = characteristics;
 	}
+	
+	/**
+	 * @param characteristic the characteristic to add
+	 */
+	public void addCharacteristic(Characteristic characteristic) {
+		this.characteristics.add(characteristic);
+	}
 
 	/**
 	 * Return the children of this object.

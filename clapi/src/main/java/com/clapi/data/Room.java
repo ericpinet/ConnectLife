@@ -107,6 +107,13 @@ public class Room implements DataObj {
 	public void setAccessories(List<Accessory> accessories) {
 		this.accessories = accessories;
 	}
+	
+	/**
+	 * @param accessory the accessory to add
+	 */
+	public void addAccessory(Accessory accessory) {
+		this.accessories.add(accessory);
+	}
 
 	/**
 	 * @return the imageurl
