@@ -11,6 +11,8 @@ package com.connectlife.coreserver.environment.data;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -19,12 +21,14 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
+import com.clapi.data.Characteristic;
 import com.clapi.data.Data;
 import com.clapi.data.Email;
 import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Phone;
 import com.clapi.data.Room;
+import com.clapi.data.Service;
 import com.clapi.data.Zone;
 import com.connectlife.coreserver.Consts;
 
@@ -35,6 +39,11 @@ import com.connectlife.coreserver.Consts;
  * <br> 2016-05-29
  */
 public abstract class DataManagerFactory {
+	
+	/**
+	 * Logger use for this class.
+	 */
+	private static Logger m_logger = LogManager.getLogger(DataManagerFactory.class);
 	
 	/**
 	 * Get a Data representation of the environment data.
@@ -90,37 +99,45 @@ public abstract class DataManagerFactory {
 		
 		Person ret_person = new Person("","");
 		
-		ret_person.setUid((String) _node.getProperty(Consts.PERSON_UID));
-		ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
-		ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
-		ret_person.setImageurl((String)_node.getProperty(Consts.PERSON_IMAGEURL));
+		if (_node.hasLabel(Consts.LABEL_PERSON)) {
 		
-		try ( Transaction tx = _graph.beginTx() ) {
+			ret_person.setUid((String) _node.getProperty(Consts.PERSON_UID));
+			ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
+			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
+			ret_person.setImageurl((String)_node.getProperty(Consts.PERSON_IMAGEURL));
 			
-			Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
-			
-			while (it.hasNext()) {
-				Relationship relation = it.next();
-				Node node = relation.getEndNode();
+			try ( Transaction tx = _graph.beginTx() ) {
 				
-				if (node.hasLabel(Consts.LABEL_EMAIL)) {
-					Email email = buildEmail(node);
-					ret_person.addEmails(email);
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_EMAIL)) {
+							Email email = buildEmail(node);
+							ret_person.addEmails(email);
+						}
+						else if (node.hasLabel(Consts.LABEL_PHONE)) {
+							Phone phone = buildPhone(node);
+							ret_person.addPhones(phone);
+						}
+						else if (node.hasLabel(Consts.LABEL_ADDRESS)) {
+							Address address = buildAddress(node);
+							ret_person.addAddress(address);
+						}
+						else{
+							throw new Exception ("Label not supported yet!");
+						}
+					}
 				}
-				else if (node.hasLabel(Consts.LABEL_PHONE)) {
-					Phone phone = buildPhone(node);
-					ret_person.addPhones(phone);
-				}
-				else if (node.hasLabel(Consts.LABEL_ADDRESS)) {
-					Address address = buildAddress(node);
-					ret_person.addAddress(address);
-				}
-				else{
-					throw new Exception ("Label not supported yet!");
-				}
+				
+				tx.success();
 			}
-			
-			tx.success();
+		}
+		else {
+			throw new Exception ("It's not a person node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret_person;
@@ -137,35 +154,41 @@ public abstract class DataManagerFactory {
 		
 		Address ret = null;
 		
-		if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_HOME)) {
-			ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
-							 	Address.AddressType.HOME,
-							 	(String)_node.getProperty(Consts.ADDRESS_STREET),
-							 	(String)_node.getProperty(Consts.ADDRESS_CITY),
-							 	(String)_node.getProperty(Consts.ADDRESS_REGION),
-							 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-							 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
-		} 
-		else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
-			ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
-							 	Address.AddressType.WORK,
-							 	(String)_node.getProperty(Consts.ADDRESS_STREET),
-							 	(String)_node.getProperty(Consts.ADDRESS_CITY),
-							 	(String)_node.getProperty(Consts.ADDRESS_REGION),
-							 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-							 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
-}
-		else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
-			ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
-							 	Address.AddressType.OTHER,
-							 	(String)_node.getProperty(Consts.ADDRESS_STREET),
-							 	(String)_node.getProperty(Consts.ADDRESS_CITY),
-							 	(String)_node.getProperty(Consts.ADDRESS_REGION),
-							 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-							 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+		if (_node.hasLabel(Consts.LABEL_ADDRESS)) {
+		
+			if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_HOME)) {
+				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+								 	Address.AddressType.HOME,
+								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
+								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
+								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
+								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+			} 
+			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
+				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+								 	Address.AddressType.WORK,
+								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
+								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
+								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
+								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+			}
+			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
+				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+								 	Address.AddressType.OTHER,
+								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
+								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
+								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
+								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+			}
+			else {
+				throw new Exception ("Error! Address type not supported. ["+_node.getProperty(Consts.ADDRESS_TYPE)+"]");
+			}
 		}
 		else {
-			throw new Exception ("Error! Address type not supported.");
+			throw new Exception ("It's not a address node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -182,23 +205,29 @@ public abstract class DataManagerFactory {
 		
 		Email ret = null;
 		
-		if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
-			ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
-							(String)_node.getProperty(Consts.EMAIL_EMAIL),
-							Email.EmailType.PERSONAL);
-		} 
-		else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
-			ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
-					(String)_node.getProperty(Consts.EMAIL_EMAIL),
-					Email.EmailType.WORK);
-		} 
-		else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
-			ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
-					(String)_node.getProperty(Consts.EMAIL_EMAIL),
-					Email.EmailType.OTHER);
+		if (_node.hasLabel(Consts.LABEL_EMAIL)) {
+		
+			if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
+				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.PERSONAL);
+			} 
+			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
+				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+						(String)_node.getProperty(Consts.EMAIL_EMAIL),
+						Email.EmailType.WORK);
+			} 
+			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
+				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+						(String)_node.getProperty(Consts.EMAIL_EMAIL),
+						Email.EmailType.OTHER);
+			}
+			else {
+				throw new Exception ("Email type not supported yet! ["+_node.getProperty(Consts.EMAIL_TYPE)+"]");
+			}
 		}
 		else {
-			throw new Exception ("Error! Email type not supported.");
+			throw new Exception ("It's not a email node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -215,28 +244,34 @@ public abstract class DataManagerFactory {
 		
 		Phone ret = null;
 		
-		if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
-			ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-							(String)_node.getProperty(Consts.PHONE_NUMBER),
-							Phone.PhoneType.HOME);
-		} 
-		else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
-			ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-					(String)_node.getProperty(Consts.PHONE_NUMBER),
-					Phone.PhoneType.WORK);
-		} 
-		else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
-			ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-					(String)_node.getProperty(Consts.PHONE_NUMBER),
-					Phone.PhoneType.OTHER);
-		}
-		else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
-			ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-					(String)_node.getProperty(Consts.PHONE_NUMBER),
-					Phone.PhoneType.CELL);
+		if (_node.hasLabel(Consts.LABEL_PHONE)) {
+		
+			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.HOME);
+			} 
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.WORK);
+			} 
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.OTHER);
+			}
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.CELL);
+			}
+			else {
+				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
+			}
 		}
 		else {
-			throw new Exception ("Error! Phone type not supported.");
+			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -254,30 +289,37 @@ public abstract class DataManagerFactory {
 		
 		Home ret_home = new Home("","");
 		
-		ret_home.setUid((String) _node.getProperty(Consts.HOME_UID));
-		ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
-		ret_home.setImageurl((String)_node.getProperty(Consts.HOME_IMAGEURL));
-		
-		try ( Transaction tx = _graph.beginTx() ) {
+		if(_node.hasLabel(Consts.LABEL_HOME)) {
 			
-			Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+			ret_home.setUid((String) _node.getProperty(Consts.HOME_UID));
+			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
+			ret_home.setImageurl((String)_node.getProperty(Consts.HOME_IMAGEURL));
 			
-			while (it.hasNext()) {
-				Relationship relation = it.next();
-				Node node = relation.getEndNode();
+			try ( Transaction tx = _graph.beginTx() ) {
 				
-				if (node.hasLabel(Consts.LABEL_ZONE)) {
-					Zone zone = buildZone(_graph, node);
-					ret_home.addZone(zone);
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_ZONE)) {
+							Zone zone = buildZone(_graph, node);
+							ret_home.addZone(zone);
+						}
+						else{
+							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+						}
+					}
 				}
-				else{
-					throw new Exception ("Label not supported yet!");
-				}
+				
+				tx.success();
 			}
-			
-			tx.success();
 		}
-		
+		else {
+			throw new Exception ("It's not a home node! ["+_node.getLabels()+"]");
+		}
 		return ret_home;
 	}
 	
@@ -293,28 +335,36 @@ public abstract class DataManagerFactory {
 		
 		Zone ret = new Zone("","");
 		
-		ret.setUid((String) _node.getProperty(Consts.ZONE_UID));
-		ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
-		ret.setImageurl((String)_node.getProperty(Consts.ZONE_IMAGEURL));
+		if (_node.hasLabel(Consts.LABEL_ZONE)) {
 		
-		try ( Transaction tx = _graph.beginTx() ) {
+			ret.setUid((String) _node.getProperty(Consts.ZONE_UID));
+			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
+			ret.setImageurl((String)_node.getProperty(Consts.ZONE_IMAGEURL));
 			
-			Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
-			
-			while (it.hasNext()) {
-				Relationship relation = it.next();
-				Node node = relation.getEndNode();
+			try ( Transaction tx = _graph.beginTx() ) {
 				
-				if (node.hasLabel(Consts.LABEL_ROOM)) {
-					Room room = buildRoom(_graph, node);
-					ret.addRoom(room);
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_ROOM)) {
+							Room room = buildRoom(_graph, node);
+							ret.addRoom(room);
+						}
+						else{
+							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+						}
+					}
 				}
-				else{
-					throw new Exception ("Label not supported yet!");
-				}
+				
+				tx.success();
 			}
-			
-			tx.success();
+		}
+		else {
+			throw new Exception ("It's not a zone node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -332,28 +382,33 @@ public abstract class DataManagerFactory {
 		
 		Room ret = new Room("","");
 		
-		ret.setUid((String) _node.getProperty(Consts.ROOM_UID));
-		ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
-		ret.setImageurl((String)_node.getProperty(Consts.ROOM_IMAGEURL));
+		if (_node.hasLabel(Consts.LABEL_ROOM)) {
 		
-		try ( Transaction tx = _graph.beginTx() ) {
+			ret.setUid((String) _node.getProperty(Consts.ROOM_UID));
+			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
+			ret.setImageurl((String)_node.getProperty(Consts.ROOM_IMAGEURL));
 			
-			Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
-			
-			while (it.hasNext()) {
-				Relationship relation = it.next();
-				Node node = relation.getEndNode();
+			try ( Transaction tx = _graph.beginTx() ) {
 				
-				if (node.hasLabel(Consts.LABEL_ACCESSORY)) {
-					Accessory accessory = buildAccessory(_graph, node);
-					ret.addAccessory(accessory);
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_ACCESSORY)) {
+							Accessory accessory = buildAccessory(_graph, node);
+							ret.addAccessory(accessory);
+						}
+						else{
+							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+						}
+					}
 				}
-				else{
-					throw new Exception ("Label not supported yet!");
-				}
+				
+				tx.success();
 			}
-			
-			tx.success();
 		}
 		
 		return ret;
@@ -371,34 +426,186 @@ public abstract class DataManagerFactory {
 		
 		Accessory ret = new Accessory("","");
 		
-		ret.setUid((String) _node.getProperty(Consts.ACCESSORY_UID));
-		ret.setLabel((String) _node.getProperty(Consts.ACCESSORY_LABEL));
-		ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
-		ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
-		
-		try ( Transaction tx = _graph.beginTx() ) {
+		if (_node.hasLabel(Consts.LABEL_ACCESSORY)) {
 			
-			Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+			ret.setUid((String) _node.getProperty(Consts.ACCESSORY_UID));
+			ret.setLabel((String) _node.getProperty(Consts.ACCESSORY_LABEL));
+			ret.setModel((String)_node.getProperty(Consts.ACCESSORY_MODEL));
+			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
+			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
+			ret.setRegister(_node.getProperties(Consts.ACCESSORY_ISREGISTER).equals("true"));
+			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
-			while (it.hasNext()) {
-				Relationship relation = it.next();
-				Node node = relation.getEndNode();
-				
-				if (node.hasLabel(Consts.LABEL_ACCESSORY)) {
-					/* TODO: I'm here
-					Accessory accessory = buildAccessory(node);
-					ret.addAccessory(accessory);
-					*/
-				}
-				else{
-					throw new Exception ("Label not supported yet!");
-				}
+			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {
+				ret.setType(Accessory.AccessoryType.AUTOMATIC_DOOR);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_CAM)) {
+				ret.setType(Accessory.AccessoryType.CAM);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_CONTROL_BOARD)) {
+				ret.setType(Accessory.AccessoryType.CONTROL_BOARD);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_DIMMABLE)) {
+				ret.setType(Accessory.AccessoryType.LIGHT_DIMMABLE);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_FAN)) {
+				ret.setType(Accessory.AccessoryType.FAN);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_LIGHT)) {
+				ret.setType(Accessory.AccessoryType.LIGHT);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_LIGHT_COLORED)) {
+				ret.setType(Accessory.AccessoryType.LIGHT_COLORED);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_LIGHT_COLORED_DIMMABLE)) {
+				ret.setType(Accessory.AccessoryType.LIGHT_COLORED_DIMMABLE);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_LOCK_MECHANISM)) {
+				ret.setType(Accessory.AccessoryType.LOCK_MECHANISM);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_SWITCH)) {
+				ret.setType(Accessory.AccessoryType.SWITCH);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_THERMOSTAT)) {
+				ret.setType(Accessory.AccessoryType.THERMOSTAT);
+			}
+			else {
+				throw new Exception ("Accessory type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_TYPE)+"]");
 			}
 			
-			tx.success();
+			if (_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE).equals(Consts.ACC_PROTOCOL_TYPE_HAP)) {
+				ret.setProtocoltype(Accessory.AccessoryProtocolType.HAP);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE).equals(Consts.ACC_PROTOCOL_TYPE_JSON_SIMULATION)) {
+				ret.setProtocoltype(Accessory.AccessoryProtocolType.JSON_SIMULATION);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE).equals(Consts.ACC_PROTOCOL_TYPE_ZIGBEE)) {
+				ret.setProtocoltype(Accessory.AccessoryProtocolType.ZIGBEE);
+			}
+			else if (_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE).equals(Consts.ACC_PROTOCOL_TYPE_ZWAVE)) {
+				ret.setProtocoltype(Accessory.AccessoryProtocolType.ZWAVE);
+			}
+			else {
+				throw new Exception ("Accessory protocol type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE)+"]");
+			}
+			
+			try ( Transaction tx = _graph.beginTx() ) {
+				
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_SERVICE)) {
+							Service service = buildService(_graph, node);
+							ret.addService(service);
+						}
+						else{
+							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+						}
+					}
+				}
+				
+				tx.success();
+			}
+		}
+		else {
+			throw new Exception ("It's not a accessory node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
 	}
-
+	
+	/**
+	 * Build a Service data object from a Node of service.
+	 * 
+	 * @param _graph GraphDatabaseService use to build data.
+	 * @param node Service node.
+	 * @return Service
+	 * @throws Exception Throw an exception is something goes wrong.
+	 */
+	public static Service buildService(GraphDatabaseService _graph, Node _node) throws Exception {
+		
+		Service ret = new Service("","");
+		
+		if (_node.hasLabel(Consts.LABEL_SERVICE)) {
+		
+			ret.setUid((String) _node.getProperty(Consts.SERVICE_UID));
+			ret.setName((String) _node.getProperty(Consts.SERVICE_NAME));
+			
+			try ( Transaction tx = _graph.beginTx() ) {
+				
+				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node node = relation.getEndNode();
+					
+					if (node.getId() != _node.getId()) {
+						if (node.hasLabel(Consts.LABEL_CHARACTERISTIC)) {
+							Characteristic characteristic = buildCharacteristic(node);
+							ret.addCharacteristic(characteristic);
+						}
+						else{
+							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+						}
+					}
+				}
+				
+				tx.success();
+			}
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Build a Characteristic data object from a Node of characteristic.
+	 * 
+	 * @param node Characteristic node.
+	 * @return Characteristic
+	 * @throws Exception Throw an exception is something goes wrong.
+	 */
+	public static Characteristic buildCharacteristic(Node _node) throws Exception {
+		
+		Characteristic ret = null;
+		
+		if (_node.hasLabel(Consts.LABEL_CHARACTERISTIC)) {
+		
+			/* TODO
+			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.HOME);
+			} 
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.WORK);
+			} 
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.OTHER);
+			}
+			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
+				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+						(String)_node.getProperty(Consts.PHONE_NUMBER),
+						Phone.PhoneType.CELL);
+			}
+			else {
+				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
+			}
+			*/
+		}
+		else {
+			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+		}
+		
+		return ret;
+	}
+	
+	
 }

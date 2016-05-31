@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Room.
@@ -64,6 +65,7 @@ public class Room implements DataObj {
 		super();
 		this.uid = uid;
 		this.label = label;
+		this.accessories = new Vector<Accessory>();
 	}
 
 	/**

@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Service for an accessory.
@@ -57,6 +58,7 @@ public class Service implements DataObj {
 		super();
 		this.uid = uid;
 		this.name = name;
+		this.characteristics = new Vector<Characteristic>();
 		
 	}
 

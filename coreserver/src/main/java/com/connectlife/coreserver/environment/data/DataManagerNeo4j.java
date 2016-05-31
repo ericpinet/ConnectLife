@@ -9,27 +9,16 @@
 package com.connectlife.coreserver.environment.data;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.Relationship;
-import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
 
-import com.clapi.data.Address;
 import com.clapi.data.Data;
-import com.clapi.data.Email;
-import com.clapi.data.Home;
-import com.clapi.data.Person;
-import com.clapi.data.Phone;
-import com.clapi.data.Address.AddressType;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
