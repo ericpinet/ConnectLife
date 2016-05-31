@@ -153,6 +153,13 @@
     <artifactId>neo4j</artifactId>
     <version>3.0.1</version>
   </dependency>
+  
+  <!-- Appache commons lang (EqualsBuilder for objects compare)  -->
+  <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.4</version>
+  </dependency>
 
   </dependencies>
   

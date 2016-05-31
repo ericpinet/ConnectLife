@@ -409,6 +409,55 @@ public class Characteristic implements DataObj {
 			throw new Exception("This characteristic isn't string format.");
 		}
 	}
+	
+	/**
+	 * Compare value of the characteristic. If is the same, return true.
+	 * 
+	 * @param characteristic To compare.
+	 * @return True if the value is the same.
+	 */
+	public boolean compare(Characteristic characteristic){
+		
+		boolean ret_val = false;
+		
+		try {
+			// compare the data depending of the type
+			if (characteristic.getType() == this.getType()){
+				
+				// BOOLEAN
+				if (CharacteristicType.BOOLEAN == this.getType()){
+						ret_val = (characteristic.getDataBoolean() == this.getDataBoolean());
+				}
+				// WRITE ONLY BOOLEAN
+				else if (CharacteristicType.WRITE_ONLY_BOOLEAN == this.getType()) {
+					ret_val = true; // always return true when its a write only boolean.
+				}
+				// STRING
+				else if (CharacteristicType.STATIC_STRING == this.getType()) {
+					ret_val = (characteristic.getData().compareTo(this.getData())==0);
+				}
+				// ENUM
+				else if (CharacteristicType.ENUM == this.getType()) {
+					ret_val = (characteristic.getDataEnum().compareTo(this.getDataEnum())==0);
+				}
+				// INTEGER
+				else if (CharacteristicType.INTEGER == this.getType()) {
+					ret_val = (characteristic.getDataInteger() == this.getDataInteger());
+				}
+				// FLOAT
+				else if (CharacteristicType.FLOAT == this.getType()) {
+					ret_val = (characteristic.getDataFloat() == this.getDataFloat());
+				}
+			}
+			// ELSE: Do nothing.
+			
+		} catch (Exception e) {
+			// invalid characteristic type
+			ret_val = false;
+		}
+		
+		return ret_val;
+	}
 
 	/**
 	 * Return the children of this object.

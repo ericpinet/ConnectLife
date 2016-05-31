@@ -33,6 +33,7 @@ import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUpdateAccessory;
 import com.connectlife.test.coreserver.ApplicationInjectTest;
 import com.google.gson.Gson;
 import com.google.inject.Guice;
@@ -407,6 +408,50 @@ public class EnvironmentTest implements Observer {
 			e.printStackTrace();
 		}
 		assertTrue(null == accessory2);
+		
+		// restore file after test.
+		assertTrue(restoreEnvFileFromBackupTest());
+	}
+	
+	@Test
+	public void testUpdateDevice() {
+		
+		// prepare file to test
+		assertTrue(moveEnvFileInBackupTest());
+				
+		// create env directory and file valid
+		createValidDataEnv();
+		
+		// init the environment
+		Injector injector = Guice.createInjector(new EnvironmentInjectTest());
+		env = injector.getInstance(EnvironmentManager.class);
+		assertTrue(env.init());
+		
+		// test update accessory when not register
+		Accessory accessory = null;
+		try {
+			CmdUpdateAccessory command = CmdFactory.getCmdUpdateAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			accessory = command.getAccessory();
+		} catch (Exception e) {
+		}
+		assertNull(accessory);
+		
+		// test update accessory when register
+		accessory = null;
+		try {
+			// register device
+			CmdRegisterAccessory command = CmdFactory.getCmdRegisterAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command);
+			
+			CmdUpdateAccessory command2 = CmdFactory.getCmdUpdateAccesssory(CreateTestData.getLightTest());
+			env.executeCommand(command2);
+			accessory = command2.getAccessory();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertNotNull(accessory);
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());

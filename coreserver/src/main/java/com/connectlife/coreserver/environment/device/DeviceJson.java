@@ -19,6 +19,7 @@ import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.environment.cmd.CmdRegisterAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUpdateAccessory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -67,25 +68,23 @@ public class DeviceJson implements Device {
 		m_isRegister = false;
 		m_isSynchronized = false;
 	}
-
+	
 	/**
-	 * Return the service definition.
+	 * Return the accessory linked with this device service.
 	 * 
-	 * @return ServiceDefinition of the service.
-	 * @see com.connectlife.coreserver.environment.device.Device#getDefinition()
+	 * @return Accessory linked with this device.
 	 */
-	@Override
-	public ServiceDefinition getDefinition() {
-		return m_service_definition;
+	public Accessory getAccessory(){
+		return m_service_definition.getAccessory();
 	}
 	
 	/**
-	 * Return the service information from the network.
+	 * Return the service information from the network. (Http, AirPlay, etc...)
 	 * 
 	 * @return ServiceInfo for this device.
 	 * @see com.connectlife.coreserver.environment.device.Device#getServiceInfo()
 	 */
-	@Override
+	
 	public ServiceInfo getServiceInfo() {
 		return m_service_info;
 	}
@@ -187,7 +186,7 @@ public class DeviceJson implements Device {
 		m_isSynchronized = false;
 		
 		// check if already synch
-		if(true == m_isRegister){
+		if (true == m_isRegister) {
 			
 			Accessory accessory = null;
 			try {
@@ -200,7 +199,7 @@ public class DeviceJson implements Device {
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
-			if(null != accessory){
+			if (null != accessory) {
 				// Update the service definition with the register status.
 				m_service_definition.setAccessory(accessory);
 				
@@ -218,6 +217,78 @@ public class DeviceJson implements Device {
 		else{
 			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
 		}
+		
+		return ret_val;
+	}
+	
+	/**
+	 * Update the device data in the application environment.
+	 * 
+	 * @return True if it correctly updated.
+	 */
+	public boolean updateEnvironment() {
+		
+		boolean ret_val = false;
+		
+		// check if already synch
+		if(true == m_isRegister){
+			
+			try {
+				CmdUpdateAccessory command = CmdFactory.getCmdUpdateAccesssory(m_service_definition.getAccessory());
+				Application.getApp().getEnvironment().executeCommand(command);
+				ret_val = true;
+				
+			} catch (Exception e) {
+				m_logger.error(e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+		}
+		else{
+			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" unable to update environment for a not register device.");
+		}
+		
+		return ret_val;
+	}
+	
+	/**
+	 * Indicate if the device characteristic was changed since last load.
+	 * The device must be register before check for updated characteristics.
+	 * 
+	 * @return True is the characteristic was updated.
+	 */
+	@Override
+	public boolean isCharacteristicUpdated(){
+		
+		boolean ret_val = false;
+		
+		// the device must be register before check for update.
+		if (true == m_isRegister) {
+			
+			// load the device information
+			String [] urls = m_service_info.getURLs();
+			
+			for (int i=0 ; i<urls.length ; i++) {
+				
+				try{
+					// Reload device information
+					ServiceDefinition service_definition = DeviceFactory.buildServiceInformation(urls[i]);
+					Device device = new DeviceJson(service_definition, m_service_info);
+					
+					// Compare new device information with existing characteristic
+					ret_val = !this.getAccessory().compareCharacteristicsValues(device.getAccessory());
+					
+					if (ret_val) {
+						m_service_definition.setAccessory(device.getAccessory()); // update accessory information
+						m_logger.debug(this.getAccessory().getLabel() + " - Characteristic updated.");
+					}
+				}
+				catch (Exception e){
+					m_logger.warn("Unable to manage this http service: " + urls[i]);
+				}
+				
+			}// END for.
+		}// END IF register.
 		
 		return ret_val;
 	}

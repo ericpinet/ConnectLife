@@ -226,8 +226,6 @@ public class HomeWindow extends Dialog {
 		txtUid.setText(home.getUid());
 		txtName.setText(home.getLabel());
 		
-		
-		
 		TreeItem root = tree.getTopItem();
 		root.setData(home);
 		root.setText(new String[] { "Home: " + home.getLabel(), home.getUid() });

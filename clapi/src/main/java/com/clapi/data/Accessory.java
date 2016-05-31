@@ -156,6 +156,7 @@ public class Accessory implements DataObj {
 	
 	/**
 	 * Return the uid of the accessory. See UIDGenerator.getUID().
+	 * 
 	 * @return the uid
 	 */
 	public String getUid() {
@@ -165,6 +166,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the uid of the accessory. See UIDGenerator.getUID().
+	 * 
 	 * @param uid the uid to set
 	 */
 	public void setUid(String uid) {
@@ -174,6 +176,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Get the label name of the accessory.
+	 * 
 	 * @return the label
 	 */
 	public String getLabel() {
@@ -182,6 +185,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the label name of the accessory.
+	 * 
 	 * @param label the label to set
 	 */
 	public void setLabel(String label) {
@@ -190,6 +194,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Get the manufacturer of the accessory.
+	 * 
 	 * @return the manufacturer
 	 */
 	public String getManufacturer() {
@@ -198,6 +203,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the manufacturer of the accessory.
+	 * 
 	 * @param manufacturer the manufacturer to set
 	 */
 	public void setManufacturer(String manufacturer) {
@@ -206,6 +212,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Get the accessory model.
+	 * 
 	 * @return the model
 	 */
 	public String getModel() {
@@ -214,6 +221,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the accessory model.
+	 * 
 	 * @param model the model to set
 	 */
 	public void setModel(String model) {
@@ -222,6 +230,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Get the accessory serial number.
+	 * 
 	 * @return the serialnumber
 	 */
 	public String getSerialnumber() {
@@ -230,6 +239,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the accessory serial number.
+	 * 
 	 * @param serialnumber the serialnumber to set
 	 */
 	public void setSerialnumber(String serialnumber) {
@@ -238,6 +248,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Return the list of service of the accessory. See com.clapi.data.Service.
+	 * 
 	 * @return the services
 	 * @see com.clapi.data.Service
 	 */
@@ -247,6 +258,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the list of service of the accessory. See com.clapi.data.Service.
+	 * 
 	 * @param services the services to set
 	 * @see com.clapi.data.Service
 	 */
@@ -263,6 +275,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Get the url of the accessory image.
+	 * 
 	 * @return the imageurl
 	 */
 	public String getImageurl() {
@@ -271,6 +284,7 @@ public class Accessory implements DataObj {
 
 	/**
 	 * Set the url of the accessory image.
+	 * 
 	 * @param imageurl the imageurl to set
 	 */
 	public void setImageurl(String imageurl) {
@@ -278,42 +292,58 @@ public class Accessory implements DataObj {
 	}
 
 	/**
+	 * Return the accessory type. 
+	 * 
 	 * @return the type
+	 * @see AccessoryType
 	 */
 	public AccessoryType getType() {
 		return type;
 	}
 
 	/**
+	 * Set the accessory type. 
+	 * 
 	 * @param type the type to set
+	 * @see AccessoryType
 	 */
 	public void setType(AccessoryType type) {
 		this.type = type;
 	}
 
 	/**
+	 * Return the protocol type of the accessory.
+	 * 
 	 * @return the protocoltype
+	 * @see AccessoryProtocolType
 	 */
 	public AccessoryProtocolType getProtocoltype() {
 		return protocoltype;
 	}
 
 	/**
+	 * Set the protocol type of the accessory.
+	 * 
 	 * @param protocoltype the protocoltype to set
+	 * @see AccessoryProtocolType
 	 */
 	public void setProtocoltype(AccessoryProtocolType protocoltype) {
 		this.protocoltype = protocoltype;
 	}
 
 	/**
-	 * @return the isregister
+	 * Indicate if the accessory is correctly link in the environment.
+	 * 
+	 * @return the isRegister
 	 */
 	public boolean isRegister() {
 		return isregister;
 	}
 
 	/**
-	 * @param isregister the isregister to set
+	 * Indicate if the accessory is correctly link in the environment.
+	 * 
+	 * @param isRegister the isRegister to set
 	 */
 	public void setRegister(boolean isRegister) {
 		this.isregister = isRegister;
@@ -321,6 +351,7 @@ public class Accessory implements DataObj {
 	
 	/**
 	 * Update the accessory.
+	 * 
 	 * @param accessory
 	 */
 	public void update(Accessory accessory) {
@@ -335,6 +366,64 @@ public class Accessory implements DataObj {
 		this.serialnumber = temp.serialnumber;
 		this.services = temp.services;
 		this.type = temp.type;
+	}
+	
+	/**
+	 * Check if characteristic value was the same. 
+	 * 
+	 * @param accessory Accessory to compare.
+	 * @return True if all accessory was equals.
+	 */
+	public boolean compareCharacteristicsValues(Accessory accessory){
+		boolean ret_val = false;
+		
+		// check if accessory was null before check
+		if (null != accessory) {
+
+			// be default, value was equals
+			// when a value is not the same, put the ret_val at false
+			ret_val = true;
+			int pos1 = 0;
+			
+			while (true == ret_val && pos1 < services.size()) {
+				
+				if (null != accessory.services.get(pos1)) {
+					
+					Service service1 = services.get(pos1);
+					Service service2 = accessory.services.get(pos1);
+					
+					// check characteristics
+					int pos2 = 0;
+					
+					while (true == ret_val && pos2 < service1.getCharacteristics().size() ){
+						
+						if (null != service2.getCharacteristics().get(pos2)) {
+							
+							Characteristic char1 = service1.getCharacteristics().get(pos2);
+							Characteristic char2 = service2.getCharacteristics().get(pos2);
+							
+							ret_val = char1.compare(char2);
+							
+						}
+						else{
+							ret_val = false; // not the same characteristic size
+						}
+						
+						pos2++;
+						
+					}// END WHILE: Characteristic
+					
+				}
+				else{
+					ret_val = false; // not the same service size
+				}
+				
+				pos1++;
+				
+			}// END WHILE: Services
+		}
+		
+		return ret_val;
 	}
 
 	/**
