@@ -65,4 +65,14 @@ public class CmdFactory {
 		return new CmdUnregisterAccessory(_accessory);
 	}
 	
+	/**
+	 * Return the CmdUpdateAccessory. 
+	 * 
+	 * @param _accessory Accessory to update in the environment.
+	 * @return Return the CmdUpdateAccessory. 
+	 */
+	static public CmdUpdateAccessory getCmdUpdateAccesssory(Accessory _accessory){
+		return new CmdUpdateAccessory(_accessory);
+	}
+	
 }

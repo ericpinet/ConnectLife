@@ -163,8 +163,6 @@ public class DeviceHttpHandler extends AbstractHandler {
 	public void handle(String _target, Request _baserequest, HttpServletRequest _request, HttpServletResponse _response)
 			throws IOException, ServletException {
 		
-		m_logger.debug("Device ("+m_device.getLabel()+") request received.");
-		
         // process the request
 		processRequest(_target, _baserequest, _request, _response);
 		 
@@ -177,12 +175,14 @@ public class DeviceHttpHandler extends AbstractHandler {
 		_response.setStatus(HttpServletResponse.SC_OK);
 		_response.getWriter().println(jsonresponse);
 		_baserequest.setHandled(true);
-		
-		m_logger.debug("Device ("+m_device.getLabel()+") request completed.");
 	}
 	
 	/**
 	 * Process the request if the client ask a characteristic change.
+	 * <p>
+	 * Sample of update request : 
+	 * <p>
+	 * http://192.168.2.10:52262/light/light?value=true
 	 * 
 	 * @param target
 	 * @param baserequest
