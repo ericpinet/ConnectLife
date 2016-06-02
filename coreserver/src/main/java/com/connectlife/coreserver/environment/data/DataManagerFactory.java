@@ -11,8 +11,6 @@ package com.connectlife.coreserver.environment.data;
 import java.util.Iterator;
 import java.util.Vector;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
@@ -22,6 +20,9 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
 import com.clapi.data.Characteristic;
+import com.clapi.data.Characteristic.CharacteristicAccessMode;
+import com.clapi.data.Characteristic.CharacteristicEventType;
+import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Data;
 import com.clapi.data.Email;
 import com.clapi.data.Home;
@@ -39,11 +40,6 @@ import com.connectlife.coreserver.Consts;
  * <br> 2016-05-29
  */
 public abstract class DataManagerFactory {
-	
-	/**
-	 * Logger use for this class.
-	 */
-	private static Logger m_logger = LogManager.getLogger(DataManagerFactory.class);
 	
 	/**
 	 * Get a Data representation of the environment data.
@@ -433,7 +429,7 @@ public abstract class DataManagerFactory {
 			ret.setModel((String)_node.getProperty(Consts.ACCESSORY_MODEL));
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
 			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
-			ret.setRegister(_node.getProperties(Consts.ACCESSORY_ISREGISTER).equals("true"));
+			ret.setRegister((boolean) _node.getProperty(Consts.ACCESSORY_ISREGISTER));
 			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
 			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {
@@ -571,34 +567,65 @@ public abstract class DataManagerFactory {
 	public static Characteristic buildCharacteristic(Node _node) throws Exception {
 		
 		Characteristic ret = null;
+		CharacteristicType type = CharacteristicType.STATIC_STRING;
+		CharacteristicAccessMode mode = CharacteristicAccessMode.READ_WRITE;
+		CharacteristicEventType event = CharacteristicEventType.EVENT;
 		
 		if (_node.hasLabel(Consts.LABEL_CHARACTERISTIC)) {
-		
-			/* TODO
-			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-								(String)_node.getProperty(Consts.PHONE_NUMBER),
-								Phone.PhoneType.HOME);
+			
+			if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_BOOLEAN)) {
+				type = CharacteristicType.BOOLEAN;
 			} 
-			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.WORK);
-			} 
-			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.OTHER);
+			else if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_ENUM)) {
+				type = CharacteristicType.ENUM;
 			}
-			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.CELL);
+			else if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_FLOAT)) {
+				type = CharacteristicType.FLOAT;
+			}
+			else if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_INTEGER)) {
+				type = CharacteristicType.INTEGER;
+			}
+			else if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_STRING)) {
+				type = CharacteristicType.STATIC_STRING;
+			}
+			else if (_node.getProperty(Consts.CH_TYPE).equals(Consts.CH_TYPE_WRITE_ONLY_BOOLEAN)) {
+				type = CharacteristicType.WRITE_ONLY_BOOLEAN;
 			}
 			else {
-				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
+				throw new Exception ("Characteristic type not supported yet! ["+_node.getProperty(Consts.CH_TYPE)+"]");
 			}
-			*/
+			
+			if (_node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_READ_ONLY)) {
+				mode = CharacteristicAccessMode.READ_ONLY;
+			}
+			else if (_node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_READ_WRITE)) {
+				mode = CharacteristicAccessMode.READ_WRITE;
+			}
+			else if (_node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_WRITE_ONLY)) {
+				mode = CharacteristicAccessMode.WRITE_ONLY;
+			}
+			else {
+				throw new Exception ("Characteristic access mode not supported yet! ["+_node.getProperty(Consts.CH_MODE)+"]");
+			}
+			
+			if (_node.getProperty(Consts.CH_EVENT_TYPE).equals(Consts.CH_EVENT_TYPE_EVENT)) {
+				event = CharacteristicEventType.EVENT;
+			}
+			else if (_node.getProperty(Consts.CH_EVENT_TYPE).equals(Consts.CH_EVENT_TYPE_NO_EVENT)) {
+				event = CharacteristicEventType.NO_EVENT;
+			}
+			else {
+				throw new Exception ("Characteristic event type not supported yet! ["+_node.getProperty(Consts.CH_EVENT_TYPE)+"]");
+			}
+			
+			ret = new Characteristic(	(String)_node.getProperty(Consts.CH_UID),
+										(String)_node.getProperty(Consts.CH_LABEL), 
+										mode, 
+										type, 
+										event, 
+										(String)_node.getProperty(Consts.CH_DATA));
+			
+			
 		}
 		else {
 			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
@@ -606,6 +633,4 @@ public abstract class DataManagerFactory {
 		
 		return ret;
 	}
-	
-	
 }

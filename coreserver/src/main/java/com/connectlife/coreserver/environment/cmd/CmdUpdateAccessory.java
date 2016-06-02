@@ -10,8 +10,12 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
+import com.connectlife.coreserver.Consts;
 
 /**
  * Command to update a accessory in the environment.
@@ -51,8 +55,33 @@ public class CmdUpdateAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// TODO: Complete command
-		throw new Exception("Not implemented yet!");
+		// check the accessory
+		if (null == m_accessory) {
+			m_logger.error("Error! It's not possible to update null accessory in the environment.");
+			throw new Exception ("Error! It's not possible to update null accessory in the environment.");
+		}
+		
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
+		
+		// find the accessory by the serial number.
+		try ( Transaction tx = graph.beginTx() ) {
+			
+			Node node_acc = graph.findNode( Consts.LABEL_ACCESSORY, 
+											Consts.ACCESSORY_SERIALNUMBER, 
+											m_accessory.getSerialnumber() );
+			
+			if (null != node_acc) {
+				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, true);
+				
+				// set the data change
+				this.m_data_is_changed = true;
+			}
+			
+			tx.success();
+		}
+		
+		m_logger.info("Execution completed.");
 		
 		/*
 		// Get the find processor

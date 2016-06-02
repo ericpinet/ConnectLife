@@ -326,7 +326,7 @@ public class DataManagerNeo4j implements DataManager {
 			accessory11.setProperty(Consts.ACCESSORY_MODEL, "100w");
 			accessory11.setProperty(Consts.ACCESSORY_SERIALNUMBER, "PL001-100-10009");
 			accessory11.setProperty(Consts.ACCESSORY_IMAGEURL, "");
-			accessory11.setProperty(Consts.ACCESSORY_ISREGISTER, "false");
+			accessory11.setProperty(Consts.ACCESSORY_ISREGISTER, false);
 			accessory11.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LIGHT_COLORED_DIMMABLE);
 			accessory11.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_JSON_SIMULATION);
 			
