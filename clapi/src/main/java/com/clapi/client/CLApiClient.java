@@ -169,6 +169,7 @@ public class CLApiClient {
 	
 	/**
 	 * Add email of the person.
+	 * 
 	 * @param _uid UID of the person.
 	 * @param _email Email of the person.
 	 * @param _type  Type d'email of the person.
@@ -181,6 +182,25 @@ public class CLApiClient {
 												 .setType(_type)
 												 .build();
 		AddEmailResponse response = m_blockingStub.addEmail(request);
+		return response.getUid();
+	}
+	
+	
+	/**
+	 * Update the email of the person.
+	 * 
+	 * @param _uid UID of the mail.
+	 * @param _email Email to update.
+	 * @param _type  Type d'email of the person.
+	 * @return UID of the mail.
+	 */
+	public String UpdateEmail(String _uid, String _email, int _type){
+		UpdateEmailRequest request = UpdateEmailRequest.newBuilder()
+												 	   .setUid(_uid)
+												 	   .setEmail(_email)
+												 	   .setType(_type)
+												 	   .build();
+		UpdateEmailResponse response = m_blockingStub.updateEmail(request);
 		return response.getUid();
 	}
 	

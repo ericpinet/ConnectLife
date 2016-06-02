@@ -325,8 +325,7 @@ public class PersonWindow extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					//client.AddEmail(person.getUid(), txtEmail., _type).deletePerson(person.getUid());
-					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, client);
+					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, -1, client);
 					emailWin.open();
 				} catch (Exception e1) {
 					m_logger.error(e1.getMessage());
@@ -341,6 +340,19 @@ public class PersonWindow extends Dialog {
 		Button btnUpdateEmail = new Button(shell, SWT.NONE);
 		btnUpdateEmail.setText("Update Email");
 		new Label(shell, SWT.NONE);
+		btnUpdateEmail.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				try {
+					EmailWindow emailWin = new EmailWindow(shell, getStyle(), person, tableEmail.getSelectionIndex(), client);
+					emailWin.open();
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		
 		Button btnDeleteEmail = new Button(shell, SWT.NONE);
 		btnDeleteEmail.setText("Delete Email");
