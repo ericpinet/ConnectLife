@@ -5,8 +5,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.clapi.client.CLApiClient;
-import com.clapi.data.Email;
-import com.clapi.data.Email.EmailType;
 import com.clapi.data.Person;
 import org.eclipse.swt.widgets.Combo;
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +24,7 @@ public class EmailWindow extends Dialog {
 	protected Object result;
 	private Shell shlEmail;
 	private Person person;
+	private int emailId;
 	private CLApiClient client;
 	private Text text;
 	private Combo comboType;
@@ -35,10 +34,11 @@ public class EmailWindow extends Dialog {
 	 * @param parent
 	 * @param style
 	 */
-	public EmailWindow(Shell parent, int style, Person _person, CLApiClient _client) {
+	public EmailWindow(Shell parent, int style, Person _person, int index, CLApiClient _client) {
 		super(parent, style);
 		setText("SWT Dialog");
 		person = _person;
+		emailId = index;
 		client = _client;
 	}
 
@@ -78,13 +78,23 @@ public class EmailWindow extends Dialog {
 		comboType.setItems(new String[] {"Personal", "Work", "Other"});
 		comboType.setBounds(310, 10, 66, 22);
 		comboType.setText("Type");
+		if(emailId >= 0)
+		{
+			text.setText(person.getEmails().get(emailId).getEmail());
+			comboType.select(emailId);
+		}
 		
 		Button btnSave = new Button(shlEmail, SWT.NONE);
 		btnSave.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					client.AddEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
+					if(emailId < 0){
+						client.AddEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
+					}
+					else{
+						client.UpdateEmail(person.getEmails().get(emailId).getUid(), text.getText(), comboType.getSelectionIndex());
+					}
 					shlEmail.close();
 				} catch (Exception e1) {
 					m_logger.error(e1.getMessage());
