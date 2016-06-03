@@ -107,12 +107,11 @@ public class CmdAddAccessory extends CmdDefault {
 					
 				}
 				else {
-					m_logger.error("Room not found."+m_room.toString());
-					throw new Exception("Room not found.");
+					m_logger.error("Room not found ." + m_room.toString());
+					throw new Exception("Room not found. " + m_room.toString());
 				}
 			}
 			else{
-				// the accessory was already added in a room
 				m_logger.error("Accessory was already added in a room. Remove the accessory before try again."+m_accessory.toString());
 				throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
 			}
