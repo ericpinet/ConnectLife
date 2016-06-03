@@ -16,6 +16,7 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
  * Command to update a accessory in the environment.
@@ -72,55 +73,25 @@ public class CmdUpdateAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			if (null != node_acc) {
-				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, true);
 				
-				// set the data change
-				this.m_data_is_changed = true;
+				// the accessory must be already register before update
+				if (true == node_acc.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true")) {
+				
+					// ensure that the data update will not change the register status
+					m_accessory.setRegister(true); 
+					
+					// Update the data in the graph
+					DataManagerNodeFactory.updateAccessoryNode(graph, node_acc, m_accessory);
+				
+					// set the data change
+					this.m_data_is_changed = true;
+				}
 			}
 			
 			tx.success();
 		}
 		
 		m_logger.info("Execution completed.");
-		
-		/*
-		// Get the find processor
-		FindProcessor find = m_context.getFindProcessorReadWrite();
-		
-		// check the person to add in the environment
-		if( null == m_accessory ){
-			m_logger.error("Error! It's not possible to update null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to register null accessory in the environment.");
-		}
-		
-		// find the accessory by the serial number.
-		Accessory accessory = find.findAccessory(m_accessory);
-		
-		// if accessory is find update.
-		if(null != accessory){
-			
-			// the accessory must be already register before update
-			if (true == accessory.isRegister()) {
-			
-				m_accessory.setRegister(true);
-				accessory.update(m_accessory);
-				
-				m_accessory = accessory;
-				
-				// set the data change
-				this.m_data_is_changed = true;
-			}
-			else {
-				m_logger.error("Error! It's not possible to update a not register accessory in the environment.");
-				throw new Exception ("Error! It's not possible to update a not register accessory in the environment.");
-			}
-		}
-		else{
-			m_accessory = null;
-		}
-		
-		m_logger.info("Execution completed.");
-		*/
 	}
 	
 	/**

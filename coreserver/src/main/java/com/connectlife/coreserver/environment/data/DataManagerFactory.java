@@ -97,7 +97,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_PERSON)) {
 		
-			ret_person.setUid((String) _node.getProperty(Consts.PERSON_UID));
+			ret_person.setUid((String) _node.getProperty(Consts.UID));
 			ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
 			ret_person.setImageurl((String)_node.getProperty(Consts.PERSON_IMAGEURL));

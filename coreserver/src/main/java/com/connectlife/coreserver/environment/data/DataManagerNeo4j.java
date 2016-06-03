@@ -243,7 +243,7 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// PERSON1
 			Node eric = graph.createNode(Consts.LABEL_PERSON);
-			eric.setProperty(Consts.PERSON_UID, UIDGenerator.getUID());
+			eric.setProperty(Consts.UID, UIDGenerator.getUID());
 			eric.setProperty(Consts.PERSON_FIRSTNAME, "Eric");
 			eric.setProperty(Consts.PERSON_LASTNAME, "Pinet");
 			eric.setProperty(Consts.PERSON_IMAGEURL, "");

@@ -33,11 +33,12 @@ public final class Consts {
 	 * Define all the label, relation and node property for data.
 	 */
 	
+	public static final String UID = "uid";
+	
 	/**
 	 * PERSON DATA TYPE
 	 */
 	public static final Label  LABEL_PERSON = Label.label("person");
-	public static final String PERSON_UID = "uid";
 	public static final String PERSON_FIRSTNAME = "firstname";
 	public static final String PERSON_LASTNAME = "lastname";
 	public static final String PERSON_IMAGEURL = "imageurl";
