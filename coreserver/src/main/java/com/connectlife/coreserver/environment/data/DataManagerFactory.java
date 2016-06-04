@@ -57,18 +57,19 @@ public abstract class DataManagerFactory {
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				ResourceIterator<Node> ipersons = _graph.findNodes(Consts.LABEL_PERSON);
+				Vector<Person> persons = new Vector<Person>();
 				
 				while (ipersons.hasNext()) {
-					Node person = ipersons.next();
-					Vector<Person> persons = new Vector<Person>();
+					Node person = ipersons.next();					
 					persons.add(buildPerson(_graph, person));
 					ret_data.setPersons(persons);
 				}
 				
 				ResourceIterator<Node> ihomes = _graph.findNodes(Consts.LABEL_HOME);
+				Vector<Home> homes = new Vector<Home>();
+				
 				while (ihomes.hasNext()) {
 					Node home = ihomes.next();
-					Vector<Home> homes = new Vector<Home>();
 					homes.add(buildHome(_graph, home));
 					ret_data.setHomes(homes);
 				}

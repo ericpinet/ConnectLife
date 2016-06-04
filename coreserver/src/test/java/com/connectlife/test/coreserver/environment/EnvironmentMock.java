@@ -14,6 +14,7 @@ import com.clapi.data.*;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
+import com.connectlife.coreserver.environment.find.FindProcessor;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -91,6 +92,17 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public String getJsonFormattedEnvironment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
+	 */
+	@Override
+	public FindProcessor getFindProcessor() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

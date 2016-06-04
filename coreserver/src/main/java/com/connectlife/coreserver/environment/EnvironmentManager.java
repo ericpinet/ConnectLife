@@ -18,6 +18,8 @@ import java.util.Observable;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
+import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.environment.find.FindProcessorReadOnly;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -193,6 +195,17 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 		String ret_val = "";
 		ret_val = m_data_manager.getJsonFormattedEnvironment();
 		return ret_val;
+	}
+	
+	/**
+	 * Return a Find Processor read only.
+	 * 
+	 * @return FindProcessor.
+	 * @exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
+	 */
+	public FindProcessor getFindProcessor() throws Exception {
+		return new FindProcessorReadOnly(m_data_manager.getGraph());
 	}
 	
 	/**

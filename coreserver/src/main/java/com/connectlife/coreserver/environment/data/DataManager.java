@@ -70,7 +70,7 @@ public interface DataManager {
 	 * Return the environment graph data.
 	 * 
 	 * @return Return the environment graph data.
-	 * @throws Exception Throw exception if someting goes wrong.
+	 * @throws Exception Throw exception if something goes wrong.
 	 */
 	public GraphDatabaseService getGraph() throws Exception;
 	

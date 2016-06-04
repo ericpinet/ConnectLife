@@ -10,6 +10,7 @@ package com.connectlife.coreserver.environment;
 
 import java.util.Observer;
 import com.connectlife.coreserver.environment.cmd.Cmd;
+import com.connectlife.coreserver.environment.find.FindProcessor;
 
 /**
  * Environment is the representation of all objects in the environment. 
@@ -51,6 +52,14 @@ public interface Environment {
 	 * @return JSON string of the environment.
 	 */
 	public String getJsonFormattedEnvironment();
+	
+	/**
+	 * Return a FindProcessor to find object in environment.
+	 * 
+	 * @return FindProcessor.
+	 * @exception If something goes wrong.
+	 */
+	public FindProcessor getFindProcessor() throws Exception;
 	
 	/**
 	 * Adds an observer to the set of observers for this object, provided that it 
