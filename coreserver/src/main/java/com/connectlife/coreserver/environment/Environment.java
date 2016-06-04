@@ -57,7 +57,7 @@ public interface Environment {
 	 * Return a FindProcessor to find object in environment.
 	 * 
 	 * @return FindProcessor.
-	 * @exception If something goes wrong.
+	 * @throws Exception If something goes wrong.
 	 */
 	public FindProcessor getFindProcessor() throws Exception;
 	
