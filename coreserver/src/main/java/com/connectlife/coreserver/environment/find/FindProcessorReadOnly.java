@@ -21,7 +21,7 @@ public class FindProcessorReadOnly extends FindProcessor {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param _data Data use in the FindProcessor.
+	 * @param _graph Graph data use in the FindProcessor.
 	 */
 	public FindProcessorReadOnly(GraphDatabaseService _graph){
 		m_graph = _graph;

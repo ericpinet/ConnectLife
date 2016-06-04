@@ -88,7 +88,7 @@ public abstract class DataManagerFactory {
 	 * Build a Person data object from a Node of person.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Person node.
+	 * @param _node Person node.
 	 * @return Person
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -143,7 +143,7 @@ public abstract class DataManagerFactory {
 	/**
 	 * Build a Address data object from a Node of address.
 	 * 
-	 * @param node Address node.
+	 * @param _node Address node.
 	 * @return Address
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -194,7 +194,7 @@ public abstract class DataManagerFactory {
 	/**
 	 * Build a Email data object from a Node of email.
 	 * 
-	 * @param node Email node.
+	 * @param _node Email node.
 	 * @return Email
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -233,7 +233,7 @@ public abstract class DataManagerFactory {
 	/**
 	 * Build a Phone data object from a Node of phone.
 	 * 
-	 * @param node Phone node.
+	 * @param _node Phone node.
 	 * @return Phone
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -278,7 +278,7 @@ public abstract class DataManagerFactory {
 	 * Build a Home data object from a Node of home.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Home node.
+	 * @param _node Home node.
 	 * @return Home
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -324,7 +324,7 @@ public abstract class DataManagerFactory {
 	 * Build a Zone data object from a Node of zone.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Zone node.
+	 * @param _node Zone node.
 	 * @return Zone
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -371,7 +371,7 @@ public abstract class DataManagerFactory {
 	 * Build a Room data object from a Node of room.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Room node.
+	 * @param _node Room node.
 	 * @return Room
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -415,7 +415,7 @@ public abstract class DataManagerFactory {
 	 * Build a Accessory data object from a Node of accessory.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Accessory node.
+	 * @param _node Accessory node.
 	 * @return Accessory
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -519,7 +519,7 @@ public abstract class DataManagerFactory {
 	 * Build a Service data object from a Node of service.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
-	 * @param node Service node.
+	 * @param _node Service node.
 	 * @return Service
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
@@ -561,7 +561,7 @@ public abstract class DataManagerFactory {
 	/**
 	 * Build a Characteristic data object from a Node of characteristic.
 	 * 
-	 * @param node Characteristic node.
+	 * @param _node Characteristic node.
 	 * @return Characteristic
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
