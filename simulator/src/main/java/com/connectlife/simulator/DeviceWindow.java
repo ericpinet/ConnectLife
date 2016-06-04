@@ -153,6 +153,12 @@ public class DeviceWindow extends Dialog {
 		
 		btnApply = new Button(shlDevices, SWT.NONE);
 		btnApply.setText("Apply");
+		btnApply.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO
+			}
+		});
 		
 		Button btnDel = new Button(shlDevices, SWT.NONE);
 		btnDel.addMouseListener(new MouseAdapter() {

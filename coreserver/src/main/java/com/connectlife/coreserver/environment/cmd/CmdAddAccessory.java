@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
@@ -87,7 +88,7 @@ public class CmdAddAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			Node node_room = graph.findNode( Consts.LABEL_ROOM, 
-											 Consts.ROOM_UID, 
+											 Consts.UID, 
 											 m_room.getUid() );
 			
 			// check if accessory wasn't present in environment
@@ -95,6 +96,9 @@ public class CmdAddAccessory extends CmdDefault {
 				
 				// check if room exist
 				if (null != node_room) {
+					
+					// create the uid for the accessory
+					m_accessory.setUid(UIDGenerator.getUID());
 					
 					// build accessory node
 					Node node = DataManagerNodeFactory.buildAccessoryNode(graph, m_accessory);

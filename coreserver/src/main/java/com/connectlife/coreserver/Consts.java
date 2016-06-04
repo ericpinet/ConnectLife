@@ -47,7 +47,6 @@ public final class Consts {
 	 * ADDRESS DATA TYPE
 	 */
 	public static final Label  LABEL_ADDRESS = Label.label("address");
-	public static final String ADDRESS_UID = "uid";
 	public static final String ADDRESS_TYPE = "type";
 	public static final String ADDRESS_STREET = "street";
 	public static final String ADDRESS_CITY = "city";
@@ -63,7 +62,6 @@ public final class Consts {
 	 * EMAIL DATA TYPE
 	 */
 	public static final Label  LABEL_EMAIL = Label.label("email");
-	public static final String EMAIL_UID = "uid";
 	public static final String EMAIL_TYPE = "type";
 	public static final String EMAIL_EMAIL = "email";
 	
@@ -75,7 +73,6 @@ public final class Consts {
 	 * PHONE DATA TYPE
 	 */
 	public static final Label  LABEL_PHONE = Label.label("phone");
-	public static final String PHONE_UID = "uid";
 	public static final String PHONE_TYPE = "type";
 	public static final String PHONE_NUMBER = "phone";
 	
@@ -88,7 +85,6 @@ public final class Consts {
 	 * CHARACTERISTIC DATA TYPE
 	 */
 	public static final Label  LABEL_CHARACTERISTIC = Label.label("characteristic");
-	public static final String CH_UID = "uid";
 	public static final String CH_TYPE = "type";
 	public static final String CH_LABEL = "label";
 	public static final String CH_MODE = "mode";
@@ -113,14 +109,12 @@ public final class Consts {
 	 * SERVICE DATA TYPE
 	 */
 	public static final Label  LABEL_SERVICE = Label.label("service");
-	public static final String SERVICE_UID = "uid";
 	public static final String SERVICE_NAME = "name";
 	
 	/**
 	 * ACCESSORY DATA TYPE
 	 */
 	public static final Label  LABEL_ACCESSORY = Label.label("accessory");
-	public static final String ACCESSORY_UID = "uid";
 	public static final String ACCESSORY_LABEL = "label";
 	public static final String ACCESSORY_SERIALNUMBER = "serialnumber";
 	public static final String ACCESSORY_MODEL = "model";
@@ -151,7 +145,6 @@ public final class Consts {
 	 * ROOM DATA TYPE
 	 */
 	public static final Label  LABEL_ROOM = Label.label("room");
-	public static final String ROOM_UID = "uid";
 	public static final String ROOM_LABEL = "label";
 	public static final String ROOM_IMAGEURL = "imageurl";
 	
@@ -159,7 +152,6 @@ public final class Consts {
 	 * ZONE DATA TYPE
 	 */
 	public static final Label  LABEL_ZONE = Label.label("zone");
-	public static final String ZONE_UID = "uid";
 	public static final String ZONE_LABEL = "label";
 	public static final String ZONE_IMAGEURL = "imageurl";
 	
@@ -167,7 +159,6 @@ public final class Consts {
 	 * HOME DATA TYPE
 	 */
 	public static final Label  LABEL_HOME = Label.label("home");
-	public static final String HOME_UID = "uid";
 	public static final String HOME_LABEL = "label";
 	public static final String HOME_IMAGEURL = "imageurl";
 	

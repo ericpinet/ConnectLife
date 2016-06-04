@@ -153,7 +153,7 @@ public abstract class DataManagerFactory {
 		if (_node.hasLabel(Consts.LABEL_ADDRESS)) {
 		
 			if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_HOME)) {
-				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+				ret = new Address( 	(String)_node.getProperty(Consts.UID),
 								 	Address.AddressType.HOME,
 								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
@@ -162,7 +162,7 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
 			} 
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
-				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+				ret = new Address( 	(String)_node.getProperty(Consts.UID),
 								 	Address.AddressType.WORK,
 								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
@@ -171,7 +171,7 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
 			}
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
-				ret = new Address( 	(String)_node.getProperty(Consts.ADDRESS_UID),
+				ret = new Address( 	(String)_node.getProperty(Consts.UID),
 								 	Address.AddressType.OTHER,
 								 	(String)_node.getProperty(Consts.ADDRESS_STREET),
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
@@ -204,17 +204,17 @@ public abstract class DataManagerFactory {
 		if (_node.hasLabel(Consts.LABEL_EMAIL)) {
 		
 			if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
-				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+				ret = new Email((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.EMAIL_EMAIL),
 								Email.EmailType.PERSONAL);
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
-				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+				ret = new Email((String)_node.getProperty(Consts.UID),
 						(String)_node.getProperty(Consts.EMAIL_EMAIL),
 						Email.EmailType.WORK);
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
-				ret = new Email((String)_node.getProperty(Consts.EMAIL_UID),
+				ret = new Email((String)_node.getProperty(Consts.UID),
 						(String)_node.getProperty(Consts.EMAIL_EMAIL),
 						Email.EmailType.OTHER);
 			}
@@ -243,22 +243,22 @@ public abstract class DataManagerFactory {
 		if (_node.hasLabel(Consts.LABEL_PHONE)) {
 		
 			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+				ret = new Phone((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.PHONE_NUMBER),
 								Phone.PhoneType.HOME);
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+				ret = new Phone((String)_node.getProperty(Consts.UID),
 						(String)_node.getProperty(Consts.PHONE_NUMBER),
 						Phone.PhoneType.WORK);
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+				ret = new Phone((String)_node.getProperty(Consts.UID),
 						(String)_node.getProperty(Consts.PHONE_NUMBER),
 						Phone.PhoneType.OTHER);
 			}
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
-				ret = new Phone((String)_node.getProperty(Consts.PHONE_UID),
+				ret = new Phone((String)_node.getProperty(Consts.UID),
 						(String)_node.getProperty(Consts.PHONE_NUMBER),
 						Phone.PhoneType.CELL);
 			}
@@ -287,7 +287,7 @@ public abstract class DataManagerFactory {
 		
 		if(_node.hasLabel(Consts.LABEL_HOME)) {
 			
-			ret_home.setUid((String) _node.getProperty(Consts.HOME_UID));
+			ret_home.setUid((String) _node.getProperty(Consts.UID));
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
 			ret_home.setImageurl((String)_node.getProperty(Consts.HOME_IMAGEURL));
 			
@@ -333,7 +333,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_ZONE)) {
 		
-			ret.setUid((String) _node.getProperty(Consts.ZONE_UID));
+			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
 			ret.setImageurl((String)_node.getProperty(Consts.ZONE_IMAGEURL));
 			
@@ -380,7 +380,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_ROOM)) {
 		
-			ret.setUid((String) _node.getProperty(Consts.ROOM_UID));
+			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
 			ret.setImageurl((String)_node.getProperty(Consts.ROOM_IMAGEURL));
 			
@@ -424,7 +424,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_ACCESSORY)) {
 			
-			ret.setUid((String) _node.getProperty(Consts.ACCESSORY_UID));
+			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ACCESSORY_LABEL));
 			ret.setModel((String)_node.getProperty(Consts.ACCESSORY_MODEL));
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
@@ -528,7 +528,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_SERVICE)) {
 		
-			ret.setUid((String) _node.getProperty(Consts.SERVICE_UID));
+			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setName((String) _node.getProperty(Consts.SERVICE_NAME));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
@@ -618,7 +618,7 @@ public abstract class DataManagerFactory {
 				throw new Exception ("Characteristic event type not supported yet! ["+_node.getProperty(Consts.CH_EVENT_TYPE)+"]");
 			}
 			
-			ret = new Characteristic(	(String)_node.getProperty(Consts.CH_UID),
+			ret = new Characteristic(	(String)_node.getProperty(Consts.UID),
 										(String)_node.getProperty(Consts.CH_LABEL), 
 										mode, 
 										type, 

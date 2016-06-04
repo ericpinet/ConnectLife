@@ -17,10 +17,17 @@ import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Address;
+import com.clapi.data.Address.AddressType;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
 import com.clapi.data.Characteristic.CharacteristicType;
+import com.clapi.data.Email;
+import com.clapi.data.Email.EmailType;
+import com.clapi.data.Person;
+import com.clapi.data.Phone;
+import com.clapi.data.Phone.PhoneType;
 import com.clapi.data.Service;
 import com.connectlife.coreserver.Consts;
 
@@ -31,6 +38,371 @@ import com.connectlife.coreserver.Consts;
  * <br> 2016-06-01
  */
 public abstract class DataManagerNodeFactory {
+	
+	/**
+	 * Build a person node in the graph with person information.
+	 * 
+	 * @param _graph Main graph
+	 * @param _person Person to add
+	 * @return Node builded
+	 * @throws Exception when something goes wrong.
+	 */
+	public static Node buildPersonNode(GraphDatabaseService _graph, Person _person) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_PERSON, _person.getUid())) {
+				throw new Exception ("Uid already exist : " + _person.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_PERSON);
+			
+			// build email
+			Iterator <Email> itemail = _person.getEmails().iterator();
+			
+			while (itemail.hasNext()) {
+				
+				Email email = itemail.next();
+				
+				// create email node
+				Node node_email = buildEmailNode(_graph, email);
+				
+				// adding the relationship
+				node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
+			}
+			
+			// build phone
+			Iterator <Phone> itphone = _person.getPhones().iterator();
+			
+			while (itphone.hasNext()) {
+				
+				Phone phone = itphone.next();
+				
+				// create phone node
+				Node node_phone = buildPhoneNode(_graph, phone);
+				
+				// adding the relationship
+				node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
+			}
+			
+			// build address
+			Iterator <Address> itaddress = _person.getAddresses().iterator();
+			
+			while (itaddress.hasNext()) {
+				
+				Address address = itaddress.next();
+				
+				// create address node
+				Node node_address = buildAddressNode(_graph, address);
+				
+				// adding the relationship
+				node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
+			}
+			
+			// update data
+			updatePersonNode(_graph, node, _person);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update a person node with new information in graph.
+	 * 
+	 * @param _graph Main graph
+	 * @param _node Node person to update
+	 * @param _person Person information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updatePersonNode(GraphDatabaseService _graph, Node _node, Person _person) throws Exception {
+		
+		// find the accessory by the serial number.
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_PERSON)) {
+			
+				_node.setProperty(Consts.UID, _person.getUid());
+				_node.setProperty(Consts.PERSON_FIRSTNAME, _person.getFirstname());
+				_node.setProperty(Consts.PERSON_LASTNAME, _person.getLastname());
+				_node.setProperty(Consts.PERSON_IMAGEURL, _person.getImageurl());
+				
+				// email
+				Iterator<Email> itemail = _person.getEmails().iterator();
+				
+				while (itemail.hasNext()) {
+					
+					Email email = itemail.next();
+					Node node_email = _graph.findNode(Consts.LABEL_EMAIL, Consts.UID, email.getUid());
+					
+					if (null == node_email) {
+						
+						node_email = buildEmailNode(_graph, email);
+						_node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
+					}
+					else {
+						updateEmailNode(_graph, node_email, email);
+					}
+				}
+				
+				// phone
+				Iterator<Phone> itphone = _person.getPhones().iterator();
+				
+				while (itphone.hasNext()) {
+					
+					Phone phone = itphone.next();
+					Node node_phone = _graph.findNode(Consts.LABEL_PHONE, Consts.UID, phone.getUid());
+					
+					if (null == node_phone) {
+						
+						node_phone = buildPhoneNode(_graph, phone);
+						_node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
+					}
+					else {
+						updatePhoneNode(_graph, node_phone, phone);
+					}
+				}
+				
+				// address
+				Iterator<Address> itaddress = _person.getAddresses().iterator();
+				
+				while (itaddress.hasNext()) {
+					
+					Address address = itaddress.next();
+					Node node_address = _graph.findNode(Consts.LABEL_ADDRESS, Consts.UID, address.getUid());
+					
+					if (null == node_address) {
+						
+						node_address = buildAddressNode(_graph, address);
+						_node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
+					}
+					else {
+						updateAddressNode(_graph, node_address, address);
+					}
+				}
+			}
+			else {
+				throw new Exception ("It's not a accessory node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
+	}
+	
+	/**
+	 * Build an email node in the graph with the email information.
+	 *  
+	 * @param _graph Main graph.
+	 * @param _email Email information.
+	 * @return Email node builded in graph.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static Node buildEmailNode(GraphDatabaseService _graph, Email _email) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_EMAIL, _email.getUid())) {
+				throw new Exception ("Uid already exist : " + _email.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_EMAIL);
+			
+			// update data
+			updateEmailNode(_graph, node, _email);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update an email node in graph with new information.
+	 * 
+	 * @param _graph Main graph
+	 * @param _node Email node to update
+	 * @param _email New email information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updateEmailNode(GraphDatabaseService _graph, Node _node, Email _email) throws Exception {
+		
+		// find the accessory by the serial number.
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_EMAIL)) {
+				
+				_node.setProperty(Consts.UID, _email.getUid());
+				_node.setProperty(Consts.EMAIL_EMAIL, _email.getEmail());
+				
+				if (EmailType.PERSONAL == _email.getType()) {
+					_node.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_PERSONAL);
+				}
+				else if (EmailType.WORK == _email.getType()) {
+					_node.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_WORK);
+				}
+				else if (EmailType.OTHER == _email.getType()) {
+					_node.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_OTHER);
+				}
+			}
+			else {
+				throw new Exception ("It's not an email node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
+	}
+	
+	/**
+	 * Build a phone node in graph with phone information.
+	 * 
+	 * @param _graph Main graph 
+	 * @param _phone Phone information.
+	 * @return Node builded in graph.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static Node buildPhoneNode(GraphDatabaseService _graph, Phone _phone) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_PHONE, _phone.getUid())) {
+				throw new Exception ("Uid already exist : " + _phone.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_PHONE);
+			
+			// update data
+			updatePhoneNode(_graph, node, _phone);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update a phone node in graph with new information.
+	 * 
+	 * @param _graph Main graph
+	 * @param _node Phone node to update.
+	 * @param _phone New phone information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updatePhoneNode(GraphDatabaseService _graph, Node _node, Phone _phone) throws Exception {
+		
+		// find the accessory by the serial number.
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_PHONE)) {
+				
+				_node.setProperty(Consts.UID, _phone.getUid());
+				_node.setProperty(Consts.PHONE_NUMBER, _phone.getPhone());
+				
+				if (PhoneType.HOME == _phone.getType()) {
+					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_HOME);
+				}
+				else if (PhoneType.WORK == _phone.getType()) {
+					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_WORK);
+				}
+				else if (PhoneType.CELL == _phone.getType()) {
+					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_CELL);
+				}
+				else if (PhoneType.OTHER == _phone.getType()) {
+					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_OTHER);
+				}
+			}
+			else {
+				throw new Exception ("It's not an phone node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
+	}
+	
+	/**
+	 * Build an address node in graph with address information.
+	 * 
+	 * @param _graph Main graph.
+	 * @param _address Address information.
+	 * @return Address node builded in graph.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static Node buildAddressNode(GraphDatabaseService _graph, Address _address) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_ADDRESS, _address.getUid())) {
+				throw new Exception ("Uid already exist : " + _address.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_ADDRESS);
+			
+			// update data
+			updateAddressNode(_graph, node, _address);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update address node in graph with address information.
+	 * 
+	 * @param _graph Main graph.
+	 * @param _node Node to update.
+	 * @param _address Addess information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updateAddressNode(GraphDatabaseService _graph, Node _node, Address _address) throws Exception {
+		
+		// find the accessory by the serial number.
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_ADDRESS)) {
+				
+				_node.setProperty(Consts.UID, _address.getUid());
+				_node.setProperty(Consts.ADDRESS_STREET, _address.getStreet());
+				_node.setProperty(Consts.ADDRESS_CITY, _address.getCity());
+				_node.setProperty(Consts.ADDRESS_REGION, _address.getRegion());
+				_node.setProperty(Consts.ADDRESS_ZIPCODE, _address.getZipcode());
+				_node.setProperty(Consts.ADDRESS_COUNTRY, _address.getCountry());
+				
+				if (AddressType.HOME == _address.getType()) {
+					_node.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);
+				}
+				else if (AddressType.WORK == _address.getType()) {
+					_node.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_WORK);
+				}
+				else if (AddressType.OTHER == _address.getType()) {
+					_node.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_OTHER);
+				}
+			}
+			else {
+				throw new Exception ("It's not an address node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
+	}
+	
+	
 	
 	/**
 	 * Create an accessory node with the Accessory.
@@ -91,7 +463,7 @@ public abstract class DataManagerNodeFactory {
 			
 			if (_node.hasLabel(Consts.LABEL_ACCESSORY)) {
 			
-				_node.setProperty(Consts.ACCESSORY_UID, _accessory.getUid());
+				_node.setProperty(Consts.UID, _accessory.getUid());
 				_node.setProperty(Consts.ACCESSORY_LABEL, _accessory.getLabel());
 				_node.setProperty(Consts.ACCESSORY_MODEL, _accessory.getModel());
 				_node.setProperty(Consts.ACCESSORY_MANUFACTURER, _accessory.getManufacturer());
@@ -102,7 +474,7 @@ public abstract class DataManagerNodeFactory {
 				Iterator<Service> it = _accessory.getServices().iterator();
 				while (it.hasNext()) {
 					Service service = it.next();
-					updateServiceNode(_graph, _graph.findNode(Consts.LABEL_SERVICE, Consts.SERVICE_UID, service.getUid()), service);
+					updateServiceNode(_graph, _graph.findNode(Consts.LABEL_SERVICE, Consts.UID, service.getUid()), service);
 				}
 			}
 			else {
@@ -173,13 +545,13 @@ public abstract class DataManagerNodeFactory {
 			
 			if (_node.hasLabel(Consts.LABEL_SERVICE)) {
 				
-				_node.setProperty(Consts.SERVICE_UID, _service.getUid());
+				_node.setProperty(Consts.UID, _service.getUid());
 				_node.setProperty(Consts.SERVICE_NAME, _service.getName());
 				
 				Iterator<Characteristic> it = _service.getCharacteristics().iterator();
 				while (it.hasNext()) {
 					Characteristic characteristic = it.next();
-					updateCharacteristicNode(_graph, _graph.findNode(Consts.LABEL_CHARACTERISTIC, Consts.CH_UID, characteristic.getUid()), characteristic);
+					updateCharacteristicNode(_graph, _graph.findNode(Consts.LABEL_CHARACTERISTIC, Consts.UID, characteristic.getUid()), characteristic);
 				}
 			}
 			else {
@@ -236,7 +608,7 @@ public abstract class DataManagerNodeFactory {
 			
 			if (_node.hasLabel(Consts.LABEL_CHARACTERISTIC)) {
 				
-				_node.setProperty(Consts.CH_UID, _characteristic.getUid());
+				_node.setProperty(Consts.UID, _characteristic.getUid());
 				_node.setProperty(Consts.CH_LABEL, _characteristic.getLabel());
 				
 				// TYPE

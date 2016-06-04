@@ -85,7 +85,7 @@ public class CmdCharacteristicWrite extends CmdDefault {
 			
 			// find the accessory by the uid.
 			Node node = graph.findNode( Consts.LABEL_CHARACTERISTIC, 
-										Consts.CH_UID, 
+										Consts.UID, 
 										m_characteristic.getUid() );
 			
 			// check if characteristic wasn't present in environment

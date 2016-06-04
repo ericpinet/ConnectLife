@@ -250,42 +250,42 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// MAIL1
 			Node mail11 = graph.createNode(Consts.LABEL_EMAIL);
-			mail11.setProperty(Consts.EMAIL_UID, UIDGenerator.getUID());
+			mail11.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail11.setProperty(Consts.EMAIL_EMAIL, "pineri01@gmail.com");
 			mail11.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_PERSONAL);
 			eric.createRelationshipTo(mail11, Consts.RelTypes.CONTAINS);
 			
 			// MAIL2
 			Node mail12 = graph.createNode(Consts.LABEL_EMAIL);
-			mail12.setProperty(Consts.EMAIL_UID, UIDGenerator.getUID());
+			mail12.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail12.setProperty(Consts.EMAIL_EMAIL, "eric.pinet@imagemsoft.com");
 			mail12.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_WORK);
 			eric.createRelationshipTo(mail12, Consts.RelTypes.CONTAINS);
 			
 			// MAIL3
 			Node mail13 = graph.createNode(Consts.LABEL_EMAIL);
-			mail13.setProperty(Consts.EMAIL_UID, UIDGenerator.getUID());
+			mail13.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail13.setProperty(Consts.EMAIL_EMAIL, "eric_pinet@hotmail.com");
 			mail13.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_OTHER);
 			eric.createRelationshipTo(mail13, Consts.RelTypes.CONTAINS);
 			
 			// PHONE1
 			Node phone11 = graph.createNode(Consts.LABEL_PHONE);
-			phone11.setProperty(Consts.PHONE_UID, UIDGenerator.getUID());
+			phone11.setProperty(Consts.UID, UIDGenerator.getUID());
 			phone11.setProperty(Consts.PHONE_NUMBER, "418 998-2481");
 			phone11.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_CELL);
 			eric.createRelationshipTo(phone11, Consts.RelTypes.CONTAINS);
 			
 			// PHONE2
 			Node phone12 = graph.createNode(Consts.LABEL_PHONE);
-			phone12.setProperty(Consts.PHONE_UID, UIDGenerator.getUID());
+			phone12.setProperty(Consts.UID, UIDGenerator.getUID());
 			phone12.setProperty(Consts.PHONE_NUMBER, "418 548-1684");
 			phone12.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_OTHER);
 			eric.createRelationshipTo(phone12, Consts.RelTypes.CONTAINS);
 			
 			// ADRESS
 			Node address11 = graph.createNode(Consts.LABEL_ADDRESS);
-			address11.setProperty(Consts.ADDRESS_UID, UIDGenerator.getUID());
+			address11.setProperty(Consts.UID, UIDGenerator.getUID());
 			address11.setProperty(Consts.ADDRESS_STREET, "2353 rue du cuir");
 			address11.setProperty(Consts.ADDRESS_CITY, "Québec");
 			address11.setProperty(Consts.ADDRESS_REGION, "Québec");
@@ -296,13 +296,13 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// HOME
 			Node home11 = graph.createNode(Consts.LABEL_HOME);
-			home11.setProperty(Consts.HOME_UID, UIDGenerator.getUID());
+			home11.setProperty(Consts.UID, UIDGenerator.getUID());
 			home11.setProperty(Consts.HOME_LABEL, "Home");
 			home11.setProperty(Consts.HOME_IMAGEURL, "");
 			
 			// FIRST FLOOR
 			Node zone11 = graph.createNode(Consts.LABEL_ZONE);
-			zone11.setProperty(Consts.ZONE_UID, UIDGenerator.getUID());
+			zone11.setProperty(Consts.UID, UIDGenerator.getUID());
 			zone11.setProperty(Consts.ZONE_LABEL, "First floor");
 			zone11.setProperty(Consts.ZONE_IMAGEURL, "");
 			
@@ -310,7 +310,7 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// LEVING ROOM
 			Node room11 = graph.createNode(Consts.LABEL_ROOM);
-			room11.setProperty(Consts.ROOM_UID, UIDGenerator.getUID());
+			room11.setProperty(Consts.UID, UIDGenerator.getUID());
 			room11.setProperty(Consts.ROOM_LABEL, "Leving room");
 			room11.setProperty(Consts.ROOM_IMAGEURL, "");
 			
@@ -320,7 +320,7 @@ public class DataManagerNeo4j implements DataManager {
 			// LIGHT
 			// ACCESSORY
 			Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);
-			accessory11.setProperty(Consts.ACCESSORY_UID, UIDGenerator.getUID());
+			accessory11.setProperty(Consts.UID, UIDGenerator.getUID());
 			accessory11.setProperty(Consts.ACCESSORY_LABEL, "Light");
 			accessory11.setProperty(Consts.ACCESSORY_MANUFACTURER, "Philips");
 			accessory11.setProperty(Consts.ACCESSORY_MODEL, "100w");
@@ -334,14 +334,14 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// SERVICE1
 			Node service11 = graph.createNode(Consts.LABEL_SERVICE);
-			service11.setProperty(Consts.SERVICE_UID, UIDGenerator.getUID());
+			service11.setProperty(Consts.UID, UIDGenerator.getUID());
 			service11.setProperty(Consts.SERVICE_NAME, "light");
 
 			accessory11.createRelationshipTo(service11, Consts.RelTypes.CONTAINS);
 			
 			// CHARACTERISTIC1
 			Node characteristic11 = graph.createNode(Consts.LABEL_CHARACTERISTIC);
-			characteristic11.setProperty(Consts.CH_UID, UIDGenerator.getUID());
+			characteristic11.setProperty(Consts.UID, UIDGenerator.getUID());
 			characteristic11.setProperty(Consts.CH_LABEL, "Light");
 			characteristic11.setProperty(Consts.CH_MODE, Consts.CH_ACCESS_MODE_READ_WRITE);
 			characteristic11.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_BOOLEAN);
@@ -352,7 +352,7 @@ public class DataManagerNeo4j implements DataManager {
 			
 			// CHARACTERISTIC2
 			Node characteristic12 = graph.createNode(Consts.LABEL_CHARACTERISTIC);
-			characteristic12.setProperty(Consts.CH_UID, UIDGenerator.getUID());
+			characteristic12.setProperty(Consts.UID, UIDGenerator.getUID());
 			characteristic12.setProperty(Consts.CH_LABEL, "Dimmable");
 			characteristic12.setProperty(Consts.CH_MODE, Consts.CH_ACCESS_MODE_READ_WRITE);
 			characteristic12.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_FLOAT);

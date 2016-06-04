@@ -16,13 +16,10 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.clapi.data.Email;
-import com.clapi.data.Email.EmailType;
 import com.clapi.data.Person;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
