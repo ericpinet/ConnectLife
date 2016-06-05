@@ -140,6 +140,7 @@ public class EnvironmentTest implements Observer {
 	public void tearDown() throws Exception {
 	}
 
+	/*
 	@Test
 	public void testInitWithoutEnvFile() {
 		
@@ -271,7 +272,6 @@ public class EnvironmentTest implements Observer {
 	public void testGetJsonData() {
 		
 		fail("Not yet implemented");
-		/*
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
 		
@@ -292,14 +292,11 @@ public class EnvironmentTest implements Observer {
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
-		*/
 	}
 	
 	@Test
 	public void testGetData() {
 		
-		fail("Not yet implemented");
-		/*
 		// prepare file to test
 		assertTrue(moveEnvFileInBackupTest());
 				
@@ -316,7 +313,6 @@ public class EnvironmentTest implements Observer {
 		
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
-		*/
 	}
 	
 	@Test
@@ -499,7 +495,7 @@ public class EnvironmentTest implements Observer {
 		// restore file after test.
 		assertTrue(restoreEnvFileFromBackupTest());
 	}
-	
+	*/
 	
 	private void deleteEnvDirectory(){
 		/*
