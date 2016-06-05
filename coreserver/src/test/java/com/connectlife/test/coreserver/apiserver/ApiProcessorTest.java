@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.clapi.data.Email.EmailType;
 import com.clapi.protocol.AddEmailRequest;
 import com.clapi.protocol.AddEmailResponse;
 import com.clapi.protocol.AddPersonRequest;

@@ -31,7 +31,6 @@ public class EnvironmentInjectTest extends AbstractModule {
 		bind(DiscoveryService.class).to(DiscoveryServiceMock.class);
 		bind(DeviceManager.class).to(ServiceManagerMock.class);
 		bind(DataManager.class).to(DataManagerNeo4j.class);
-		
 	}
 
 }

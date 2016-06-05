@@ -8,6 +8,9 @@
  */
 package com.connectlife.test.coreserver.environment;
 
+import java.io.IOException;
+
+import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceEvent;
 
 import org.junit.After;
@@ -15,9 +18,19 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.connectlife.coreserver.environment.discover.DiscoveryJmdns;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(JmDNS.class)
+@PowerMockIgnore("javax.management.*")
 
 /**
  * 
@@ -55,31 +68,135 @@ public class DiscoveryJmdnsTest implements DiscoveryListner {
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * Test a normal start
+	 */
 	@Test
-	public void testStart() {
+	public void testNormalStart() {
+		
+		PowerMockito.mockStatic(JmDNS.class);
+		JmDNS mock = Mockito.mock(JmDNS.class);
+		try {
+			Mockito.when(JmDNS.create()).thenReturn(mock);
+		} catch (IOException e) {
+		}
+		
+		Mockito.doNothing().when(mock).addServiceListener(Mockito.anyString(), Mockito.any());
+		
 		DiscoveryJmdns dis = new DiscoveryJmdns();
 		dis.start();
+		
+		Mockito.verify(mock, Mockito.atLeastOnce());
+	}
+	
+	/**
+	 * Test a start fail with exception
+	 */
+	@Test
+	public void testExceptionStart() {
+		
+		PowerMockito.mockStatic(JmDNS.class);
+		
+		try {
+			Mockito.when(JmDNS.create()).thenThrow(new IOException("IO Error"));
+		} catch (IOException e) {
+		}
+				
+		DiscoveryJmdns dis = new DiscoveryJmdns();
+		dis.start();
+
+	}
+	
+	/**
+	 * Test 2 start
+	 */
+	@Test
+	public void test2Start() {
+		
+		PowerMockito.mockStatic(JmDNS.class);
+		JmDNS mock = Mockito.mock(JmDNS.class);
+		try {
+			Mockito.when(JmDNS.create()).thenReturn(mock);
+		} catch (IOException e) {
+		}
+		
+		Mockito.doNothing().when(mock).addServiceListener(Mockito.anyString(), Mockito.any());
+		
+		DiscoveryJmdns dis = new DiscoveryJmdns();
+		dis.start();
+		
 		dis.start();
 	}
 	
+	/**
+	 * Test stop without start
+	 */
 	@Test
 	public void testStop() {
 		DiscoveryJmdns dis = new DiscoveryJmdns();
 		dis.stop();
 	}
 	
+	/**
+	 * Test stop with excepotion on stop
+	 */
 	@Test
-	public void testStartStop() {
+	public void testStopException() {
+		
+		PowerMockito.mockStatic(JmDNS.class);
+		JmDNS mock = Mockito.mock(JmDNS.class);
+		try {
+			Mockito.when(JmDNS.create()).thenReturn(mock);
+			Mockito.doThrow(new IOException("IO Error")).when(mock).close();
+		} catch (IOException e) {
+		}
+		
+		Mockito.doNothing().when(mock).addServiceListener(Mockito.anyString(), Mockito.any());		
 		DiscoveryJmdns dis = new DiscoveryJmdns();
 		dis.start();
+		
 		dis.stop();
 	}
 	
+	/**
+	 * Test stop after good start
+	 */
+	@Test
+	public void testStartStop() {
+		
+		PowerMockito.mockStatic(JmDNS.class);
+		JmDNS mock = Mockito.mock(JmDNS.class);
+		try {
+			Mockito.when(JmDNS.create()).thenReturn(mock);
+			Mockito.doNothing().when(mock).close();
+		} catch (IOException e) {
+		}
+		
+		Mockito.doNothing().when(mock).addServiceListener(Mockito.anyString(), Mockito.any());		
+		DiscoveryJmdns dis = new DiscoveryJmdns();
+		dis.start();
+		
+		dis.stop();
+	}
+	
+	/**
+	 * Add valid listener
+	 */
 	@Test
 	public void testaddListner() {
 		DiscoveryJmdns dis = new DiscoveryJmdns();
 		dis.addListner(this);
 	}
+	
+	/**
+	 * Add invalid listener
+	 */
+	@Test
+	public void testaddListnerNull() {
+		DiscoveryJmdns dis = new DiscoveryJmdns();
+		dis.addListner(null);
+	}
+	
 
 	/**
 	 * @param _service

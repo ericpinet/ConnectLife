@@ -201,7 +201,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 * Return a Find Processor read only.
 	 * 
 	 * @return FindProcessor.
-	 * @exception If something goes wrong.
+	 * @throws Exception If something goes wrong.
 	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
 	 */
 	public FindProcessor getFindProcessor() throws Exception {
