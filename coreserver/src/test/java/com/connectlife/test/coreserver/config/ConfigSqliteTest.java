@@ -161,6 +161,23 @@ public class ConfigSqliteTest {
 	}
 	
 	@Test
+	public void testGetConfigNull() {
+		
+		// prepare config object
+		Injector injector = Guice.createInjector(new ConfigSqliteInjectTest());
+		Config config = injector.getInstance(Config.class);
+		
+		// delete old test config database
+		deleteDatabase();
+		
+		// init the config
+		assertTrue(config.init());
+		
+		// load config null
+		assertNull(config.getConfig(null, null));
+	}
+	
+	@Test
 	public void testGetConfigs() {
 		
 		// prepare config object

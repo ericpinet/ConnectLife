@@ -169,6 +169,14 @@
     <version>2.0.2-beta</version>
   </dependency>
   
+  <!-- EasyMock -->
+  <dependency>
+      <groupId>org.powermock</groupId>
+      <artifactId>powermock-api-easymock</artifactId>
+      <version>${powermock.version}</version>
+      <scope>test</scope>
+   </dependency>  
+  
   <!-- PowerMock use with mockito to mock static methode -->
   <dependency>
       <groupId>org.powermock</groupId>
