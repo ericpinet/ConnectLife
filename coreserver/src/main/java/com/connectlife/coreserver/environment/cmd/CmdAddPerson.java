@@ -10,10 +10,12 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Transaction;
 
-import com.clapi.data.Data;
 import com.clapi.data.Person;
 import com.connectlife.coreserver.environment.UIDGenerator;
+import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
  * Command to add a new person in the environment.
@@ -53,9 +55,6 @@ public class CmdAddPerson extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// prepare the data
-		Data data = m_context.getDataManager().getData();
-		
 		// check the person to add in the environment
 		if( null == m_person ){
 			m_logger.error("Error! It's not possible to add null person in the environment.");
@@ -66,17 +65,25 @@ public class CmdAddPerson extends CmdDefault {
 			m_logger.error("Error! It's not possible to add a person with a UID.");
 			throw new Exception ("Error! It's not possible to add a person with a UID.");
 		}
-				
-		// adding uid in the person
-		m_person.setUid(UIDGenerator.getUID());
 		
-		// add person in the environment.
-		data.getPersons().add(m_person);
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
 		
-		// set the data change
-		this.m_data_is_changed = true;
+		// begin transaction
+		try ( Transaction tx = graph.beginTx() ) {
+						
+			// create the uid for the person
+			m_person.setUid(UIDGenerator.getUID());
+			
+			// build person node
+			DataManagerNodeFactory.buildPersonNode(graph, m_person);
+			
+			// set the data change
+			this.m_data_is_changed = true;
+
+			tx.success();
+		}
 		
 		m_logger.info("Execution completed.");
-	}
-	
+	}	
 }

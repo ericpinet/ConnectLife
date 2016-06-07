@@ -8,7 +8,7 @@
  */
 package com.connectlife.coreserver.environment.data;
 
-import com.clapi.data.Data;
+import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
  * Data manager for the environment. 
@@ -39,71 +39,39 @@ public interface DataManager {
 	
 	/**
 	 * Check if environment data already exist in the system. 
-	 * If not, we have to create a new one, else load the existing environment. 
 	 * 
 	 * @return True if environment file exist.
 	 */
 	public boolean checkEnvironmentExist();
 	
 	/**
-	 * Load environment data.
+	 * Return a JSON string representing the environment.
 	 * 
-	 * @return True if the load successes.
+	 * @return JSON string of the environment.
 	 */
-	public boolean loadEnvironment();
+	public String getJsonEnvironment();
 	
 	/**
-	 * Load environment data from the backup.
+	 * Return a JSON formatted string representing the environment.
 	 * 
-	 * @return True if the load successes.
+	 * @return JSON string of the environment.
 	 */
-	public boolean loadEnvironmentBackup();
+	public String getJsonFormattedEnvironment();
 	
 	/**
-	 * Save the environment in data.
+	 * Generate the base environment on new system.
+	 * Must be executed if environment data isn't init.
 	 * 
-	 * @return True if save successes.
+	 * @throws Exception If something goes wrong.
 	 */
-	public boolean saveEnvironment();
+	public void generateBaseEnvironnment() throws Exception;
 	
 	/**
-	 * Save the backup environment file
+	 * Return the environment graph data.
 	 * 
-	 * @return True if save succeed.
+	 * @return Return the environment graph data.
+	 * @throws Exception Throw exception if something goes wrong.
 	 */
-	public boolean saveEnvironmentBackup();
-	
-	/**
-	 * Indicate that the environment file isn't saved.
-	 */
-	public void setUnsaved();
-	
-	/**
-	 * Return True is the environment data is correctly saved.
-	 * 
-	 * @return True is the environment is saved.
-	 */
-	public boolean isSaved();
-	
-	/**
-	 * Return True is the environment data is correctly Loaded.
-	 * 
-	 * @return True if this module is loaded.
-	 */
-	public boolean isLoaded();
-	
-	/**
-	 * Return the Data environment.
-	 * 
-	 * @return Data of the environment.
-	 */
-	public Data getData();
-	
-	/**
-	 * Set the new Data environment.
-	 * 
-	 * @param _data Set the new data environment.
-	 */
-	public void setData(Data _data);
+	public GraphDatabaseService getGraph() throws Exception;
 	
 }

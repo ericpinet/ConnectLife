@@ -10,12 +10,14 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
-import com.clapi.data.Accessory;
 import com.clapi.data.Characteristic;
-import com.clapi.data.Room;
-import com.connectlife.coreserver.environment.UIDGenerator;
-import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.clapi.data.Characteristic.CharacteristicType;
+import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.data.DataManagerFactory;
 
 /**
  * Command to change value of a characteristic for an Accessory.
@@ -63,56 +65,84 @@ public class CmdCharacteristicWrite extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		throw new Exception("Not yet implemented.");
-		
-		/* TODO - Compelte this function
-		
-		// Get the find processor
-		FindProcessor find = m_context.getFindProcessorReadWrite();
-		
-		// check the accessory to add in the environment
-		if( null == m_accessory ){
-			m_logger.error("Error! It's not possible to add null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to add null accessory in the environment.");
+		// check if the characteristic isn't null
+		if( null == m_characteristic ) {
+			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
+			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
 		}
 		
-		if( false == m_accessory.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a accessory with a UID.");
-			throw new Exception ("Error! It's not possible to add a accessory with a UID.");
+		// check if the characteristic target value isn't null
+		if( null == m_target_value ) {
+			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
+			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
 		}
+		
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
+		
+		// begin transaction
+		try ( Transaction tx = graph.beginTx() ) {
+			
+			// find the accessory by the uid.
+			Node node = graph.findNode( Consts.LABEL_CHARACTERISTIC, 
+										Consts.UID, 
+										m_characteristic.getUid() );
+			
+			// check if characteristic wasn't present in environment
+			if (null != node) {
 				
-		// check if the accessory is already added in a room
-		// find the accessory by the serial number.
-		Accessory accessory = find.findAccessory(m_accessory);
-		if(null == accessory){
-			// the accessory isn't added
-			// we can add it in the room
-			Room room = find.findRoom(m_room);
-			if(null != room){
-
-				// add the accessory and set a UID.
-				m_accessory.setUid(UIDGenerator.getUID());
+				// check if the data isn't read only
+				if (false == node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_READ_ONLY)) {
 				
-				// Adding the accessory in the room.
-				room.getAccessories().add(m_accessory);
-				
-				// force all device to try again a synchronization
-				m_context.getDeviceManager().forceSynchronizationOfAllDevices();
-				
-				// set the data change
-				this.m_data_is_changed = true;
+					// check if characteristic and target value have same type
+					if (DataManagerFactory.buildCharacteristic(node).getType() == m_target_value.getType()) {
+					
+						// BOOLEAN
+						if (CharacteristicType.BOOLEAN == m_target_value.getType()){
+							node.setProperty(Consts.CH_DATA, m_target_value.getDataBoolean()); 
+						}
+						// WRITE ONLY BOOLEAN
+						else if (CharacteristicType.WRITE_ONLY_BOOLEAN == m_target_value.getType()) {
+							node.setProperty(Consts.CH_DATA, m_target_value.getDataBoolean());
+						}
+						// STRING
+						else if (CharacteristicType.STATIC_STRING == m_target_value.getType()) {
+							node.setProperty(Consts.CH_DATA, m_target_value.getData());
+						}
+						// ENUM
+						else if (CharacteristicType.ENUM == m_target_value.getType()) {
+							node.setProperty(Consts.CH_DATA, m_target_value.getDataEnum());
+						}
+						// INTEGER
+						else if (CharacteristicType.INTEGER == m_target_value.getType()) {
+							node.setProperty(Consts.CH_DATA, m_target_value.getDataInteger());
+						}
+						// FLOAT
+						else if (CharacteristicType.FLOAT == m_target_value.getType()) {
+							node.setProperty(Consts.CH_DATA, m_target_value.getDataFloat());
+						}
+						
+						// set the data change
+						this.m_data_is_changed = true;
+						
+					}
+					else {
+						m_logger.error("Characteristic was read only.");
+						throw new Exception("Characteristic was read only.");
+					}
+				}
+				else {
+					m_logger.error("Characteristic target type was invalid. " + m_target_value.toString());
+					throw new Exception("Characteristic target type was invalid. " + m_target_value.toString());
+				}
 			}
-			else{
-				throw new Exception("Room not found.");
+			else {
+				m_logger.error("Characteristic not found. " + m_characteristic.toString());
+				throw new Exception("Characteristic not found. " + m_characteristic.toString());
 			}
+			
+			tx.success();
 		}
-		else{
-			// the acessory was already added in a room
-			throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
-		}
-		
-		m_logger.info("Execution completed.");
-		*/
 	}
 	
 }

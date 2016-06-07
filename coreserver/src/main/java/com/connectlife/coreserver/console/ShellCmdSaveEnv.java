@@ -13,8 +13,6 @@ import java.io.InterruptedIOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.connectlife.coreserver.Application;
-
 /**
  * Shell command for save environment from the console.
  * 
@@ -84,13 +82,9 @@ public class ShellCmdSaveEnv implements ShellCmd {
 		String response = "";
     	m_logger.debug(SHELL_CMD);
     	
-        // save the environment
-    	if( true == Application.getApp().getEnvironment().save() ){
-    		response = "Environment saved.";
-    	}
-    	else{
-    		response = "Error, unable to save environment.";
-    	}
+    	// TODO: Complete command
+    	response = SHELL_CMD + " not supported yet!";
+    	
     	return response;
 	}
 

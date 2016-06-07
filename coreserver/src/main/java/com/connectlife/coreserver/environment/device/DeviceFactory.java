@@ -114,7 +114,7 @@ public abstract class DeviceFactory {
 	 * @return Return the ServiceDefinition.
 	 * @throws Exception If the building process failed , a exception will be generated with the details.
 	 */
-	public static ServiceDefinition buildServiceInformation(String _url) throws Exception{
+	public static ServiceDefinition buildServiceInformation(String _url) throws Exception {
 		ServiceDefinition ret_def = null;
 		
 		try {

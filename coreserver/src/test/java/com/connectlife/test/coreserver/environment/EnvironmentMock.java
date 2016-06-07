@@ -15,7 +15,6 @@ import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.environment.find.FindProcessor;
-import com.connectlife.coreserver.environment.find.FindProcessorReadOnly;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -60,15 +59,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	public void unInit() {
 		m_is_init = false;
 	}
-	
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#save()
-	 */
-	@Override
-	public boolean save() {
-		return false;
-	}
 
 	/**
 	 * @return
@@ -86,57 +76,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	}
 
 	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#getData()
-	 */
-	@Override
-	public Data getData() {
-		return CreateTestData.getData();
-	}
-
-	/**
-	 * @return
-	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
-	 */
-	@Override
-	public FindProcessor getFindProcessorReadOnly() {
-		return new FindProcessorReadOnly(CreateTestData.getData());
-	}
-
-	/**
-	 * @param _person
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#addPerson(com.clapi.data.Person)
-	 */
-	@Override
-	public Person addPerson(Person _person) throws Exception {
-		return null;
-	}
-
-	/**
-	 * @param _person
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#updatePerson(com.clapi.data.Person)
-	 */
-	@Override
-	public Person updatePerson(Person _person) throws Exception {
-		return null;
-	}
-	
-	/**
-	 * @param _person
-	 * @return
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.environment.Environment#deletePerson(com.clapi.data.Person)
-	 */
-	@Override
-	public Person deletePerson(Person _person) throws Exception {
-		return null;
-	}
-
-	/**
 	 * @param _cmd
 	 * @throws Exception
 	 * @see com.connectlife.coreserver.environment.Environment#executeCommand(com.connectlife.coreserver.environment.cmd.Cmd)
@@ -145,6 +84,27 @@ public class EnvironmentMock extends Observable implements Environment {
 	public void executeCommand(Cmd _cmd) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return
+	 * @see com.connectlife.coreserver.environment.Environment#getJsonFormattedEnvironment()
+	 */
+	@Override
+	public String getJsonFormattedEnvironment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @return
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.Environment#getFindProcessor()
+	 */
+	@Override
+	public FindProcessor getFindProcessor() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

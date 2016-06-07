@@ -10,9 +10,13 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
-import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
  * Command to update a accessory in the environment.
@@ -52,39 +56,39 @@ public class CmdUpdateAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// Get the find processor
-		FindProcessor find = m_context.getFindProcessorReadWrite();
-		
-		// check the person to add in the environment
-		if( null == m_accessory ){
+		// check the accessory
+		if (null == m_accessory) {
 			m_logger.error("Error! It's not possible to update null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to register null accessory in the environment.");
+			throw new Exception ("Error! It's not possible to update null accessory in the environment.");
 		}
+		
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
 		
 		// find the accessory by the serial number.
-		Accessory accessory = find.findAccessory(m_accessory);
-		
-		// if accessory is find update.
-		if(null != accessory){
+		try ( Transaction tx = graph.beginTx() ) {
 			
-			// the accessory must be already register before update
-			if (true == accessory.isRegister()) {
+			Node node_acc = graph.findNode( Consts.LABEL_ACCESSORY, 
+											Consts.ACCESSORY_SERIALNUMBER, 
+											m_accessory.getSerialnumber() );
 			
-				m_accessory.setRegister(true);
-				accessory.update(m_accessory);
+			if (null != node_acc) {
 				
-				m_accessory = accessory;
+				// the accessory must be already register before update
+				if (true == node_acc.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true")) {
 				
-				// set the data change
-				this.m_data_is_changed = true;
+					// ensure that the data update will not change the register status
+					m_accessory.setRegister(true); 
+					
+					// Update the data in the graph
+					DataManagerNodeFactory.updateAccessoryNode(graph, node_acc, m_accessory);
+				
+					// set the data change
+					this.m_data_is_changed = true;
+				}
 			}
-			else {
-				m_logger.error("Error! It's not possible to update a not register accessory in the environment.");
-				throw new Exception ("Error! It's not possible to update a not register accessory in the environment.");
-			}
-		}
-		else{
-			m_accessory = null;
+			
+			tx.success();
 		}
 		
 		m_logger.info("Execution completed.");

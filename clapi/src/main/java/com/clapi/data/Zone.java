@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Zone.
@@ -64,6 +65,7 @@ public class Zone implements DataObj {
 		super();
 		this.uid = uid;
 		this.label = label;
+		this.rooms = new Vector<Room>();
 	}
 
 	/**
@@ -106,6 +108,13 @@ public class Zone implements DataObj {
 	 */
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
+	}
+	
+	/**
+	 * @param room the room to add
+	 */
+	public void addRoom(Room room) {
+		this.rooms.add(room);
 	}
 
 	/**

@@ -8,11 +8,10 @@
  */
 package com.connectlife.coreserver.environment.find;
 
-import com.clapi.data.Data;
-import com.rits.cloning.Cloner;
+import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
- * 
+ * Find processor read only.
  * 
  * @author ericpinet
  * <br> 2016-02-07
@@ -22,10 +21,9 @@ public class FindProcessorReadOnly extends FindProcessor {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param _data Data use in the FindProcessor.
+	 * @param _graph Graph data use in the FindProcessor.
 	 */
-	public FindProcessorReadOnly(Data _data){
-		Cloner cloner = new Cloner();
-		m_data = cloner.deepClone(_data);
+	public FindProcessorReadOnly(GraphDatabaseService _graph){
+		m_graph = _graph;
 	}
 }

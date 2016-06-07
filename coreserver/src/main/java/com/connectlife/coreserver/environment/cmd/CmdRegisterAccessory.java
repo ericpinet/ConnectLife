@@ -10,9 +10,12 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
-import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.Consts;
 
 /**
  * Command to register a accessory in the environment.
@@ -52,30 +55,30 @@ public class CmdRegisterAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// Get the find processor
-		FindProcessor find = m_context.getFindProcessorReadWrite();
-		
-		// check the person to add in the environment
-		if( null == m_accessory ){
+		// check the accessory
+		if (null == m_accessory) {
 			m_logger.error("Error! It's not possible to register null accessory in the environment.");
 			throw new Exception ("Error! It's not possible to register null accessory in the environment.");
 		}
 		
-		// find the accessory by the serial number.
-		Accessory accessory = find.findAccessory(m_accessory);
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
 		
-		// if accessory is find register.
-		if(null != accessory){
-			accessory.update(m_accessory);
-			accessory.setRegister(true);
+		// find the accessory by the serial number.
+		try ( Transaction tx = graph.beginTx() ) {
 			
-			m_accessory = accessory;
+			Node node_acc = graph.findNode( Consts.LABEL_ACCESSORY, 
+											Consts.ACCESSORY_SERIALNUMBER, 
+											m_accessory.getSerialnumber() );
 			
-			// set the data change
-			this.m_data_is_changed = true;
-		}
-		else{
-			m_accessory = null;
+			if (null != node_acc) {
+				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, true);
+				
+				// set the data change
+				this.m_data_is_changed = true;
+			}
+			
+			tx.success();
 		}
 		
 		m_logger.info("Execution completed.");
