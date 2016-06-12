@@ -9,10 +9,8 @@
 package com.connectlife.coreserver.environment;
 
 import java.util.Observer;
-import com.clapi.data.*;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.find.FindProcessor;
-
 
 /**
  * Environment is the representation of all objects in the environment. 
@@ -42,18 +40,26 @@ public interface Environment {
 	public void unInit();
 	
 	/**
-	 * Save the environment.
-	 * 
-	 * @return True if the environment is saved.
-	 */
-	public boolean save();
-	
-	/**
 	 * Return a JSON string representing the environment.
 	 * 
 	 * @return JSON string of the environment.
 	 */
 	public String getJsonEnvironment();
+	
+	/**
+	 * Return a JSON formatted string representing the environment.
+	 * 
+	 * @return JSON string of the environment.
+	 */
+	public String getJsonFormattedEnvironment();
+	
+	/**
+	 * Return a FindProcessor to find object in environment.
+	 * 
+	 * @return FindProcessor.
+	 * @throws Exception If something goes wrong.
+	 */
+	public FindProcessor getFindProcessor() throws Exception;
 	
 	/**
 	 * Adds an observer to the set of observers for this object, provided that it 
@@ -106,57 +112,10 @@ public interface Environment {
 	public boolean hasChanged();
 	
 	/**
-	 * Return clone of the Data environment.
-	 * 
-	 * @return Data of the environment.
-	 */
-	public Data getData();
-	
-	/**
 	 * Execute the command on the environment data.
 	 * 
 	 * @param _cmd Command to execute. See the CmdFactory to build command.
 	 * @throws Exception Exception if something goes wrong.
 	 */
 	public void executeCommand(Cmd _cmd) throws Exception;
-	
-	/**
-	 * Return the find processor of this environment. All data return was in read only state. 
-	 * Change on this data will not affect the current environment data.
-	 * 
-	 * @return FindProcessor Return the find processor of this environment.
-	 */
-	public FindProcessor getFindProcessorReadOnly();
-	
-	/**
-	 * Add a person in the data. The uid of the person will be generated
-	 * during the adding process.
-	 * 
-	 * @param _person Person to add in the environment.
-	 * @return Person added to the environment whit his generated uid.
-	 * @throws Exception If something goes wrong.
-	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
-	 */
-	public Person addPerson(Person _person) throws Exception;
-	
-	/**
-	 * Update a person in the data.
-	 * 
-	 * @param _person Person to update in the environment.
-	 * @return Person updated in the environment.
-	 * @throws Exception If something goes wrong.
-	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
-	 */
-	public Person updatePerson(Person _person) throws Exception;
-	
-	/**
-	 * Delete a person in the data.
-	 * 
-	 * @param _person Person to delete in the environment.
-	 * @return Person deleted in the environment.
-	 * @throws Exception If something goes wrong.
-	 * @deprecated Use executeCommand(Cmd _cmd) throws Exception;
-	 */
-	public Person deletePerson(Person _person) throws Exception;
-	
 }

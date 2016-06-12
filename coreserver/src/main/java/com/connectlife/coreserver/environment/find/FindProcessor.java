@@ -9,14 +9,21 @@
 package com.connectlife.coreserver.environment.find;
 
 import java.util.Iterator;
-import java.util.Optional;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
-import com.clapi.data.Data;
-import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
-import com.clapi.data.Zone;
+import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.data.DataManagerFactory;
+import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
  * Find processor for the environment.
@@ -27,235 +34,201 @@ import com.clapi.data.Zone;
 public abstract class FindProcessor {
 	
 	/**
-	 * Data environment use by this find processor;
+	 * Logger use for this class.
 	 */
-	protected Data m_data;
+	private static Logger m_logger = LogManager.getLogger(FindProcessor.class);
 	
 	/**
-	 * Find person by the uid, last name or first name.
-	 * 
-	 * @param _person Person to find.
-	 * @return Person found, or null if not found.
+	 * Data environment use by this find processor;
 	 */
-	public Person findPerson(Person _person){
-		Optional<Person> ret_person = null;
+	protected GraphDatabaseService m_graph;
+	
+	/**
+	 * Find a person in environment by uid.
+	 * 
+	 * @param _uid Uid to find.
+	 * @return Person or null if not found.
+	 */
+	public Person findPersonByUid(String _uid) {
+		
+		Person ret = null;
+		
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
 			
-		if(false == _person.getUid().isEmpty()){
-			ret_person =  m_data.getPersons()
-								.stream()
-								.filter( p -> p.getUid().equalsIgnoreCase(_person.getUid()) )
-								.findFirst();
-		}
-		else{
-			// if the last name is there we try to find the last name
-			if(false == _person.getLastname().isEmpty()){
-				ret_person =  m_data.getPersons()
-									.stream()
-									.filter( p -> p.getLastname().equalsIgnoreCase(_person.getLastname()) )
-									.findFirst();
-			}
-			else{
-				// if the first name is there we try to find the first name
-				if(false == _person.getFirstname().isEmpty()){
-					ret_person =  m_data.getPersons()
-										.stream()
-										.filter( p -> p.getFirstname().equalsIgnoreCase(_person.getFirstname()) )
-										.findFirst();
+			Node node = m_graph.findNode( 	Consts.LABEL_PERSON, 
+											Consts.UID, 
+											_uid );
+			
+			// if the node was found
+			if (null != node) {
+				
+				try {
+					ret = DataManagerFactory.buildPerson(m_graph, node);
 				}
-			} // ELSE: Nothing else to found.
-		}// ENDIF
+				catch (Exception e) {
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+			}
 			
-		if(null != ret_person && ret_person.isPresent())
-			return ret_person.get();
-		else
-			return null;
+			tx.success();
+		}
+		
+		return ret;
 	}
 	
 	/**
-	 * Find room by Uid or Label.
+	 * Find room by Uid.
 	 * 
-	 * @param _room Room to find. 
-	 * @return Room found, null if not found.
+	 * @param _uid Uid to find 
+	 * @return Room or null if not found.
 	 */
-	public Room findRoom(Room _room){
-		Optional<Room> ret_room = null;
-		boolean found = false;
+	public Room findRoom(String _uid){
 		
-		// iterate in home
-		Iterator<Home> ihome = m_data.getHomes().iterator();
-		while(ihome.hasNext() && false == found){
-			Home home = ihome.next();
+		Room ret = null;
+		
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
 			
-			// iterate in zone
-			Iterator<Zone> izone = home.getZones().iterator();
-			while(izone.hasNext() && false == found){
-				Zone zone = izone.next();
+			Node node = m_graph.findNode( 	Consts.LABEL_ROOM, 
+											Consts.UID, 
+											_uid );
+			
+			// if the node was found
+			if (null != node) {
 				
-				
-				// if the uid
-				if(false == _room.getUid().isEmpty()){
-					ret_room =  zone.getRooms()
-									.stream()
-									.filter( r -> r.getUid().equalsIgnoreCase(_room.getUid()) )
-									.findFirst();
-					if(ret_room.isPresent())
-						found = true;
+				try {
+					ret = DataManagerFactory.buildRoom(m_graph, node);
 				}
-				else{
-					// if the first name is there we try to find the first name
-					if(false == _room.getLabel().isEmpty()){
-						ret_room =  zone.getRooms()
-										.stream()
-										.filter( r -> r.getLabel().equalsIgnoreCase(_room.getLabel()) )
-										.findFirst();
-						if(ret_room.isPresent())
-							found = true;
-					}
-				} // ELSE: Nothing else to found.
-			}// WHILE: Zones
-		}// WHILE: Homes
+				catch (Exception e) {
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+			}
+			
+			tx.success();
+		}
 		
-		if(null != ret_room && ret_room.isPresent())
-			return ret_room.get();
-		else
-			return null;
+		return ret;
 	}
 	
 	/**
 	 * Find the room where the accessory is added.
 	 * 
-	 * @param _accessory Accessory added in a room.
+	 * @param _uid Accessory uid added in a room.
 	 * @return Room where the accessory is located. Null if not found.
 	 */
-	public Room findRoom(Accessory _accessory){
-		Room ret_room = null;
-		Optional<Accessory> accessory = null;
-		boolean found = false;
+	public Room findRoomByAccessoryUid(String _uid){
 		
-		// iterate in home
-		Iterator<Home> ihome = m_data.getHomes().iterator();
-		while(ihome.hasNext() && false == found){
-			Home home = ihome.next();
+		Room ret = null;
+		
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
 			
-			// iterate in zone
-			Iterator<Zone> izone = home.getZones().iterator();
-			while(izone.hasNext() && false == found){
-				Zone zone = izone.next();
+			Node node = m_graph.findNode( 	Consts.LABEL_ACCESSORY, 
+											Consts.UID, 
+											_uid );
+			
+			// if the node was found
+			if (null != node) {
 				
-				// iterate in room
-				Iterator<Room> iroom = zone.getRooms().iterator();
-				while(iroom.hasNext() && false == found){
-					Room room = iroom.next();
-					
-					// uid
-					if(false == _accessory.getUid().isEmpty()){
-						accessory =   room.getAccessories()
-										.stream()
-										.filter( a -> a.getUid().equalsIgnoreCase(_accessory.getUid()) )
-										.findFirst();
-						if(accessory.isPresent()){
+				// find the room where this accessory is added.
+				Iterator<Relationship> relations = node.getRelationships(Consts.RelTypes.CONTAINS, Direction.INCOMING).iterator();
+				boolean found = false;
+				
+				while (relations.hasNext() && found == false) {
+					Relationship relation = relations.next();
+					if (relation.getStartNode().hasLabel(Consts.LABEL_ROOM)) {
+						try {
 							found = true;
-							ret_room = room;
+							ret = DataManagerFactory.buildRoom(m_graph, node);
+						}
+						catch (Exception e) {
+							m_logger.error(e.getMessage());
+							StdOutErrLog.tieSystemOutAndErrToLog();
+							e.printStackTrace();
 						}
 					}
-					else{
-						// serial number
-						if(false == _accessory.getSerialnumber().isEmpty()){
-							accessory = room.getAccessories()
-											.stream()
-											.filter( a -> a.getSerialnumber().equalsIgnoreCase(_accessory.getSerialnumber()) )
-											.findFirst();
-							if(accessory.isPresent()){
-								found = true;
-								ret_room = room;
-							}
-						}
-						else{
-							// label
-							if(false == _accessory.getLabel().isEmpty()){
-								accessory = room.getAccessories()
-												.stream()
-												.filter( a -> a.getLabel().equalsIgnoreCase(_accessory.getLabel()) )
-												.findFirst();
-								if(accessory.isPresent()){
-									found = true;
-									ret_room = room;
-								}
-							}
-						} // ELSE: Nothing else to found.
-					}// ENDIF
-				}// WHILE: Rooms
-			}// WHILE: Zones
-		}// WHILE: Homes
+				}
+			}
+			
+			tx.success();
+		}
 		
-		return ret_room;
+		return ret;
 	}
 	
 	
 	/**
-	 * Find the accessory with this uid, label or serial number in the environment.
+	 * Find the accessory by uid.
 	 * 
-	 * @param _accessory Accessory to be found.
-	 * @return Accessory if found. Null if not found.
+	 * @param _uid Uid to be found.
+	 * @return Accessory or null if not found.
 	 */
-	public Accessory findAccessory(Accessory _accessory){
-		Optional<Accessory> ret_acc = null;
+	public Accessory findAccessoryByUid(String _uid){
+		Accessory ret = null;
 		
-		boolean found = false;
-		
-		// iterate in home
-		Iterator<Home> ihome = m_data.getHomes().iterator();
-		while(ihome.hasNext() && false == found){
-			Home home = ihome.next();
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
 			
-			// iterate in zone
-			Iterator<Zone> izone = home.getZones().iterator();
-			while(izone.hasNext() && false == found){
-				Zone zone = izone.next();
+			Node node = m_graph.findNode( 	Consts.LABEL_ACCESSORY, 
+											Consts.UID, 
+											_uid );
+			
+			// if the node was found
+			if (null != node) {
 				
-				// iterate in room
-				Iterator<Room> iroom = zone.getRooms().iterator();
-				while(iroom.hasNext() && false == found){
-					Room room = iroom.next();
-					
-					// uid
-					if(false == _accessory.getUid().isEmpty()){
-						ret_acc =   room.getAccessories()
-										.stream()
-										.filter( a -> a.getUid().equalsIgnoreCase(_accessory.getUid()) )
-										.findFirst();
-						if(ret_acc.isPresent())
-							found = true;
-					}
-					else{
-						// serial number
-						if(false == _accessory.getSerialnumber().isEmpty()){
-							ret_acc =   room.getAccessories()
-											.stream()
-											.filter( a -> a.getSerialnumber().equalsIgnoreCase(_accessory.getSerialnumber()) )
-											.findFirst();
-							if(ret_acc.isPresent())
-								found = true;
-						}
-						else{
-							// label
-							if(false == _accessory.getLabel().isEmpty()){
-								ret_acc =   room.getAccessories()
-												.stream()
-												.filter( a -> a.getLabel().equalsIgnoreCase(_accessory.getLabel()) )
-												.findFirst();
-								if(ret_acc.isPresent())
-									found = true;
-							}
-						} // ELSE: Nothing else to found.
-					}// ENDIF
-				}// WHILE: Rooms
-			}// WHILE: Zones
-		}// WHILE: Homes
+				try {
+					ret = DataManagerFactory.buildAccessory(m_graph, node);
+				}
+				catch (Exception e) {
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+			}
+			
+			tx.success();
+		}
 		
-		if(null != ret_acc && ret_acc.isPresent())
-			return ret_acc.get();
-		else
-			return null;
+		return ret;
+	}
+	
+	/**
+	 * Find the accessory by serial number.
+	 * 
+	 * @param _serial_number Serial number to be found.
+	 * @return Accessory or null if not found.
+	 */
+	public Accessory findAccessoryBySerialNumber(String _serial_number){
+		Accessory ret = null;
+		
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
+			
+			Node node = m_graph.findNode( 	Consts.LABEL_ACCESSORY, 
+											Consts.ACCESSORY_SERIALNUMBER, 
+											_serial_number );
+			
+			// if the node was found
+			if (null != node) {
+				
+				try {
+					ret = DataManagerFactory.buildAccessory(m_graph, node);
+				}
+				catch (Exception e) {
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+			}
+			
+			tx.success();
+		}
+		
+		return ret;
 	}
 }

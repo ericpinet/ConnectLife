@@ -10,7 +10,6 @@ package com.connectlife.coreserver.environment;
 
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
-import com.connectlife.coreserver.environment.find.FindProcessor;
 
 /**
  * Context for the execution of commands in the environment.
@@ -41,10 +40,4 @@ public interface EnvironmentContext {
 	 */
 	public DeviceManager getDeviceManager();
 	
-	/**
-	 * Return the find processor of the context.
-	 * 
-	 * @return Find processor for the context.
-	 */
-	public FindProcessor getFindProcessorReadWrite();
 }

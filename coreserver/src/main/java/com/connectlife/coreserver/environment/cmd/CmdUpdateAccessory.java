@@ -1,5 +1,5 @@
 /**
- *  CmdRegisterAccessory.java
+ *  CmdUpdateAccessory.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-03-28.
@@ -16,19 +16,20 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
- * Command to register a accessory in the environment.
+ * Command to update a accessory in the environment.
  * 
  * @author ericpinet
  * <br> 2016-03-28
  */
-public class CmdRegisterAccessory extends CmdDefault {
+public class CmdUpdateAccessory extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdRegisterAccessory.class);
+	private static Logger m_logger = LogManager.getLogger(CmdUpdateAccessory.class);
 	
 	/**
 	 * Person to add in the environment.
@@ -40,7 +41,7 @@ public class CmdRegisterAccessory extends CmdDefault {
 	 *  
 	 * @param _accessory Accessory to register in the environment.
 	 */
-	public CmdRegisterAccessory (Accessory _accessory){
+	public CmdUpdateAccessory (Accessory _accessory){
 		m_accessory = _accessory;
 	}
 	
@@ -57,8 +58,8 @@ public class CmdRegisterAccessory extends CmdDefault {
 		
 		// check the accessory
 		if (null == m_accessory) {
-			m_logger.error("Error! It's not possible to register null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to register null accessory in the environment.");
+			m_logger.error("Error! It's not possible to update null accessory in the environment.");
+			throw new Exception ("Error! It's not possible to update null accessory in the environment.");
 		}
 		
 		// get the graph data
@@ -72,10 +73,19 @@ public class CmdRegisterAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			if (null != node_acc) {
-				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, true);
 				
-				// set the data change
-				this.m_data_is_changed = true;
+				// the accessory must be already register before update
+				if (true == node_acc.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true")) {
+				
+					// ensure that the data update will not change the register status
+					m_accessory.setRegister(true); 
+					
+					// Update the data in the graph
+					DataManagerNodeFactory.updateAccessoryNode(graph, node_acc, m_accessory);
+				
+					// set the data change
+					this.m_data_is_changed = true;
+				}
 			}
 			
 			tx.success();

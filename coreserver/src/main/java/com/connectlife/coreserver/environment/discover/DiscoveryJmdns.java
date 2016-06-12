@@ -173,14 +173,21 @@ public class DiscoveryJmdns implements DiscoveryService {
 	
 	/**
 	 * Add a new listner on the discovery manager.
+	 * 
 	 * @param _listner Listener that will be receive the notification.
 	 */
 	public void addListner(DiscoveryListner _listner){
-		m_listners.add(_listner);
+		if (null != _listner) {
+			m_listners.add(_listner);
+		}
+		else{
+			m_logger.warn("Can not add a null listner.");
+		}
 	}
 	
 	/**
 	 * Inform all listners of new ServiceDiscover
+	 * 
 	 * @param _service ServiceEvent described the service discovered.
 	 */
 	private void informListerServiceDiscover(ServiceEvent _service){

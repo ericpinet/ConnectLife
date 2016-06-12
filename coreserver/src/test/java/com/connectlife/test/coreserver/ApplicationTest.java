@@ -11,16 +11,31 @@ package com.connectlife.test.coreserver;
 
 // external
 import static org.junit.Assert.*;
+
+import javax.jmdns.JmDNS;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.easymock.PowerMock;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import java.lang.System;
 
 // internal
 import com.connectlife.coreserver.Application;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Application.class)
+@PowerMockIgnore("javax.management.*")
 
 /**
  * 
@@ -59,7 +74,44 @@ public class ApplicationTest {
 	}
 	
 	@Test
+	public void accessorTest() {
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
+		final Application app = injector.getInstance(Application.class);
+		
+		assertNotNull(app.getApi());
+		assertNull(app.getBasePath());
+		assertNotNull(app.getConfig());
+		assertNotNull(app.getConsole());
+		assertNotNull(app.getEnvironment());
+	}
+	
+	@Test
 	public void startupTest() {
+		Injector injector = Guice.createInjector(new ApplicationInjectTest());
+		final Application app = injector.getInstance(Application.class);
+		
+		Thread test_thread = new Thread(new Runnable() {
+	         public void run()
+	         {
+	        	 app.startup();
+	         }
+		});
+		test_thread.start();
+		
+		int maxtry = 100;
+		int trying = 0;
+		while(app.isRunning() == false && trying < maxtry){
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {}
+			trying++;
+		}
+		
+		assertTrue(app.isRunning());
+	}
+	
+	@Test
+	public void startupFailTest() {
 		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		final Application app = injector.getInstance(Application.class);
 		

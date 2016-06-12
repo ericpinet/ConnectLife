@@ -10,11 +10,15 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
+import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
-import com.connectlife.coreserver.environment.find.FindProcessor;
+import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
  * Command to add a new accessory in the environment.
@@ -61,9 +65,6 @@ public class CmdAddAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// Get the find processor
-		FindProcessor find = m_context.getFindProcessorReadWrite();
-		
 		// check the accessory to add in the environment
 		if( null == m_accessory ){
 			m_logger.error("Error! It's not possible to add null accessory in the environment.");
@@ -74,35 +75,52 @@ public class CmdAddAccessory extends CmdDefault {
 			m_logger.error("Error! It's not possible to add a accessory with a UID.");
 			throw new Exception ("Error! It's not possible to add a accessory with a UID.");
 		}
+		
+		// get the graph data
+		GraphDatabaseService graph = m_context.getDataManager().getGraph();
+		
+		// begin transaction
+		try ( Transaction tx = graph.beginTx() ) {
+			
+			// find the accessory by the serial number.
+			Node node_acc = graph.findNode( Consts.LABEL_ACCESSORY, 
+											Consts.ACCESSORY_SERIALNUMBER, 
+											m_accessory.getSerialnumber() );
+			
+			Node node_room = graph.findNode( Consts.LABEL_ROOM, 
+											 Consts.UID, 
+											 m_room.getUid() );
+			
+			// check if accessory wasn't present in environment
+			if (null == node_acc) {
 				
-		// check if the accessory is already added in a room
-		// find the accessory by the serial number.
-		Accessory accessory = find.findAccessory(m_accessory);
-		if(null == accessory){
-			// the accessory isn't added
-			// we can add it in the room
-			Room room = find.findRoom(m_room);
-			if(null != room){
-
-				// add the accessory and set a UID.
-				m_accessory.setUid(UIDGenerator.getUID());
-				
-				// Adding the accessory in the room.
-				room.getAccessories().add(m_accessory);
-				
-				// force all device to try again a synchronization
-				m_context.getDeviceManager().forceSynchronizationOfAllDevices();
-				
-				// set the data change
-				this.m_data_is_changed = true;
+				// check if room exist
+				if (null != node_room) {
+					
+					// create the uid for the accessory
+					m_accessory.setUid(UIDGenerator.getUID());
+					
+					// build accessory node
+					Node node = DataManagerNodeFactory.buildAccessoryNode(graph, m_accessory);
+					
+					// create relationship
+					node_room.createRelationshipTo(node, Consts.RelTypes.CONTAINS);
+					
+					// set the data change
+					this.m_data_is_changed = true;
+					
+				}
+				else {
+					m_logger.error("Room not found ." + m_room.toString());
+					throw new Exception("Room not found. " + m_room.toString());
+				}
 			}
 			else{
-				throw new Exception("Room not found.");
+				m_logger.error("Accessory was already added in a room. Remove the accessory before try again."+m_accessory.toString());
+				throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
 			}
-		}
-		else{
-			// the acessory was already added in a room
-			throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
+			
+			tx.success();
 		}
 		
 		m_logger.info("Execution completed.");

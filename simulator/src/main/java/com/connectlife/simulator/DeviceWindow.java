@@ -52,14 +52,13 @@ public class DeviceWindow extends Dialog {
 	protected Object result;
 	protected Shell shlDevices;
 	private org.eclipse.swt.widgets.List list;
-	private Text textUid;
 	private Text textLabel;
 	private Text textManufacturer;
 	private Text textModel;
 	private Text textSerialNumber;
-	private Text textSetupInRoom;
 	private List<Device> devices;
 	private Composite composite;
+	private Button btnApply;
 
 	/**
 	 * Create the dialog.
@@ -106,13 +105,8 @@ public class DeviceWindow extends Dialog {
 		      }
 		});
 		list.setSize(150, 200);
-		
-		Label lblUid = new Label(shlDevices, SWT.NONE);
-		lblUid.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblUid.setText("UID :");
-		
-		textUid = new Text(shlDevices, SWT.BORDER);
-		textUid.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		new Label(shlDevices, SWT.NONE);
+		new Label(shlDevices, SWT.NONE);
 		
 		Label lblLabel = new Label(shlDevices, SWT.NONE);
 		lblLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
@@ -155,14 +149,16 @@ public class DeviceWindow extends Dialog {
 		});
 		btnAdd.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnAdd.setText("Add");
+		new Label(shlDevices, SWT.NONE);
 		
-		Label lblSetupInRoom = new Label(shlDevices, SWT.NONE);
-		lblSetupInRoom.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		lblSetupInRoom.setAlignment(SWT.RIGHT);
-		lblSetupInRoom.setText("Setup in room :");
-		
-		textSetupInRoom = new Text(shlDevices, SWT.BORDER);
-		textSetupInRoom.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		btnApply = new Button(shlDevices, SWT.NONE);
+		btnApply.setText("Apply");
+		btnApply.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseUp(MouseEvent e) {
+				// TODO
+			}
+		});
 		
 		Button btnDel = new Button(shlDevices, SWT.NONE);
 		btnDel.addMouseListener(new MouseAdapter() {
@@ -173,7 +169,8 @@ public class DeviceWindow extends Dialog {
 		btnDel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		btnDel.setText("Del");
 		
-		new Label(shlDevices, SWT.SEPARATOR | SWT.HORIZONTAL);
+		new Label(shlDevices, SWT.NONE);
+		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
 		new Label(shlDevices, SWT.NONE);
@@ -191,6 +188,11 @@ public class DeviceWindow extends Dialog {
 		refreshDeviceList();
 	}
 	
+	public void UpdateData(List<Device> _devices){
+		devices = _devices;
+		refreshDeviceList();
+	}
+	
 
 	
 	/**
@@ -204,9 +206,6 @@ public class DeviceWindow extends Dialog {
 			Device device = it.next();
 			list.add(device.getLabel() + " " + device.getSerialnumber());
 		}
-		
-		// remove all information
-		this.textUid.setText("");
 	}
 	
 	/**
@@ -214,7 +213,6 @@ public class DeviceWindow extends Dialog {
 	 */
 	private void updateDeviceInformation(){
 		// remove all information
-		this.textUid.setText("");
 		this.textLabel.setText("");
 		this.textManufacturer.setText("");
 		this.textModel.setText("");
@@ -225,7 +223,6 @@ public class DeviceWindow extends Dialog {
 		if(selected_idx>=0){
 			// show information for the current selected device
 			Device device = devices.get(selected_idx);
-			this.textUid.setText(device.getUid());
 			this.textLabel.setText(device.getLabel());
 			this.textManufacturer.setText(device.getManufacturer());
 			this.textModel.setText(device.getModel());

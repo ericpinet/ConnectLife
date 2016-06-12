@@ -9,6 +9,7 @@
 package com.clapi.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -215,7 +216,27 @@ public class Person implements DataObj {
 	 */
 	public void addEmails(Email email) {
 		this.emails.add(email);
+	}
+	
+	/**
+	 * Update the mail.
+	 * 
+	 * @param email Email object at update.
+	 */
+	public void updateEmail(Email email)
+	{
+		boolean found = false;
+		Iterator<Email> it = emails.iterator();
 		
+		while(it.hasNext() && found == false){
+			
+			Email aemail = it.next();
+			if(aemail.getUid().equals(email.getUid())){
+				found = true;
+				aemail.setEmail(email.getEmail());
+				aemail.setType(email.getType());
+			}
+		}
 	}
 
 	/**
