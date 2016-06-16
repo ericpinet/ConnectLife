@@ -9,6 +9,7 @@
 package com.connectlife.coreserver.environment.cmd;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Characteristic;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
 
@@ -73,6 +74,17 @@ public class CmdFactory {
 	 */
 	static public CmdUpdateAccessory getCmdUpdateAccesssory(Accessory _accessory){
 		return new CmdUpdateAccessory(_accessory);
+	}
+	
+	/**
+	 * Return the CmdCharacteristicWrite.
+	 * 
+	 * @param _characteristic Characteristic
+	 * @param _target_value Target value of the characteristic
+	 * @return Return the CmdCharacteristicWrite
+	 */
+	static public CmdCharacteristicWrite getCmdCharacteristicWrite(Characteristic _characteristic, Characteristic _target_value){
+		return new CmdCharacteristicWrite(_characteristic, _target_value);
 	}
 	
 }
