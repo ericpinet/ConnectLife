@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Transaction;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -212,7 +213,7 @@ public class CmdAddAccessoryTest {
 	/**
 	 * Test without uid set in accessory already added
 	 */
-	/*@Test
+	@Test
 	public void testComplete() {
 		
 		EnvironmentContext context = Mockito.mock(EnvironmentContext.class);
@@ -220,6 +221,7 @@ public class CmdAddAccessoryTest {
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Node node = Mockito.mock(Node.class);
 		Node acc = Mockito.mock(Node.class);
+		Transaction tx = Mockito.mock(Transaction.class);
 		
 		PowerMockito.mockStatic(DataManagerNodeFactory.class);
 		try {
@@ -230,11 +232,14 @@ public class CmdAddAccessoryTest {
 
 		Mockito.when(context.getDataManager()).thenReturn(datamanager);
 		Mockito.when(graph.findNode(Consts.LABEL_ROOM, Consts.UID, "12345")).thenReturn(node);
+		Mockito.when(graph.beginTx()).thenReturn(tx);
 		try {
 			Mockito.when(datamanager.getGraph()).thenReturn(graph);
 		} catch (Exception e1) {
 			fail();
 		}
+		
+		Mockito.doNothing().when(tx).success();
 		
 		Accessory accessory = new Accessory("", "Label");
 		Room room = new Room("12345", "Label");
@@ -248,5 +253,5 @@ public class CmdAddAccessoryTest {
 		} catch (Exception e) {
 			fail();
 		}
-	}*/
+	}
 }
