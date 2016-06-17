@@ -1,5 +1,5 @@
 /**
- *  CmdUnregisterAccessoryTest.java
+ *  CmdUpdateAccessoryTest.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-06-16.
@@ -23,7 +23,7 @@ import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.EnvironmentContext;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
-import com.connectlife.coreserver.environment.cmd.CmdUnregisterAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdUpdateAccessory;
 import com.connectlife.coreserver.environment.data.DataManager;
 
 /**
@@ -32,7 +32,7 @@ import com.connectlife.coreserver.environment.data.DataManager;
  * @author ericpinet
  * <br> 2016-06-16
  */
-public class CmdUnregisterAccessoryTest {
+public class CmdUpdateAccessoryTest {
 
 	/**
 	 * @throws java.lang.Exception
@@ -65,7 +65,7 @@ public class CmdUnregisterAccessoryTest {
 	@Test
 	public void testNullAccessory() {
 		
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(null);
+		CmdUpdateAccessory cmd = CmdFactory.getCmdUpdateAccesssory(null);
 
 		try {
 			cmd.execute();
@@ -79,7 +79,7 @@ public class CmdUnregisterAccessoryTest {
 	public void testGetAccessory() {
 		
 		Accessory accessory = new Accessory(null, null, null, null, "12345", null, null, null, null);
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(accessory);
+		CmdUpdateAccessory cmd = CmdFactory.getCmdUpdateAccesssory(accessory);
 
 		assertTrue(accessory == cmd.getAccessory());
 	}
@@ -105,7 +105,7 @@ public class CmdUnregisterAccessoryTest {
 			fail();
 		}
 		
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(accessory);
+		CmdUpdateAccessory cmd = CmdFactory.getCmdUpdateAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {
@@ -137,7 +137,7 @@ public class CmdUnregisterAccessoryTest {
 			fail();
 		}
 		
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(accessory);
+		CmdUpdateAccessory cmd = CmdFactory.getCmdUpdateAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {
