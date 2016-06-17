@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import com.connectlife.coreserver.environment.EnvironmentContext;
 import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
+import com.connectlife.coreserver.environment.cmd.CmdDefault;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 
 public class CmdDefaultTest {
@@ -92,9 +93,8 @@ public class CmdDefaultTest {
 	@Test
 	public void testExecute() {
 		
-		CmdAddAccessory cmd = CmdFactory.getCmdAddAccesssory(null, null);
-		cmd.setContext(null);
-
+		CmdDefault cmd = Mockito.mock(CmdDefault.class, Mockito.CALLS_REAL_METHODS);
+		
 		try {
 			cmd.execute();
 			fail();
