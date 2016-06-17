@@ -96,7 +96,7 @@ public class CmdUnregisterAccessoryTest {
 			fail();
 		}
 		
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(null);
+		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {
@@ -128,7 +128,7 @@ public class CmdUnregisterAccessoryTest {
 			fail();
 		}
 		
-		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(null);
+		CmdUnregisterAccessory cmd = CmdFactory.getCmdUnregisterAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {

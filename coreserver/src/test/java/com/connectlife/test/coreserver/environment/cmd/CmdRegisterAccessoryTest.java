@@ -76,6 +76,15 @@ public class CmdRegisterAccessoryTest {
 	}
 	
 	@Test
+	public void testGetAccessory() {
+		
+		Accessory accessory = new Accessory(null, null, null, null, "12345", null, null, null, null);
+		CmdRegisterAccessory cmd = CmdFactory.getCmdRegisterAccesssory(accessory);
+
+		assertTrue(accessory == cmd.getAccessory());
+	}
+	
+	@Test
 	public void testDontFindAccessory() {
 		
 		EnvironmentContext context = Mockito.mock(EnvironmentContext.class);
@@ -96,7 +105,7 @@ public class CmdRegisterAccessoryTest {
 			fail();
 		}
 		
-		CmdRegisterAccessory cmd = CmdFactory.getCmdRegisterAccesssory(null);
+		CmdRegisterAccessory cmd = CmdFactory.getCmdRegisterAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {
@@ -128,7 +137,7 @@ public class CmdRegisterAccessoryTest {
 			fail();
 		}
 		
-		CmdRegisterAccessory cmd = CmdFactory.getCmdRegisterAccesssory(null);
+		CmdRegisterAccessory cmd = CmdFactory.getCmdRegisterAccesssory(accessory);
 		cmd.setContext(context);
 		
 		try {

@@ -118,7 +118,7 @@ public class CmdAddPersonTest {
 			fail();
 		}
 		
-		CmdAddPerson cmd = CmdFactory.getCmdAddPerson(new Person("12345","","",""));
+		CmdAddPerson cmd = CmdFactory.getCmdAddPerson(new Person("","","",""));
 
 		try {
 			cmd.execute();
