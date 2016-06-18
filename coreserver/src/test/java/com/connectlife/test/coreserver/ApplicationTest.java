@@ -16,6 +16,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -23,6 +24,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 // internal
 import com.connectlife.coreserver.Application;
@@ -31,7 +33,7 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Guice.class)
+@PrepareForTest({Guice.class, Application.class})
 @PowerMockIgnore("javax.management.*")
 
 /**
@@ -42,6 +44,9 @@ import com.google.inject.Injector;
  */
 public class ApplicationTest {
 
+	@Rule
+    public final ExpectedSystemExit exit = ExpectedSystemExit.none();
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -92,6 +97,29 @@ public class ApplicationTest {
 		} catch (Exception e) {
 			fail();
 		}
+		
+		exit.expectSystemExitWithStatus(0);
+		
+		Application.main(null);
+	}
+	
+	@Test
+	public void mainTest() {
+		
+		PowerMockito.mockStatic(Guice.class);
+		
+		Injector injector = Mockito.mock(Injector.class);
+		Application app = Mockito.mock(Application.class);
+			
+		try {
+			Mockito.when(Guice.createInjector(Mockito.any(ApplicationInject.class))).thenReturn(injector);
+			Mockito.when(injector.getInstance(Application.class)).thenReturn(app);
+			Mockito.doNothing().when(app).startup();
+		} catch (Exception e) {
+			fail();
+		}
+		
+		exit.expectSystemExitWithStatus(0);
 		
 		Application.main(null);
 	}

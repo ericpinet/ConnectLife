@@ -105,13 +105,14 @@ public class Application implements Observer{
 		
 		try {
 			app.startup();
-			System.exit(0);
 			
 		} catch (Exception e) {
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
+		
+		System.exit(0);
 	}
 	
 	/**
