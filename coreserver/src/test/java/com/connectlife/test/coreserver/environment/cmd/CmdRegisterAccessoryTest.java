@@ -17,6 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.neo4j.graphdb.GraphDatabaseService;
+import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
@@ -117,18 +118,19 @@ public class CmdRegisterAccessoryTest {
 	}
 	
 	@Test
-	public void testDontFind() {
+	public void testComplete() {
 		
 		EnvironmentContext context = Mockito.mock(EnvironmentContext.class);
 		DataManager datamanager = Mockito.mock(DataManager.class);
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Transaction tx = Mockito.mock(Transaction.class);
+		Node node = Mockito.mock(Node.class);
 		
 		Accessory accessory = new Accessory(null, null, null, null, "12345", null, null, null, null);
 		
 		try {
 			Mockito.when(context.getDataManager()).thenReturn(datamanager);
-			Mockito.when(graph.findNode(Consts.LABEL_ACCESSORY, Consts.ACCESSORY_SERIALNUMBER, accessory.getSerialnumber())).thenReturn(null);
+			Mockito.when(graph.findNode(Consts.LABEL_ACCESSORY, Consts.ACCESSORY_SERIALNUMBER, accessory.getSerialnumber())).thenReturn(node);
 			Mockito.when(graph.beginTx()).thenReturn(tx);
 			Mockito.when(datamanager.getGraph()).thenReturn(graph);
 			Mockito.doNothing().when(tx).success();
@@ -142,9 +144,9 @@ public class CmdRegisterAccessoryTest {
 		
 		try {
 			cmd.execute();
-			fail();
+			
 		} catch (Exception e) {
-			assertNotNull(e);
+			fail();
 		}
 	}
 

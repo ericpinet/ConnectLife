@@ -119,12 +119,12 @@ public class CmdAddPersonTest {
 		}
 		
 		CmdAddPerson cmd = CmdFactory.getCmdAddPerson(new Person("","","",""));
-
+		cmd.setContext(context);
 		try {
 			cmd.execute();
-			fail();
+			
 		} catch (Exception e) {
-			assertNotNull(e);
+			fail();
 		}
 	}
 	

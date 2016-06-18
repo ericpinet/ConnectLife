@@ -19,11 +19,7 @@ import com.clapi.data.Room;
  * @author ericpinet
  * <br> 2016-03-28
  */
-public class CmdFactory {
-
-	private CmdFactory(){
-		
-	}
+public abstract class CmdFactory {
 	
 	/**
 	 * Return the CmdAddPerson. 
