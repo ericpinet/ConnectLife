@@ -18,17 +18,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 // internal
 import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.ApplicationInject;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Application.class)
+@PrepareForTest(Guice.class)
 @PowerMockIgnore("javax.management.*")
 
 /**
@@ -68,6 +71,32 @@ public class ApplicationTest {
 	}
 	
 	@Test
+	public void injectTest() {
+		Injector injector = Guice.createInjector(new ApplicationInject());
+		Application app = injector.getInstance(Application.class);
+		assertNotNull(app);
+	}
+	
+	@Test
+	public void mainExceptionTest() {
+		
+		PowerMockito.mockStatic(Guice.class);
+		
+		Injector injector = Mockito.mock(Injector.class);
+		Application app = Mockito.mock(Application.class);
+			
+		try {
+			Mockito.when(Guice.createInjector(Mockito.any(ApplicationInject.class))).thenReturn(injector);
+			Mockito.when(injector.getInstance(Application.class)).thenReturn(app);
+			Mockito.doThrow(new Exception()).when(app).startup();
+		} catch (Exception e) {
+			fail();
+		}
+		
+		Application.main(null);
+	}
+	
+	@Test
 	public void accessorTest() {
 		Injector injector = Guice.createInjector(new ApplicationInjectTest());
 		final Application app = injector.getInstance(Application.class);
@@ -87,7 +116,10 @@ public class ApplicationTest {
 		Thread test_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test_thread.start();
@@ -112,7 +144,10 @@ public class ApplicationTest {
 		Thread test_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test_thread.start();
@@ -137,7 +172,10 @@ public class ApplicationTest {
 		Thread test_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test_thread.start();
@@ -179,7 +217,10 @@ public class ApplicationTest {
 		Thread test_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test_thread.start();
@@ -206,7 +247,10 @@ public class ApplicationTest {
 		Thread test_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test_thread.start();
@@ -223,7 +267,10 @@ public class ApplicationTest {
 		Thread test2_thread = new Thread(new Runnable() {
 	         public void run()
 	         {
-	        	 app.startup();
+	        	 try{
+	        		 app.startup();
+	        	 }catch(Exception e){
+	        	 }
 	         }
 		});
 		test2_thread.start();
