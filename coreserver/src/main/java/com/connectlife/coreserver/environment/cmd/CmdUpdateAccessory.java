@@ -87,6 +87,10 @@ public class CmdUpdateAccessory extends CmdDefault {
 					this.m_data_is_changed = true;
 				}
 			}
+			else {
+				m_logger.error("Accessory not found. " + m_accessory.toString());
+				throw new Exception("Accessory not found. " + m_accessory.toString());
+			}
 			
 			tx.success();
 		}

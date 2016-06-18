@@ -85,7 +85,7 @@ public abstract class FindProcessor {
 	 * @param _uid Uid to find 
 	 * @return Room or null if not found.
 	 */
-	public Room findRoom(String _uid){
+	public Room findRoomByUid(String _uid){
 		
 		Room ret = null;
 		

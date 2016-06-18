@@ -324,8 +324,10 @@ public class Application implements Observer{
 	/**
 	 * Startup the application process.
 	 * This function block until a shutdown as called.
+	 * 
+	 * @throws Exception If something goes wrong.
 	 */
-	public void startup() {
+	public void startup() throws Exception {
 		
 		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
 		
