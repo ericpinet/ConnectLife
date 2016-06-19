@@ -38,6 +38,8 @@ import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 
 /**
  * Main window of the simulator application.
@@ -65,6 +67,7 @@ public class MainWindow implements NotificationListener {
 	private static final String HOST = "127.0.0.1";
 	
 	private static final String PORT = "9006";
+	private Text textNbClients;
 	
 	/**
 	 * Start Person window.
@@ -170,7 +173,7 @@ public class MainWindow implements NotificationListener {
 				}
 			}
 		});
-		shell.setSize(328, 291);
+		shell.setSize(328, 378);
 		shell.setText("ConnectLife - Simulator");
 		shell.setLayout(new GridLayout(2, false));
 		new Label(shell, SWT.NONE);
@@ -211,7 +214,9 @@ public class MainWindow implements NotificationListener {
 			}
 		});
 		btnDisconnect.setText("Disconnect");
-		new Label(shell, SWT.NONE);
+		
+		Label lblStatus_1 = new Label(shell, SWT.NONE);
+		lblStatus_1.setText("Status:");
 		
 		lblStatus = new Label(shell, SWT.NONE);
 		lblStatus.setAlignment(SWT.CENTER);
@@ -246,7 +251,72 @@ public class MainWindow implements NotificationListener {
 		lblDevice.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
 		lblDevice.setText("No device");
 		
+		Label lblTestChargeConnexion = new Label(shell, SWT.NONE);
+		lblTestChargeConnexion.setText("Load test");
 		
+		Button btnRunConnectdisconnect = new Button(shell, SWT.NONE);
+		btnRunConnectdisconnect.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				loadTest();
+			}
+		});
+		btnRunConnectdisconnect.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+		btnRunConnectdisconnect.setText("Run Connect/Disconnect");
+		
+		Label lblNumberClients = new Label(shell, SWT.NONE);
+		lblNumberClients.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+		lblNumberClients.setText("Number clients");
+		
+		textNbClients = new Text(shell, SWT.BORDER);
+		textNbClients.setText("100");
+		textNbClients.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		
+		
+	}
+	
+	/**
+	 * Run a load test
+	 */
+	protected void loadTest() {
+		
+		int nbclient = 100;
+		try {
+			nbclient = Integer.parseInt(textNbClients.getText());
+		}
+		catch (NumberFormatException e) {
+			nbclient = 100;
+			m_logger.error("Wrong value in nb clients text field.");
+		}
+		
+		Vector<CLApiClient> clients = new Vector<CLApiClient>();
+		
+		// connect loop
+		for (int i=0 ; i<nbclient ; i++) {
+			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
+			m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
+			client.checkCompatibility();
+			client.getJsonData();
+			clients.addElement(client);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+			}
+		}
+		
+		// disconnect loop
+		for (int i=0 ; i<nbclient ; i++) {
+			CLApiClient client = clients.elementAt(i);
+			m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
+			client.checkCompatibility();
+			client.getJsonData();
+			try {
+				client.shutdown();
+				Thread.sleep(10);
+			} catch (InterruptedException e1) {
+
+			}
+		}
 	}
 	
 	/**
@@ -264,7 +334,7 @@ public class MainWindow implements NotificationListener {
 			client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
 			
 			m_logger.info( "Get server version : " + client.getVersion() );
-			m_logger.info( "check compatibility with the server : " + client.checkCompatibility() );
+			m_logger.info( "Check compatibility with the server : " + client.checkCompatibility() );
 			
 			String json_data = client.getJsonData();
 			Gson gson = new Gson();
