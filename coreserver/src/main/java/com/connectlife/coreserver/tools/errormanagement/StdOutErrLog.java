@@ -34,7 +34,7 @@ import com.connectlife.coreserver.Application;
  * @author ericpinet
  * <br> 2015-09-09
  */
-public class StdOutErrLog {
+public abstract class StdOutErrLog {
 	
 	/**
 	 * Init logger instance for this class

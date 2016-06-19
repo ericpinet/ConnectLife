@@ -20,7 +20,7 @@ package com.connectlife.coreserver.tools.os;
  * @author ericpinet
  * <br> 2015-12-13
  */
-public class OperatingSystem {
+public abstract class OperatingSystem {
 
 	/**
 	 * Enum of supported operating system.
