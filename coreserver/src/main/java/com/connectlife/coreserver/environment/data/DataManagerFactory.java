@@ -62,8 +62,8 @@ public abstract class DataManagerFactory {
 				while (ipersons.hasNext()) {
 					Node person = ipersons.next();					
 					persons.add(buildPerson(_graph, person));
-					ret_data.setPersons(persons);
 				}
+				ret_data.setPersons(persons);
 				
 				ResourceIterator<Node> ihomes = _graph.findNodes(Consts.LABEL_HOME);
 				Vector<Home> homes = new Vector<Home>();
@@ -71,8 +71,8 @@ public abstract class DataManagerFactory {
 				while (ihomes.hasNext()) {
 					Node home = ihomes.next();
 					homes.add(buildHome(_graph, home));
-					ret_data.setHomes(homes);
 				}
+				ret_data.setHomes(homes);
 				
 				tx.success();
 			}
