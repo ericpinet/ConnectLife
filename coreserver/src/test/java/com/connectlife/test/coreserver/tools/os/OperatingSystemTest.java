@@ -15,9 +15,18 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.connectlife.coreserver.tools.os.OperatingSystem;
 import com.connectlife.coreserver.tools.os.OperatingSystem.OperatingSystemType;
+
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({System.class, OperatingSystem.class})
+@PowerMockIgnore("javax.management.*")
 
 /**
  * 
@@ -54,35 +63,83 @@ public class OperatingSystemTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void testGetOSName() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("windows 7");
+		
+		assertTrue(OperatingSystem.isWindows());
+	}
 
 	@Test
-	public void testGetOS() {
+	public void testGetOSWhenMacOS() {
 		
-		if(System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0){
-			assertTrue(OperatingSystem.getOS() == OperatingSystemType.MACOSX);
-		}
-		else if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
-			assertTrue(OperatingSystem.getOS() == OperatingSystemType.WINDOWS);
-		}
-		else if(System.getProperty("os.name").toLowerCase().indexOf("nux") >= 0){
-			assertTrue(OperatingSystem.getOS() == OperatingSystemType.LINUX);
-		}
-		else{
-			assertTrue(OperatingSystem.getOS() == OperatingSystemType.UNKWOWN);
-		}
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("mac os x", "mac os x");
+		
+		assertTrue(OperatingSystem.getOS() == OperatingSystemType.MACOSX);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.WINDOWS);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.LINUX);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.UNKWOWN);
 	}
 	
 	@Test
-	public void testIsOS() {
-		if(System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0){
-			assertTrue(OperatingSystem.isMacOSX());
-		}
-		else if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
-			assertTrue(OperatingSystem.isWindows());
-		}
-		else if(System.getProperty("os.name").toLowerCase().indexOf("nux") >= 0){
-			assertTrue(OperatingSystem.isLinux());
-		}
+	public void testGetOSWhenWindows() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("windows 7");
+		
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.MACOSX);
+		assertTrue(OperatingSystem.getOS() == OperatingSystemType.WINDOWS);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.LINUX);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.UNKWOWN);
+	}
+	
+	@Test
+	public void testGetOSWhenLinux() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("nux debian");
+		
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.MACOSX);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.WINDOWS);
+		assertTrue(OperatingSystem.getOS() == OperatingSystemType.LINUX);
+		assertFalse(OperatingSystem.getOS() == OperatingSystemType.UNKWOWN);
+	}
+	
+	@Test
+	public void testIsOSWhenMacOS() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("mac os x");
+		
+		assertTrue(OperatingSystem.isMacOSX());
+		assertFalse(OperatingSystem.isWindows());
+		assertFalse(OperatingSystem.isLinux());
+	}
+	
+	@Test
+	public void testIsOSWhenWindows() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("win 7");
+		
+		assertFalse(OperatingSystem.isMacOSX());
+		assertTrue(OperatingSystem.isWindows());
+		assertFalse(OperatingSystem.isLinux());
+	}
+	
+	@Test
+	public void testIsOSWhenLinux() {
+		
+		PowerMockito.mockStatic(System.class);
+		PowerMockito.when(System.getProperty("os.name")).thenReturn("nux debian");
+		
+		assertFalse(OperatingSystem.isMacOSX());
+		assertFalse(OperatingSystem.isWindows());
+		assertTrue(OperatingSystem.isLinux());
 	}
 
 }
