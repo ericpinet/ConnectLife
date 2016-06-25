@@ -41,11 +41,11 @@ public abstract class OperatingSystem {
 	 * @return Type of the currently running m_os_name.
 	 */
 	public static OperatingSystemType getOS() {
-		if (isWindows()) {
+		if (OperatingSystem.isWindows()) {
 			return OperatingSystemType.WINDOWS;
-        } else if (isMacOSX()) {
+        } else if (OperatingSystem.isMacOSX()) {
         	return OperatingSystemType.MACOSX;
-        } else if (isLinux()) {
+        } else if (OperatingSystem.isLinux()) {
         	return OperatingSystemType.LINUX;
         } else {
         	return OperatingSystemType.UNKWOWN;
@@ -54,25 +54,37 @@ public abstract class OperatingSystem {
 	
 	/**
 	 * Check if the current Operating System is Windows.
+	 * 
 	 * @return True if is Windows.
 	 */
 	public static boolean isWindows(){
-		return (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0);
+		return (OperatingSystem.getOSName().toLowerCase().indexOf("win") >= 0);
 	}
 	
 	/**
 	 * Check if the current Operating System is MacOSX.
+	 * 
 	 * @return True if is MacOSX.
 	 */
 	public static boolean isMacOSX(){
-		return (System.getProperty("os.name").toLowerCase().indexOf("mac") >= 0);
+		return (OperatingSystem.getOSName().toLowerCase().indexOf("mac") >= 0);
 	}
 	
 	/**
 	 * Check if the current Operating System is Linux.
+	 * 
 	 * @return True if is Linux.
 	 */
 	public static boolean isLinux(){
-		return (System.getProperty("os.name").toLowerCase().indexOf("nux") >= 0);
+		return (OperatingSystem.getOSName().toLowerCase().indexOf("nux") >= 0);
+	}
+	
+	/**
+	 * Return the OS name.
+	 * 
+	 * @return The OS name.
+	 */
+	public static String getOSName() {
+		return System.getProperty("os.name");
 	}
 }
