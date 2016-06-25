@@ -72,7 +72,7 @@ public class CmdUnregisterAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			if (null != node_acc) {
-				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, false);
+				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, "false");
 				
 				// set the data change
 				this.m_data_is_changed = true;

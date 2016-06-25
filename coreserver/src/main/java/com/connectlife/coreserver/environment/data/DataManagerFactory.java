@@ -430,7 +430,7 @@ public abstract class DataManagerFactory {
 			ret.setModel((String)_node.getProperty(Consts.ACCESSORY_MODEL));
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
 			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
-			ret.setRegister((boolean) _node.getProperty(Consts.ACCESSORY_ISREGISTER));
+			ret.setRegister(_node.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true"));
 			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
 			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {

@@ -77,7 +77,7 @@ public abstract class Device extends Accessory {
 	 * @param imageurl
 	 * @param type
 	 */
-	private Device(String uid, String label, String manufacturer, String model, String serialnumber,
+	protected Device(String uid, String label, String manufacturer, String model, String serialnumber,
 			List<Service> services, String imageurl, AccessoryType type) {
 		super(uid, label, manufacturer, model, serialnumber, services, imageurl, type, AccessoryProtocolType.JSON_SIMULATION); 
 	}
