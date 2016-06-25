@@ -18,9 +18,7 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
-import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.connectlife.coreserver.environment.device.Device;
 
