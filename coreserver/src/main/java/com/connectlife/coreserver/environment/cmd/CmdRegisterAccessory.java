@@ -72,7 +72,7 @@ public class CmdRegisterAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			if (null != node_acc) {
-				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, true);
+				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, "true");
 				
 				// set the data change
 				this.m_data_is_changed = true;

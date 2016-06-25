@@ -29,8 +29,6 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
-import com.clapi.data.Accessory.AccessoryProtocolType;
-import com.clapi.data.Accessory.AccessoryType;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.simulator.device.Device;
@@ -399,7 +397,7 @@ public class MainWindow implements NotificationListener {
 		m_devices.addElement(lightdim);
 		*/
 		// Create the light colored dimmable
-		LightColoredDimmable lightcoldim = new LightColoredDimmable("Light", "Philips", "100w", "PL001-100-10009", "");
+		LightColoredDimmable lightcoldim = new LightColoredDimmable(UIDGenerator.getUID(), "LightColorDim", "Philips", "100w", "PL001-100-10009", "");
 		lightcoldim.startServices();				
 		devices.addElement(lightcoldim);
 		

@@ -8,6 +8,8 @@
  */
 package com.connectlife.coreserver.environment.cmd;
 
+import java.util.Iterator;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -17,8 +19,8 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Consts;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.connectlife.coreserver.environment.device.Device;
 
 /**
  * Command to add a new accessory in the environment.
@@ -97,27 +99,46 @@ public class CmdAddAccessory extends CmdDefault {
 				// check if room exist
 				if (null != node_room) {
 					
-					// create the uid for the accessory
-					m_accessory.setUid(UIDGenerator.getUID());
+					// find accessory in network with device manager
+					Iterator<Device> devices = m_context.getDeviceManager().getDevices().iterator();
+					boolean found = false;
 					
-					// build accessory node
-					Node node = DataManagerNodeFactory.buildAccessoryNode(graph, m_accessory);
+					while (devices.hasNext() && false == found) {
+						Device device = devices.next();
+						if (device.getAccessory().getSerialnumber().equals(m_accessory.getSerialnumber())) {
+							m_accessory = device.getAccessory();
+							found = true;
+						}
+					}
 					
-					// create relationship
-					node_room.createRelationshipTo(node, Consts.RelTypes.CONTAINS);
+					if (found) {
 					
-					// set the data change
-					this.m_data_is_changed = true;
+						// build accessory node
+						Node node = DataManagerNodeFactory.buildAccessoryNode(graph, m_accessory);
+						
+						// create relationship
+						node_room.createRelationshipTo(node, Consts.RelTypes.CONTAINS);
+						
+						// force a synchronization with device
+						m_context.getDeviceManager().forceSynchronizationOfAllDevices();
+						
+						// set the data change
+						this.m_data_is_changed = true;
+					}
+					else {
+						m_logger.error("Accessory isn't found in the network. " + m_accessory.toString());
+						throw new Exception("Accessory isn't found in the network. " + m_accessory.toString());
+					}
 					
 				}
 				else {
-					m_logger.error("Room not found ." + m_room.toString());
+					m_logger.error("Room not found. " + m_room.toString());
 					throw new Exception("Room not found. " + m_room.toString());
 				}
 			}
 			else{
-				m_logger.error("Accessory was already added in a room. Remove the accessory before try again."+m_accessory.toString());
-				throw new Exception("Accessory was already added in a room. Remove the accessory before try again.");
+				m_logger.error("Accessory was already added in a room. Remove the accessory before try again. "+m_accessory.toString());
+				throw new Exception("Accessory was already added in a room. Remove the accessory before try again. "+m_accessory.toString());
 			}
 			
 			tx.success();

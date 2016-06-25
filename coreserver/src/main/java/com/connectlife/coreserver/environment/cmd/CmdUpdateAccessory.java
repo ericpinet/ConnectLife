@@ -78,7 +78,7 @@ public class CmdUpdateAccessory extends CmdDefault {
 				if (true == node_acc.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true")) {
 				
 					// ensure that the data update will not change the register status
-					m_accessory.setRegister(true); 
+					m_accessory.setRegister(true);
 					
 					// Update the data in the graph
 					DataManagerNodeFactory.updateAccessoryNode(graph, node_acc, m_accessory);
