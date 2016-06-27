@@ -394,8 +394,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAccessory(com.clapi.protocol.AddAccessoryRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -423,8 +423,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request.
+	 * @param responseObserver Response.
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override

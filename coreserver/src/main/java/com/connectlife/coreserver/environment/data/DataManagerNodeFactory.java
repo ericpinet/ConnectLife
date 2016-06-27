@@ -729,7 +729,7 @@ public abstract class DataManagerNodeFactory {
 	 * @return true if the node was deleted.
 	 * @throws Exception Throw exception if something goes wrong.
 	 */
-	public static boolean deleteNodeWithChildren(GraphDatabaseService _graph, Label _label, String _uid) {
+	public static boolean deleteNodeWithChildren(GraphDatabaseService _graph, Label _label, String _uid) throws Exception {
 		boolean ret_val = false;
 		
 		try ( Transaction tx = _graph.beginTx() ) {
