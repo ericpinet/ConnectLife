@@ -58,12 +58,8 @@ public class MainWindow implements NotificationListener {
 	private Label lblStatus;
 	private Label lblDevice;
 	private CLApiClient client;
-	private Vector<Device> devices;
 	public static HomeWindow homewindow = null;
-	
-	
 	private static final String HOST = "127.0.0.1";
-	
 	private static final String PORT = "9006";
 	private Text textNbClients;
 	
@@ -77,6 +73,7 @@ public class MainWindow implements NotificationListener {
 		public Person person;
 		public Shell shell;
 		public CLApiClient client;
+		
 		public startPerson(Person _person, Shell _shell, CLApiClient _client){
 			person = _person;
 			shell = _shell;
@@ -97,12 +94,15 @@ public class MainWindow implements NotificationListener {
 	static class startHome implements Runnable{
 		public Home home;
 		public Shell shell;
-		public startHome(Home _home, Shell _shell){
+		public CLApiClient client;
+		
+		public startHome(Home _home, Shell _shell, CLApiClient _client){
 			home = _home;
 			shell = _shell;
+			client = _client;
 		}
 		public void run(){
-			homewindow = new HomeWindow(shell, 0, home);
+			homewindow = new HomeWindow(shell, 0, home, client);
 			homewindow.open();
 		}
 	}
@@ -116,12 +116,14 @@ public class MainWindow implements NotificationListener {
 	static class startAccessory implements Runnable{
 		public List<Device> devices;
 		public Shell shell;
-		public startAccessory(List<Device> _devices, Shell _shell){
-			devices = _devices;
+		public CLApiClient client;
+		
+		public startAccessory(Shell _shell, CLApiClient _client){
 			shell = _shell;
+			client = _client;
 		}
 		public void run(){
-			DeviceWindow accessory = new DeviceWindow(shell, 0, devices);
+			DeviceWindow accessory = new DeviceWindow(shell, 0, client);
 			accessory.open();
 		}
 	}
@@ -160,17 +162,8 @@ public class MainWindow implements NotificationListener {
 	 */
 	protected void createContents() {
 		
-		devices = new Vector<Device>();
 		
 		shell = new Shell();
-		shell.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				Iterator <Device> it = devices.iterator();
-				while(it.hasNext()){
-					it.next().stopServices();
-				}
-			}
-		});
 		shell.setSize(328, 378);
 		shell.setText("ConnectLife - Simulator");
 		shell.setLayout(new GridLayout(2, false));
@@ -237,7 +230,7 @@ public class MainWindow implements NotificationListener {
 		btnDeleteDevices.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				deleteDevices();
+				
 			}
 		});
 		btnDeleteDevices.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -347,7 +340,7 @@ public class MainWindow implements NotificationListener {
 			// open homes
 			Iterator<Home> itrh = env.getHomes().iterator();
 			while(itrh.hasNext()){
-				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
+				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell, client) );
 			}
 			
 			// Client start his listener on the environment change.
@@ -385,39 +378,8 @@ public class MainWindow implements NotificationListener {
 	 * Create devices.
 	 */
 	private void createDevices(){
-		/*
-		// Create the light
-		Light light = new Light("Light", "Philips", "Hue0", "122-1770", "");
-		light.startServices();				
-		m_devices.addElement(light);
-		
-		// Create the light dimmable
-		LightDimmable lightdim = new LightDimmable("LightDim", "Philips", "Hue1", "123-1772", "");
-		lightdim.startServices();				
-		m_devices.addElement(lightdim);
-		*/
-		// Create the light colored dimmable
-		LightColoredDimmable lightcoldim = new LightColoredDimmable(UIDGenerator.getUID(), "LightColorDim", "Philips", "100w", "PL001-100-10009", "");
-		lightcoldim.startServices();				
-		devices.addElement(lightcoldim);
-		
-		lblDevice.setText("Device listen.");
-		
-		// start accessory
-		shell.getDisplay().asyncExec( new startAccessory(devices,  shell) );
-	}
-	
-	/**
-	 * Delete all devices.
-	 */
-	private void deleteDevices(){
-		
-		Iterator <Device> it = devices.iterator();
-		while(it.hasNext()){
-			it.next().stopServices();
-		}
-		devices.removeAllElements();
-		lblDevice.setText("Device stopted.");
+		// start device
+		shell.getDisplay().asyncExec( new startAccessory(shell, client) );
 	}
 	
 	

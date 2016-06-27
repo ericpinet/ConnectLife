@@ -223,7 +223,7 @@ public class ConsoleSSHTest {
 		cmd.getHelp();
 		
 		try {
-			String response = cmd.execute("output env formatted");
+			cmd.execute("output env formatted");
 			
 			//TODO
 			//assertTrue(response != null);

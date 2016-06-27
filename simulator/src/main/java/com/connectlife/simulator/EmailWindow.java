@@ -90,10 +90,10 @@ public class EmailWindow extends Dialog {
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
 					if(emailId < 0){
-						client.AddEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
+						client.addEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
 					}
 					else{
-						client.UpdateEmail(person.getEmails().get(emailId).getUid(), text.getText(), comboType.getSelectionIndex());
+						client.updateEmail(person.getEmails().get(emailId).getUid(), text.getText(), comboType.getSelectionIndex());
 					}
 					shlEmail.close();
 				} catch (Exception e1) {

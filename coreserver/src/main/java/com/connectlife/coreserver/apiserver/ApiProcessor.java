@@ -16,11 +16,15 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.clapi.data.Accessory;
 import com.clapi.data.Person;
+import com.clapi.data.Room;
 import com.clapi.protocol.*;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.coreserver.environment.Environment;
+import com.connectlife.coreserver.environment.cmd.CmdAddAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
+import com.connectlife.coreserver.environment.cmd.CmdDeleteAccessory;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.inject.Inject;
@@ -387,6 +391,63 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAccessory(com.clapi.protocol.AddAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addAccessory(AddAccessoryRequest request, StreamObserver<AddAccessoryResponse> responseObserver) {
+		Accessory accessory = new Accessory(null, null, null, null, request.getSerialnumber(), null, null, null, null);
+		Room room = new Room(request.getUidRoom(), null);
+		AddAccessoryResponse reply = null;
+		try {
+			CmdAddAccessory cmd = CmdFactory.getCmdAddAccesssory(accessory, room);
+			m_environment.executeCommand(cmd);
+			accessory = cmd.getAccessory();
+			reply = AddAccessoryResponse.newBuilder().setUid(accessory.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteAccessory(DeleteAccessoryRequest request,
+			StreamObserver<DeleteAccessoryResponse> responseObserver) {
+		Accessory accessory = new Accessory(request.getUid(), null, null, null, null, null, null, null, null);
+		DeleteAccessoryResponse reply = null;
+		try {
+			CmdDeleteAccessory cmd = CmdFactory.getCmdDeleteAccesssory(accessory);
+			m_environment.executeCommand(cmd);
+			reply = DeleteAccessoryResponse.newBuilder().setUid(accessory.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 	
 	/**

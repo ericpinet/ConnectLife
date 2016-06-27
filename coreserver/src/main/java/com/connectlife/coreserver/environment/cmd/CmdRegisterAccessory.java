@@ -72,14 +72,18 @@ public class CmdRegisterAccessory extends CmdDefault {
 											m_accessory.getSerialnumber() );
 			
 			if (null != node_acc) {
+				
+				// set the register at true in graph database
 				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, "true");
+				
+				// set accessory register at true in return accessory
+				m_accessory.setRegister(true);
 				
 				// set the data change
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.error("Accessory not found. " + m_accessory.toString());
-				throw new Exception("Accessory not found. " + m_accessory.toString());
+				m_logger.warn("Accessory not found. " + m_accessory.toString());
 			}
 			
 			tx.success();

@@ -139,9 +139,9 @@ public abstract class DeviceFactory {
 			ret_def = gson.fromJson(json, ServiceDefinition.class);
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new Exception("Unable to build service information."+e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception("Unable to build service information."+e.getMessage());
 		}
 
 		return ret_def;

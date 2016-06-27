@@ -175,7 +175,7 @@ public class CLApiClient {
 	 * @param _type  Type d'email of the person.
 	 * @return UID of the person.
 	 */
-	public String AddEmail(String _uid, String _email, int _type){
+	public String addEmail(String _uid, String _email, int _type){
 		AddEmailRequest request = AddEmailRequest.newBuilder()
 												 .setUidPerson(_uid)
 												 .setEmail(_email)
@@ -185,6 +185,35 @@ public class CLApiClient {
 		return response.getUid();
 	}
 	
+	/**
+	 * Add a accessory in a room. 
+	 * 
+	 * @param _serial_number Serial number of the accessory.
+	 * @param _room_uid Room uid where to add accessory.
+	 * @return Uid of the added accessory.
+	 */
+	public String addAccessory(String _serial_number, String _room_uid) {
+		AddAccessoryRequest request = AddAccessoryRequest.newBuilder()
+														 .setSerialnumber(_serial_number)
+														 .setUidRoom(_room_uid)
+														 .build();
+		AddAccessoryResponse response = m_blockingStub.addAccessory(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Delete the accessory from the room. 
+	 * 
+	 * @param _uid Uid of the accessory to be delete.
+	 * @return Uid of the delete accessory.
+	 */
+	public String deleteAccessory(String _uid) {
+		DeleteAccessoryRequest request = DeleteAccessoryRequest.newBuilder()
+															   .setUid(_uid)
+															   .build();
+		DeleteAccessoryResponse response = m_blockingStub.deleteAccessory(request);
+		return response.getUid();
+	}
 	
 	/**
 	 * Update the email of the person.
@@ -194,7 +223,7 @@ public class CLApiClient {
 	 * @param _type  Type d'email of the person.
 	 * @return UID of the mail.
 	 */
-	public String UpdateEmail(String _uid, String _email, int _type){
+	public String updateEmail(String _uid, String _email, int _type){
 		UpdateEmailRequest request = UpdateEmailRequest.newBuilder()
 												 	   .setUid(_uid)
 												 	   .setEmail(_email)

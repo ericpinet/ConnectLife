@@ -73,7 +73,7 @@ public class CmdAddAccessory extends CmdDefault {
 			throw new Exception ("Error! It's not possible to add null accessory in the environment.");
 		}
 		
-		if( false == m_accessory.getUid().isEmpty() ){
+		if( null != m_accessory.getUid() && false == m_accessory.getUid().isEmpty() ){
 			m_logger.error("Error! It's not possible to add a accessory with a UID.");
 			throw new Exception ("Error! It's not possible to add a accessory with a UID.");
 		}
@@ -145,6 +145,15 @@ public class CmdAddAccessory extends CmdDefault {
 		}
 		
 		m_logger.info("Execution completed.");
+	}
+	
+	/**
+	 * Return the accessory.
+	 * 
+	 * @return Accessory.
+	 */
+	public Accessory getAccessory(){
+		return m_accessory;
 	}
 	
 }

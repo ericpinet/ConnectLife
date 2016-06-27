@@ -94,7 +94,7 @@ public class CmdUnregisterAccessoryTest {
 		Transaction tx = Mockito.mock(Transaction.class);
 		
 		Accessory accessory = new Accessory(null, null, null, null, "12345", null, null, null, null);
-		
+		accessory.setRegister(true);
 		try {
 			Mockito.when(context.getDataManager()).thenReturn(datamanager);
 			Mockito.when(graph.findNode(Consts.LABEL_ACCESSORY, Consts.ACCESSORY_SERIALNUMBER, accessory.getSerialnumber())).thenReturn(null);
@@ -111,9 +111,9 @@ public class CmdUnregisterAccessoryTest {
 		
 		try {
 			cmd.execute();
-			fail();
+			assertTrue(cmd.getAccessory().isRegister());
 		} catch (Exception e) {
-			assertNotNull(e);
+			fail();
 		}
 	}
 	

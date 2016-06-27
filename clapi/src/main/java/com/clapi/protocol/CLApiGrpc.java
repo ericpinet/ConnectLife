@@ -165,6 +165,24 @@ public class CLApiGrpc {
               "clapi.CLApi", "deleteAddress"),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAddressRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAddressResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddAccessoryRequest,
+      com.clapi.protocol.AddAccessoryResponse> METHOD_ADD_ACCESSORY =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addAccessory"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAccessoryRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAccessoryResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteAccessoryRequest,
+      com.clapi.protocol.DeleteAccessoryResponse> METHOD_DELETE_ACCESSORY =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteAccessory"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryResponse.getDefaultInstance()));
 
   public static CLApiStub newStub(io.grpc.Channel channel) {
     return new CLApiStub(channel);
@@ -229,6 +247,12 @@ public class CLApiGrpc {
 
     public void deleteAddress(com.clapi.protocol.DeleteAddressRequest request,
         io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAddressResponse> responseObserver);
+
+    public void addAccessory(com.clapi.protocol.AddAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse> responseObserver);
+
+    public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver);
   }
 
   public static interface CLApiBlockingClient {
@@ -264,6 +288,10 @@ public class CLApiGrpc {
     public com.clapi.protocol.UpdateAddressResponse updateAddress(com.clapi.protocol.UpdateAddressRequest request);
 
     public com.clapi.protocol.DeleteAddressResponse deleteAddress(com.clapi.protocol.DeleteAddressRequest request);
+
+    public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request);
+
+    public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request);
   }
 
   public static interface CLApiFutureClient {
@@ -315,6 +343,12 @@ public class CLApiGrpc {
 
     public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAddressResponse> deleteAddress(
         com.clapi.protocol.DeleteAddressRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAccessoryResponse> addAccessory(
+        com.clapi.protocol.AddAccessoryRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
+        com.clapi.protocol.DeleteAccessoryRequest request);
   }
 
   public static class CLApiStub extends io.grpc.stub.AbstractStub<CLApiStub>
@@ -445,6 +479,20 @@ public class CLApiGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request, responseObserver);
     }
+
+    @java.lang.Override
+    public void addAccessory(com.clapi.protocol.AddAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request, responseObserver);
+    }
   }
 
   public static class CLApiBlockingStub extends io.grpc.stub.AbstractStub<CLApiBlockingStub>
@@ -558,6 +606,18 @@ public class CLApiGrpc {
     public com.clapi.protocol.DeleteAddressResponse deleteAddress(com.clapi.protocol.DeleteAddressRequest request) {
       return blockingUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
     }
   }
 
@@ -689,6 +749,20 @@ public class CLApiGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request);
     }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAccessoryResponse> addAccessory(
+        com.clapi.protocol.AddAccessoryRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
+        com.clapi.protocol.DeleteAccessoryRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_VERSION = 0;
@@ -707,6 +781,8 @@ public class CLApiGrpc {
   private static final int METHODID_ADD_ADDRESS = 13;
   private static final int METHODID_UPDATE_ADDRESS = 14;
   private static final int METHODID_DELETE_ADDRESS = 15;
+  private static final int METHODID_ADD_ACCESSORY = 16;
+  private static final int METHODID_DELETE_ACCESSORY = 17;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -787,6 +863,14 @@ public class CLApiGrpc {
         case METHODID_DELETE_ADDRESS:
           serviceImpl.deleteAddress((com.clapi.protocol.DeleteAddressRequest) request,
               (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAddressResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ACCESSORY:
+          serviceImpl.addAccessory((com.clapi.protocol.AddAccessoryRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ACCESSORY:
+          serviceImpl.deleteAccessory((com.clapi.protocol.DeleteAccessoryRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -918,6 +1002,20 @@ public class CLApiGrpc {
               com.clapi.protocol.DeleteAddressRequest,
               com.clapi.protocol.DeleteAddressResponse>(
                 serviceImpl, METHODID_DELETE_ADDRESS)))
+        .addMethod(
+          METHOD_ADD_ACCESSORY,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddAccessoryRequest,
+              com.clapi.protocol.AddAccessoryResponse>(
+                serviceImpl, METHODID_ADD_ACCESSORY)))
+        .addMethod(
+          METHOD_DELETE_ACCESSORY,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteAccessoryRequest,
+              com.clapi.protocol.DeleteAccessoryResponse>(
+                serviceImpl, METHODID_DELETE_ACCESSORY)))
         .build();
   }
 }

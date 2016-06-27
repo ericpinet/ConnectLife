@@ -13,6 +13,7 @@ import java.util.Iterator;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
 
@@ -717,6 +718,56 @@ public abstract class DataManagerNodeFactory {
 			
 			tx.success();
 		}
+	}
+	
+	/**
+	 * Delete node and his children in graph.
+	 * 
+	 * @param _graph Graph database.
+	 * @param _label Label of the node to delete.
+	 * @param _uid Uid of the node to delete.
+	 * @return true if the node was deleted.
+	 * @throws Exception Throw exception if something goes wrong.
+	 */
+	public static boolean deleteNodeWithChildren(GraphDatabaseService _graph, Label _label, String _uid) {
+		boolean ret_val = false;
+		
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			// find the node to delete
+			ResourceIterator<Node> nodes = _graph.findNodes(_label, Consts.UID, _uid);
+			while (nodes.hasNext()) {
+			
+				Node node = nodes.next();
+				Iterator<Relationship> it = node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
+				
+				// pass all relationship to delete children
+				while (it.hasNext()) {
+					Relationship relation = it.next();
+					Node child_node = relation.getEndNode();
+					
+					// delete all children node
+					if (child_node.getId() != node.getId()) {
+						
+						Iterator<Label> labels = child_node.getLabels().iterator();						
+						if (labels.hasNext()) {
+							
+							Label label = labels.next();
+							relation.delete(); // delete child relation relation
+							deleteNodeWithChildren(_graph, label, (String)child_node.getProperty(Consts.UID)); // delete node and children
+						}						
+					}
+					else{
+						relation.delete(); // delete the relation with parent
+					}
+				}
+				node.delete(); // delete the node
+			}
+			
+			tx.success();
+		}
+		
+		return ret_val;
 	}
 	
 	/**

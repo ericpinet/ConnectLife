@@ -73,6 +73,16 @@ public abstract class CmdFactory {
 	}
 	
 	/**
+	 * Return the CmddeleteAccessory. 
+	 * 
+	 * @param _accessory Accessory to delete in the environment.
+	 * @return Return the CmdDeleteAccessory. 
+	 */
+	static public CmdDeleteAccessory getCmdDeleteAccesssory(Accessory _accessory){
+		return new CmdDeleteAccessory(_accessory);
+	}
+	
+	/**
 	 * Return the CmdCharacteristicWrite.
 	 * 
 	 * @param _characteristic Characteristic

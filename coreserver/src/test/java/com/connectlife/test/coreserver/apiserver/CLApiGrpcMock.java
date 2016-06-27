@@ -8,6 +8,8 @@
  */
 package com.connectlife.test.coreserver.apiserver;
 
+import com.clapi.protocol.AddAccessoryRequest;
+import com.clapi.protocol.AddAccessoryResponse;
 import com.clapi.protocol.AddAddressRequest;
 import com.clapi.protocol.AddAddressResponse;
 import com.clapi.protocol.AddEmailRequest;
@@ -19,6 +21,8 @@ import com.clapi.protocol.AddPhoneResponse;
 import com.clapi.protocol.CLApiGrpc;
 import com.clapi.protocol.CheckCompatibilityRequest;
 import com.clapi.protocol.CheckCompatibilityResponse;
+import com.clapi.protocol.DeleteAccessoryRequest;
+import com.clapi.protocol.DeleteAccessoryResponse;
 import com.clapi.protocol.DeleteAddressRequest;
 import com.clapi.protocol.DeleteAddressResponse;
 import com.clapi.protocol.DeleteEmailRequest;
@@ -226,6 +230,29 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAccessory(com.clapi.protocol.AddAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addAccessory(AddAccessoryRequest request, StreamObserver<AddAccessoryResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteAccessory(DeleteAccessoryRequest request,
+			StreamObserver<DeleteAccessoryResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}

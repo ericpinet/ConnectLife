@@ -17,7 +17,6 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.kernel.internal.GraphDatabaseAPI;
 
 import com.clapi.data.Data;
 import com.connectlife.coreserver.Application;

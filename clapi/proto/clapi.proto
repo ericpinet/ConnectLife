@@ -50,6 +50,9 @@ service CLApi {
 	rpc updateAddress(clapi.UpdateAddressRequest) returns (clapi.UpdateAddressResponse) {}
 	rpc deleteAddress(clapi.DeleteAddressRequest) returns (clapi.DeleteAddressResponse) {}
 
+	// Accessory Management
+	rpc addAccessory(clapi.AddAccessoryRequest) returns (clapi.AddAccessoryResponse) {}
+	rpc deleteAccessory(clapi.DeleteAccessoryRequest) returns (clapi.DeleteAccessoryResponse) {}
 }
 
 // Declaration of message request and response //////////////////
@@ -201,6 +204,23 @@ message DeleteAddressRequest {
 	required string uid = 1;
 }
 message DeleteAddressResponse {
+	required string uid = 1;
+}
+
+// The request/response for addAccessory
+message AddAccessoryRequest {
+	required string serialnumber = 1;
+	required string uid_room = 2;
+}
+message AddAccessoryResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteAccessory
+message DeleteAccessoryRequest {
+	required string uid = 1;
+}
+message DeleteAccessoryResponse {
 	required string uid = 1;
 }
 
