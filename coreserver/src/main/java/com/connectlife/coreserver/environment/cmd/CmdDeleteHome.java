@@ -1,8 +1,8 @@
 /**
- *  CmdDeleteAccessory.java
+ *  CmdDeleteHome.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-06-25.
+ *  Created by ericpinet on 2016-06-30.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -14,35 +14,35 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 
-import com.clapi.data.Accessory;
+import com.clapi.data.Home;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
- * Command to delete an accessory from the environment.
+ * Command to delete a home from the environment.
  * 
  * @author ericpinet
  * <br> 2016-06-25
  */
-public class CmdDeleteAccessory extends CmdDefault {
+public class CmdDeleteHome extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdDeleteAccessory.class);
+	private static Logger m_logger = LogManager.getLogger(CmdDeleteHome.class);
 	
 	/**
-	 * Accessory to delete from the environment.
+	 * Home to delete from the environment.
 	 */
-	private Accessory m_accessory;
+	private Home m_home;
 	
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _accessory Accessory to delete in the environment.
+	 * @param _home Home to delete from the environment.
 	 */
-	public CmdDeleteAccessory (Accessory _accessory){
-		m_accessory = _accessory;
+	public CmdDeleteHome (Home _home){
+		m_home = _home;
 	}
 	
 	/**
@@ -57,9 +57,9 @@ public class CmdDeleteAccessory extends CmdDefault {
 		m_logger.info("Execution start ...");
 		
 		// check the accessory to add in the environment
-		if( null == m_accessory ){
-			m_logger.error("Error! It's not possible to delete null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to delete null accessory in the environment.");
+		if( null == m_home ){
+			m_logger.error("Error! It's not possible to delete null home in the environment.");
+			throw new Exception ("Error! It's not possible to delete null home in the environment.");
 		}
 		
 		// get the graph data
@@ -68,26 +68,29 @@ public class CmdDeleteAccessory extends CmdDefault {
 		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 			
-			// find the accessory by the uid.
-			Node node_acc = graph.findNode( Consts.LABEL_ACCESSORY, 
+			// find the home by the uid.
+			Node node_acc = graph.findNode( Consts.LABEL_HOME, 
 											Consts.UID, 
-											m_accessory.getUid() );
+											m_home.getUid() );
 			
-			// check if accessory was present in environment
+			// check if home was present in environment
 			if (null != node_acc) {
 				
-				// delete accessory node
-				DataManagerNodeFactory.deleteNodeWithChildren(graph, Consts.LABEL_ACCESSORY, (String)node_acc.getProperty(Consts.UID));
+				// delete home node
+				DataManagerNodeFactory.deleteNodeWithChildren(graph, Consts.LABEL_HOME, (String)node_acc.getProperty(Consts.UID));
 					
 				// force a synchronization with device
 				m_context.getDeviceManager().forceSynchronizationOfAllDevices();
+				
+				// display info in log
+				m_logger.info(m_home.toString());
 				
 				// set the data change
 				this.m_data_is_changed = true;		
 			}
 			else{
-				m_logger.error("Accessory wasn't found. "+m_accessory.toString());
-				throw new Exception("Accessory wasn't found. "+m_accessory.toString());
+				m_logger.error("Home wasn't found. "+m_home.toString());
+				throw new Exception("Home wasn't found. "+m_home.toString());
 			}
 			
 			tx.success();

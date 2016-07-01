@@ -122,6 +122,9 @@ public class CmdAddAccessory extends CmdDefault {
 						// force a synchronization with device
 						m_context.getDeviceManager().forceSynchronizationOfAllDevices();
 						
+						// display info in log
+						m_logger.info(m_accessory.toString());
+						
 						// set the data change
 						this.m_data_is_changed = true;
 					}

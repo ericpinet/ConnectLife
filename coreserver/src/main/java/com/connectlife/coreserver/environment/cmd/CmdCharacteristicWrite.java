@@ -120,6 +120,9 @@ public class CmdCharacteristicWrite extends CmdDefault {
 							node.setProperty(Consts.CH_DATA, m_target_value.getDataFloat());
 						}
 						
+						// display info in log
+						m_logger.info(m_target_value.toString());
+						
 						// set the data change
 						this.m_data_is_changed = true;
 						

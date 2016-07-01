@@ -1,8 +1,8 @@
 /**
- *  CmdAddPerson.java
+ *  CmdAddRoom.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-03-28.
+ *  Created by ericpinet on 2016-06-30.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -13,35 +13,35 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
-import com.clapi.data.Person;
+import com.clapi.data.Room;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
- * Command to add a new person in the environment.
+ * Command to add a new room in the environment.
  * 
  * @author ericpinet
  * <br> 2016-03-28
  */
-public class CmdAddPerson extends CmdDefault {
+public class CmdAddRoom extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdAddPerson.class);
+	private static Logger m_logger = LogManager.getLogger(CmdAddRoom.class);
 	
 	/**
-	 * Person to add in the environment.
+	 * Room to add in the environment.
 	 */
-	private Person m_person;
+	private Room m_room;
 	
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _person Person to add in the environment.
+	 * @param _room Room to add in the environment.
 	 */
-	public CmdAddPerson (Person _person){
-		m_person = _person;
+	public CmdAddRoom (Room _room){
+		m_room = _room;
 	}
 	
 	/**
@@ -55,15 +55,15 @@ public class CmdAddPerson extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the person to add in the environment
-		if( null == m_person ){
-			m_logger.error("Error! It's not possible to add null person in the environment.");
-			throw new Exception ("Error! It's not possible to add null person in the environment.");
+		// check the room to add in the environment
+		if( null == m_room ){
+			m_logger.error("Error! It's not possible to add null room in the environment.");
+			throw new Exception ("Error! It's not possible to add null room in the environment.");
 		}
 		
-		if( false == m_person.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a person with a UID.");
-			throw new Exception ("Error! It's not possible to add a person with a UID.");
+		if( false == m_room.getUid().isEmpty() ){
+			m_logger.error("Error! It's not possible to add a room with a UID.");
+			throw new Exception ("Error! It's not possible to add a room with a UID.");
 		}
 		
 		// get the graph data
@@ -72,14 +72,14 @@ public class CmdAddPerson extends CmdDefault {
 		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 						
-			// create the uid for the person
-			m_person.setUid(UIDGenerator.getUID());
+			// create the uid for the room
+			m_room.setUid(UIDGenerator.getUID());
 			
-			// build person node
-			DataManagerNodeFactory.buildPersonNode(graph, m_person);
+			// build room node
+			DataManagerNodeFactory.buildRoomNode(graph, m_room);
 			
 			// display info in log
-			m_logger.info(m_person.toString());
+			m_logger.info(m_room.toString());
 			
 			// set the data change
 			this.m_data_is_changed = true;

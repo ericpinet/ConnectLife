@@ -1,8 +1,8 @@
 /**
- *  CmdAddPerson.java
+ *  CmdAddZone.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-03-28.
+ *  Created by ericpinet on 2016-06-30.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -13,35 +13,35 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 
-import com.clapi.data.Person;
+import com.clapi.data.Zone;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 
 /**
- * Command to add a new person in the environment.
+ * Command to add a new zone in the environment.
  * 
  * @author ericpinet
  * <br> 2016-03-28
  */
-public class CmdAddPerson extends CmdDefault {
+public class CmdAddZone extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdAddPerson.class);
+	private static Logger m_logger = LogManager.getLogger(CmdAddZone.class);
 	
 	/**
-	 * Person to add in the environment.
+	 * Zone to add in the environment.
 	 */
-	private Person m_person;
+	private Zone m_zone;
 	
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _person Person to add in the environment.
+	 * @param _zone Zone to add in the environment.
 	 */
-	public CmdAddPerson (Person _person){
-		m_person = _person;
+	public CmdAddZone (Zone _zone){
+		m_zone = _zone;
 	}
 	
 	/**
@@ -55,15 +55,15 @@ public class CmdAddPerson extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the person to add in the environment
-		if( null == m_person ){
-			m_logger.error("Error! It's not possible to add null person in the environment.");
-			throw new Exception ("Error! It's not possible to add null person in the environment.");
+		// check the room to add in the environment
+		if( null == m_zone ){
+			m_logger.error("Error! It's not possible to add null zone in the environment.");
+			throw new Exception ("Error! It's not possible to add null zone in the environment.");
 		}
 		
-		if( false == m_person.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a person with a UID.");
-			throw new Exception ("Error! It's not possible to add a person with a UID.");
+		if( false == m_zone.getUid().isEmpty() ){
+			m_logger.error("Error! It's not possible to add a zone with a UID.");
+			throw new Exception ("Error! It's not possible to add a zone with a UID.");
 		}
 		
 		// get the graph data
@@ -72,14 +72,14 @@ public class CmdAddPerson extends CmdDefault {
 		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 						
-			// create the uid for the person
-			m_person.setUid(UIDGenerator.getUID());
+			// create the uid for the zone
+			m_zone.setUid(UIDGenerator.getUID());
 			
-			// build person node
-			DataManagerNodeFactory.buildPersonNode(graph, m_person);
+			// build zone node
+			DataManagerNodeFactory.buildZoneNode(graph, m_zone);
 			
 			// display info in log
-			m_logger.info(m_person.toString());
+			m_logger.info(m_zone.toString());
 			
 			// set the data change
 			this.m_data_is_changed = true;

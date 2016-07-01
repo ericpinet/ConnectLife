@@ -189,6 +189,96 @@ public final class CLApiProtos {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_clapi_DeleteAccessoryResponse_fieldAccessorTable;
   static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddHomeRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddHomeRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddHomeResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddHomeResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateHomeRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateHomeRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateHomeResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateHomeResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteHomeRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteHomeRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteHomeResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteHomeResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddZoneRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddZoneRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddZoneResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddZoneResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateZoneRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateZoneRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateZoneResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateZoneResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteZoneRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteZoneRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteZoneResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteZoneResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddRoomRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddRoomRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_AddRoomResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_AddRoomResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateRoomRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateRoomRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_UpdateRoomResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_UpdateRoomResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteRoomRequest_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteRoomRequest_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
+    internal_static_clapi_DeleteRoomResponse_descriptor;
+  static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_clapi_DeleteRoomResponse_fieldAccessorTable;
+  static com.google.protobuf.Descriptors.Descriptor
     internal_static_clapi_Notification_descriptor;
   static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -246,45 +336,79 @@ public final class CLApiProtos {
       "er\030\001 \002(\t\022\020\n\010uid_room\030\002 \002(\t\"#\n\024AddAccesso" +
       "ryResponse\022\013\n\003uid\030\001 \002(\t\"%\n\026DeleteAccesso" +
       "ryRequest\022\013\n\003uid\030\001 \002(\t\"&\n\027DeleteAccessor" +
-      "yResponse\022\013\n\003uid\030\001 \002(\t\"\202\001\n\014Notification\022" +
-      "2\n\004type\030\001 \002(\0162$.clapi.Notification.Notif" +
-      "icationType\022\014\n\004data\030\002 \001(\t\"0\n\020Notificatio" +
-      "nType\022\017\n\013ENV_UPDATED\020\000\022\013\n\007MESSAGE\020\0012\276\n\n\005" +
-      "CLApi\022C\n\ngetVersion\022\030.clapi.GetVersionRe" +
-      "quest\032\031.clapi.GetVersionResponse\"\000\022[\n\022ch",
-      "eckCompatibility\022 .clapi.CheckCompatibil" +
-      "ityRequest\032!.clapi.CheckCompatibilityRes" +
-      "ponse\"\000\022U\n\020waitNotification\022\036.clapi.Wait" +
-      "NotificationRequest\032\037.clapi.WaitNotifica" +
-      "tionResponse\"\000\022F\n\013getJsonData\022\031.clapi.Ge" +
-      "tJsonDataRequest\032\032.clapi.GetJsonDataResp" +
-      "onse\"\000\022@\n\taddPerson\022\027.clapi.AddPersonReq" +
-      "uest\032\030.clapi.AddPersonResponse\"\000\022I\n\014upda" +
-      "tePerson\022\032.clapi.UpdatePersonRequest\032\033.c" +
-      "lapi.UpdatePersonResponse\"\000\022I\n\014deletePer",
-      "son\022\032.clapi.DeletePersonRequest\032\033.clapi." +
-      "DeletePersonResponse\"\000\022=\n\010addEmail\022\026.cla" +
-      "pi.AddEmailRequest\032\027.clapi.AddEmailRespo" +
-      "nse\"\000\022F\n\013updateEmail\022\031.clapi.UpdateEmail" +
-      "Request\032\032.clapi.UpdateEmailResponse\"\000\022F\n" +
-      "\013deleteEmail\022\031.clapi.DeleteEmailRequest\032" +
-      "\032.clapi.DeleteEmailResponse\"\000\022=\n\010addPhon" +
-      "e\022\026.clapi.AddPhoneRequest\032\027.clapi.AddPho" +
-      "neResponse\"\000\022F\n\013updatePhone\022\031.clapi.Upda" +
-      "tePhoneRequest\032\032.clapi.UpdatePhoneRespon",
-      "se\"\000\022F\n\013deletePhone\022\031.clapi.DeletePhoneR" +
-      "equest\032\032.clapi.DeletePhoneResponse\"\000\022C\n\n" +
-      "addAddress\022\030.clapi.AddAddressRequest\032\031.c" +
-      "lapi.AddAddressResponse\"\000\022L\n\rupdateAddre" +
-      "ss\022\033.clapi.UpdateAddressRequest\032\034.clapi." +
-      "UpdateAddressResponse\"\000\022L\n\rdeleteAddress" +
-      "\022\033.clapi.DeleteAddressRequest\032\034.clapi.De" +
-      "leteAddressResponse\"\000\022I\n\014addAccessory\022\032." +
-      "clapi.AddAccessoryRequest\032\033.clapi.AddAcc" +
-      "essoryResponse\"\000\022R\n\017deleteAccessory\022\035.cl",
-      "api.DeleteAccessoryRequest\032\036.clapi.Delet" +
-      "eAccessoryResponse\"\000B#\n\022com.clapi.protoc" +
-      "olB\013CLApiProtosP\001"
+      "yResponse\022\013\n\003uid\030\001 \002(\t\"1\n\016AddHomeRequest" +
+      "\022\r\n\005label\030\001 \002(\t\022\020\n\010imageurl\030\002 \001(\t\"\036\n\017Add" +
+      "HomeResponse\022\013\n\003uid\030\001 \002(\t\"A\n\021UpdateHomeR" +
+      "equest\022\013\n\003uid\030\001 \002(\t\022\r\n\005label\030\002 \002(\t\022\020\n\010im" +
+      "ageurl\030\003 \001(\t\"!\n\022UpdateHomeResponse\022\013\n\003ui" +
+      "d\030\001 \002(\t\" \n\021DeleteHomeRequest\022\013\n\003uid\030\001 \002(",
+      "\t\"!\n\022DeleteHomeResponse\022\013\n\003uid\030\001 \002(\t\"1\n\016" +
+      "AddZoneRequest\022\r\n\005label\030\001 \002(\t\022\020\n\010imageur" +
+      "l\030\002 \001(\t\"\036\n\017AddZoneResponse\022\013\n\003uid\030\001 \002(\t\"" +
+      "A\n\021UpdateZoneRequest\022\013\n\003uid\030\001 \002(\t\022\r\n\005lab" +
+      "el\030\002 \002(\t\022\020\n\010imageurl\030\003 \001(\t\"!\n\022UpdateZone" +
+      "Response\022\013\n\003uid\030\001 \002(\t\" \n\021DeleteZoneReque" +
+      "st\022\013\n\003uid\030\001 \002(\t\"!\n\022DeleteZoneResponse\022\013\n" +
+      "\003uid\030\001 \002(\t\"1\n\016AddRoomRequest\022\r\n\005label\030\001 " +
+      "\002(\t\022\020\n\010imageurl\030\002 \001(\t\"\036\n\017AddRoomResponse" +
+      "\022\013\n\003uid\030\001 \002(\t\"A\n\021UpdateRoomRequest\022\013\n\003ui",
+      "d\030\001 \002(\t\022\r\n\005label\030\002 \002(\t\022\020\n\010imageurl\030\003 \001(\t" +
+      "\"!\n\022UpdateRoomResponse\022\013\n\003uid\030\001 \002(\t\" \n\021D" +
+      "eleteRoomRequest\022\013\n\003uid\030\001 \002(\t\"!\n\022DeleteR" +
+      "oomResponse\022\013\n\003uid\030\001 \002(\t\"\202\001\n\014Notificatio" +
+      "n\0222\n\004type\030\001 \002(\0162$.clapi.Notification.Not" +
+      "ificationType\022\014\n\004data\030\002 \001(\t\"0\n\020Notificat" +
+      "ionType\022\017\n\013ENV_UPDATED\020\000\022\013\n\007MESSAGE\020\0012\220\017" +
+      "\n\005CLApi\022C\n\ngetVersion\022\030.clapi.GetVersion" +
+      "Request\032\031.clapi.GetVersionResponse\"\000\022[\n\022" +
+      "checkCompatibility\022 .clapi.CheckCompatib",
+      "ilityRequest\032!.clapi.CheckCompatibilityR" +
+      "esponse\"\000\022U\n\020waitNotification\022\036.clapi.Wa" +
+      "itNotificationRequest\032\037.clapi.WaitNotifi" +
+      "cationResponse\"\000\022F\n\013getJsonData\022\031.clapi." +
+      "GetJsonDataRequest\032\032.clapi.GetJsonDataRe" +
+      "sponse\"\000\022@\n\taddPerson\022\027.clapi.AddPersonR" +
+      "equest\032\030.clapi.AddPersonResponse\"\000\022I\n\014up" +
+      "datePerson\022\032.clapi.UpdatePersonRequest\032\033" +
+      ".clapi.UpdatePersonResponse\"\000\022I\n\014deleteP" +
+      "erson\022\032.clapi.DeletePersonRequest\032\033.clap",
+      "i.DeletePersonResponse\"\000\022=\n\010addEmail\022\026.c" +
+      "lapi.AddEmailRequest\032\027.clapi.AddEmailRes" +
+      "ponse\"\000\022F\n\013updateEmail\022\031.clapi.UpdateEma" +
+      "ilRequest\032\032.clapi.UpdateEmailResponse\"\000\022" +
+      "F\n\013deleteEmail\022\031.clapi.DeleteEmailReques" +
+      "t\032\032.clapi.DeleteEmailResponse\"\000\022=\n\010addPh" +
+      "one\022\026.clapi.AddPhoneRequest\032\027.clapi.AddP" +
+      "honeResponse\"\000\022F\n\013updatePhone\022\031.clapi.Up" +
+      "datePhoneRequest\032\032.clapi.UpdatePhoneResp" +
+      "onse\"\000\022F\n\013deletePhone\022\031.clapi.DeletePhon",
+      "eRequest\032\032.clapi.DeletePhoneResponse\"\000\022C" +
+      "\n\naddAddress\022\030.clapi.AddAddressRequest\032\031" +
+      ".clapi.AddAddressResponse\"\000\022L\n\rupdateAdd" +
+      "ress\022\033.clapi.UpdateAddressRequest\032\034.clap" +
+      "i.UpdateAddressResponse\"\000\022L\n\rdeleteAddre" +
+      "ss\022\033.clapi.DeleteAddressRequest\032\034.clapi." +
+      "DeleteAddressResponse\"\000\022:\n\007addHome\022\025.cla" +
+      "pi.AddHomeRequest\032\026.clapi.AddHomeRespons" +
+      "e\"\000\022C\n\nupdateHome\022\030.clapi.UpdateHomeRequ" +
+      "est\032\031.clapi.UpdateHomeResponse\"\000\022C\n\ndele",
+      "teHome\022\030.clapi.DeleteHomeRequest\032\031.clapi" +
+      ".DeleteHomeResponse\"\000\022:\n\007addZone\022\025.clapi" +
+      ".AddZoneRequest\032\026.clapi.AddZoneResponse\"" +
+      "\000\022C\n\nupdateZone\022\030.clapi.UpdateZoneReques" +
+      "t\032\031.clapi.UpdateZoneResponse\"\000\022C\n\ndelete" +
+      "Zone\022\030.clapi.DeleteZoneRequest\032\031.clapi.D" +
+      "eleteZoneResponse\"\000\022:\n\007addRoom\022\025.clapi.A" +
+      "ddRoomRequest\032\026.clapi.AddRoomResponse\"\000\022" +
+      "C\n\nupdateRoom\022\030.clapi.UpdateRoomRequest\032" +
+      "\031.clapi.UpdateRoomResponse\"\000\022C\n\ndeleteRo",
+      "om\022\030.clapi.DeleteRoomRequest\032\031.clapi.Del" +
+      "eteRoomResponse\"\000\022I\n\014addAccessory\022\032.clap" +
+      "i.AddAccessoryRequest\032\033.clapi.AddAccesso" +
+      "ryResponse\"\000\022R\n\017deleteAccessory\022\035.clapi." +
+      "DeleteAccessoryRequest\032\036.clapi.DeleteAcc" +
+      "essoryResponse\"\000B#\n\022com.clapi.protocolB\013" +
+      "CLApiProtosP\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -514,8 +638,116 @@ public final class CLApiProtos {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_clapi_DeleteAccessoryResponse_descriptor,
         new java.lang.String[] { "Uid", });
-    internal_static_clapi_Notification_descriptor =
+    internal_static_clapi_AddHomeRequest_descriptor =
       getDescriptor().getMessageTypes().get(36);
+    internal_static_clapi_AddHomeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddHomeRequest_descriptor,
+        new java.lang.String[] { "Label", "Imageurl", });
+    internal_static_clapi_AddHomeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(37);
+    internal_static_clapi_AddHomeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddHomeResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_UpdateHomeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(38);
+    internal_static_clapi_UpdateHomeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateHomeRequest_descriptor,
+        new java.lang.String[] { "Uid", "Label", "Imageurl", });
+    internal_static_clapi_UpdateHomeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(39);
+    internal_static_clapi_UpdateHomeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateHomeResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteHomeRequest_descriptor =
+      getDescriptor().getMessageTypes().get(40);
+    internal_static_clapi_DeleteHomeRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteHomeRequest_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteHomeResponse_descriptor =
+      getDescriptor().getMessageTypes().get(41);
+    internal_static_clapi_DeleteHomeResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteHomeResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_AddZoneRequest_descriptor =
+      getDescriptor().getMessageTypes().get(42);
+    internal_static_clapi_AddZoneRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddZoneRequest_descriptor,
+        new java.lang.String[] { "Label", "Imageurl", });
+    internal_static_clapi_AddZoneResponse_descriptor =
+      getDescriptor().getMessageTypes().get(43);
+    internal_static_clapi_AddZoneResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddZoneResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_UpdateZoneRequest_descriptor =
+      getDescriptor().getMessageTypes().get(44);
+    internal_static_clapi_UpdateZoneRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateZoneRequest_descriptor,
+        new java.lang.String[] { "Uid", "Label", "Imageurl", });
+    internal_static_clapi_UpdateZoneResponse_descriptor =
+      getDescriptor().getMessageTypes().get(45);
+    internal_static_clapi_UpdateZoneResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateZoneResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteZoneRequest_descriptor =
+      getDescriptor().getMessageTypes().get(46);
+    internal_static_clapi_DeleteZoneRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteZoneRequest_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteZoneResponse_descriptor =
+      getDescriptor().getMessageTypes().get(47);
+    internal_static_clapi_DeleteZoneResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteZoneResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_AddRoomRequest_descriptor =
+      getDescriptor().getMessageTypes().get(48);
+    internal_static_clapi_AddRoomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddRoomRequest_descriptor,
+        new java.lang.String[] { "Label", "Imageurl", });
+    internal_static_clapi_AddRoomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(49);
+    internal_static_clapi_AddRoomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_AddRoomResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_UpdateRoomRequest_descriptor =
+      getDescriptor().getMessageTypes().get(50);
+    internal_static_clapi_UpdateRoomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateRoomRequest_descriptor,
+        new java.lang.String[] { "Uid", "Label", "Imageurl", });
+    internal_static_clapi_UpdateRoomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(51);
+    internal_static_clapi_UpdateRoomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_UpdateRoomResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteRoomRequest_descriptor =
+      getDescriptor().getMessageTypes().get(52);
+    internal_static_clapi_DeleteRoomRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteRoomRequest_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_DeleteRoomResponse_descriptor =
+      getDescriptor().getMessageTypes().get(53);
+    internal_static_clapi_DeleteRoomResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_clapi_DeleteRoomResponse_descriptor,
+        new java.lang.String[] { "Uid", });
+    internal_static_clapi_Notification_descriptor =
+      getDescriptor().getMessageTypes().get(54);
     internal_static_clapi_Notification_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_clapi_Notification_descriptor,

@@ -118,6 +118,150 @@ public class CLApiClient {
 	}
 	
 	/**
+	 * Add home in environment. 
+	 * 
+	 * @param label Label of the new home.
+	 * @param imageurl Image url of the new home.
+	 * @return Uid of the new home.
+	 */
+	public String addHome (String label, String imageurl) {
+		AddHomeRequest request = AddHomeRequest.newBuilder()
+											   .setLabel(label)
+											   .setImageurl(imageurl)
+											   .build();
+		AddHomeResponse response = m_blockingStub.addHome(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Update home in the environment.
+	 * 
+	 * @param uid Uid of the environment to update.
+	 * @param label New label.
+	 * @param imageurl New image url.
+	 * @return Uid of the home updated.
+	 */
+	public String updateHome (String uid, String label, String imageurl) {
+		UpdateHomeRequest request = UpdateHomeRequest.newBuilder()
+											 		 .setUid(uid)
+													 .setLabel(label)
+											 		 .setImageurl(imageurl)
+											 		 .build();
+		UpdateHomeResponse response = m_blockingStub.updateHome(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Delete home in the environment.
+	 * 
+	 * @param uid Uid of the home to delete.
+	 * @return Uid of the home deleted.
+	 */
+	public String deleteHome (String uid) {
+		DeleteHomeRequest request = DeleteHomeRequest.newBuilder()
+											 		 .setUid(uid)
+											 		 .build();
+		DeleteHomeResponse response = m_blockingStub.deleteHome(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Add new zone in the environment.
+	 * 
+	 * @param label Label of the new zone.
+	 * @param imageurl Image url of the new zone.
+	 * @return Uid of the new zone added.
+	 */
+	public String addZone (String label, String imageurl) {
+		AddZoneRequest request = AddZoneRequest.newBuilder()
+											   .setLabel(label)
+											   .setImageurl(imageurl)
+											   .build();
+		AddZoneResponse response = m_blockingStub.addZone(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Update zone in the environment.
+	 * 
+	 * @param uid Uid of the zone to update.
+	 * @param label New label of the zone.
+	 * @param imageurl New image url of the zone.
+	 * @return Uid of the updated zone.
+	 */
+	public String updateZone (String uid, String label, String imageurl) {
+		UpdateZoneRequest request = UpdateZoneRequest.newBuilder()
+											 		 .setUid(uid)
+													 .setLabel(label)
+											 		 .setImageurl(imageurl)
+											 		 .build();
+		UpdateZoneResponse response = m_blockingStub.updateZone(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Delete zone from the environment.
+	 * 
+	 * @param uid Uid of the zone to delete.
+	 * @return Uid of the deleted zone.
+	 */
+	public String deleteZone (String uid) {
+		DeleteZoneRequest request = DeleteZoneRequest.newBuilder()
+											 		 .setUid(uid)
+											 		 .build();
+		DeleteZoneResponse response = m_blockingStub.deleteZone(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Add new room in the environment.
+	 * 
+	 * @param label Label of the new room.
+	 * @param imageurl Image url of the new room.
+	 * @return Uid of the added room.
+	 */
+	public String addRoom (String label, String imageurl) {
+		AddRoomRequest request = AddRoomRequest.newBuilder()
+											   .setLabel(label)
+											   .setImageurl(imageurl)
+											   .build();
+		AddRoomResponse response = m_blockingStub.addRoom(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Update room of the environment.
+	 * 
+	 * @param uid Uid  of the room to update.
+	 * @param label New lavel of the room.
+	 * @param imageurl New image url of the room.
+	 * @return Uid of the updated room.
+	 */
+	public String updateRoom (String uid, String label, String imageurl) {
+		UpdateRoomRequest request = UpdateRoomRequest.newBuilder()
+											 		 .setUid(uid)
+													 .setLabel(label)
+											 		 .setImageurl(imageurl)
+											 		 .build();
+		UpdateRoomResponse response = m_blockingStub.updateRoom(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Delete room in the environment.
+	 * 
+	 * @param uid Uid of the room the delete.
+	 * @return Uid of the deleted room.
+	 */
+	public String deleteRoom (String uid) {
+		DeleteRoomRequest request = DeleteRoomRequest.newBuilder()
+											 		 .setUid(uid)
+											 		 .build();
+		DeleteRoomResponse response = m_blockingStub.deleteRoom(request);
+		return response.getUid();
+	}
+	
+	/**
 	 * Add person in environment.
 	 * 
 	 * @param firstname First name of the person.

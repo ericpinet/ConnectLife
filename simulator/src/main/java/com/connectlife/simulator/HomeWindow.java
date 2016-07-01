@@ -19,7 +19,6 @@ import java.util.Iterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -31,8 +30,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
@@ -317,10 +314,45 @@ public class HomeWindow extends Dialog {
 		Button btnDelete = new Button(composite, SWT.BUTTON1);
 		btnDelete.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnDelete.setText("Delete Room");
+		btnDelete.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+
+							client.deleteRoom(((Room)items[0].getData()).getUid());
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		Button btnEditRoom = new Button(composite, SWT.BUTTON1);
 		btnEditRoom.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnEditRoom.setText("Edit Room");
+		btnEditRoom.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+
+						AddAccessoryDialog dialog = new AddAccessoryDialog(shell);
+						// user pressed cancel
+						if (dialog.open() == Window.OK) {
+							String result = dialog.getResult(); 							
+							client.addAccessory(result, ((Room)items[0].getData()).getUid());
+						}
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		Button btnAddAccessory = new Button(composite, SWT.BUTTON1);
 		btnAddAccessory.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
