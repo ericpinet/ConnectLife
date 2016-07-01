@@ -93,7 +93,7 @@ public class DataManagerFactoryTest {
 	@Test
 	public void testprepareData() {
 		
-		PowerMockito.mockStatic(DataManagerFactory.class);
+		PowerMockito.spy(DataManagerFactory.class);
 		
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Transaction tx = Mockito.mock(Transaction.class);
@@ -115,9 +115,9 @@ public class DataManagerFactoryTest {
 		Mockito.when(ihomes.next()).thenReturn(home);
 		
 		try {
-			PowerMockito.when(DataManagerFactory.buildPerson(graph, person)).thenReturn(new Person("123","eric"));
-			PowerMockito.when(DataManagerFactory.buildHome(graph, home)).thenReturn(new Home("123","home"));
-			PowerMockito.when(DataManagerFactory.prepareData(graph)).thenCallRealMethod();
+			PowerMockito.doReturn(new Person("123","eric")).when(DataManagerFactory.class, "buildPerson", graph, person);
+			PowerMockito.doReturn(new Home("123","home")).when(DataManagerFactory.class, "buildHome", graph, home);
+			
 		} catch (Exception e1) {
 			fail();
 		}
@@ -163,7 +163,7 @@ public class DataManagerFactoryTest {
 	@Test
 	public void testbuildPerson() {
 		
-		PowerMockito.mockStatic(DataManagerFactory.class);
+		PowerMockito.spy(DataManagerFactory.class);
 		
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Transaction tx = Mockito.mock(Transaction.class);
@@ -205,11 +205,11 @@ public class DataManagerFactoryTest {
 		Mockito.when(address.hasLabel(Consts.LABEL_ADDRESS)).thenReturn(true);
 		
 		
-		try {
-			PowerMockito.when(DataManagerFactory.buildEmail(email)).thenReturn(new Email("","", EmailType.PERSONAL));
-			PowerMockito.when(DataManagerFactory.buildPhone(phone)).thenReturn(new Phone("","", PhoneType.HOME));
-			PowerMockito.when(DataManagerFactory.buildAddress(address)).thenReturn(new Address("", AddressType.HOME, ""));
-			PowerMockito.when(DataManagerFactory.buildPerson(graph, person)).thenCallRealMethod();
+		try {			
+			PowerMockito.doReturn(new Email("","", EmailType.PERSONAL)).when(DataManagerFactory.class, "buildEmail", email);
+			PowerMockito.doReturn(new Phone("","", PhoneType.HOME)).when(DataManagerFactory.class, "buildPhone", phone);
+			PowerMockito.doReturn(new Address("", AddressType.HOME, "")).when(DataManagerFactory.class, "buildAddress", address);
+			
 		} catch (Exception e1) {
 			fail();
 		}
