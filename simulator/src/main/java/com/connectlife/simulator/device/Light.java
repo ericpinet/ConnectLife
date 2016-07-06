@@ -30,14 +30,15 @@ public class Light extends Device {
 	/**
 	 * Default constructor for the light.
 	 * 
+	 * @param uid
 	 * @param label
 	 * @param manufacturer
 	 * @param model
 	 * @param serialnumber
 	 * @param imageurl
 	 */
-	public Light(String label, String manufacturer, String model, String serialnumber, String imageurl) {
-		super(label, manufacturer, model, serialnumber, imageurl, AccessoryType.LIGHT);
+	public Light(String uid, String label, String manufacturer, String model, String serialnumber, String imageurl) {
+		super(uid, label, manufacturer, model, serialnumber, null, imageurl, AccessoryType.LIGHT);
 		
 		// Create the characteristic and the services definition for the Dimmable Light
 		Characteristic boolean_light = new Characteristic(UIDGenerator.getUID(), "Light", CharacteristicAccessMode.READ_WRITE, CharacteristicType.BOOLEAN, CharacteristicEventType.EVENT, "false");

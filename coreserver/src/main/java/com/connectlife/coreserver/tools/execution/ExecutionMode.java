@@ -14,7 +14,7 @@ package com.connectlife.coreserver.tools.execution;
  * @author ericpinet
  * <br> 2015-12-13
  */
-public class ExecutionMode {
+public abstract class ExecutionMode {
 	
 	/**
 	 * Check if the application is use in debug mode.

@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
+import org.neo4j.kernel.internal.GraphDatabaseAPI;
 
 import com.clapi.data.Data;
 import com.connectlife.coreserver.Application;
@@ -317,9 +318,9 @@ public class DataManagerNeo4j implements DataManager {
 			zone11.createRelationshipTo(room11, Consts.RelTypes.CONTAINS);
 			
 			
-			// LIGHT
+			// LIGHT COLORED DIM
 			// ACCESSORY
-			Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);
+			/* Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);
 			accessory11.setProperty(Consts.UID, UIDGenerator.getUID());
 			accessory11.setProperty(Consts.ACCESSORY_LABEL, "Light");
 			accessory11.setProperty(Consts.ACCESSORY_MANUFACTURER, "Philips");
@@ -360,6 +361,7 @@ public class DataManagerNeo4j implements DataManager {
 			characteristic12.setProperty(Consts.CH_DATA, "1.0");
 			
 			service11.createRelationshipTo(characteristic12, Consts.RelTypes.CONTAINS);
+			*/
 			
 		    tx.success();
 		}

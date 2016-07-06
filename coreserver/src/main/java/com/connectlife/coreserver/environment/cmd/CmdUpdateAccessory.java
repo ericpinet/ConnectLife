@@ -78,7 +78,7 @@ public class CmdUpdateAccessory extends CmdDefault {
 				if (true == node_acc.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true")) {
 				
 					// ensure that the data update will not change the register status
-					m_accessory.setRegister(true); 
+					m_accessory.setRegister(true);
 					
 					// Update the data in the graph
 					DataManagerNodeFactory.updateAccessoryNode(graph, node_acc, m_accessory);
@@ -86,6 +86,10 @@ public class CmdUpdateAccessory extends CmdDefault {
 					// set the data change
 					this.m_data_is_changed = true;
 				}
+			}
+			else {
+				m_logger.error("Accessory not found. " + m_accessory.toString());
+				throw new Exception("Accessory not found. " + m_accessory.toString());
 			}
 			
 			tx.success();

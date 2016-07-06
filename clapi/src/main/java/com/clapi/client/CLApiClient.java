@@ -219,11 +219,9 @@ public class CLApiClient {
 					m_listener.notificationReceive(response.getNotification());
 					
 				} catch (InterruptedException e) {
-					m_logger.error(e.getMessage());
-					e.printStackTrace();
+					m_logger.warn(e.getMessage());
 				} catch (ExecutionException e) {
-					m_logger.error(e.getMessage());
-					e.printStackTrace();
+					m_logger.info(e.getMessage());
 				} catch (StatusRuntimeException e){
 					m_logger.warn(e.getMessage());
 				}

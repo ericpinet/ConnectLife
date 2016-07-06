@@ -29,6 +29,8 @@ import com.clapi.data.Person;
 import com.clapi.data.Phone;
 import com.clapi.data.Phone.PhoneType;
 import com.clapi.data.Service;
+import com.clapi.data.Accessory.AccessoryProtocolType;
+import com.clapi.data.Accessory.AccessoryType;
 import com.connectlife.coreserver.Consts;
 
 /**
@@ -468,8 +470,61 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ACCESSORY_MODEL, _accessory.getModel());
 				_node.setProperty(Consts.ACCESSORY_MANUFACTURER, _accessory.getManufacturer());
 				_node.setProperty(Consts.ACCESSORY_SERIALNUMBER, _accessory.getSerialnumber());
-				_node.setProperty(Consts.ACCESSORY_ISREGISTER, _accessory.isRegister());
+				_node.setProperty(Consts.ACCESSORY_ISREGISTER, (_accessory.isRegister() ? "true" : "false"));
 				_node.setProperty(Consts.ACCESSORY_IMAGEURL, _accessory.getImageurl());
+				
+				if (AccessoryType.AUTOMATIC_DOOR == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_AUTOMATIC_DOOR);
+				}
+				else if (AccessoryType.CAM == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_CAM);
+				}
+				else if (AccessoryType.CONTROL_BOARD == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_CONTROL_BOARD);
+				}
+				else if (AccessoryType.FAN == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_FAN);
+				}
+				else if (AccessoryType.LIGHT == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LIGHT);
+				}
+				else if (AccessoryType.LIGHT_COLORED == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LIGHT_COLORED);
+				}
+				else if (AccessoryType.LIGHT_DIMMABLE == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_DIMMABLE);
+				}
+				else if (AccessoryType.LIGHT_COLORED_DIMMABLE == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LIGHT_COLORED_DIMMABLE);
+				}
+				else if (AccessoryType.LOCK_MECHANISM == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LOCK_MECHANISM);
+				}
+				else if (AccessoryType.SWITCH == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_SWITCH);
+				}
+				else if (AccessoryType.THERMOSTAT == _accessory.getType()) {
+					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_THERMOSTAT);
+				}
+				else {
+					throw new Exception ("It's not a valid accessory type! ["+_accessory.getType()+"]");
+				}
+				
+				if (AccessoryProtocolType.HAP == _accessory.getProtocoltype()) {
+					_node.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_HAP);
+				}
+				else if (AccessoryProtocolType.JSON_SIMULATION == _accessory.getProtocoltype()) {
+					_node.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_JSON_SIMULATION);
+				}
+				else if (AccessoryProtocolType.ZIGBEE == _accessory.getProtocoltype()) {
+					_node.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_ZIGBEE);
+				}
+				else if (AccessoryProtocolType.ZWAVE == _accessory.getProtocoltype()) {
+					_node.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_ZWAVE);
+				}
+				else {
+					throw new Exception ("It's not a valid accessory protocol type! ["+_accessory.getType()+"]");
+				}
 				
 				Iterator<Service> it = _accessory.getServices().iterator();
 				while (it.hasNext()) {
@@ -614,7 +669,7 @@ public abstract class DataManagerNodeFactory {
 				// TYPE
 				if (CharacteristicType.BOOLEAN == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_BOOLEAN);
-					_node.setProperty(Consts.CH_DATA, _characteristic.getDataBoolean());
+					_node.setProperty(Consts.CH_DATA, (_characteristic.getDataBoolean() ? "true" : "false"));
 				}
 				else if (CharacteristicType.ENUM == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_ENUM);
@@ -622,11 +677,11 @@ public abstract class DataManagerNodeFactory {
 				}
 				else if (CharacteristicType.FLOAT == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_FLOAT);
-					_node.setProperty(Consts.CH_DATA, _characteristic.getDataFloat());
+					_node.setProperty(Consts.CH_DATA, String.valueOf(_characteristic.getDataFloat()));
 				}
 				else if (CharacteristicType.INTEGER == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_INTEGER);
-					_node.setProperty(Consts.CH_DATA, _characteristic.getDataInteger());
+					_node.setProperty(Consts.CH_DATA, String.valueOf(_characteristic.getDataInteger()));
 				}
 				else if (CharacteristicType.STATIC_STRING == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_STRING);
@@ -634,7 +689,7 @@ public abstract class DataManagerNodeFactory {
 				}
 				else if (CharacteristicType.WRITE_ONLY_BOOLEAN == _characteristic.getType()) {
 					_node.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_WRITE_ONLY_BOOLEAN);
-					_node.setProperty(Consts.CH_DATA, _characteristic.getDataBoolean());
+					_node.setProperty(Consts.CH_DATA, (_characteristic.getDataBoolean() ? "true" : "false"));
 				}
 				
 				// EVENT

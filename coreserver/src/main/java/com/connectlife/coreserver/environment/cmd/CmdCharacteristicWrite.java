@@ -95,15 +95,13 @@ public class CmdCharacteristicWrite extends CmdDefault {
 				if (false == node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_READ_ONLY)) {
 				
 					// check if characteristic and target value have same type
-					if (DataManagerFactory.buildCharacteristic(node).getType() == m_target_value.getType()) {
+					if ( DataManagerFactory.buildCharacteristic(node).getType() == m_target_value.getType() || 
+						 ( DataManagerFactory.buildCharacteristic(node).getType() == CharacteristicType.WRITE_ONLY_BOOLEAN && 
+						   m_target_value.getType() == CharacteristicType.BOOLEAN) ) {
 					
-						// BOOLEAN
+						// BOOLEAN OR WRITE ONLY BOOLEAN
 						if (CharacteristicType.BOOLEAN == m_target_value.getType()){
 							node.setProperty(Consts.CH_DATA, m_target_value.getDataBoolean()); 
-						}
-						// WRITE ONLY BOOLEAN
-						else if (CharacteristicType.WRITE_ONLY_BOOLEAN == m_target_value.getType()) {
-							node.setProperty(Consts.CH_DATA, m_target_value.getDataBoolean());
 						}
 						// STRING
 						else if (CharacteristicType.STATIC_STRING == m_target_value.getType()) {
@@ -127,13 +125,13 @@ public class CmdCharacteristicWrite extends CmdDefault {
 						
 					}
 					else {
-						m_logger.error("Characteristic was read only.");
-						throw new Exception("Characteristic was read only.");
+						m_logger.error("Characteristic target type was invalid. " + m_target_value.toString());
+						throw new Exception("Characteristic target type was invalid. " + m_target_value.toString());
 					}
 				}
 				else {
-					m_logger.error("Characteristic target type was invalid. " + m_target_value.toString());
-					throw new Exception("Characteristic target type was invalid. " + m_target_value.toString());
+					m_logger.error("Characteristic was read only.");
+					throw new Exception("Characteristic was read only.");
 				}
 			}
 			else {
