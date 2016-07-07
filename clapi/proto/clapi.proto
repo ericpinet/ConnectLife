@@ -266,8 +266,9 @@ message DeleteHomeResponse {
 
 // The request/response for addZone
 message AddZoneRequest {
-	required string label = 1;
-	optional string imageurl = 2;
+	required string uid_home = 1;
+	required string label = 2;
+	optional string imageurl = 3;
 }
 message AddZoneResponse {
 	required string uid = 1;

@@ -8,8 +8,6 @@
  */
 package com.connectlife.simulator;
 
-import java.util.Iterator;
-
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -21,10 +19,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-
-import com.connectlife.simulator.device.Device;
-
-import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Text;
 
 /**
  * 
@@ -32,15 +27,26 @@ import org.eclipse.swt.widgets.Combo;
  * @author ericpinet
  * <br> 2016-06-26
  */
-public class AddAccessoryDialog extends Dialog {
+public class AddEditLabel extends Dialog {
 
-	String accessory;
+	private String result;
+	
+	private String title;
+	
+	private String description;
+	
+	private Text textLabel;
+	
+	private String default_value;
 
 	/**
 	 * @param parent
 	 */
-	public AddAccessoryDialog(Shell parent) {
+	public AddEditLabel(Shell parent, String title, String description, String default_value) {
 		super(parent);
+		this.title = title;
+		this.description = description;
+		this.default_value = default_value;
 	}
 
 	/**
@@ -52,28 +58,17 @@ public class AddAccessoryDialog extends Dialog {
 		Shell parent = getParent();
 		final Shell shell =
 				new Shell(parent, SWT.TITLE | SWT.BORDER | SWT.APPLICATION_MODAL);
-		shell.setText("Add Accessory");
+		shell.setText(this.title);
 
 		shell.setLayout(new GridLayout(2, true));
 
 		Label label = new Label(shell, SWT.NULL);
 		label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
-		label.setText("Please select an result:");
-
-		Combo comboDevices = new Combo(shell, SWT.NONE);
-		comboDevices.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-
-		if (null != DeviceWindow.getRef() && null != DeviceWindow.getRef().getDevices()) {
-
-			Iterator<Device> it = DeviceWindow.getRef().getDevices().iterator();
-			while (it.hasNext()) {
-				Device device = it.next();
-				if (null != device.getServer()) {
-					comboDevices.add(device.getSerialnumber());
-				}
-			}
-
-		}
+		label.setText(this.description);
+		
+		textLabel = new Text(shell, SWT.BORDER);
+		textLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+		textLabel.setText(default_value);
 
 		final Button buttonOK = new Button(shell, SWT.PUSH);
 		buttonOK.setText("Ok");
@@ -83,14 +78,14 @@ public class AddAccessoryDialog extends Dialog {
 
 		buttonOK.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				accessory = comboDevices.getText();
+				result = textLabel.getText();
 				shell.dispose();
 			}
 		});
 
 		buttonCancel.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				accessory = "";  
+				result = "";  
 				shell.dispose();
 			}
 		});
@@ -110,7 +105,7 @@ public class AddAccessoryDialog extends Dialog {
 				display.sleep();
 		}
 
-		return (accessory.isEmpty() ? Window.CANCEL : Window.OK );
+		return (result.isEmpty() ? Window.CANCEL : Window.OK );
 	}
 
 	/**
@@ -119,7 +114,7 @@ public class AddAccessoryDialog extends Dialog {
 	 * @return
 	 */
 	public String getResult() {
-		return accessory;
+		return result;
 	}
 
 }

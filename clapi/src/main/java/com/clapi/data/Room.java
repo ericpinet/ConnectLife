@@ -66,6 +66,7 @@ public class Room implements DataObj {
 		this.uid = uid;
 		this.label = label;
 		this.accessories = new Vector<Accessory>();
+		this.imageurl = "";
 	}
 
 	/**

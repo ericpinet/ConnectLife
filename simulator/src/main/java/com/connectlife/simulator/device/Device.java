@@ -26,7 +26,7 @@ import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Service;
 
 /**
- * Base device for the simulation of accessory.
+ * Base device for the simulation of result.
  * Call the url of the device like this to change value of characteristic :
  * 
  * http://[hostname]:[port]/[service_name]/[characteristic_label]?value=[value]
@@ -184,7 +184,7 @@ public abstract class Device extends Accessory {
 	}
 	
 	/**
-	 * Return a accessory object representing this device.
+	 * Return a result object representing this device.
 	 * @return
 	 */
 	public Accessory getAccessory(){

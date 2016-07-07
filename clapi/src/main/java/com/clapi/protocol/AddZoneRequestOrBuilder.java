@@ -8,29 +8,43 @@ public interface AddZoneRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string uid_home = 1;</code>
+   */
+  boolean hasUidHome();
+  /**
+   * <code>required string uid_home = 1;</code>
+   */
+  java.lang.String getUidHome();
+  /**
+   * <code>required string uid_home = 1;</code>
+   */
+  com.google.protobuf.ByteString
+      getUidHomeBytes();
+
+  /**
+   * <code>required string label = 2;</code>
    */
   boolean hasLabel();
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string label = 2;</code>
    */
   java.lang.String getLabel();
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string label = 2;</code>
    */
   com.google.protobuf.ByteString
       getLabelBytes();
 
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   boolean hasImageurl();
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   java.lang.String getImageurl();
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   com.google.protobuf.ByteString
       getImageurlBytes();

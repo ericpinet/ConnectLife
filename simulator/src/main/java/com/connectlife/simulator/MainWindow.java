@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Label;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,12 +32,8 @@ import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
 import com.clapi.protocol.Notification.NotificationType;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.simulator.device.Device;
-import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -62,6 +60,11 @@ public class MainWindow implements NotificationListener {
 	private static final String HOST = "127.0.0.1";
 	private static final String PORT = "9006";
 	private Text textNbClients;
+	
+	public int nbclient;
+	public String host;
+	public String port;
+	
 	
 	/**
 	 * Start Person window.
@@ -270,8 +273,7 @@ public class MainWindow implements NotificationListener {
 	 * Run a load test
 	 */
 	protected void loadTest() {
-		
-		int nbclient = 100;
+	
 		try {
 			nbclient = Integer.parseInt(textNbClients.getText());
 		}
@@ -280,34 +282,45 @@ public class MainWindow implements NotificationListener {
 			m_logger.error("Wrong value in nb clients text field.");
 		}
 		
-		Vector<CLApiClient> clients = new Vector<CLApiClient>();
+		host = textHost.getText();
+		port = textPort.getText();
 		
-		// connect loop
-		for (int i=0 ; i<nbclient ; i++) {
-			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
-			m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
-			client.checkCompatibility();
-			client.getJsonData();
-			clients.addElement(client);
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
+		Runnable runnable = () -> {
+		    
+			
+			Vector<CLApiClient> clients = new Vector<CLApiClient>();
+			
+			// connect loop
+			for (int i=0 ; i<nbclient ; i++) {
+				CLApiClient client = new CLApiClient(host, Integer.parseInt(port), this);
+				m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
+				client.checkCompatibility();
+				client.getJsonData();
+				clients.addElement(client);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+				}
 			}
-		}
-		
-		// disconnect loop
-		for (int i=0 ; i<nbclient ; i++) {
-			CLApiClient client = clients.elementAt(i);
-			m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
-			client.checkCompatibility();
-			client.getJsonData();
-			try {
-				client.shutdown();
-				Thread.sleep(10);
-			} catch (InterruptedException e1) {
+			
+			// disconnect loop
+			for (int i=0 ; i<nbclient ; i++) {
+				CLApiClient client = clients.elementAt(i);
+				m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
+				client.checkCompatibility();
+				client.getJsonData();
+				try {
+					client.shutdown();
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
 
+				}
 			}
-		}
+		};
+
+		Thread thread = new Thread(runnable);
+		thread.start();
+			
 	}
 	
 	/**

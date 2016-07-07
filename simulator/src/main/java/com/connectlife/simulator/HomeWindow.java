@@ -182,7 +182,7 @@ public class HomeWindow extends Dialog {
 						// invalid type, do nothing.
 					}
 					
-					// check if item is a accessory
+					// check if item is a result
 					try{
 						acc = (Accessory)items[0].getData();
 						Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -280,14 +280,76 @@ public class HomeWindow extends Dialog {
 		Button btnDelete = new Button(composite, SWT.BUTTON1);
 		btnDelete.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnDelete.setText("Delete Home");
+		btnDelete.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+
+							client.deleteHome(((Home)items[0].getData()).getUid());
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 
 		Button btnEditHome = new Button(composite, SWT.BUTTON1);
 		btnEditHome.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnEditHome.setText("Edit Home");
+		btnEditHome.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+						
+						Home home = ((Home)items[0].getData());
+
+						AddEditLabel dialog = new AddEditLabel(shell, "Edit Home", "Enter the new label for the home.", home.getLabel());
+						if (dialog.open() == Window.OK) {
+							String result = dialog.getResult(); 
+							if (false == result.isEmpty()) {
+								client.updateHome(home.getUid(), result, home.getImageurl());
+							}
+						}
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		Button btnAddZone = new Button(composite, SWT.BUTTON1);
 		btnAddZone.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnAddZone.setText("Add Zone");
+		btnAddZone.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+						
+						Home home = ((Home)items[0].getData());
+						Zone zone = new Zone("", "");
+
+						AddEditLabel dialog = new AddEditLabel(shell, "Add Zone", "Enter the label for the new zone.", "");
+						if (dialog.open() == Window.OK) {
+							String result = dialog.getResult(); 
+							if (false == result.isEmpty()) {
+								client.addZone(home.getUid(), result, zone.getImageurl());
+							}
+						}
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		composite.layout(true, true);
 	}
@@ -297,10 +359,48 @@ public class HomeWindow extends Dialog {
 		Button btnDelete = new Button(composite, SWT.BUTTON1);
 		btnDelete.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnDelete.setText("Delete Zone");
+		btnDelete.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+
+							client.deleteZone(((Zone)items[0].getData()).getUid());
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		Button btnEditZone = new Button(composite, SWT.BUTTON1);
 		btnEditZone.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnEditZone.setText("Edit Zone");
+		btnEditZone.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+						
+						Zone zone = ((Zone)items[0].getData());
+
+						AddEditLabel dialog = new AddEditLabel(shell, "Edit Zone", "Enter the new label for the zone.", zone.getLabel());
+						if (dialog.open() == Window.OK) {
+							String result = dialog.getResult(); 
+							if (false == result.isEmpty()) {
+								client.updateZone(zone.getUid(), result, zone.getImageurl());
+							}
+						}
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		Button btnAddRoom = new Button(composite, SWT.BUTTON1);
 		btnAddRoom.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
@@ -339,12 +439,15 @@ public class HomeWindow extends Dialog {
 				try {
 					TreeItem[] items = tree.getSelection();
 					if (null != items[0]) {
+						
+						Room room = ((Room)items[0].getData());
 
-						AddAccessoryDialog dialog = new AddAccessoryDialog(shell);
-						// user pressed cancel
+						AddEditLabel dialog = new AddEditLabel(shell, "Edit Room", "Enter the new label for the room.", room.getLabel());
 						if (dialog.open() == Window.OK) {
-							String result = dialog.getResult(); 							
-							client.addAccessory(result, ((Room)items[0].getData()).getUid());
+							String result = dialog.getResult(); 
+							if (false == result.isEmpty()) {
+								client.updateRoom(room.getUid(), result, room.getImageurl());
+							}
 						}
 					}
 				}

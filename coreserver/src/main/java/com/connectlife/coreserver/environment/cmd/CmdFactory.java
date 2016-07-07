@@ -57,10 +57,11 @@ public abstract class CmdFactory {
 	 * Return the CmdAddZone. 
 	 * 
 	 * @param _zone Zone to add in the environment.
+	 * @param _home Home target where add the zone.
 	 * @return Return the CmdAddZone. 
 	 */
-	static public CmdAddZone getCmdAddZone(Zone _zone){
-		return new CmdAddZone(_zone);
+	static public CmdAddZone getCmdAddZone(Zone _zone, Home _home){
+		return new CmdAddZone(_zone, _home);
 	}
 	
 	/**

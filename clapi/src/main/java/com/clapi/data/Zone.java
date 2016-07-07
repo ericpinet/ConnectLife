@@ -66,6 +66,7 @@ public class Zone implements DataObj {
 		this.uid = uid;
 		this.label = label;
 		this.rooms = new Vector<Room>();
+		this.imageurl = "";
 	}
 
 	/**

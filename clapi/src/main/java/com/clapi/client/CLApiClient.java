@@ -167,13 +167,14 @@ public class CLApiClient {
 	
 	/**
 	 * Add new zone in the environment.
-	 * 
+	 * @param uid Uid of the home where add the zone.
 	 * @param label Label of the new zone.
 	 * @param imageurl Image url of the new zone.
 	 * @return Uid of the new zone added.
 	 */
-	public String addZone (String label, String imageurl) {
+	public String addZone (String uid, String label, String imageurl) {
 		AddZoneRequest request = AddZoneRequest.newBuilder()
+											   .setUidHome(uid)
 											   .setLabel(label)
 											   .setImageurl(imageurl)
 											   .build();

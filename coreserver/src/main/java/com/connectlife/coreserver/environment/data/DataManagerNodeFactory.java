@@ -67,18 +67,20 @@ public abstract class DataManagerNodeFactory {
 			// create node
 			node = _graph.createNode(Consts.LABEL_HOME);
 			
-			// build zone
-			Iterator <Zone> itzone = _home.getZones().iterator();
-			
-			while (itzone.hasNext()) {
+			if (null != _home.getZones()) {
+				// build zone
+				Iterator <Zone> itzone = _home.getZones().iterator();
 				
-				Zone zone = itzone.next();
-				
-				// create zone node
-				Node node_zone = buildZoneNode(_graph, zone);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_zone, Consts.RelTypes.CONTAINS);
+				while (itzone.hasNext()) {
+					
+					Zone zone = itzone.next();
+					
+					// create zone node
+					Node node_zone = buildZoneNode(_graph, zone);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_zone, Consts.RelTypes.CONTAINS);
+				}
 			}
 
 			// update data
@@ -109,21 +111,23 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.HOME_LABEL, _home.getLabel());
 				_node.setProperty(Consts.HOME_IMAGEURL, _home.getImageurl());
 				
-				// zone
-				Iterator<Zone> itzone = _home.getZones().iterator();
-				
-				while (itzone.hasNext()) {
+				if (null != _home.getZones()) {
+					// zone
+					Iterator<Zone> itzone = _home.getZones().iterator();
 					
-					Zone zone = itzone.next();
-					Node node_zone = _graph.findNode(Consts.LABEL_ZONE, Consts.UID, zone.getUid());
-					
-					if (null == node_zone) {
+					while (itzone.hasNext()) {
 						
-						node_zone = buildZoneNode(_graph, zone);
-						_node.createRelationshipTo(node_zone, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updateZoneNode(_graph, node_zone, zone);
+						Zone zone = itzone.next();
+						Node node_zone = _graph.findNode(Consts.LABEL_ZONE, Consts.UID, zone.getUid());
+						
+						if (null == node_zone) {
+							
+							node_zone = buildZoneNode(_graph, zone);
+							_node.createRelationshipTo(node_zone, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updateZoneNode(_graph, node_zone, zone);
+						}
 					}
 				}
 			}
@@ -157,18 +161,20 @@ public abstract class DataManagerNodeFactory {
 			// create node
 			node = _graph.createNode(Consts.LABEL_ZONE);
 			
-			// build room
-			Iterator <Room> itroom = _zone.getRooms().iterator();
-			
-			while (itroom.hasNext()) {
+			if (null != _zone.getRooms()) {
+				// build room
+				Iterator <Room> itroom = _zone.getRooms().iterator();
 				
-				Room room = itroom.next();
-				
-				// create room node
-				Node node_room = buildRoomNode(_graph, room);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
+				while (itroom.hasNext()) {
+					
+					Room room = itroom.next();
+					
+					// create room node
+					Node node_room = buildRoomNode(_graph, room);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
+				}
 			}
 
 			// update data
@@ -199,21 +205,23 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ZONE_LABEL, _zone.getLabel());
 				_node.setProperty(Consts.ZONE_IMAGEURL, _zone.getImageurl());
 				
-				// room
-				Iterator<Room> itroom = _zone.getRooms().iterator();
-				
-				while (itroom.hasNext()) {
+				if (null != _zone.getRooms()) {
+					// room
+					Iterator<Room> itroom = _zone.getRooms().iterator();
 					
-					Room room = itroom.next();
-					Node node_room = _graph.findNode(Consts.LABEL_ROOM, Consts.UID, room.getUid());
-					
-					if (null == node_room) {
+					while (itroom.hasNext()) {
 						
-						node_room = buildRoomNode(_graph, room);
-						_node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updateRoomNode(_graph, node_room, room);
+						Room room = itroom.next();
+						Node node_room = _graph.findNode(Consts.LABEL_ROOM, Consts.UID, room.getUid());
+						
+						if (null == node_room) {
+							
+							node_room = buildRoomNode(_graph, room);
+							_node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updateRoomNode(_graph, node_room, room);
+						}
 					}
 				}
 			}
@@ -247,18 +255,20 @@ public abstract class DataManagerNodeFactory {
 			// create node
 			node = _graph.createNode(Consts.LABEL_ROOM);
 			
-			// accessory room
-			Iterator <Accessory> itaccessory = _room.getAccessories().iterator();
-			
-			while (itaccessory.hasNext()) {
+			if (null != _room.getAccessories()) {
+				// accessory room
+				Iterator <Accessory> itaccessory = _room.getAccessories().iterator();
 				
-				Accessory accessory = itaccessory.next();
-				
-				// create accessory node
-				Node node_room = buildAccessoryNode(_graph, accessory);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
+				while (itaccessory.hasNext()) {
+					
+					Accessory accessory = itaccessory.next();
+					
+					// create accessory node
+					Node node_room = buildAccessoryNode(_graph, accessory);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_room, Consts.RelTypes.CONTAINS);
+				}
 			}
 
 			// update data
@@ -289,21 +299,23 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ROOM_LABEL, _room.getLabel());
 				_node.setProperty(Consts.ROOM_IMAGEURL, _room.getImageurl());
 				
-				// accessory
-				Iterator<Accessory> itaccessory = _room.getAccessories().iterator();
-				
-				while (itaccessory.hasNext()) {
+				if (null != _room.getAccessories()) {
+					// accessory
+					Iterator<Accessory> itaccessory = _room.getAccessories().iterator();
 					
-					Accessory accessory = itaccessory.next();
-					Node node_accessory = _graph.findNode(Consts.LABEL_ACCESSORY, Consts.UID, accessory.getUid());
-					
-					if (null == node_accessory) {
+					while (itaccessory.hasNext()) {
 						
-						node_accessory = buildAccessoryNode(_graph, accessory);
-						_node.createRelationshipTo(node_accessory, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updateAccessoryNode(_graph, node_accessory, accessory);
+						Accessory accessory = itaccessory.next();
+						Node node_accessory = _graph.findNode(Consts.LABEL_ACCESSORY, Consts.UID, accessory.getUid());
+						
+						if (null == node_accessory) {
+							
+							node_accessory = buildAccessoryNode(_graph, accessory);
+							_node.createRelationshipTo(node_accessory, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updateAccessoryNode(_graph, node_accessory, accessory);
+						}
 					}
 				}
 			}
@@ -337,46 +349,52 @@ public abstract class DataManagerNodeFactory {
 			// create node
 			node = _graph.createNode(Consts.LABEL_PERSON);
 			
-			// build email
-			Iterator <Email> itemail = _person.getEmails().iterator();
-			
-			while (itemail.hasNext()) {
+			if (null != _person.getEmails()) {
+				// build email
+				Iterator <Email> itemail = _person.getEmails().iterator();
 				
-				Email email = itemail.next();
-				
-				// create email node
-				Node node_email = buildEmailNode(_graph, email);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
+				while (itemail.hasNext()) {
+					
+					Email email = itemail.next();
+					
+					// create email node
+					Node node_email = buildEmailNode(_graph, email);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
+				}
 			}
 			
-			// build phone
-			Iterator <Phone> itphone = _person.getPhones().iterator();
-			
-			while (itphone.hasNext()) {
+			if (null != _person.getPhones()) {
+				// build phone
+				Iterator <Phone> itphone = _person.getPhones().iterator();
 				
-				Phone phone = itphone.next();
-				
-				// create phone node
-				Node node_phone = buildPhoneNode(_graph, phone);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
+				while (itphone.hasNext()) {
+					
+					Phone phone = itphone.next();
+					
+					// create phone node
+					Node node_phone = buildPhoneNode(_graph, phone);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
+				}
 			}
 			
-			// build address
-			Iterator <Address> itaddress = _person.getAddresses().iterator();
-			
-			while (itaddress.hasNext()) {
+			if (null != _person.getAddresses()) {
+				// build address
+				Iterator <Address> itaddress = _person.getAddresses().iterator();
 				
-				Address address = itaddress.next();
-				
-				// create address node
-				Node node_address = buildAddressNode(_graph, address);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
+				while (itaddress.hasNext()) {
+					
+					Address address = itaddress.next();
+					
+					// create address node
+					Node node_address = buildAddressNode(_graph, address);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
+				}
 			}
 			
 			// update data
@@ -408,57 +426,63 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.PERSON_LASTNAME, _person.getLastname());
 				_node.setProperty(Consts.PERSON_IMAGEURL, _person.getImageurl());
 				
-				// email
-				Iterator<Email> itemail = _person.getEmails().iterator();
-				
-				while (itemail.hasNext()) {
+				if (null != _person.getEmails()) {
+					// email
+					Iterator<Email> itemail = _person.getEmails().iterator();
 					
-					Email email = itemail.next();
-					Node node_email = _graph.findNode(Consts.LABEL_EMAIL, Consts.UID, email.getUid());
-					
-					if (null == node_email) {
+					while (itemail.hasNext()) {
 						
-						node_email = buildEmailNode(_graph, email);
-						_node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updateEmailNode(_graph, node_email, email);
+						Email email = itemail.next();
+						Node node_email = _graph.findNode(Consts.LABEL_EMAIL, Consts.UID, email.getUid());
+						
+						if (null == node_email) {
+							
+							node_email = buildEmailNode(_graph, email);
+							_node.createRelationshipTo(node_email, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updateEmailNode(_graph, node_email, email);
+						}
 					}
 				}
 				
-				// phone
-				Iterator<Phone> itphone = _person.getPhones().iterator();
-				
-				while (itphone.hasNext()) {
+				if (null != _person.getPhones()) {
+					// phone
+					Iterator<Phone> itphone = _person.getPhones().iterator();
 					
-					Phone phone = itphone.next();
-					Node node_phone = _graph.findNode(Consts.LABEL_PHONE, Consts.UID, phone.getUid());
-					
-					if (null == node_phone) {
+					while (itphone.hasNext()) {
 						
-						node_phone = buildPhoneNode(_graph, phone);
-						_node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updatePhoneNode(_graph, node_phone, phone);
+						Phone phone = itphone.next();
+						Node node_phone = _graph.findNode(Consts.LABEL_PHONE, Consts.UID, phone.getUid());
+						
+						if (null == node_phone) {
+							
+							node_phone = buildPhoneNode(_graph, phone);
+							_node.createRelationshipTo(node_phone, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updatePhoneNode(_graph, node_phone, phone);
+						}
 					}
 				}
 				
-				// address
-				Iterator<Address> itaddress = _person.getAddresses().iterator();
-				
-				while (itaddress.hasNext()) {
+				if (null != _person.getAddresses()) {
+					// address
+					Iterator<Address> itaddress = _person.getAddresses().iterator();
 					
-					Address address = itaddress.next();
-					Node node_address = _graph.findNode(Consts.LABEL_ADDRESS, Consts.UID, address.getUid());
-					
-					if (null == node_address) {
+					while (itaddress.hasNext()) {
 						
-						node_address = buildAddressNode(_graph, address);
-						_node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
-					}
-					else {
-						updateAddressNode(_graph, node_address, address);
+						Address address = itaddress.next();
+						Node node_address = _graph.findNode(Consts.LABEL_ADDRESS, Consts.UID, address.getUid());
+						
+						if (null == node_address) {
+							
+							node_address = buildAddressNode(_graph, address);
+							_node.createRelationshipTo(node_address, Consts.RelTypes.CONTAINS);
+						}
+						else {
+							updateAddressNode(_graph, node_address, address);
+						}
 					}
 				}
 			}
@@ -702,17 +726,19 @@ public abstract class DataManagerNodeFactory {
 			// create node
 			node = _graph.createNode(Consts.LABEL_ACCESSORY);
 			
-			// build services
-			Iterator <Service> it = _accessory.getServices().iterator();
-			
-			while (it.hasNext()) {
-				Service service = it.next();
+			if (null != _accessory.getServices()) {
+				// build services
+				Iterator <Service> it = _accessory.getServices().iterator();
 				
-				// create service node
-				Node node_ser = buildServiceNode(_graph, service);
-				
-				// adding the relationship
-				node.createRelationshipTo(node_ser, Consts.RelTypes.CONTAINS);
+				while (it.hasNext()) {
+					Service service = it.next();
+					
+					// create service node
+					Node node_ser = buildServiceNode(_graph, service);
+					
+					// adding the relationship
+					node.createRelationshipTo(node_ser, Consts.RelTypes.CONTAINS);
+				}
 			}
 			
 			// update data
@@ -800,10 +826,12 @@ public abstract class DataManagerNodeFactory {
 					throw new Exception ("It's not a valid accessory protocol type! ["+_accessory.getType()+"]");
 				}
 				
-				Iterator<Service> it = _accessory.getServices().iterator();
-				while (it.hasNext()) {
-					Service service = it.next();
-					updateServiceNode(_graph, _graph.findNode(Consts.LABEL_SERVICE, Consts.UID, service.getUid()), service);
+				if (null != _accessory.getServices()) {
+					Iterator<Service> it = _accessory.getServices().iterator();
+					while (it.hasNext()) {
+						Service service = it.next();
+						updateServiceNode(_graph, _graph.findNode(Consts.LABEL_SERVICE, Consts.UID, service.getUid()), service);
+					}
 				}
 			}
 			else {
@@ -836,18 +864,20 @@ public abstract class DataManagerNodeFactory {
 				
 			node = _graph.createNode(Consts.LABEL_SERVICE);
 			
-			// build characteristics
-			Iterator <Characteristic> it = _service.getCharacteristics().iterator();
-			
-			while (it.hasNext()) {
-				Characteristic characteristic = it.next();
+			if (null != _service.getCharacteristics()) {
+				// build characteristics
+				Iterator <Characteristic> it = _service.getCharacteristics().iterator();
 				
-				// create the node
-				Node node_ch = buildCharacteristicNode(_graph, characteristic);
-				
-				// adding relationship
-				node.createRelationshipTo(node_ch, Consts.RelTypes.CONTAINS);
-			}	
+				while (it.hasNext()) {
+					Characteristic characteristic = it.next();
+					
+					// create the node
+					Node node_ch = buildCharacteristicNode(_graph, characteristic);
+					
+					// adding relationship
+					node.createRelationshipTo(node_ch, Consts.RelTypes.CONTAINS);
+				}
+			}
 			
 			// update data
 			updateServiceNode(_graph, node, _service);
@@ -877,10 +907,12 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.UID, _service.getUid());
 				_node.setProperty(Consts.SERVICE_NAME, _service.getName());
 				
-				Iterator<Characteristic> it = _service.getCharacteristics().iterator();
-				while (it.hasNext()) {
-					Characteristic characteristic = it.next();
-					updateCharacteristicNode(_graph, _graph.findNode(Consts.LABEL_CHARACTERISTIC, Consts.UID, characteristic.getUid()), characteristic);
+				if (null != _service.getCharacteristics()) {
+					Iterator<Characteristic> it = _service.getCharacteristics().iterator();
+					while (it.hasNext()) {
+						Characteristic characteristic = it.next();
+						updateCharacteristicNode(_graph, _graph.findNode(Consts.LABEL_CHARACTERISTIC, Consts.UID, characteristic.getUid()), characteristic);
+					}
 				}
 			}
 			else {

@@ -99,6 +99,10 @@ public class Address implements DataObj {
 		this.uid = uid;
 		this.type = type;
 		this.street = street;
+		this.city = "";
+		this.region = "";
+		this.zipcode = "";
+		this.country = "";
 	}
 	
 	/**
