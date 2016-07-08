@@ -349,66 +349,67 @@ public final class CLApiProtos {
       "\n\003uid\030\001 \002(\t\022\r\n\005label\030\002 \002(\t\022\020\n\010imageurl\030\003" +
       " \001(\t\"!\n\022UpdateZoneResponse\022\013\n\003uid\030\001 \002(\t\"" +
       " \n\021DeleteZoneRequest\022\013\n\003uid\030\001 \002(\t\"!\n\022Del" +
-      "eteZoneResponse\022\013\n\003uid\030\001 \002(\t\"1\n\016AddRoomR" +
-      "equest\022\r\n\005label\030\001 \002(\t\022\020\n\010imageurl\030\002 \001(\t\"" +
-      "\036\n\017AddRoomResponse\022\013\n\003uid\030\001 \002(\t\"A\n\021Updat",
-      "eRoomRequest\022\013\n\003uid\030\001 \002(\t\022\r\n\005label\030\002 \002(\t" +
-      "\022\020\n\010imageurl\030\003 \001(\t\"!\n\022UpdateRoomResponse" +
-      "\022\013\n\003uid\030\001 \002(\t\" \n\021DeleteRoomRequest\022\013\n\003ui" +
-      "d\030\001 \002(\t\"!\n\022DeleteRoomResponse\022\013\n\003uid\030\001 \002" +
-      "(\t\"\202\001\n\014Notification\0222\n\004type\030\001 \002(\0162$.clap" +
-      "i.Notification.NotificationType\022\014\n\004data\030" +
-      "\002 \001(\t\"0\n\020NotificationType\022\017\n\013ENV_UPDATED" +
-      "\020\000\022\013\n\007MESSAGE\020\0012\220\017\n\005CLApi\022C\n\ngetVersion\022" +
-      "\030.clapi.GetVersionRequest\032\031.clapi.GetVer" +
-      "sionResponse\"\000\022[\n\022checkCompatibility\022 .c",
-      "lapi.CheckCompatibilityRequest\032!.clapi.C" +
-      "heckCompatibilityResponse\"\000\022U\n\020waitNotif" +
-      "ication\022\036.clapi.WaitNotificationRequest\032" +
-      "\037.clapi.WaitNotificationResponse\"\000\022F\n\013ge" +
-      "tJsonData\022\031.clapi.GetJsonDataRequest\032\032.c" +
-      "lapi.GetJsonDataResponse\"\000\022@\n\taddPerson\022" +
-      "\027.clapi.AddPersonRequest\032\030.clapi.AddPers" +
-      "onResponse\"\000\022I\n\014updatePerson\022\032.clapi.Upd" +
-      "atePersonRequest\032\033.clapi.UpdatePersonRes" +
-      "ponse\"\000\022I\n\014deletePerson\022\032.clapi.DeletePe",
-      "rsonRequest\032\033.clapi.DeletePersonResponse" +
-      "\"\000\022=\n\010addEmail\022\026.clapi.AddEmailRequest\032\027" +
-      ".clapi.AddEmailResponse\"\000\022F\n\013updateEmail" +
-      "\022\031.clapi.UpdateEmailRequest\032\032.clapi.Upda" +
-      "teEmailResponse\"\000\022F\n\013deleteEmail\022\031.clapi" +
-      ".DeleteEmailRequest\032\032.clapi.DeleteEmailR" +
-      "esponse\"\000\022=\n\010addPhone\022\026.clapi.AddPhoneRe" +
-      "quest\032\027.clapi.AddPhoneResponse\"\000\022F\n\013upda" +
-      "tePhone\022\031.clapi.UpdatePhoneRequest\032\032.cla" +
-      "pi.UpdatePhoneResponse\"\000\022F\n\013deletePhone\022",
-      "\031.clapi.DeletePhoneRequest\032\032.clapi.Delet" +
-      "ePhoneResponse\"\000\022C\n\naddAddress\022\030.clapi.A" +
-      "ddAddressRequest\032\031.clapi.AddAddressRespo" +
-      "nse\"\000\022L\n\rupdateAddress\022\033.clapi.UpdateAdd" +
-      "ressRequest\032\034.clapi.UpdateAddressRespons" +
-      "e\"\000\022L\n\rdeleteAddress\022\033.clapi.DeleteAddre" +
-      "ssRequest\032\034.clapi.DeleteAddressResponse\"" +
-      "\000\022:\n\007addHome\022\025.clapi.AddHomeRequest\032\026.cl" +
-      "api.AddHomeResponse\"\000\022C\n\nupdateHome\022\030.cl" +
-      "api.UpdateHomeRequest\032\031.clapi.UpdateHome",
-      "Response\"\000\022C\n\ndeleteHome\022\030.clapi.DeleteH" +
-      "omeRequest\032\031.clapi.DeleteHomeResponse\"\000\022" +
-      ":\n\007addZone\022\025.clapi.AddZoneRequest\032\026.clap" +
-      "i.AddZoneResponse\"\000\022C\n\nupdateZone\022\030.clap" +
-      "i.UpdateZoneRequest\032\031.clapi.UpdateZoneRe" +
-      "sponse\"\000\022C\n\ndeleteZone\022\030.clapi.DeleteZon" +
-      "eRequest\032\031.clapi.DeleteZoneResponse\"\000\022:\n" +
-      "\007addRoom\022\025.clapi.AddRoomRequest\032\026.clapi." +
-      "AddRoomResponse\"\000\022C\n\nupdateRoom\022\030.clapi." +
-      "UpdateRoomRequest\032\031.clapi.UpdateRoomResp",
-      "onse\"\000\022C\n\ndeleteRoom\022\030.clapi.DeleteRoomR" +
-      "equest\032\031.clapi.DeleteRoomResponse\"\000\022I\n\014a" +
-      "ddAccessory\022\032.clapi.AddAccessoryRequest\032" +
-      "\033.clapi.AddAccessoryResponse\"\000\022R\n\017delete" +
-      "Accessory\022\035.clapi.DeleteAccessoryRequest" +
-      "\032\036.clapi.DeleteAccessoryResponse\"\000B#\n\022co" +
-      "m.clapi.protocolB\013CLApiProtosP\001"
+      "eteZoneResponse\022\013\n\003uid\030\001 \002(\t\"C\n\016AddRoomR" +
+      "equest\022\020\n\010uid_zone\030\001 \002(\t\022\r\n\005label\030\002 \002(\t\022" +
+      "\020\n\010imageurl\030\003 \001(\t\"\036\n\017AddRoomResponse\022\013\n\003",
+      "uid\030\001 \002(\t\"A\n\021UpdateRoomRequest\022\013\n\003uid\030\001 " +
+      "\002(\t\022\r\n\005label\030\002 \002(\t\022\020\n\010imageurl\030\003 \001(\t\"!\n\022" +
+      "UpdateRoomResponse\022\013\n\003uid\030\001 \002(\t\" \n\021Delet" +
+      "eRoomRequest\022\013\n\003uid\030\001 \002(\t\"!\n\022DeleteRoomR" +
+      "esponse\022\013\n\003uid\030\001 \002(\t\"\202\001\n\014Notification\0222\n" +
+      "\004type\030\001 \002(\0162$.clapi.Notification.Notific" +
+      "ationType\022\014\n\004data\030\002 \001(\t\"0\n\020NotificationT" +
+      "ype\022\017\n\013ENV_UPDATED\020\000\022\013\n\007MESSAGE\020\0012\220\017\n\005CL" +
+      "Api\022C\n\ngetVersion\022\030.clapi.GetVersionRequ" +
+      "est\032\031.clapi.GetVersionResponse\"\000\022[\n\022chec",
+      "kCompatibility\022 .clapi.CheckCompatibilit" +
+      "yRequest\032!.clapi.CheckCompatibilityRespo" +
+      "nse\"\000\022U\n\020waitNotification\022\036.clapi.WaitNo" +
+      "tificationRequest\032\037.clapi.WaitNotificati" +
+      "onResponse\"\000\022F\n\013getJsonData\022\031.clapi.GetJ" +
+      "sonDataRequest\032\032.clapi.GetJsonDataRespon" +
+      "se\"\000\022@\n\taddPerson\022\027.clapi.AddPersonReque" +
+      "st\032\030.clapi.AddPersonResponse\"\000\022I\n\014update" +
+      "Person\022\032.clapi.UpdatePersonRequest\032\033.cla" +
+      "pi.UpdatePersonResponse\"\000\022I\n\014deletePerso",
+      "n\022\032.clapi.DeletePersonRequest\032\033.clapi.De" +
+      "letePersonResponse\"\000\022=\n\010addEmail\022\026.clapi" +
+      ".AddEmailRequest\032\027.clapi.AddEmailRespons" +
+      "e\"\000\022F\n\013updateEmail\022\031.clapi.UpdateEmailRe" +
+      "quest\032\032.clapi.UpdateEmailResponse\"\000\022F\n\013d" +
+      "eleteEmail\022\031.clapi.DeleteEmailRequest\032\032." +
+      "clapi.DeleteEmailResponse\"\000\022=\n\010addPhone\022" +
+      "\026.clapi.AddPhoneRequest\032\027.clapi.AddPhone" +
+      "Response\"\000\022F\n\013updatePhone\022\031.clapi.Update" +
+      "PhoneRequest\032\032.clapi.UpdatePhoneResponse",
+      "\"\000\022F\n\013deletePhone\022\031.clapi.DeletePhoneReq" +
+      "uest\032\032.clapi.DeletePhoneResponse\"\000\022C\n\nad" +
+      "dAddress\022\030.clapi.AddAddressRequest\032\031.cla" +
+      "pi.AddAddressResponse\"\000\022L\n\rupdateAddress" +
+      "\022\033.clapi.UpdateAddressRequest\032\034.clapi.Up" +
+      "dateAddressResponse\"\000\022L\n\rdeleteAddress\022\033" +
+      ".clapi.DeleteAddressRequest\032\034.clapi.Dele" +
+      "teAddressResponse\"\000\022:\n\007addHome\022\025.clapi.A" +
+      "ddHomeRequest\032\026.clapi.AddHomeResponse\"\000\022" +
+      "C\n\nupdateHome\022\030.clapi.UpdateHomeRequest\032",
+      "\031.clapi.UpdateHomeResponse\"\000\022C\n\ndeleteHo" +
+      "me\022\030.clapi.DeleteHomeRequest\032\031.clapi.Del" +
+      "eteHomeResponse\"\000\022:\n\007addZone\022\025.clapi.Add" +
+      "ZoneRequest\032\026.clapi.AddZoneResponse\"\000\022C\n" +
+      "\nupdateZone\022\030.clapi.UpdateZoneRequest\032\031." +
+      "clapi.UpdateZoneResponse\"\000\022C\n\ndeleteZone" +
+      "\022\030.clapi.DeleteZoneRequest\032\031.clapi.Delet" +
+      "eZoneResponse\"\000\022:\n\007addRoom\022\025.clapi.AddRo" +
+      "omRequest\032\026.clapi.AddRoomResponse\"\000\022C\n\nu" +
+      "pdateRoom\022\030.clapi.UpdateRoomRequest\032\031.cl",
+      "api.UpdateRoomResponse\"\000\022C\n\ndeleteRoom\022\030" +
+      ".clapi.DeleteRoomRequest\032\031.clapi.DeleteR" +
+      "oomResponse\"\000\022I\n\014addAccessory\022\032.clapi.Ad" +
+      "dAccessoryRequest\032\033.clapi.AddAccessoryRe" +
+      "sponse\"\000\022R\n\017deleteAccessory\022\035.clapi.Dele" +
+      "teAccessoryRequest\032\036.clapi.DeleteAccesso" +
+      "ryResponse\"\000B#\n\022com.clapi.protocolB\013CLAp" +
+      "iProtosP\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -715,7 +716,7 @@ public final class CLApiProtos {
     internal_static_clapi_AddRoomRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_clapi_AddRoomRequest_descriptor,
-        new java.lang.String[] { "Label", "Imageurl", });
+        new java.lang.String[] { "UidZone", "Label", "Imageurl", });
     internal_static_clapi_AddRoomResponse_descriptor =
       getDescriptor().getMessageTypes().get(49);
     internal_static_clapi_AddRoomResponse_fieldAccessorTable = new

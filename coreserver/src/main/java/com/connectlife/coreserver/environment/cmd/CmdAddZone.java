@@ -76,6 +76,11 @@ public class CmdAddZone extends CmdDefault {
 			throw new Exception ("Error! It's not possible to add a zone with a UID.");
 		}
 		
+		if (null == m_home) {
+			m_logger.error("Error! It's not possible to add zone in a null home in the environment.");
+			throw new Exception ("Error! It's not possible to add zone in a null home in the environment.");
+		}
+		
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

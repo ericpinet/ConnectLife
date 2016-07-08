@@ -294,8 +294,9 @@ message DeleteZoneResponse {
 
 // The request/response for addRoom
 message AddRoomRequest {
-	required string label = 1;
-	optional string imageurl = 2;
+	required string uid_zone = 1;
+	required string label = 2;
+	optional string imageurl = 3;
 }
 message AddRoomResponse {
 	required string uid = 1;

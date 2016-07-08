@@ -19,6 +19,7 @@ public  final class AddRoomRequest extends
     super(builder);
   }
   private AddRoomRequest() {
+    uidZone_ = "";
     label_ = "";
     imageurl_ = "";
   }
@@ -53,12 +54,18 @@ public  final class AddRoomRequest extends
           case 10: {
             com.google.protobuf.ByteString bs = input.readBytes();
             bitField0_ |= 0x00000001;
-            label_ = bs;
+            uidZone_ = bs;
             break;
           }
           case 18: {
             com.google.protobuf.ByteString bs = input.readBytes();
             bitField0_ |= 0x00000002;
+            label_ = bs;
+            break;
+          }
+          case 26: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000004;
             imageurl_ = bs;
             break;
           }
@@ -88,16 +95,58 @@ public  final class AddRoomRequest extends
   }
 
   private int bitField0_;
-  public static final int LABEL_FIELD_NUMBER = 1;
-  private volatile java.lang.Object label_;
+  public static final int UID_ZONE_FIELD_NUMBER = 1;
+  private volatile java.lang.Object uidZone_;
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string uid_zone = 1;</code>
    */
-  public boolean hasLabel() {
+  public boolean hasUidZone() {
     return ((bitField0_ & 0x00000001) == 0x00000001);
   }
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string uid_zone = 1;</code>
+   */
+  public java.lang.String getUidZone() {
+    java.lang.Object ref = uidZone_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        uidZone_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>required string uid_zone = 1;</code>
+   */
+  public com.google.protobuf.ByteString
+      getUidZoneBytes() {
+    java.lang.Object ref = uidZone_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      uidZone_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int LABEL_FIELD_NUMBER = 2;
+  private volatile java.lang.Object label_;
+  /**
+   * <code>required string label = 2;</code>
+   */
+  public boolean hasLabel() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>required string label = 2;</code>
    */
   public java.lang.String getLabel() {
     java.lang.Object ref = label_;
@@ -114,7 +163,7 @@ public  final class AddRoomRequest extends
     }
   }
   /**
-   * <code>required string label = 1;</code>
+   * <code>required string label = 2;</code>
    */
   public com.google.protobuf.ByteString
       getLabelBytes() {
@@ -130,16 +179,16 @@ public  final class AddRoomRequest extends
     }
   }
 
-  public static final int IMAGEURL_FIELD_NUMBER = 2;
+  public static final int IMAGEURL_FIELD_NUMBER = 3;
   private volatile java.lang.Object imageurl_;
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   public boolean hasImageurl() {
-    return ((bitField0_ & 0x00000002) == 0x00000002);
+    return ((bitField0_ & 0x00000004) == 0x00000004);
   }
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   public java.lang.String getImageurl() {
     java.lang.Object ref = imageurl_;
@@ -156,7 +205,7 @@ public  final class AddRoomRequest extends
     }
   }
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageurl = 3;</code>
    */
   public com.google.protobuf.ByteString
       getImageurlBytes() {
@@ -178,6 +227,10 @@ public  final class AddRoomRequest extends
     if (isInitialized == 1) return true;
     if (isInitialized == 0) return false;
 
+    if (!hasUidZone()) {
+      memoizedIsInitialized = 0;
+      return false;
+    }
     if (!hasLabel()) {
       memoizedIsInitialized = 0;
       return false;
@@ -189,10 +242,13 @@ public  final class AddRoomRequest extends
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 1, label_);
+      com.google.protobuf.GeneratedMessage.writeString(output, 1, uidZone_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      com.google.protobuf.GeneratedMessage.writeString(output, 2, imageurl_);
+      com.google.protobuf.GeneratedMessage.writeString(output, 2, label_);
+    }
+    if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 3, imageurl_);
     }
     unknownFields.writeTo(output);
   }
@@ -203,10 +259,13 @@ public  final class AddRoomRequest extends
 
     size = 0;
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, label_);
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(1, uidZone_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, imageurl_);
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, label_);
+    }
+    if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(3, imageurl_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -324,10 +383,12 @@ public  final class AddRoomRequest extends
     }
     public Builder clear() {
       super.clear();
-      label_ = "";
+      uidZone_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
-      imageurl_ = "";
+      label_ = "";
       bitField0_ = (bitField0_ & ~0x00000002);
+      imageurl_ = "";
+      bitField0_ = (bitField0_ & ~0x00000004);
       return this;
     }
 
@@ -355,9 +416,13 @@ public  final class AddRoomRequest extends
       if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
         to_bitField0_ |= 0x00000001;
       }
-      result.label_ = label_;
+      result.uidZone_ = uidZone_;
       if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
         to_bitField0_ |= 0x00000002;
+      }
+      result.label_ = label_;
+      if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+        to_bitField0_ |= 0x00000004;
       }
       result.imageurl_ = imageurl_;
       result.bitField0_ = to_bitField0_;
@@ -376,13 +441,18 @@ public  final class AddRoomRequest extends
 
     public Builder mergeFrom(com.clapi.protocol.AddRoomRequest other) {
       if (other == com.clapi.protocol.AddRoomRequest.getDefaultInstance()) return this;
-      if (other.hasLabel()) {
+      if (other.hasUidZone()) {
         bitField0_ |= 0x00000001;
+        uidZone_ = other.uidZone_;
+        onChanged();
+      }
+      if (other.hasLabel()) {
+        bitField0_ |= 0x00000002;
         label_ = other.label_;
         onChanged();
       }
       if (other.hasImageurl()) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         imageurl_ = other.imageurl_;
         onChanged();
       }
@@ -392,6 +462,9 @@ public  final class AddRoomRequest extends
     }
 
     public final boolean isInitialized() {
+      if (!hasUidZone()) {
+        return false;
+      }
       if (!hasLabel()) {
         return false;
       }
@@ -417,15 +490,91 @@ public  final class AddRoomRequest extends
     }
     private int bitField0_;
 
-    private java.lang.Object label_ = "";
+    private java.lang.Object uidZone_ = "";
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string uid_zone = 1;</code>
      */
-    public boolean hasLabel() {
+    public boolean hasUidZone() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string uid_zone = 1;</code>
+     */
+    public java.lang.String getUidZone() {
+      java.lang.Object ref = uidZone_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          uidZone_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>required string uid_zone = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getUidZoneBytes() {
+      java.lang.Object ref = uidZone_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        uidZone_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>required string uid_zone = 1;</code>
+     */
+    public Builder setUidZone(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uidZone_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string uid_zone = 1;</code>
+     */
+    public Builder clearUidZone() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      uidZone_ = getDefaultInstance().getUidZone();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>required string uid_zone = 1;</code>
+     */
+    public Builder setUidZoneBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+      uidZone_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object label_ = "";
+    /**
+     * <code>required string label = 2;</code>
+     */
+    public boolean hasLabel() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string label = 2;</code>
      */
     public java.lang.String getLabel() {
       java.lang.Object ref = label_;
@@ -442,7 +591,7 @@ public  final class AddRoomRequest extends
       }
     }
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string label = 2;</code>
      */
     public com.google.protobuf.ByteString
         getLabelBytes() {
@@ -458,36 +607,36 @@ public  final class AddRoomRequest extends
       }
     }
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string label = 2;</code>
      */
     public Builder setLabel(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
       label_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string label = 2;</code>
      */
     public Builder clearLabel() {
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000002);
       label_ = getDefaultInstance().getLabel();
       onChanged();
       return this;
     }
     /**
-     * <code>required string label = 1;</code>
+     * <code>required string label = 2;</code>
      */
     public Builder setLabelBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
       label_ = value;
       onChanged();
       return this;
@@ -495,13 +644,13 @@ public  final class AddRoomRequest extends
 
     private java.lang.Object imageurl_ = "";
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public boolean hasImageurl() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public java.lang.String getImageurl() {
       java.lang.Object ref = imageurl_;
@@ -518,7 +667,7 @@ public  final class AddRoomRequest extends
       }
     }
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public com.google.protobuf.ByteString
         getImageurlBytes() {
@@ -534,36 +683,36 @@ public  final class AddRoomRequest extends
       }
     }
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public Builder setImageurl(
         java.lang.String value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
       imageurl_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public Builder clearImageurl() {
-      bitField0_ = (bitField0_ & ~0x00000002);
+      bitField0_ = (bitField0_ & ~0x00000004);
       imageurl_ = getDefaultInstance().getImageurl();
       onChanged();
       return this;
     }
     /**
-     * <code>optional string imageurl = 2;</code>
+     * <code>optional string imageurl = 3;</code>
      */
     public Builder setImageurlBytes(
         com.google.protobuf.ByteString value) {
       if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
       imageurl_ = value;
       onChanged();
       return this;

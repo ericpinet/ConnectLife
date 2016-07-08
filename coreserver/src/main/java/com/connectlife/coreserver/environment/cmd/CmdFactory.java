@@ -88,10 +88,11 @@ public abstract class CmdFactory {
 	 * Return the CmdAddRoom. 
 	 * 
 	 * @param _room Room to add in the environment.
+	 * @param _zone Zone target where add the room.
 	 * @return Return the CmdAddRoom. 
 	 */
-	static public CmdAddRoom getCmdAddRoom(Room _room){
-		return new CmdAddRoom(_room);
+	static public CmdAddRoom getCmdAddRoom(Room _room, Zone _zone){
+		return new CmdAddRoom(_room, _zone);
 	}
 	
 	/**

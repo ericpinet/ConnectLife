@@ -217,12 +217,14 @@ public class CLApiClient {
 	/**
 	 * Add new room in the environment.
 	 * 
+	 * @param uid Uid of the zone where add room.
 	 * @param label Label of the new room.
 	 * @param imageurl Image url of the new room.
 	 * @return Uid of the added room.
 	 */
-	public String addRoom (String label, String imageurl) {
+	public String addRoom (String uid, String label, String imageurl) {
 		AddRoomRequest request = AddRoomRequest.newBuilder()
+											   .setUidZone(uid)
 											   .setLabel(label)
 											   .setImageurl(imageurl)
 											   .build();

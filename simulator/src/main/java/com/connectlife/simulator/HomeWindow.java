@@ -405,6 +405,30 @@ public class HomeWindow extends Dialog {
 		Button btnAddRoom = new Button(composite, SWT.BUTTON1);
 		btnAddRoom.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
 		btnAddRoom.setText("Add Room");
+		btnAddRoom.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				try {
+					TreeItem[] items = tree.getSelection();
+					if (null != items[0]) {
+						
+						Zone zone = ((Zone)items[0].getData());
+						Room room = new Room("", "");
+
+						AddEditLabel dialog = new AddEditLabel(shell, "Add Room", "Enter the label for the new room.", "");
+						if (dialog.open() == Window.OK) {
+							String result = dialog.getResult(); 
+							if (false == result.isEmpty()) {
+								client.addRoom(zone.getUid(), result, room.getImageurl());
+							}
+						}
+					}
+				}
+				catch (Exception ex) {
+					m_logger.error(ex.getMessage());
+				}
+			}
+		});
 		
 		composite.layout(true, true);
 	}

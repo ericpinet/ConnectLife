@@ -361,10 +361,11 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addRoom(AddRoomRequest request, StreamObserver<AddRoomResponse> responseObserver) {
+		Zone zone = new Zone(request.getUidZone(), "");
 		Room room = new Room("", request.getLabel(), null, request.getImageurl());
 		AddRoomResponse reply = null;
 		try {
-			CmdAddRoom cmd = CmdFactory.getCmdAddRoom(room);
+			CmdAddRoom cmd = CmdFactory.getCmdAddRoom(room, zone);
 			m_environment.executeCommand(cmd);
 			reply = AddRoomResponse.newBuilder().setUid(room.getUid()).build(); // uid is return to client.
 			
