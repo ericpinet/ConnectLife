@@ -17,6 +17,8 @@ import org.eclipse.swt.widgets.Label;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,12 +32,8 @@ import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
 import com.clapi.protocol.Notification.NotificationType;
-import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.simulator.device.Device;
-import com.connectlife.simulator.device.LightColoredDimmable;
 import com.clapi.client.NotificationListener;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
@@ -58,14 +56,15 @@ public class MainWindow implements NotificationListener {
 	private Label lblStatus;
 	private Label lblDevice;
 	private CLApiClient client;
-	private Vector<Device> devices;
 	public static HomeWindow homewindow = null;
-	
-	
 	private static final String HOST = "127.0.0.1";
-	
 	private static final String PORT = "9006";
 	private Text textNbClients;
+	
+	public int nbclient;
+	public String host;
+	public String port;
+	
 	
 	/**
 	 * Start Person window.
@@ -77,6 +76,7 @@ public class MainWindow implements NotificationListener {
 		public Person person;
 		public Shell shell;
 		public CLApiClient client;
+		
 		public startPerson(Person _person, Shell _shell, CLApiClient _client){
 			person = _person;
 			shell = _shell;
@@ -97,12 +97,15 @@ public class MainWindow implements NotificationListener {
 	static class startHome implements Runnable{
 		public Home home;
 		public Shell shell;
-		public startHome(Home _home, Shell _shell){
+		public CLApiClient client;
+		
+		public startHome(Home _home, Shell _shell, CLApiClient _client){
 			home = _home;
 			shell = _shell;
+			client = _client;
 		}
 		public void run(){
-			homewindow = new HomeWindow(shell, 0, home);
+			homewindow = new HomeWindow(shell, 0, home, client);
 			homewindow.open();
 		}
 	}
@@ -116,12 +119,14 @@ public class MainWindow implements NotificationListener {
 	static class startAccessory implements Runnable{
 		public List<Device> devices;
 		public Shell shell;
-		public startAccessory(List<Device> _devices, Shell _shell){
-			devices = _devices;
+		public CLApiClient client;
+		
+		public startAccessory(Shell _shell, CLApiClient _client){
 			shell = _shell;
+			client = _client;
 		}
 		public void run(){
-			DeviceWindow accessory = new DeviceWindow(shell, 0, devices);
+			DeviceWindow accessory = new DeviceWindow(shell, 0, client);
 			accessory.open();
 		}
 	}
@@ -160,17 +165,8 @@ public class MainWindow implements NotificationListener {
 	 */
 	protected void createContents() {
 		
-		devices = new Vector<Device>();
 		
 		shell = new Shell();
-		shell.addDisposeListener(new DisposeListener() {
-			public void widgetDisposed(DisposeEvent e) {
-				Iterator <Device> it = devices.iterator();
-				while(it.hasNext()){
-					it.next().stopServices();
-				}
-			}
-		});
 		shell.setSize(328, 378);
 		shell.setText("ConnectLife - Simulator");
 		shell.setLayout(new GridLayout(2, false));
@@ -237,7 +233,7 @@ public class MainWindow implements NotificationListener {
 		btnDeleteDevices.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent e) {
-				deleteDevices();
+				
 			}
 		});
 		btnDeleteDevices.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
@@ -277,8 +273,7 @@ public class MainWindow implements NotificationListener {
 	 * Run a load test
 	 */
 	protected void loadTest() {
-		
-		int nbclient = 100;
+	
 		try {
 			nbclient = Integer.parseInt(textNbClients.getText());
 		}
@@ -287,34 +282,45 @@ public class MainWindow implements NotificationListener {
 			m_logger.error("Wrong value in nb clients text field.");
 		}
 		
-		Vector<CLApiClient> clients = new Vector<CLApiClient>();
+		host = textHost.getText();
+		port = textPort.getText();
 		
-		// connect loop
-		for (int i=0 ; i<nbclient ; i++) {
-			CLApiClient client = new CLApiClient(textHost.getText(), Integer.parseInt(textPort.getText()), this);
-			m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
-			client.checkCompatibility();
-			client.getJsonData();
-			clients.addElement(client);
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
+		Runnable runnable = () -> {
+		    
+			
+			Vector<CLApiClient> clients = new Vector<CLApiClient>();
+			
+			// connect loop
+			for (int i=0 ; i<nbclient ; i++) {
+				CLApiClient client = new CLApiClient(host, Integer.parseInt(port), this);
+				m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
+				client.checkCompatibility();
+				client.getJsonData();
+				clients.addElement(client);
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+				}
 			}
-		}
-		
-		// disconnect loop
-		for (int i=0 ; i<nbclient ; i++) {
-			CLApiClient client = clients.elementAt(i);
-			m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
-			client.checkCompatibility();
-			client.getJsonData();
-			try {
-				client.shutdown();
-				Thread.sleep(10);
-			} catch (InterruptedException e1) {
+			
+			// disconnect loop
+			for (int i=0 ; i<nbclient ; i++) {
+				CLApiClient client = clients.elementAt(i);
+				m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
+				client.checkCompatibility();
+				client.getJsonData();
+				try {
+					client.shutdown();
+					Thread.sleep(10);
+				} catch (InterruptedException e1) {
 
+				}
 			}
-		}
+		};
+
+		Thread thread = new Thread(runnable);
+		thread.start();
+			
 	}
 	
 	/**
@@ -347,7 +353,7 @@ public class MainWindow implements NotificationListener {
 			// open homes
 			Iterator<Home> itrh = env.getHomes().iterator();
 			while(itrh.hasNext()){
-				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell) );
+				shell.getDisplay().asyncExec( new startHome(itrh.next(), shell, client) );
 			}
 			
 			// Client start his listener on the environment change.
@@ -385,39 +391,8 @@ public class MainWindow implements NotificationListener {
 	 * Create devices.
 	 */
 	private void createDevices(){
-		/*
-		// Create the light
-		Light light = new Light("Light", "Philips", "Hue0", "122-1770", "");
-		light.startServices();				
-		m_devices.addElement(light);
-		
-		// Create the light dimmable
-		LightDimmable lightdim = new LightDimmable("LightDim", "Philips", "Hue1", "123-1772", "");
-		lightdim.startServices();				
-		m_devices.addElement(lightdim);
-		*/
-		// Create the light colored dimmable
-		LightColoredDimmable lightcoldim = new LightColoredDimmable(UIDGenerator.getUID(), "LightColorDim", "Philips", "100w", "PL001-100-10009", "");
-		lightcoldim.startServices();				
-		devices.addElement(lightcoldim);
-		
-		lblDevice.setText("Device listen.");
-		
-		// start accessory
-		shell.getDisplay().asyncExec( new startAccessory(devices,  shell) );
-	}
-	
-	/**
-	 * Delete all devices.
-	 */
-	private void deleteDevices(){
-		
-		Iterator <Device> it = devices.iterator();
-		while(it.hasNext()){
-			it.next().stopServices();
-		}
-		devices.removeAllElements();
-		lblDevice.setText("Device stopted.");
+		// start device
+		shell.getDisplay().asyncExec( new startAccessory(shell, client) );
 	}
 	
 	

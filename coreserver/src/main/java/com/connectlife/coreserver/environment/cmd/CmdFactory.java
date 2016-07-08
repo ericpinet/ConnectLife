@@ -10,8 +10,10 @@ package com.connectlife.coreserver.environment.cmd;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Characteristic;
+import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
+import com.clapi.data.Zone;
 
 /**
  * Environment command factory. Use this class to create command that you can execute on the environment data.
@@ -20,6 +22,98 @@ import com.clapi.data.Room;
  * <br> 2016-03-28
  */
 public abstract class CmdFactory {
+	
+	/**
+	 * Return the CmdAddHome. 
+	 * 
+	 * @param _home Home to add in the environment.
+	 * @return Return the CmdAddHome. 
+	 */
+	static public CmdAddHome getCmdAddHome(Home _home){
+		return new CmdAddHome(_home);
+	}
+	
+	/**
+	 * Return the CmdUpdateHome. 
+	 * 
+	 * @param _home Home to update in the environment.
+	 * @return Return the CmdUpdateHome. 
+	 */
+	static public CmdUpdateHome getCmdUpdateHome(Home _home){
+		return new CmdUpdateHome(_home);
+	}
+	
+	/**
+	 * Return the CmdDeleteHome. 
+	 * 
+	 * @param _home Home to delete in the environment.
+	 * @return Return the CmdDeleteHome. 
+	 */
+	static public CmdDeleteHome getCmdDeleteHome(Home _home){
+		return new CmdDeleteHome(_home);
+	}
+	
+	/**
+	 * Return the CmdAddZone. 
+	 * 
+	 * @param _zone Zone to add in the environment.
+	 * @param _home Home target where add the zone.
+	 * @return Return the CmdAddZone. 
+	 */
+	static public CmdAddZone getCmdAddZone(Zone _zone, Home _home){
+		return new CmdAddZone(_zone, _home);
+	}
+	
+	/**
+	 * Return the CmdUpdateZone. 
+	 * 
+	 * @param _zone Zone to update in the environment.
+	 * @return Return the CmdUpdateZone. 
+	 */
+	static public CmdUpdateZone getCmdUpdateZone(Zone _zone){
+		return new CmdUpdateZone(_zone);
+	}
+	
+	/**
+	 * Return the CmdDeleteZone. 
+	 * 
+	 * @param _zone Zone to delete in the environment.
+	 * @return Return the CmdDeleteZone. 
+	 */
+	static public CmdDeleteZone getCmdDeleteZone(Zone _zone){
+		return new CmdDeleteZone(_zone);
+	}
+	
+	/**
+	 * Return the CmdAddRoom. 
+	 * 
+	 * @param _room Room to add in the environment.
+	 * @param _zone Zone target where add the room.
+	 * @return Return the CmdAddRoom. 
+	 */
+	static public CmdAddRoom getCmdAddRoom(Room _room, Zone _zone){
+		return new CmdAddRoom(_room, _zone);
+	}
+	
+	/**
+	 * Return the CmdUpdateRoom. 
+	 * 
+	 * @param _room Room to update in the environment.
+	 * @return Return the CmdUpdateRoom. 
+	 */
+	static public CmdUpdateRoom getCmdUpdateRoom(Room _room){
+		return new CmdUpdateRoom(_room);
+	}
+	
+	/**
+	 * Return the CmdDeleteRoom. 
+	 * 
+	 * @param _room Room to delete in the environment.
+	 * @return Return the CmdDeleteRoom. 
+	 */
+	static public CmdDeleteRoom getCmdDeleteRoom(Room _room){
+		return new CmdDeleteRoom(_room);
+	}
 	
 	/**
 	 * Return the CmdAddPerson. 
@@ -70,6 +164,16 @@ public abstract class CmdFactory {
 	 */
 	static public CmdUpdateAccessory getCmdUpdateAccesssory(Accessory _accessory){
 		return new CmdUpdateAccessory(_accessory);
+	}
+	
+	/**
+	 * Return the CmddeleteAccessory. 
+	 * 
+	 * @param _accessory Accessory to delete in the environment.
+	 * @return Return the CmdDeleteAccessory. 
+	 */
+	static public CmdDeleteAccessory getCmdDeleteAccesssory(Accessory _accessory){
+		return new CmdDeleteAccessory(_accessory);
 	}
 	
 	/**

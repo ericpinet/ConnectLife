@@ -138,7 +138,7 @@ public class DeviceJson implements Device {
 		boolean ret_val = false;
 		
 		// check if already synch
-		if(false == m_isRegister){
+		if (false == m_isRegister) {
 			
 			// at the register try, the device is considerate synchronized with the application.
 			m_isSynchronized = true;
@@ -154,17 +154,17 @@ public class DeviceJson implements Device {
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
-			if(null != accessory){
+			if (null != accessory && accessory.isRegister()) {
 				// Update the service definition with the UID.
 				ret_val = m_isRegister = true;
 				m_service_definition.setAccessory(accessory);
 				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" register.");
 			}
-			else{
+			else {
 				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not setup in the application environment.");
 			}
 		}
-		else{
+		else {
 			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
 		}
 		
@@ -284,6 +284,7 @@ public class DeviceJson implements Device {
 					}
 				}
 				catch (Exception e){
+					m_isRegister = false;
 					m_logger.warn("Unable to manage this http service: " + urls[i]);
 				}
 				

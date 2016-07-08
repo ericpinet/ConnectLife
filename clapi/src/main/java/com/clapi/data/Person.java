@@ -92,6 +92,7 @@ public class Person implements DataObj {
 		this.emails = new ArrayList<Email>();
 		this.phones = new ArrayList<Phone>();
 		this.addresses = new ArrayList<Address>();
+		this.imageurl = "";
 	}
 	
 	/**

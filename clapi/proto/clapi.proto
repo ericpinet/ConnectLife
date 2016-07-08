@@ -50,6 +50,22 @@ service CLApi {
 	rpc updateAddress(clapi.UpdateAddressRequest) returns (clapi.UpdateAddressResponse) {}
 	rpc deleteAddress(clapi.DeleteAddressRequest) returns (clapi.DeleteAddressResponse) {}
 
+	// Home management
+	rpc addHome(clapi.AddHomeRequest) returns (clapi.AddHomeResponse) {}
+	rpc updateHome(clapi.UpdateHomeRequest) returns (clapi.UpdateHomeResponse) {}
+	rpc deleteHome(clapi.DeleteHomeRequest) returns (clapi.DeleteHomeResponse) {}
+
+	rpc addZone(clapi.AddZoneRequest) returns (clapi.AddZoneResponse) {}
+	rpc updateZone(clapi.UpdateZoneRequest) returns (clapi.UpdateZoneResponse) {}
+	rpc deleteZone(clapi.DeleteZoneRequest) returns (clapi.DeleteZoneResponse) {}
+
+	rpc addRoom(clapi.AddRoomRequest) returns (clapi.AddRoomResponse) {}
+	rpc updateRoom(clapi.UpdateRoomRequest) returns (clapi.UpdateRoomResponse) {}
+	rpc deleteRoom(clapi.DeleteRoomRequest) returns (clapi.DeleteRoomResponse) {}
+
+	// Accessory Management
+	rpc addAccessory(clapi.AddAccessoryRequest) returns (clapi.AddAccessoryResponse) {}
+	rpc deleteAccessory(clapi.DeleteAccessoryRequest) returns (clapi.DeleteAccessoryResponse) {}
 }
 
 // Declaration of message request and response //////////////////
@@ -203,6 +219,107 @@ message DeleteAddressRequest {
 message DeleteAddressResponse {
 	required string uid = 1;
 }
+
+// The request/response for addAccessory
+message AddAccessoryRequest {
+	required string serialnumber = 1;
+	required string uid_room = 2;
+}
+message AddAccessoryResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteAccessory
+message DeleteAccessoryRequest {
+	required string uid = 1;
+}
+message DeleteAccessoryResponse {
+	required string uid = 1;
+}
+
+// The request/response for addHome
+message AddHomeRequest {
+	required string label = 1;
+	optional string imageurl = 2;
+}
+message AddHomeResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateHome
+message UpdateHomeRequest {
+	required string uid = 1;
+	required string label = 2;
+	optional string imageurl = 3;
+}
+message UpdateHomeResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteHome
+message DeleteHomeRequest {
+	required string uid = 1;
+}
+message DeleteHomeResponse {
+	required string uid = 1;
+}
+
+// The request/response for addZone
+message AddZoneRequest {
+	required string uid_home = 1;
+	required string label = 2;
+	optional string imageurl = 3;
+}
+message AddZoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateZone
+message UpdateZoneRequest {
+	required string uid = 1;
+	required string label = 2;
+	optional string imageurl = 3;
+}
+message UpdateZoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteZone
+message DeleteZoneRequest {
+	required string uid = 1;
+}
+message DeleteZoneResponse {
+	required string uid = 1;
+}
+
+// The request/response for addRoom
+message AddRoomRequest {
+	required string uid_zone = 1;
+	required string label = 2;
+	optional string imageurl = 3;
+}
+message AddRoomResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateRoom
+message UpdateRoomRequest {
+	required string uid = 1;
+	required string label = 2;
+	optional string imageurl = 3;
+}
+message UpdateRoomResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteRoom
+message DeleteRoomRequest {
+	required string uid = 1;
+}
+message DeleteRoomResponse {
+	required string uid = 1;
+}
+
 
 // Declaration of base objects ///////////////////////////////////
 

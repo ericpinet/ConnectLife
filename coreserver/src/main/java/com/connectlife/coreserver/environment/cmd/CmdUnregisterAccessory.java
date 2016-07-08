@@ -74,12 +74,14 @@ public class CmdUnregisterAccessory extends CmdDefault {
 			if (null != node_acc) {
 				node_acc.setProperty(Consts.ACCESSORY_ISREGISTER, "false");
 				
+				// set accessory register at true in return accessory
+				m_accessory.setRegister(false);
+				
 				// set the data change
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.error("Accessory not found. " + m_accessory.toString());
-				throw new Exception("Accessory not found. " + m_accessory.toString());
+				m_logger.warn("Accessory not found. " + m_accessory.toString());
 			}
 			
 			tx.success();

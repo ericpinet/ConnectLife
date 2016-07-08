@@ -166,7 +166,7 @@ public class DeviceHttpHandler extends AbstractHandler {
         // process the request
 		processRequest(_target, _baserequest, _request, _response);
 		 
-        // create a string with json representation of the accessory device use to display available services.
+        // create a string with json representation of the result device use to display available services.
         Gson gson = new Gson();
 		String jsonresponse = gson.toJson(new ServiceDefinition(m_ip_address, m_hostname, m_listen_port, m_device.getAccessory()));
         

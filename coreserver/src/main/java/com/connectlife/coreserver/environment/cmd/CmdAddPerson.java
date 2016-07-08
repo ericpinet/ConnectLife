@@ -78,6 +78,9 @@ public class CmdAddPerson extends CmdDefault {
 			// build person node
 			DataManagerNodeFactory.buildPersonNode(graph, m_person);
 			
+			// display info in log
+			m_logger.info(m_person.toString());
+			
 			// set the data change
 			this.m_data_is_changed = true;
 
