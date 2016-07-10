@@ -94,6 +94,7 @@ public class Application implements Observer{
 
 	/**
 	 * Main methode of the application.
+	 * 
 	 * @param args Arguments past to the application.
 	 */
 	public static void main(String[] args) {
@@ -117,6 +118,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Default constructor
+	 * 
 	 * @param _config Config manager for the application.
 	 * @param _env Environment manager for the application.
 	 * @param _api Api for the application.

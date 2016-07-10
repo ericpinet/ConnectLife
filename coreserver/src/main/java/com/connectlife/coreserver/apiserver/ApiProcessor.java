@@ -707,6 +707,50 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAssert(com.clapi.protocol.AddAssertRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addAssert(AddAssertRequest request, StreamObserver<AddAssertResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAssert(com.clapi.protocol.UpdateAssertRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void updateAssert(UpdateAssertRequest request, StreamObserver<UpdateAssertResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAssert(com.clapi.protocol.DeleteAssertRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteAssert(DeleteAssertRequest request, StreamObserver<DeleteAssertResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssertUrl(com.clapi.protocol.GetAssertUrlRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void getAssertUrl(GetAssertUrlRequest request, StreamObserver<GetAssertUrlResponse> responseObserver) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/**
 	 * @param o Object source.
 	 * @param arg Argument of the event.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)

@@ -32,6 +32,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.clapi.data.Data;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
+import com.clapi.data.Assert;
 import com.clapi.data.Email;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Home;
@@ -103,10 +104,14 @@ public class DataManagerFactoryTest {
 		@SuppressWarnings("unchecked")
 		ResourceIterator<Node> ihomes = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		Node home = Mockito.mock(Node.class);
+		@SuppressWarnings("unchecked")
+		ResourceIterator<Node> iasserts = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
+		Node aassert = Mockito.mock(Node.class);
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSERT)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(true,false);
 		Mockito.when(ipersons.next()).thenReturn(person);
@@ -114,9 +119,13 @@ public class DataManagerFactoryTest {
 		Mockito.when(ihomes.hasNext()).thenReturn(true,false);
 		Mockito.when(ihomes.next()).thenReturn(home);
 		
+		Mockito.when(iasserts.hasNext()).thenReturn(true,false);
+		Mockito.when(iasserts.next()).thenReturn(aassert);
+		
 		try {
 			PowerMockito.doReturn(new Person("123","eric")).when(DataManagerFactory.class, "buildPerson", graph, person);
 			PowerMockito.doReturn(new Home("123","home")).when(DataManagerFactory.class, "buildHome", graph, home);
+			PowerMockito.doReturn(new Assert("123","assert", null, null)).when(DataManagerFactory.class, "buildAssert", aassert);
 			
 		} catch (Exception e1) {
 			fail();
@@ -126,6 +135,7 @@ public class DataManagerFactoryTest {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==1);
 			assertTrue(data.getHomes().size()==1);
+			assertTrue(data.getAsserts().size()==1);
 			PowerMockito.verifyStatic();
 			
 		} catch (Exception e) {
@@ -142,18 +152,23 @@ public class DataManagerFactoryTest {
 		ResourceIterator<Node> ipersons = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		@SuppressWarnings("unchecked")
 		ResourceIterator<Node> ihomes = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
+		@SuppressWarnings("unchecked")
+		ResourceIterator<Node> iasserts = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSERT)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(false);
 		Mockito.when(ihomes.hasNext()).thenReturn(false);
+		Mockito.when(iasserts.hasNext()).thenReturn(false);
 		
 		try {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==0);
 			assertTrue(data.getHomes().size()==0);
+			assertTrue(data.getAsserts().size()==0);
 			
 		} catch (Exception e) {
 			fail();

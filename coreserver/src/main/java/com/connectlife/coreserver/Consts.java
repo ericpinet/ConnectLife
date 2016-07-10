@@ -162,6 +162,27 @@ public final class Consts {
 	public static final String HOME_LABEL = "label";
 	public static final String HOME_IMAGEURL = "imageurl";
 	
+	/**
+	 * ASSERT DATA TYPE
+	 */
+	public static final Label  LABEL_ASSERT = Label.label("assert");
+	public static final String ASSERT_LABEL = "label";
+	public static final String ASSERT_TYPE = "type";
+	public static final String ASSERT_MODE = "mode";
+	
+	public static final String ASSERT_TYPE_IMAGE = "IMAGE";
+	public static final String ASSERT_TYPE_FILE = "FILE";
+	public static final String ASSERT_TYPE_OTHER = "OTHER";
+	
+	public static final String ASSERT_MODE_SYSTEM = "SYSTEM";
+	public static final String ASSERT_MODE_USER = "USER";
+	
+	/**
+	 * RELATION TYPE
+	 *
+	 * @author ericpinet
+	 * <br> 2016-07-10
+	 */
 	public static enum RelTypes implements RelationshipType
 	{
 	    CONTAINS

@@ -264,6 +264,42 @@ public class CLApiGrpc {
               "clapi.CLApi", "deleteAccessory"),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddAssertRequest,
+      com.clapi.protocol.AddAssertResponse> METHOD_ADD_ASSERT =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addAssert"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssertRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssertResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateAssertRequest,
+      com.clapi.protocol.UpdateAssertResponse> METHOD_UPDATE_ASSERT =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateAssert"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssertRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssertResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteAssertRequest,
+      com.clapi.protocol.DeleteAssertResponse> METHOD_DELETE_ASSERT =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteAssert"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssertRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssertResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.GetAssertUrlRequest,
+      com.clapi.protocol.GetAssertUrlResponse> METHOD_GET_ASSERT_URL =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "getAssertUrl"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssertUrlRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssertUrlResponse.getDefaultInstance()));
 
   public static CLApiStub newStub(io.grpc.Channel channel) {
     return new CLApiStub(channel);
@@ -361,6 +397,18 @@ public class CLApiGrpc {
 
     public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
         io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver);
+
+    public void addAssert(com.clapi.protocol.AddAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssertResponse> responseObserver);
+
+    public void updateAssert(com.clapi.protocol.UpdateAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssertResponse> responseObserver);
+
+    public void deleteAssert(com.clapi.protocol.DeleteAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssertResponse> responseObserver);
+
+    public void getAssertUrl(com.clapi.protocol.GetAssertUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssertUrlResponse> responseObserver);
   }
 
   public static interface CLApiBlockingClient {
@@ -418,6 +466,14 @@ public class CLApiGrpc {
     public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request);
 
     public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.clapi.protocol.AddAssertResponse addAssert(com.clapi.protocol.AddAssertRequest request);
+
+    public com.clapi.protocol.UpdateAssertResponse updateAssert(com.clapi.protocol.UpdateAssertRequest request);
+
+    public com.clapi.protocol.DeleteAssertResponse deleteAssert(com.clapi.protocol.DeleteAssertRequest request);
+
+    public com.clapi.protocol.GetAssertUrlResponse getAssertUrl(com.clapi.protocol.GetAssertUrlRequest request);
   }
 
   public static interface CLApiFutureClient {
@@ -502,6 +558,18 @@ public class CLApiGrpc {
 
     public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
         com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssertResponse> addAssert(
+        com.clapi.protocol.AddAssertRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssertResponse> updateAssert(
+        com.clapi.protocol.UpdateAssertRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssertResponse> deleteAssert(
+        com.clapi.protocol.DeleteAssertRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssertUrlResponse> getAssertUrl(
+        com.clapi.protocol.GetAssertUrlRequest request);
   }
 
   public static class CLApiStub extends io.grpc.stub.AbstractStub<CLApiStub>
@@ -709,6 +777,34 @@ public class CLApiGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request, responseObserver);
     }
+
+    @java.lang.Override
+    public void addAssert(com.clapi.protocol.AddAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssertResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSERT, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateAssert(com.clapi.protocol.UpdateAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssertResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSERT, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteAssert(com.clapi.protocol.DeleteAssertRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssertResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSERT, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void getAssertUrl(com.clapi.protocol.GetAssertUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssertUrlResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSERT_URL, getCallOptions()), request, responseObserver);
+    }
   }
 
   public static class CLApiBlockingStub extends io.grpc.stub.AbstractStub<CLApiBlockingStub>
@@ -888,6 +984,30 @@ public class CLApiGrpc {
     public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request) {
       return blockingUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddAssertResponse addAssert(com.clapi.protocol.AddAssertRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateAssertResponse updateAssert(com.clapi.protocol.UpdateAssertRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteAssertResponse deleteAssert(com.clapi.protocol.DeleteAssertRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.GetAssertUrlResponse getAssertUrl(com.clapi.protocol.GetAssertUrlRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSERT_URL, getCallOptions()), request);
     }
   }
 
@@ -1096,6 +1216,34 @@ public class CLApiGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
     }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssertResponse> addAssert(
+        com.clapi.protocol.AddAssertRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssertResponse> updateAssert(
+        com.clapi.protocol.UpdateAssertRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssertResponse> deleteAssert(
+        com.clapi.protocol.DeleteAssertRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSERT, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssertUrlResponse> getAssertUrl(
+        com.clapi.protocol.GetAssertUrlRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSERT_URL, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_VERSION = 0;
@@ -1125,6 +1273,10 @@ public class CLApiGrpc {
   private static final int METHODID_DELETE_ROOM = 24;
   private static final int METHODID_ADD_ACCESSORY = 25;
   private static final int METHODID_DELETE_ACCESSORY = 26;
+  private static final int METHODID_ADD_ASSERT = 27;
+  private static final int METHODID_UPDATE_ASSERT = 28;
+  private static final int METHODID_DELETE_ASSERT = 29;
+  private static final int METHODID_GET_ASSERT_URL = 30;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1249,6 +1401,22 @@ public class CLApiGrpc {
         case METHODID_DELETE_ACCESSORY:
           serviceImpl.deleteAccessory((com.clapi.protocol.DeleteAccessoryRequest) request,
               (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ASSERT:
+          serviceImpl.addAssert((com.clapi.protocol.AddAssertRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssertResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ASSERT:
+          serviceImpl.updateAssert((com.clapi.protocol.UpdateAssertRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssertResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ASSERT:
+          serviceImpl.deleteAssert((com.clapi.protocol.DeleteAssertRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssertResponse>) responseObserver);
+          break;
+        case METHODID_GET_ASSERT_URL:
+          serviceImpl.getAssertUrl((com.clapi.protocol.GetAssertUrlRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssertUrlResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1457,6 +1625,34 @@ public class CLApiGrpc {
               com.clapi.protocol.DeleteAccessoryRequest,
               com.clapi.protocol.DeleteAccessoryResponse>(
                 serviceImpl, METHODID_DELETE_ACCESSORY)))
+        .addMethod(
+          METHOD_ADD_ASSERT,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddAssertRequest,
+              com.clapi.protocol.AddAssertResponse>(
+                serviceImpl, METHODID_ADD_ASSERT)))
+        .addMethod(
+          METHOD_UPDATE_ASSERT,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateAssertRequest,
+              com.clapi.protocol.UpdateAssertResponse>(
+                serviceImpl, METHODID_UPDATE_ASSERT)))
+        .addMethod(
+          METHOD_DELETE_ASSERT,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteAssertRequest,
+              com.clapi.protocol.DeleteAssertResponse>(
+                serviceImpl, METHODID_DELETE_ASSERT)))
+        .addMethod(
+          METHOD_GET_ASSERT_URL,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.GetAssertUrlRequest,
+              com.clapi.protocol.GetAssertUrlResponse>(
+                serviceImpl, METHODID_GET_ASSERT_URL)))
         .build();
   }
 }

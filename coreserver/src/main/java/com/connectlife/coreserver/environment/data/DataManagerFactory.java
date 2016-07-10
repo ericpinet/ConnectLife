@@ -19,6 +19,7 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
+import com.clapi.data.Assert;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -31,6 +32,8 @@ import com.clapi.data.Phone;
 import com.clapi.data.Room;
 import com.clapi.data.Service;
 import com.clapi.data.Zone;
+import com.clapi.data.Assert.AssertMode;
+import com.clapi.data.Assert.AssertType;
 import com.connectlife.coreserver.Consts;
 
 /**
@@ -73,6 +76,15 @@ public abstract class DataManagerFactory {
 					homes.add(buildHome(_graph, home));
 				}
 				ret_data.setHomes(homes);
+				
+				ResourceIterator<Node> iasserts = _graph.findNodes(Consts.LABEL_ASSERT);
+				Vector<Assert> asserts = new Vector<Assert>();
+				
+				while (iasserts.hasNext()) {
+					Node aassert = iasserts.next();
+					asserts.add(buildAssert(aassert));
+				}
+				ret_data.setAsserts(asserts);
 				
 				tx.success();
 			}
@@ -630,6 +642,53 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Build an Assert data object from a Node of assert.
+	 * 
+	 * @param _node Assert node.
+	 * @return Assert
+	 * @throws Exception Throw an exception is something goes wrong.
+	 */
+	public static Assert buildAssert(Node _node) throws Exception {
+		
+		Assert ret = null;
+		
+		if (_node.hasLabel(Consts.LABEL_ASSERT)) {
+			
+			ret = new Assert((String)_node.getProperty(Consts.UID), (String)_node.getProperty(Consts.ASSERT_LABEL), null, null);
+		
+			// set type
+			if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_IMAGE)) {
+				ret.setType(AssertType.IMAGE);
+			} 
+			else if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_FILE)) {
+				ret.setType(AssertType.FILE);
+			}
+			else if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_OTHER)) {
+				ret.setType(AssertType.OTHER);
+			}
+			else {
+				throw new Exception ("Assert type not supported yet! ["+_node.getProperty(Consts.ASSERT_TYPE)+"]");
+			}
+			
+			// set mode
+			if (_node.getProperty(Consts.ASSERT_MODE).equals(Consts.ASSERT_MODE_SYSTEM)) {
+				ret.setMode(AssertMode.SYSTEM);
+			} 
+			else if (_node.getProperty(Consts.ASSERT_MODE).equals(Consts.ASSERT_MODE_USER)) {
+				ret.setMode(AssertMode.USER);
+			}
+			else {
+				throw new Exception ("Assert mode not supported yet! ["+_node.getProperty(Consts.ASSERT_MODE)+"]");
+			}
+		}
+		else {
+			throw new Exception ("It's not a assert node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;

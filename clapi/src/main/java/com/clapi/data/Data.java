@@ -28,16 +28,22 @@ public class Data {
 	 * List of homes in data.
 	 */
 	private List<Home> homes;
+	
+	/**
+	 * List of asserts in data.
+	 */
+	private List<Assert> asserts;
 
 	/**
 	 * Default constructor.
 	 * @param persons Persons of the data.
 	 * @param homes Homes of the data.
 	 */
-	public Data(List<Person> persons, List<Home> homes) {
+	public Data(List<Person> persons, List<Home> homes, List<Assert> asserts) {
 		super();
 		this.persons = persons;
 		this.homes = homes;
+		this.asserts = asserts;
 	}
 	
 	/**
@@ -47,6 +53,7 @@ public class Data {
 		super();
 		this.persons = new ArrayList<Person>();
 		this.homes = new ArrayList<Home>();
+		this.asserts = new ArrayList<Assert>();
 	}
 
 	/**
@@ -75,5 +82,19 @@ public class Data {
 	 */
 	public void setHomes(List<Home> homes) {
 		this.homes = homes;
+	}
+	
+	/**
+	 * @return the asserts
+	 */
+	public List<Assert> getAsserts() {
+		return asserts;
+	}
+
+	/**
+	 * @param asserts the asserts to set
+	 */
+	public void setAsserts(List<Assert> asserts) {
+		this.asserts = asserts;
 	}
 }

@@ -63,9 +63,15 @@ service CLApi {
 	rpc updateRoom(clapi.UpdateRoomRequest) returns (clapi.UpdateRoomResponse) {}
 	rpc deleteRoom(clapi.DeleteRoomRequest) returns (clapi.DeleteRoomResponse) {}
 
-	// Accessory Management
+	// Accessory management
 	rpc addAccessory(clapi.AddAccessoryRequest) returns (clapi.AddAccessoryResponse) {}
 	rpc deleteAccessory(clapi.DeleteAccessoryRequest) returns (clapi.DeleteAccessoryResponse) {}
+
+	// Assert management
+	rpc addAssert(clapi.AddAssertRequest) returns (clapi.AddAssertResponse) {}
+	rpc updateAssert(clapi.UpdateAssertRequest) returns (clapi.UpdateAssertResponse) {}
+	rpc deleteAssert(clapi.DeleteAssertRequest) returns (clapi.DeleteAssertResponse) {}
+	rpc getAssertUrl(clapi.GetAssertUrlRequest) returns (clapi.GetAssertUrlResponse) {}
 }
 
 // Declaration of message request and response //////////////////
@@ -320,6 +326,44 @@ message DeleteRoomResponse {
 	required string uid = 1;
 }
 
+// The request/response for addAssert
+message AddAssertRequest {
+	required string label = 1;
+	required int32 tpye = 2;
+	required int32 mode = 3;
+	required bytes data = 4;
+}
+message AddAssertResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateAssert
+message UpdateAssertRequest {
+	required string uid = 1;
+	required string label = 2;
+	required int32 type = 3;
+	required int32 mode = 4;
+	required bytes data = 5;
+}
+message UpdateAssertResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteAssert
+message DeleteAssertRequest {
+	required string uid = 1;
+}
+message DeleteAssertResponse {
+	required string uid = 1;
+}
+
+// The request/response for getAssertUrl
+message GetAssertUrlRequest {
+	required string uid = 1;
+}
+message GetAssertUrlResponse {
+	required string url = 1;
+}
 
 // Declaration of base objects ///////////////////////////////////
 

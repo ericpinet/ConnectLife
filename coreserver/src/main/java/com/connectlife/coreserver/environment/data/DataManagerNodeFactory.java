@@ -20,6 +20,9 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
+import com.clapi.data.Assert;
+import com.clapi.data.Assert.AssertMode;
+import com.clapi.data.Assert.AssertType;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -1075,6 +1078,85 @@ public abstract class DataManagerNodeFactory {
 		}
 		
 		return ret_val;
+	}
+	
+	/**
+	 * Build an assert node in graph with assert information.
+	 * 
+	 * @param _graph Main graph 
+	 * @param _assert Assert information.
+	 * @return Node builded in graph.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static Node buildAssertNode(GraphDatabaseService _graph, Assert _assert) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_ASSERT, _assert.getUid())) {
+				throw new Exception ("Uid already exist : " + _assert.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_ASSERT);
+			
+			// update data
+			updateAssertNode(_graph, node, _assert);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update an assert node in graph with new information.
+	 * 
+	 * @param _graph Main graph
+	 * @param _node Assert node to update.
+	 * @param _assert New assert information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updateAssertNode(GraphDatabaseService _graph, Node _node, Assert _assert) throws Exception {
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_ASSERT)) {
+				
+				_node.setProperty(Consts.UID, _assert.getUid());
+				_node.setProperty(Consts.ASSERT_LABEL, _assert.getLabel());
+				
+				// type
+				if (AssertType.IMAGE == _assert.getType()) {
+					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_IMAGE);
+				}
+				else if (AssertType.FILE == _assert.getType()) {
+					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_FILE);
+				}
+				else if (AssertType.OTHER == _assert.getType()) {
+					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_OTHER);
+				}
+				
+				// mode
+				if (AssertMode.SYSTEM == _assert.getMode()) {
+					_node.setProperty(Consts.ASSERT_MODE, Consts.ASSERT_MODE_SYSTEM);
+				}
+				else if (AssertMode.USER == _assert.getMode()) {
+					_node.setProperty(Consts.ASSERT_MODE, Consts.ASSERT_MODE_USER);
+				}
+				
+				// dara
+				
+			}
+			else {
+				throw new Exception ("It's not an assert node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
 	}
 	
 	/**
