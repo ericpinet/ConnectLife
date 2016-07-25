@@ -200,7 +200,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(person.getProperty(Consts.UID)).thenReturn("123");
 		Mockito.when(person.getProperty(Consts.PERSON_FIRSTNAME)).thenReturn("qiaomei");
 		Mockito.when(person.getProperty(Consts.PERSON_LASTNAME)).thenReturn("wang3");
-		Mockito.when(person.getProperty(Consts.PERSON_IMAGEURL)).thenReturn("123.html");
+		Mockito.when(person.getProperty(Consts.PERSON_IMAGEUID)).thenReturn("123.html");
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(person.getRelationships(Consts.RelTypes.CONTAINS)).thenReturn(relations);
@@ -262,7 +262,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(person.getProperty(Consts.UID)).thenReturn("123");
 		Mockito.when(person.getProperty(Consts.PERSON_FIRSTNAME)).thenReturn("qiaomei");
 		Mockito.when(person.getProperty(Consts.PERSON_LASTNAME)).thenReturn("wang3");
-		Mockito.when(person.getProperty(Consts.PERSON_IMAGEURL)).thenReturn("123.html");
+		Mockito.when(person.getProperty(Consts.PERSON_IMAGEUID)).thenReturn("123.html");
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(person.getRelationships(Consts.RelTypes.CONTAINS)).thenReturn(relations);

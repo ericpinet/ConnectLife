@@ -113,7 +113,7 @@ public abstract class DataManagerFactory {
 			ret_person.setUid((String) _node.getProperty(Consts.UID));
 			ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
-			ret_person.setImageurl((String)_node.getProperty(Consts.PERSON_IMAGEURL));
+			ret_person.setImageuid((String)_node.getProperty(Consts.PERSON_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -302,7 +302,7 @@ public abstract class DataManagerFactory {
 			
 			ret_home.setUid((String) _node.getProperty(Consts.UID));
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
-			ret_home.setImageurl((String)_node.getProperty(Consts.HOME_IMAGEURL));
+			ret_home.setImageuid((String)_node.getProperty(Consts.HOME_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -348,7 +348,7 @@ public abstract class DataManagerFactory {
 		
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
-			ret.setImageurl((String)_node.getProperty(Consts.ZONE_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ZONE_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -395,7 +395,7 @@ public abstract class DataManagerFactory {
 		
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
-			ret.setImageurl((String)_node.getProperty(Consts.ROOM_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ROOM_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				

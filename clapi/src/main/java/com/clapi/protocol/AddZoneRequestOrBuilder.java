@@ -36,16 +36,16 @@ public interface AddZoneRequestOrBuilder extends
       getLabelBytes();
 
   /**
-   * <code>optional string imageurl = 3;</code>
+   * <code>optional string imageuid = 3;</code>
    */
-  boolean hasImageurl();
+  boolean hasImageuid();
   /**
-   * <code>optional string imageurl = 3;</code>
+   * <code>optional string imageuid = 3;</code>
    */
-  java.lang.String getImageurl();
+  java.lang.String getImageuid();
   /**
-   * <code>optional string imageurl = 3;</code>
+   * <code>optional string imageuid = 3;</code>
    */
   com.google.protobuf.ByteString
-      getImageurlBytes();
+      getImageuidBytes();
 }

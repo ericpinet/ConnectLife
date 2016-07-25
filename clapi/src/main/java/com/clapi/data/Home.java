@@ -35,9 +35,9 @@ public class Home implements DataObj {
 	private List<Zone> zones;
 	
 	/**
-	 * Image url of the home.
+	 * Image uid of the home.
 	 */
-	private String imageurl;
+	private String imageuid;
 
 	/**
 	 * Default constructor. 
@@ -45,14 +45,14 @@ public class Home implements DataObj {
 	 * @param uid Uid of the home.
 	 * @param label Label of the home.
 	 * @param zones Zones of the home.
-	 * @param imageurl ImageURL of the home.
+	 * @param imageuid ImageUID of the home.
 	 */
-	public Home(String uid, String label, List<Zone> zones, String imageurl) {
+	public Home(String uid, String label, List<Zone> zones, String imageuid) {
 		super();
 		this.uid = uid;
 		this.label = label;
 		this.zones = zones;
-		this.imageurl = imageurl;
+		this.imageuid = imageuid;
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class Home implements DataObj {
 		this.uid = uid;
 		this.label = label;
 		this.zones = new Vector<Zone>();
-		this.imageurl = "";
+		this.imageuid = "";
 	}
 
 	/**
@@ -119,17 +119,17 @@ public class Home implements DataObj {
 	}
 
 	/**
-	 * @return the imageurl
+	 * @return the imageuid
 	 */
-	public String getImageurl() {
-		return imageurl;
+	public String getImageuid() {
+		return imageuid;
 	}
 
 	/**
-	 * @param imageurl the imageurl to set
+	 * @param imageuid the imageuid to set
 	 */
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 	
 	/**

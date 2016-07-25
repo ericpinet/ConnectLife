@@ -198,7 +198,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addHome(AddHomeRequest request, StreamObserver<AddHomeResponse> responseObserver) {
-		Home home = new Home("", request.getLabel(), null, request.getImageurl());
+		Home home = new Home("", request.getLabel(), null, request.getImageuid());
 		AddHomeResponse reply = null;
 		try {
 			CmdAddHome cmd = CmdFactory.getCmdAddHome(home);
@@ -225,7 +225,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updateHome(UpdateHomeRequest request, StreamObserver<UpdateHomeResponse> responseObserver) {
-		Home home = new Home(request.getUid(), request.getLabel(), null, request.getImageurl());
+		Home home = new Home(request.getUid(), request.getLabel(), null, request.getImageuid());
 		UpdateHomeResponse reply = null;
 		try {
 			CmdUpdateHome cmd = CmdFactory.getCmdUpdateHome(home);
@@ -280,7 +280,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void addZone(AddZoneRequest request, StreamObserver<AddZoneResponse> responseObserver) {
 		Home home = new Home(request.getUidHome(), null);
-		Zone zone = new Zone("", request.getLabel(), null, request.getImageurl());
+		Zone zone = new Zone("", request.getLabel(), null, request.getImageuid());
 		AddZoneResponse reply = null;
 		try {
 			CmdAddZone cmd = CmdFactory.getCmdAddZone(zone, home);
@@ -307,7 +307,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updateZone(UpdateZoneRequest request, StreamObserver<UpdateZoneResponse> responseObserver) {
-		Zone zone = new Zone(request.getUid(), request.getLabel(), null, request.getImageurl());
+		Zone zone = new Zone(request.getUid(), request.getLabel(), null, request.getImageuid());
 		UpdateZoneResponse reply = null;
 		try {
 			CmdUpdateZone cmd = CmdFactory.getCmdUpdateZone(zone);
@@ -362,7 +362,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void addRoom(AddRoomRequest request, StreamObserver<AddRoomResponse> responseObserver) {
 		Zone zone = new Zone(request.getUidZone(), "");
-		Room room = new Room("", request.getLabel(), null, request.getImageurl());
+		Room room = new Room("", request.getLabel(), null, request.getImageuid());
 		AddRoomResponse reply = null;
 		try {
 			CmdAddRoom cmd = CmdFactory.getCmdAddRoom(room, zone);
@@ -389,7 +389,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void updateRoom(UpdateRoomRequest request, StreamObserver<UpdateRoomResponse> responseObserver) {
-		Room room = new Room(request.getUid(), request.getLabel(), null, request.getImageurl());
+		Room room = new Room(request.getUid(), request.getLabel(), null, request.getImageuid());
 		UpdateRoomResponse reply = null;
 		try {
 			CmdUpdateRoom cmd = CmdFactory.getCmdUpdateRoom(room);
@@ -442,7 +442,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
-		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
+		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageuid());
 		AddPersonResponse reply = null;
 		try {
 			CmdAddPerson cmd = CmdFactory.getCmdAddPerson(person);

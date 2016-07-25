@@ -112,7 +112,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _home.getUid());
 				_node.setProperty(Consts.HOME_LABEL, _home.getLabel());
-				_node.setProperty(Consts.HOME_IMAGEURL, _home.getImageurl());
+				_node.setProperty(Consts.HOME_IMAGEUID, _home.getImageuid());
 				
 				if (null != _home.getZones()) {
 					// zone
@@ -206,7 +206,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _zone.getUid());
 				_node.setProperty(Consts.ZONE_LABEL, _zone.getLabel());
-				_node.setProperty(Consts.ZONE_IMAGEURL, _zone.getImageurl());
+				_node.setProperty(Consts.ZONE_IMAGEUID, _zone.getImageuid());
 				
 				if (null != _zone.getRooms()) {
 					// room
@@ -300,7 +300,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _room.getUid());
 				_node.setProperty(Consts.ROOM_LABEL, _room.getLabel());
-				_node.setProperty(Consts.ROOM_IMAGEURL, _room.getImageurl());
+				_node.setProperty(Consts.ROOM_IMAGEUID, _room.getImageuid());
 				
 				if (null != _room.getAccessories()) {
 					// accessory
@@ -427,7 +427,7 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.UID, _person.getUid());
 				_node.setProperty(Consts.PERSON_FIRSTNAME, _person.getFirstname());
 				_node.setProperty(Consts.PERSON_LASTNAME, _person.getLastname());
-				_node.setProperty(Consts.PERSON_IMAGEURL, _person.getImageurl());
+				_node.setProperty(Consts.PERSON_IMAGEUID, _person.getImageuid());
 				
 				if (null != _person.getEmails()) {
 					// email

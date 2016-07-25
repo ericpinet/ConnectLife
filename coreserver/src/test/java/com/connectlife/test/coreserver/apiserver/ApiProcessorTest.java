@@ -240,7 +240,7 @@ public class ApiProcessorTest {
         };
 		
         // Execute API
-		api.addPerson(AddPersonRequest.newBuilder().setFirstname("Eric").setLastname("Pinet").setImageurl("").build(), so);
+		api.addPerson(AddPersonRequest.newBuilder().setFirstname("Eric").setLastname("Pinet").setImageuid("").build(), so);
 	}
 	
 	@Test
@@ -266,7 +266,7 @@ public class ApiProcessorTest {
         };
 		
         // Execute API
-		api.updatePerson(UpdatePersonRequest.newBuilder().setUid("1").setFirstname("Eric").setLastname("Pinet").setImageurl("").build(), so);
+		api.updatePerson(UpdatePersonRequest.newBuilder().setUid("1").setFirstname("Eric").setLastname("Pinet").setImageuid("").build(), so);
 	}
 	
 	@Test

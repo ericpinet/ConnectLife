@@ -41,7 +41,7 @@ public final class Consts {
 	public static final Label  LABEL_PERSON = Label.label("person");
 	public static final String PERSON_FIRSTNAME = "firstname";
 	public static final String PERSON_LASTNAME = "lastname";
-	public static final String PERSON_IMAGEURL = "imageurl";
+	public static final String PERSON_IMAGEUID = "imageuid";
 	
 	/**
 	 * ADDRESS DATA TYPE
@@ -120,7 +120,7 @@ public final class Consts {
 	public static final String ACCESSORY_MODEL = "model";
 	public static final String ACCESSORY_MANUFACTURER = "manufacturer";
 	public static final String ACCESSORY_ISREGISTER = "isregister";
-	public static final String ACCESSORY_IMAGEURL = "imageurl";
+	public static final String ACCESSORY_IMAGEURL = "imageuid";
 	public static final String ACCESSORY_TYPE = "type";
 	public static final String ACCESSORY_PROTOCOLTYPE = "protocoltype";
 	
@@ -146,21 +146,21 @@ public final class Consts {
 	 */
 	public static final Label  LABEL_ROOM = Label.label("room");
 	public static final String ROOM_LABEL = "label";
-	public static final String ROOM_IMAGEURL = "imageurl";
+	public static final String ROOM_IMAGEUID = "imageuid";
 	
 	/**
 	 * ZONE DATA TYPE
 	 */
 	public static final Label  LABEL_ZONE = Label.label("zone");
 	public static final String ZONE_LABEL = "label";
-	public static final String ZONE_IMAGEURL = "imageurl";
+	public static final String ZONE_IMAGEUID = "imageuid";
 	
 	/**
 	 * HOME DATA TYPE
 	 */
 	public static final Label  LABEL_HOME = Label.label("home");
 	public static final String HOME_LABEL = "label";
-	public static final String HOME_IMAGEURL = "imageurl";
+	public static final String HOME_IMAGEUID = "imageuid";
 	
 	/**
 	 * ASSET DATA TYPE
