@@ -1147,9 +1147,6 @@ public abstract class DataManagerNodeFactory {
 				else if (AssertMode.USER == _assert.getMode()) {
 					_node.setProperty(Consts.ASSERT_MODE, Consts.ASSERT_MODE_USER);
 				}
-				
-				// dara
-				
 			}
 			else {
 				throw new Exception ("It's not an assert node! ["+_node.getLabels()+"]");

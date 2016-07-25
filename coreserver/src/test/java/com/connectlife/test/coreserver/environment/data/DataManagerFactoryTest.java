@@ -33,6 +33,8 @@ import com.clapi.data.Data;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
 import com.clapi.data.Assert;
+import com.clapi.data.Assert.AssertMode;
+import com.clapi.data.Assert.AssertType;
 import com.clapi.data.Email;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Home;
@@ -441,6 +443,98 @@ public class DataManagerFactoryTest {
 		
 		try {
 			DataManagerFactory.buildPhone(phone);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssert() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn(Consts.ASSERT_TYPE_IMAGE, Consts.ASSERT_TYPE_FILE, Consts.ASSERT_TYPE_FILE, Consts.ASSERT_TYPE_OTHER);
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn(Consts.ASSERT_MODE_SYSTEM, Consts.ASSERT_MODE_SYSTEM, Consts.ASSERT_MODE_USER);
+		
+		for (int i=0 ; i<3 ; i++ ) {
+			try {
+				Assert aassert = DataManagerFactory.buildAssert(a_assert);
+				assertTrue(aassert.getUid().equals("12345"));
+				assertTrue(aassert.getLabel().equals("a assert"));
+				
+				if (i==0) {
+					assertTrue(aassert.getType().equals(AssertType.IMAGE));
+					assertTrue(aassert.getMode().equals(AssertMode.SYSTEM));
+				}
+				else if (i==1) {
+					assertTrue(aassert.getType().equals(AssertType.FILE));
+					assertTrue(aassert.getMode().equals(AssertMode.SYSTEM));
+				}
+				else if (i==2) {
+					assertTrue(aassert.getType().equals(AssertType.OTHER));
+					assertTrue(aassert.getMode().equals(AssertMode.USER));
+				}
+
+			} catch (Exception e) {
+				fail();
+			}
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException1() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(false);
+		
+		try {
+			DataManagerFactory.buildAssert(a_assert);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException2() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn("INVALID");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn(Consts.ASSERT_MODE_SYSTEM);
+		
+		try {
+			DataManagerFactory.buildAssert(a_assert);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException3() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn(Consts.ASSERT_TYPE_IMAGE);
+		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn("INVALID");
+		
+		try {
+			DataManagerFactory.buildAssert(a_assert);
 			fail();
 			
 		} catch (Exception e) {

@@ -660,6 +660,7 @@ public abstract class DataManagerFactory {
 		
 		if (_node.hasLabel(Consts.LABEL_ASSERT)) {
 			
+			// set UID and Label
 			ret = new Assert((String)_node.getProperty(Consts.UID), (String)_node.getProperty(Consts.ASSERT_LABEL), null, null);
 		
 			// set type
