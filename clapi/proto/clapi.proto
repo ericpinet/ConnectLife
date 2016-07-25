@@ -67,11 +67,11 @@ service CLApi {
 	rpc addAccessory(clapi.AddAccessoryRequest) returns (clapi.AddAccessoryResponse) {}
 	rpc deleteAccessory(clapi.DeleteAccessoryRequest) returns (clapi.DeleteAccessoryResponse) {}
 
-	// Assert management
-	rpc addAssert(clapi.AddAssertRequest) returns (clapi.AddAssertResponse) {}
-	rpc updateAssert(clapi.UpdateAssertRequest) returns (clapi.UpdateAssertResponse) {}
-	rpc deleteAssert(clapi.DeleteAssertRequest) returns (clapi.DeleteAssertResponse) {}
-	rpc getAssertUrl(clapi.GetAssertUrlRequest) returns (clapi.GetAssertUrlResponse) {}
+	// Asset management
+	rpc addAsset(clapi.AddAssetRequest) returns (clapi.AddAssetResponse) {}
+	rpc updateAsset(clapi.UpdateAssetRequest) returns (clapi.UpdateAssetResponse) {}
+	rpc deleteAsset(clapi.DeleteAssetRequest) returns (clapi.DeleteAssetResponse) {}
+	rpc getAssetUrl(clapi.GetAssetUrlRequest) returns (clapi.GetAssetUrlResponse) {}
 }
 
 // Declaration of message request and response //////////////////
@@ -326,42 +326,42 @@ message DeleteRoomResponse {
 	required string uid = 1;
 }
 
-// The request/response for addAssert
-message AddAssertRequest {
+// The request/response for addAsset
+message AddAssetRequest {
 	required string label = 1;
 	required int32 tpye = 2;
 	required int32 mode = 3;
 	required bytes data = 4;
 }
-message AddAssertResponse {
+message AddAssetResponse {
 	required string uid = 1;
 }
 
-// The request/response for updateAssert
-message UpdateAssertRequest {
+// The request/response for updateAsset
+message UpdateAssetRequest {
 	required string uid = 1;
 	required string label = 2;
 	required int32 type = 3;
 	required int32 mode = 4;
 	required bytes data = 5;
 }
-message UpdateAssertResponse {
+message UpdateAssetResponse {
 	required string uid = 1;
 }
 
-// The request/response for deleteAssert
-message DeleteAssertRequest {
+// The request/response for deleteAsset
+message DeleteAssetRequest {
 	required string uid = 1;
 }
-message DeleteAssertResponse {
+message DeleteAssetResponse {
 	required string uid = 1;
 }
 
-// The request/response for getAssertUrl
-message GetAssertUrlRequest {
+// The request/response for getAssetUrl
+message GetAssetUrlRequest {
 	required string uid = 1;
 }
-message GetAssertUrlResponse {
+message GetAssetUrlResponse {
 	required string url = 1;
 }
 

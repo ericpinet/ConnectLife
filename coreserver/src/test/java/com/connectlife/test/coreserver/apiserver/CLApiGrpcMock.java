@@ -12,8 +12,8 @@ import com.clapi.protocol.AddAccessoryRequest;
 import com.clapi.protocol.AddAccessoryResponse;
 import com.clapi.protocol.AddAddressRequest;
 import com.clapi.protocol.AddAddressResponse;
-import com.clapi.protocol.AddAssertRequest;
-import com.clapi.protocol.AddAssertResponse;
+import com.clapi.protocol.AddAssetRequest;
+import com.clapi.protocol.AddAssetResponse;
 import com.clapi.protocol.AddEmailRequest;
 import com.clapi.protocol.AddEmailResponse;
 import com.clapi.protocol.AddHomeRequest;
@@ -33,8 +33,8 @@ import com.clapi.protocol.DeleteAccessoryRequest;
 import com.clapi.protocol.DeleteAccessoryResponse;
 import com.clapi.protocol.DeleteAddressRequest;
 import com.clapi.protocol.DeleteAddressResponse;
-import com.clapi.protocol.DeleteAssertRequest;
-import com.clapi.protocol.DeleteAssertResponse;
+import com.clapi.protocol.DeleteAssetRequest;
+import com.clapi.protocol.DeleteAssetResponse;
 import com.clapi.protocol.DeleteEmailRequest;
 import com.clapi.protocol.DeleteEmailResponse;
 import com.clapi.protocol.DeleteHomeRequest;
@@ -47,16 +47,16 @@ import com.clapi.protocol.DeleteRoomRequest;
 import com.clapi.protocol.DeleteRoomResponse;
 import com.clapi.protocol.DeleteZoneRequest;
 import com.clapi.protocol.DeleteZoneResponse;
-import com.clapi.protocol.GetAssertUrlRequest;
-import com.clapi.protocol.GetAssertUrlResponse;
+import com.clapi.protocol.GetAssetUrlRequest;
+import com.clapi.protocol.GetAssetUrlResponse;
 import com.clapi.protocol.GetJsonDataRequest;
 import com.clapi.protocol.GetJsonDataResponse;
 import com.clapi.protocol.GetVersionRequest;
 import com.clapi.protocol.GetVersionResponse;
 import com.clapi.protocol.UpdateAddressRequest;
 import com.clapi.protocol.UpdateAddressResponse;
-import com.clapi.protocol.UpdateAssertRequest;
-import com.clapi.protocol.UpdateAssertResponse;
+import com.clapi.protocol.UpdateAssetRequest;
+import com.clapi.protocol.UpdateAssetResponse;
 import com.clapi.protocol.UpdateEmailRequest;
 import com.clapi.protocol.UpdateEmailResponse;
 import com.clapi.protocol.UpdateHomeRequest;
@@ -385,10 +385,10 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAssert(com.clapi.protocol.AddAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAsset(com.clapi.protocol.AddAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void addAssert(AddAssertRequest request, StreamObserver<AddAssertResponse> responseObserver) {
+	public void addAsset(AddAssetRequest request, StreamObserver<AddAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -396,10 +396,10 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAssert(com.clapi.protocol.UpdateAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAsset(com.clapi.protocol.UpdateAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void updateAssert(UpdateAssertRequest request, StreamObserver<UpdateAssertResponse> responseObserver) {
+	public void updateAsset(UpdateAssetRequest request, StreamObserver<UpdateAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -407,10 +407,10 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAssert(com.clapi.protocol.DeleteAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAsset(com.clapi.protocol.DeleteAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void deleteAssert(DeleteAssertRequest request, StreamObserver<DeleteAssertResponse> responseObserver) {
+	public void deleteAsset(DeleteAssetRequest request, StreamObserver<DeleteAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -418,12 +418,11 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssertUrl(com.clapi.protocol.GetAssertUrlRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssetUrl(com.clapi.protocol.GetAssetUrlRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void getAssertUrl(GetAssertUrlRequest request, StreamObserver<GetAssertUrlResponse> responseObserver) {
+	public void getAssetUrl(GetAssetUrlRequest request, StreamObserver<GetAssetUrlResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

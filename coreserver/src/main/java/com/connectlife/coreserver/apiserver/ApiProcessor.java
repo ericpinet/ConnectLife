@@ -709,10 +709,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAssert(com.clapi.protocol.AddAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAsset(com.clapi.protocol.AddAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void addAssert(AddAssertRequest request, StreamObserver<AddAssertResponse> responseObserver) {
+	public void addAsset(AddAssetRequest request, StreamObserver<AddAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -720,10 +720,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAssert(com.clapi.protocol.UpdateAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAsset(com.clapi.protocol.UpdateAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void updateAssert(UpdateAssertRequest request, StreamObserver<UpdateAssertResponse> responseObserver) {
+	public void updateAsset(UpdateAssetRequest request, StreamObserver<UpdateAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -731,10 +731,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAssert(com.clapi.protocol.DeleteAssertRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAsset(com.clapi.protocol.DeleteAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void deleteAssert(DeleteAssertRequest request, StreamObserver<DeleteAssertResponse> responseObserver) {
+	public void deleteAsset(DeleteAssetRequest request, StreamObserver<DeleteAssetResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -742,10 +742,10 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * @param request
 	 * @param responseObserver
-	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssertUrl(com.clapi.protocol.GetAssertUrlRequest, io.grpc.stub.StreamObserver)
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssetUrl(com.clapi.protocol.GetAssetUrlRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void getAssertUrl(GetAssertUrlRequest request, StreamObserver<GetAssertUrlResponse> responseObserver) {
+	public void getAssetUrl(GetAssetUrlRequest request, StreamObserver<GetAssetUrlResponse> responseObserver) {
 		// TODO Auto-generated method stub
 		
 	}
