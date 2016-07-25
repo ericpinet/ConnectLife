@@ -32,9 +32,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.clapi.data.Data;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
-import com.clapi.data.Assert;
-import com.clapi.data.Assert.AssertMode;
-import com.clapi.data.Assert.AssertType;
+import com.clapi.data.Asset;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.clapi.data.Email;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Home;
@@ -113,7 +113,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
-		Mockito.when(graph.findNodes(Consts.LABEL_ASSERT)).thenReturn(iasserts);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSET)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(true,false);
 		Mockito.when(ipersons.next()).thenReturn(person);
@@ -127,7 +127,7 @@ public class DataManagerFactoryTest {
 		try {
 			PowerMockito.doReturn(new Person("123","eric")).when(DataManagerFactory.class, "buildPerson", graph, person);
 			PowerMockito.doReturn(new Home("123","home")).when(DataManagerFactory.class, "buildHome", graph, home);
-			PowerMockito.doReturn(new Assert("123","assert", null, null)).when(DataManagerFactory.class, "buildAssert", aassert);
+			PowerMockito.doReturn(new Asset("123","asset", null, null)).when(DataManagerFactory.class, "buildAsset", aassert);
 			
 		} catch (Exception e1) {
 			fail();
@@ -137,7 +137,7 @@ public class DataManagerFactoryTest {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==1);
 			assertTrue(data.getHomes().size()==1);
-			assertTrue(data.getAsserts().size()==1);
+			assertTrue(data.getAssets().size()==1);
 			PowerMockito.verifyStatic();
 			
 		} catch (Exception e) {
@@ -160,7 +160,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
-		Mockito.when(graph.findNodes(Consts.LABEL_ASSERT)).thenReturn(iasserts);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSET)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(false);
 		Mockito.when(ihomes.hasNext()).thenReturn(false);
@@ -170,7 +170,7 @@ public class DataManagerFactoryTest {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==0);
 			assertTrue(data.getHomes().size()==0);
-			assertTrue(data.getAsserts().size()==0);
+			assertTrue(data.getAssets().size()==0);
 			
 		} catch (Exception e) {
 			fail();
@@ -455,29 +455,29 @@ public class DataManagerFactoryTest {
 		
 		Node a_assert = Mockito.mock(Node.class);
 		
-		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
 		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn(Consts.ASSERT_TYPE_IMAGE, Consts.ASSERT_TYPE_FILE, Consts.ASSERT_TYPE_FILE, Consts.ASSERT_TYPE_OTHER);
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn(Consts.ASSERT_MODE_SYSTEM, Consts.ASSERT_MODE_SYSTEM, Consts.ASSERT_MODE_USER);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn(Consts.ASSET_TYPE_IMAGE, Consts.ASSET_TYPE_FILE, Consts.ASSET_TYPE_FILE, Consts.ASSET_TYPE_OTHER);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn(Consts.ASSET_MODE_SYSTEM, Consts.ASSET_MODE_SYSTEM, Consts.ASSET_MODE_USER);
 		
 		for (int i=0 ; i<3 ; i++ ) {
 			try {
-				Assert aassert = DataManagerFactory.buildAssert(a_assert);
+				Asset aassert = DataManagerFactory.buildAsset(a_assert);
 				assertTrue(aassert.getUid().equals("12345"));
 				assertTrue(aassert.getLabel().equals("a assert"));
 				
 				if (i==0) {
-					assertTrue(aassert.getType().equals(AssertType.IMAGE));
-					assertTrue(aassert.getMode().equals(AssertMode.SYSTEM));
+					assertTrue(aassert.getType().equals(AssetType.IMAGE));
+					assertTrue(aassert.getMode().equals(AssetMode.SYSTEM));
 				}
 				else if (i==1) {
-					assertTrue(aassert.getType().equals(AssertType.FILE));
-					assertTrue(aassert.getMode().equals(AssertMode.SYSTEM));
+					assertTrue(aassert.getType().equals(AssetType.FILE));
+					assertTrue(aassert.getMode().equals(AssetMode.SYSTEM));
 				}
 				else if (i==2) {
-					assertTrue(aassert.getType().equals(AssertType.OTHER));
-					assertTrue(aassert.getMode().equals(AssertMode.USER));
+					assertTrue(aassert.getType().equals(AssetType.OTHER));
+					assertTrue(aassert.getMode().equals(AssetMode.USER));
 				}
 
 			} catch (Exception e) {
@@ -491,10 +491,10 @@ public class DataManagerFactoryTest {
 		
 		Node a_assert = Mockito.mock(Node.class);
 		
-		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(false);
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(false);
 		
 		try {
-			DataManagerFactory.buildAssert(a_assert);
+			DataManagerFactory.buildAsset(a_assert);
 			fail();
 			
 		} catch (Exception e) {
@@ -507,14 +507,14 @@ public class DataManagerFactoryTest {
 		
 		Node a_assert = Mockito.mock(Node.class);
 		
-		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
 		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn("INVALID");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn(Consts.ASSERT_MODE_SYSTEM);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn("INVALID");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn(Consts.ASSET_MODE_SYSTEM);
 		
 		try {
-			DataManagerFactory.buildAssert(a_assert);
+			DataManagerFactory.buildAsset(a_assert);
 			fail();
 			
 		} catch (Exception e) {
@@ -527,14 +527,14 @@ public class DataManagerFactoryTest {
 		
 		Node a_assert = Mockito.mock(Node.class);
 		
-		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSERT)).thenReturn(true);
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
 		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_LABEL)).thenReturn("a assert");
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_TYPE)).thenReturn(Consts.ASSERT_TYPE_IMAGE);
-		Mockito.when(a_assert.getProperty(Consts.ASSERT_MODE)).thenReturn("INVALID");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn(Consts.ASSET_TYPE_IMAGE);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn("INVALID");
 		
 		try {
-			DataManagerFactory.buildAssert(a_assert);
+			DataManagerFactory.buildAsset(a_assert);
 			fail();
 			
 		} catch (Exception e) {

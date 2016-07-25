@@ -19,7 +19,7 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
-import com.clapi.data.Assert;
+import com.clapi.data.Asset;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -32,8 +32,8 @@ import com.clapi.data.Phone;
 import com.clapi.data.Room;
 import com.clapi.data.Service;
 import com.clapi.data.Zone;
-import com.clapi.data.Assert.AssertMode;
-import com.clapi.data.Assert.AssertType;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.Consts;
 
 /**
@@ -77,14 +77,14 @@ public abstract class DataManagerFactory {
 				}
 				ret_data.setHomes(homes);
 				
-				ResourceIterator<Node> iasserts = _graph.findNodes(Consts.LABEL_ASSERT);
-				Vector<Assert> asserts = new Vector<Assert>();
+				ResourceIterator<Node> iassets = _graph.findNodes(Consts.LABEL_ASSET);
+				Vector<Asset> assets = new Vector<Asset>();
 				
-				while (iasserts.hasNext()) {
-					Node aassert = iasserts.next();
-					asserts.add(buildAssert(aassert));
+				while (iassets.hasNext()) {
+					Node aasset = iassets.next();
+					assets.add(buildAsset(aasset));
 				}
-				ret_data.setAsserts(asserts);
+				ret_data.setAssets(assets);
 				
 				tx.success();
 			}
@@ -648,48 +648,48 @@ public abstract class DataManagerFactory {
 	}
 	
 	/**
-	 * Build an Assert data object from a Node of assert.
+	 * Build an Asset data object from a Node of asset.
 	 * 
-	 * @param _node Assert node.
-	 * @return Assert
+	 * @param _node Asset node.
+	 * @return Asset
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
-	public static Assert buildAssert(Node _node) throws Exception {
+	public static Asset buildAsset(Node _node) throws Exception {
 		
-		Assert ret = null;
+		Asset ret = null;
 		
-		if (_node.hasLabel(Consts.LABEL_ASSERT)) {
+		if (_node.hasLabel(Consts.LABEL_ASSET)) {
 			
 			// set UID and Label
-			ret = new Assert((String)_node.getProperty(Consts.UID), (String)_node.getProperty(Consts.ASSERT_LABEL), null, null);
+			ret = new Asset((String)_node.getProperty(Consts.UID), (String)_node.getProperty(Consts.ASSET_LABEL), null, null);
 		
 			// set type
-			if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_IMAGE)) {
-				ret.setType(AssertType.IMAGE);
+			if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_IMAGE)) {
+				ret.setType(AssetType.IMAGE);
 			} 
-			else if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_FILE)) {
-				ret.setType(AssertType.FILE);
+			else if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_FILE)) {
+				ret.setType(AssetType.FILE);
 			}
-			else if (_node.getProperty(Consts.ASSERT_TYPE).equals(Consts.ASSERT_TYPE_OTHER)) {
-				ret.setType(AssertType.OTHER);
+			else if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_OTHER)) {
+				ret.setType(AssetType.OTHER);
 			}
 			else {
-				throw new Exception ("Assert type not supported yet! ["+_node.getProperty(Consts.ASSERT_TYPE)+"]");
+				throw new Exception ("Asset type not supported yet! ["+_node.getProperty(Consts.ASSET_TYPE)+"]");
 			}
 			
 			// set mode
-			if (_node.getProperty(Consts.ASSERT_MODE).equals(Consts.ASSERT_MODE_SYSTEM)) {
-				ret.setMode(AssertMode.SYSTEM);
+			if (_node.getProperty(Consts.ASSET_MODE).equals(Consts.ASSET_MODE_SYSTEM)) {
+				ret.setMode(AssetMode.SYSTEM);
 			} 
-			else if (_node.getProperty(Consts.ASSERT_MODE).equals(Consts.ASSERT_MODE_USER)) {
-				ret.setMode(AssertMode.USER);
+			else if (_node.getProperty(Consts.ASSET_MODE).equals(Consts.ASSET_MODE_USER)) {
+				ret.setMode(AssetMode.USER);
 			}
 			else {
-				throw new Exception ("Assert mode not supported yet! ["+_node.getProperty(Consts.ASSERT_MODE)+"]");
+				throw new Exception ("Asset mode not supported yet! ["+_node.getProperty(Consts.ASSET_MODE)+"]");
 			}
 		}
 		else {
-			throw new Exception ("It's not a assert node! ["+_node.getLabels()+"]");
+			throw new Exception ("It's not a asset node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;

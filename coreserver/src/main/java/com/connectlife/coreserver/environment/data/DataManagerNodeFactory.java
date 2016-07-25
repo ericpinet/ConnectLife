@@ -20,9 +20,9 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
-import com.clapi.data.Assert;
-import com.clapi.data.Assert.AssertMode;
-import com.clapi.data.Assert.AssertType;
+import com.clapi.data.Asset;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -1081,29 +1081,29 @@ public abstract class DataManagerNodeFactory {
 	}
 	
 	/**
-	 * Build an assert node in graph with assert information.
+	 * Build an asset node in graph with asset information.
 	 * 
 	 * @param _graph Main graph 
-	 * @param _assert Assert information.
+	 * @param _asset Asset information.
 	 * @return Node builded in graph.
 	 * @throws Exception If something goes wrong.
 	 */
-	public static Node buildAssertNode(GraphDatabaseService _graph, Assert _assert) throws Exception {
+	public static Node buildAssetNode(GraphDatabaseService _graph, Asset _asset) throws Exception {
 		
 		Node node = null;
 		
 		// begin transaction
 		try ( Transaction tx = _graph.beginTx() ) {
 			
-			if (checkUidExist(_graph, Consts.LABEL_ASSERT, _assert.getUid())) {
-				throw new Exception ("Uid already exist : " + _assert.getUid());
+			if (checkUidExist(_graph, Consts.LABEL_ASSET, _asset.getUid())) {
+				throw new Exception ("Uid already exist : " + _asset.getUid());
 			}
 			
 			// create node
-			node = _graph.createNode(Consts.LABEL_ASSERT);
+			node = _graph.createNode(Consts.LABEL_ASSET);
 			
 			// update data
-			updateAssertNode(_graph, node, _assert);
+			updateAssetNode(_graph, node, _asset);
 			
 			tx.success();
 		}
@@ -1112,44 +1112,44 @@ public abstract class DataManagerNodeFactory {
 	}
 	
 	/**
-	 * Update an assert node in graph with new information.
+	 * Update an asset node in graph with new information.
 	 * 
 	 * @param _graph Main graph
-	 * @param _node Assert node to update.
-	 * @param _assert New assert information.
+	 * @param _node Asset node to update.
+	 * @param _asset New asset information.
 	 * @throws Exception If something goes wrong.
 	 */
-	public static void updateAssertNode(GraphDatabaseService _graph, Node _node, Assert _assert) throws Exception {
+	public static void updateAssetNode(GraphDatabaseService _graph, Node _node, Asset _asset) throws Exception {
 		
 		// begin transaction
 		try ( Transaction tx = _graph.beginTx() ) {
 			
-			if (_node.hasLabel(Consts.LABEL_ASSERT)) {
+			if (_node.hasLabel(Consts.LABEL_ASSET)) {
 				
-				_node.setProperty(Consts.UID, _assert.getUid());
-				_node.setProperty(Consts.ASSERT_LABEL, _assert.getLabel());
+				_node.setProperty(Consts.UID, _asset.getUid());
+				_node.setProperty(Consts.ASSET_LABEL, _asset.getLabel());
 				
 				// type
-				if (AssertType.IMAGE == _assert.getType()) {
-					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_IMAGE);
+				if (AssetType.IMAGE == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
 				}
-				else if (AssertType.FILE == _assert.getType()) {
-					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_FILE);
+				else if (AssetType.FILE == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_FILE);
 				}
-				else if (AssertType.OTHER == _assert.getType()) {
-					_node.setProperty(Consts.ASSERT_TYPE, Consts.ASSERT_TYPE_OTHER);
+				else if (AssetType.OTHER == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_OTHER);
 				}
 				
 				// mode
-				if (AssertMode.SYSTEM == _assert.getMode()) {
-					_node.setProperty(Consts.ASSERT_MODE, Consts.ASSERT_MODE_SYSTEM);
+				if (AssetMode.SYSTEM == _asset.getMode()) {
+					_node.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
 				}
-				else if (AssertMode.USER == _assert.getMode()) {
-					_node.setProperty(Consts.ASSERT_MODE, Consts.ASSERT_MODE_USER);
+				else if (AssetMode.USER == _asset.getMode()) {
+					_node.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_USER);
 				}
 			}
 			else {
-				throw new Exception ("It's not an assert node! ["+_node.getLabels()+"]");
+				throw new Exception ("It's not an asset node! ["+_node.getLabels()+"]");
 			}
 			
 			tx.success();
