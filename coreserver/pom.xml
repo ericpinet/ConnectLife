@@ -170,6 +170,13 @@
     <version>3.4</version>
   </dependency>
   
+  <!-- Jetty Http server -->
+  <dependency>
+	<groupId>org.eclipse.jetty</groupId>
+	<artifactId>jetty-server</artifactId>
+	<version>9.3.6.v20151106</version>
+  </dependency>
+  
   <!-- EasyMock -->
   <dependency>
       <groupId>org.powermock</groupId>
