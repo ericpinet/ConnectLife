@@ -156,6 +156,14 @@ public class AssetMngrTest {
 			fail();
 		}
 		
+		// test save
+		try {
+			asset_mngr.addAsset(asset, ByteString.copyFrom(bytes));
+			fail();
+		} catch (Exception e) {
+			// must return exception because file already exist
+		}
+		
 		// remove file
 		asset_file.delete();
 		
@@ -189,6 +197,14 @@ public class AssetMngrTest {
 			bytes = Files.toByteArray(image);
 		} catch (IOException e) {
 			fail();
+		}
+		
+		
+		try {
+			asset_mngr.updateAsset(asset, ByteString.copyFrom(bytes));
+			fail();
+		} catch (Exception e) {
+			// throw exception cause file doesn't exist.
 		}
 		
 		// test save
