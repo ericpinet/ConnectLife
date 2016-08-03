@@ -329,7 +329,7 @@ message DeleteRoomResponse {
 // The request/response for addAsset
 message AddAssetRequest {
 	required string label = 1;
-	required int32 tpye = 2;
+	required int32 type = 2;
 	required int32 mode = 3;
 	required bytes data = 4;
 }

@@ -86,4 +86,15 @@ public class AssetManagerMock implements AssetManager {
 		return null;
 	}
 
+	/**
+	 * @param _asset
+	 * @throws Exception
+	 * @see com.connectlife.coreserver.environment.asset.AssetManager#deleteAsset(com.clapi.data.Asset)
+	 */
+	@Override
+	public void deleteAsset(Asset _asset) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

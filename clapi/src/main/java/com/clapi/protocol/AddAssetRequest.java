@@ -20,7 +20,7 @@ public  final class AddAssetRequest extends
   }
   private AddAssetRequest() {
     label_ = "";
-    tpye_ = 0;
+    type_ = 0;
     mode_ = 0;
     data_ = com.google.protobuf.ByteString.EMPTY;
   }
@@ -60,7 +60,7 @@ public  final class AddAssetRequest extends
           }
           case 16: {
             bitField0_ |= 0x00000002;
-            tpye_ = input.readInt32();
+            type_ = input.readInt32();
             break;
           }
           case 24: {
@@ -141,19 +141,19 @@ public  final class AddAssetRequest extends
     }
   }
 
-  public static final int TPYE_FIELD_NUMBER = 2;
-  private int tpye_;
+  public static final int TYPE_FIELD_NUMBER = 2;
+  private int type_;
   /**
-   * <code>required int32 tpye = 2;</code>
+   * <code>required int32 type = 2;</code>
    */
-  public boolean hasTpye() {
+  public boolean hasType() {
     return ((bitField0_ & 0x00000002) == 0x00000002);
   }
   /**
-   * <code>required int32 tpye = 2;</code>
+   * <code>required int32 type = 2;</code>
    */
-  public int getTpye() {
-    return tpye_;
+  public int getType() {
+    return type_;
   }
 
   public static final int MODE_FIELD_NUMBER = 3;
@@ -196,7 +196,7 @@ public  final class AddAssetRequest extends
       memoizedIsInitialized = 0;
       return false;
     }
-    if (!hasTpye()) {
+    if (!hasType()) {
       memoizedIsInitialized = 0;
       return false;
     }
@@ -218,7 +218,7 @@ public  final class AddAssetRequest extends
       com.google.protobuf.GeneratedMessage.writeString(output, 1, label_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      output.writeInt32(2, tpye_);
+      output.writeInt32(2, type_);
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
       output.writeInt32(3, mode_);
@@ -239,7 +239,7 @@ public  final class AddAssetRequest extends
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, tpye_);
+        .computeInt32Size(2, type_);
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
       size += com.google.protobuf.CodedOutputStream
@@ -367,7 +367,7 @@ public  final class AddAssetRequest extends
       super.clear();
       label_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
-      tpye_ = 0;
+      type_ = 0;
       bitField0_ = (bitField0_ & ~0x00000002);
       mode_ = 0;
       bitField0_ = (bitField0_ & ~0x00000004);
@@ -404,7 +404,7 @@ public  final class AddAssetRequest extends
       if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
         to_bitField0_ |= 0x00000002;
       }
-      result.tpye_ = tpye_;
+      result.type_ = type_;
       if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
         to_bitField0_ |= 0x00000004;
       }
@@ -434,8 +434,8 @@ public  final class AddAssetRequest extends
         label_ = other.label_;
         onChanged();
       }
-      if (other.hasTpye()) {
-        setTpye(other.getTpye());
+      if (other.hasType()) {
+        setType(other.getType());
       }
       if (other.hasMode()) {
         setMode(other.getMode());
@@ -452,7 +452,7 @@ public  final class AddAssetRequest extends
       if (!hasLabel()) {
         return false;
       }
-      if (!hasTpye()) {
+      if (!hasType()) {
         return false;
       }
       if (!hasMode()) {
@@ -559,34 +559,34 @@ public  final class AddAssetRequest extends
       return this;
     }
 
-    private int tpye_ ;
+    private int type_ ;
     /**
-     * <code>required int32 tpye = 2;</code>
+     * <code>required int32 type = 2;</code>
      */
-    public boolean hasTpye() {
+    public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 tpye = 2;</code>
+     * <code>required int32 type = 2;</code>
      */
-    public int getTpye() {
-      return tpye_;
+    public int getType() {
+      return type_;
     }
     /**
-     * <code>required int32 tpye = 2;</code>
+     * <code>required int32 type = 2;</code>
      */
-    public Builder setTpye(int value) {
+    public Builder setType(int value) {
       bitField0_ |= 0x00000002;
-      tpye_ = value;
+      type_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>required int32 tpye = 2;</code>
+     * <code>required int32 type = 2;</code>
      */
-    public Builder clearTpye() {
+    public Builder clearType() {
       bitField0_ = (bitField0_ & ~0x00000002);
-      tpye_ = 0;
+      type_ = 0;
       onChanged();
       return this;
     }

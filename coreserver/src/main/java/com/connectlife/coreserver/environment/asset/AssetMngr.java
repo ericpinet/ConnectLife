@@ -264,6 +264,27 @@ public class AssetMngr implements AssetManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Delete the asset binary data from the environment.
+	 * 
+	 * @param _asset Asset information to delete.
+	 * @throws Exception If something goes wrong.
+	 * @see com.connectlife.coreserver.environment.asset.AssetManager#deleteAsset(com.clapi.data.Asset)
+	 */
+	@Override
+	public void deleteAsset(Asset _asset) throws Exception {
+		
+		Preconditions.checkNotNull(_asset, "It's not possible to delete null asset.");
+		
+		// build filename full path
+		String filename = getAssetFullFilename(_asset);
+		
+		File file = new File(filename);
+		if (file.exists() && !file.isDirectory()) { 
+		    file.delete();
+		}
+	}
 
 	/**
 	 * Return the url of the asset.
@@ -316,5 +337,4 @@ public class AssetMngr implements AssetManager {
 					getAssetFilename(_asset);
 		return ret_val;
 	}
-
 }

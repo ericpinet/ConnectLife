@@ -22,13 +22,13 @@ public interface AddAssetRequestOrBuilder extends
       getLabelBytes();
 
   /**
-   * <code>required int32 tpye = 2;</code>
+   * <code>required int32 type = 2;</code>
    */
-  boolean hasTpye();
+  boolean hasType();
   /**
-   * <code>required int32 tpye = 2;</code>
+   * <code>required int32 type = 2;</code>
    */
-  int getTpye();
+  int getType();
 
   /**
    * <code>required int32 mode = 3;</code>

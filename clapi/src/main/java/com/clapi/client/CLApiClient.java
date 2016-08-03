@@ -22,6 +22,7 @@ import com.clapi.protocol.*;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.MoreExecutors;
+import com.google.protobuf.ByteString;
 
 /**
  * Client to connect with connectlife server. 
@@ -379,6 +380,77 @@ public class CLApiClient {
 		UpdateEmailResponse response = m_blockingStub.updateEmail(request);
 		return response.getUid();
 	}
+	
+	/**
+	 * Add asset (file) in the environment.
+	 * 
+	 * @param _label Label (filename) of the asset to add.
+	 * @param _type Type of the asset (See AssetType)
+	 * @param _mode Mode of the asset (See AssetMode)
+	 * @param _data Binary data of the asset (file)
+	 * @return String uid of the new asset.
+	 */
+	public String addAsset (String _label, int _type, int _mode, ByteString _data) {
+		AddAssetRequest request = AddAssetRequest.newBuilder()
+											     .setLabel(_label)
+											     .setType(_type)
+											     .setMode(_mode)
+											     .setData(_data)
+											     .build();
+		AddAssetResponse response = m_blockingStub.addAsset(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Update asset (file) in the environment.
+	 * 
+	 * @param _uid Uid of the environment to update.
+	 * @param _label New label.
+	 * @param _type New type. (See AssetType)
+	 * @param _mode New mode. (See AssetMode)
+	 * @param _data Binary data of the asset (file)
+	 * @return Uid of the asset updated.
+	 */
+	public String updateAsset (String _uid, String _label, int _type, int _mode, ByteString _data) {
+		UpdateAssetRequest request = UpdateAssetRequest.newBuilder()
+													 .setUid(_uid)
+												     .setLabel(_label)
+												     .setType(_type)
+												     .setMode(_mode)
+												     .setData(_data)
+												     .build();
+		UpdateAssetResponse response = m_blockingStub.updateAsset(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Delete asset in the environment.
+	 * 
+	 * @param _uid Uid of the asset to delete.
+	 * @return Uid of the asset deleted.
+	 */
+	public String deleteAsset (String _uid) {
+		DeleteAssetRequest request = DeleteAssetRequest.newBuilder()
+											 		   .setUid(_uid)
+											 		   .build();
+		DeleteAssetResponse response = m_blockingStub.deleteAsset(request);
+		return response.getUid();
+	}
+	
+	/**
+	 * Get url of the asset in the environment.
+	 * 
+	 * @param _uid Uid of the asset to get url.
+	 * @return Url of the asset.
+	 */
+	public String getAssetUrl (String _uid) {
+		GetAssetUrlRequest request = GetAssetUrlRequest.newBuilder()
+											 		   .setUid(_uid)
+											 		   .build();
+		GetAssetUrlResponse response = m_blockingStub.getAssetUrl(request);
+		return response.getUrl();
+	}
+	
 	
 	/**
 	 * Wait notification. When notification will arrived from server, 

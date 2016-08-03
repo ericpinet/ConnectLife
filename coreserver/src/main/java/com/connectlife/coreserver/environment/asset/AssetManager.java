@@ -57,6 +57,14 @@ public interface AssetManager {
 	public void updateAsset(Asset _asset, ByteString _data) throws Exception;
 	
 	/**
+	 * Delete the asset binary data from the environment file storage.
+	 * 
+	 * @param _asset Asset information of the file.
+	 * @throws Exception If somethings goes wrong.
+	 */
+	public void deleteAsset(Asset _asset) throws Exception;
+	
+	/**
 	 * Return the URL of the binary data of the file.
 	 *  
 	 * @param _asset Asset information of the file.

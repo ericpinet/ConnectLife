@@ -397,7 +397,7 @@ public final class CLApiProtos {
       "UpdateRoomResponse\022\013\n\003uid\030\001 \002(\t\" \n\021Delet" +
       "eRoomRequest\022\013\n\003uid\030\001 \002(\t\"!\n\022DeleteRoomR" +
       "esponse\022\013\n\003uid\030\001 \002(\t\"J\n\017AddAssetRequest\022" +
-      "\r\n\005label\030\001 \002(\t\022\014\n\004tpye\030\002 \002(\005\022\014\n\004mode\030\003 \002" +
+      "\r\n\005label\030\001 \002(\t\022\014\n\004type\030\002 \002(\005\022\014\n\004mode\030\003 \002" +
       "(\005\022\014\n\004data\030\004 \002(\014\"\037\n\020AddAssetResponse\022\013\n\003" +
       "uid\030\001 \002(\t\"Z\n\022UpdateAssetRequest\022\013\n\003uid\030\001" +
       " \002(\t\022\r\n\005label\030\002 \002(\t\022\014\n\004type\030\003 \002(\005\022\014\n\004mod" +
@@ -808,7 +808,7 @@ public final class CLApiProtos {
     internal_static_clapi_AddAssetRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_clapi_AddAssetRequest_descriptor,
-        new java.lang.String[] { "Label", "Tpye", "Mode", "Data", });
+        new java.lang.String[] { "Label", "Type", "Mode", "Data", });
     internal_static_clapi_AddAssetResponse_descriptor =
       getDescriptor().getMessageTypes().get(55);
     internal_static_clapi_AddAssetResponse_fieldAccessorTable = new
