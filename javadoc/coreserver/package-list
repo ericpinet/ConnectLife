@@ -3,6 +3,7 @@ com.connectlife.coreserver.apiserver
 com.connectlife.coreserver.config
 com.connectlife.coreserver.console
 com.connectlife.coreserver.environment
+com.connectlife.coreserver.environment.asset
 com.connectlife.coreserver.environment.cmd
 com.connectlife.coreserver.environment.data
 com.connectlife.coreserver.environment.device
