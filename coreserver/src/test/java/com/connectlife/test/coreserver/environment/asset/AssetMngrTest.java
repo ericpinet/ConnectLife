@@ -37,6 +37,11 @@ import com.google.protobuf.ByteString;
  * <br> 2016-08-02
  */
 public class AssetMngrTest {
+	
+	private static String _IMAGE_FILE_1_ = "home.png";
+	
+	private static String _IMAGE_FILE_2_ = "zone.png";
+	
 
 	/**
 	 * @throws java.lang.Exception
@@ -107,7 +112,7 @@ public class AssetMngrTest {
 		app.startupTest();
 		
 		// prepare asset file information
-		Asset asset = new Asset("12345", "home.png", AssetType.IMAGE, AssetMode.SYSTEM);
+		Asset asset = new Asset("12345", _IMAGE_FILE_1_, AssetType.IMAGE, AssetMode.SYSTEM);
 		
 		// init asset manager
 		AssetMngr asset_mngr = new AssetMngr();
@@ -122,7 +127,7 @@ public class AssetMngrTest {
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/home.png").getFile());
+		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -171,14 +176,14 @@ public class AssetMngrTest {
 		app.startupTest();
 		
 		// prepare asset file information
-		Asset asset = new Asset("12345", "home.png", AssetType.IMAGE, AssetMode.SYSTEM);
+		Asset asset = new Asset("12345", _IMAGE_FILE_1_, AssetType.IMAGE, AssetMode.SYSTEM);
 		
 		// init asset manager
 		AssetMngr asset_mngr = new AssetMngr();
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/home.png").getFile());
+		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -201,7 +206,7 @@ public class AssetMngrTest {
 		assertTrue( asset_file.exists() && (false == asset_file.isDirectory()) );
 		
 		// read other file image
-		image = new File(getClass().getResource("/zone.png").getFile());
+		image = new File(getClass().getResource("/" + _IMAGE_FILE_2_).getFile());
 		try {
 			bytes = Files.toByteArray(image);
 		} catch (IOException e) {
@@ -226,13 +231,13 @@ public class AssetMngrTest {
 	public void testAddAssetUnit() {
 		
 		// prepare asset file information
-		Asset asset = new Asset("12345", "home.png", AssetType.IMAGE, AssetMode.SYSTEM);
+		Asset asset = new Asset("12345", _IMAGE_FILE_1_, AssetType.IMAGE, AssetMode.SYSTEM);
 		
 		// init asset manager
 		AssetMngr asset_mngr = new AssetMngr();
 		
 		// read file
-		File image = new File(getClass().getResource("/home.png").getFile());
+		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -262,7 +267,7 @@ public class AssetMngrTest {
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/home.png").getFile());
+		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -287,7 +292,7 @@ public class AssetMngrTest {
 		app.startupTest();
 		
 		// prepare asset file information
-		Asset asset = new Asset("12345", "home.png", AssetType.IMAGE, AssetMode.SYSTEM);
+		Asset asset = new Asset("12345", _IMAGE_FILE_1_, AssetType.IMAGE, AssetMode.SYSTEM);
 		
 		// init asset manager
 		AssetMngr asset_mngr = new AssetMngr();
