@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 
 import java.util.Observable;
 
+import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
@@ -51,15 +52,22 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	private DataManager m_data_manager;
 	
 	/**
+	 * Asset manager for manage file in the environment data.
+	 */
+	private AssetManager m_asset_manager;
+	
+	/**
 	 * Default constructor of the environment.
 	 * 
 	 * @param _datamngr DataManager at use in this Environment.
-	 * @param _devicemngr DeviceManager at use in this Environment. 
+	 * @param _devicemngr DeviceManager at use in this Environment.
+	 * @param _assetmngr AssetManager at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentManager(DataManager _datamngr, DeviceManager _devicemngr){
+	public EnvironmentManager(DataManager _datamngr, DeviceManager _devicemngr, AssetManager _assetmngr){
 		m_data_manager = _datamngr;
 		m_device_manager = _devicemngr;
+		m_asset_manager = _assetmngr;
 		m_isInit = false;
 	}
 	
@@ -114,21 +122,12 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 		}
 		
 		// Init the device manager if all is start correctly.
-		if(true == ret_val){
-			ret_val = m_device_manager.init();
-			
-			if(true == ret_val){
-				m_logger.info("Initialization completed.");
-			}
-			else{
-				m_logger.error("Unable to init the service manager of this environment. Environment initialization failed.");
-			}
+		if (m_device_manager.init() && m_asset_manager.init()) {
+			m_logger.info("Initialization completed.");
 		}
 		else{
 			m_logger.error("Unable to init the environment.");
 		}
-	
-
 		return ret_val;
 	}
 
@@ -153,6 +152,10 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 		if (null != m_device_manager) {
 			m_device_manager.unInit();
 		}
+		
+		if (null != m_asset_manager) {
+			m_asset_manager.unInit();
+		}
 
 		m_logger.info("UnInitialization completed.");
 	}
@@ -162,7 +165,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 * 
 	 * @return The device manager of the environment.
 	 */
-	public DeviceManager getDeviceManager(){
+	public DeviceManager getDeviceManager() {
 		return m_device_manager;
 	}
 	
@@ -171,8 +174,12 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 * 
 	 * @return The data manager of the environment.
 	 */
-	public DataManager getDataManager(){
+	public DataManager getDataManager() {
 		return m_data_manager;
+	}
+	
+	public AssetManager getAssetManager() {
+		return m_asset_manager;
 	}
 	
 	/**

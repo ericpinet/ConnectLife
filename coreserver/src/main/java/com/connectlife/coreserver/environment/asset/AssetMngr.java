@@ -18,6 +18,7 @@ import org.eclipse.jetty.server.Server;
 import com.connectlife.coreserver.Application;
 import com.clapi.data.Asset;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.google.api.client.repackaged.com.google.common.base.Preconditions;
 import com.google.protobuf.ByteString;
 
 /**
@@ -32,9 +33,9 @@ import com.google.protobuf.ByteString;
  * 
  * <p>
  * The asset URL was build like that: <br>
- * - http://[hostname]:[server port]/[uid]-[label] <br>
+ * - http://[hostname]:[server port]/asset?uid=[uid]<br>
  * <p>
- * Sample : http://connectlife:38888/192933736362-image1.png<br>
+ * Sample : http://connectlife:38888/asset?uid=12345623432566<br>
  * <br>
  * @author ericpinet
  * <br> 2016-07-25
@@ -67,10 +68,16 @@ public class AssetMngr implements AssetManager {
 	private boolean m_is_init;
 	
 	/**
+	 * Flag to indicate if the initialization is in progress.
+	 */
+	private boolean m_init_inprogress;
+	
+	/**
 	 * Default constructor.
 	 */
 	public AssetMngr () {
 		m_is_init = false;
+		m_init_inprogress = false;
 	}
 
 	/**
@@ -84,7 +91,7 @@ public class AssetMngr implements AssetManager {
 		if (null == m_server && false == m_is_init) {
 		
 			m_server = new Server(0);
-			m_handler = new AssetHttpHandler();
+			m_handler = new AssetHttpHandler(this);
 			m_server.setHandler(m_handler);
 	
 	        Thread thread = new Thread(new Runnable()
@@ -102,22 +109,43 @@ public class AssetMngr implements AssetManager {
 	        			
 	        			m_logger.info("Service started: http://"+m_handler.getHostname()+":"+m_handler.getPort());
 	        			
+	        			// restore flag 
+	        			m_is_init = true;
+	        			m_init_inprogress = false;
+	        			
 	        			// Ready to receive client request
 	        			m_server.join();
-	        			
-	        			m_is_init = true;
 	        			
 	        		} catch (Exception e) {
 	        			m_logger.error("Unable to start the asset http server.");
 	        			m_logger.error(e.getMessage());
 	        			StdOutErrLog.tieSystemOutAndErrToLog();
 	        			e.printStackTrace();
+	        			
+	        			// restore flag 
+	        			m_init_inprogress = false;
 	        		}
 	        	}
 	        });
 	
+	        // set the in progress flag
+	        m_init_inprogress = true;
+	        
 	        // start the thread
 	        thread.start();
+	        
+	        // wait flag return
+	        while (true == m_init_inprogress) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					m_logger.error(e.getMessage());
+        			StdOutErrLog.tieSystemOutAndErrToLog();
+        			e.printStackTrace();
+				}
+	        }
+	        
+	        ret_val = m_is_init;
 		}
 		else {
 			m_logger.warn("Service already started.");
@@ -156,6 +184,7 @@ public class AssetMngr implements AssetManager {
 		finally {
 			m_server = null;
 			m_handler = null;
+			m_is_init = false;
 		}
 	}
 
@@ -194,18 +223,14 @@ public class AssetMngr implements AssetManager {
 	 * @throws Exception If something goes wrong.
 	 */
 	private void saveAsset(Asset _asset, ByteString _data, boolean _add) throws Exception {
-		if (null == _asset) {
-			throw new Exception("Asset file information cannot be null.");
-		}
 		
-		if (null == _data) {
-			throw new Exception("Asset file data cannot be null.");
-		}
+		Preconditions.checkState(m_is_init, "Asset manager must be initialized before save asset.");
+		Preconditions.checkArgument(null != _asset, "Asset file information cannot be null.");
+		Preconditions.checkArgument(null != _data, "Asset data cannot be null.");
+		Preconditions.checkArgument(false == _asset.getUid().isEmpty() && false == _asset.getLabel().isEmpty(), "Asset uid or label cannot be empty.");
 		
 		// build filename full path
-		String filename = Application.getApp().getBasePath() + "/" + 
-						  ASSET_DATA_PATH + "/" + 
-						  getAssetFilename(_asset);
+		String filename = getAssetFullFilename(_asset);
 		
 		File file = new File(filename);
 		if (true == _add) {
@@ -223,7 +248,7 @@ public class AssetMngr implements AssetManager {
 		
 		try {
 			// create directory
-			File directory = new File(	Application.getApp().getBasePath() + "/" + ASSET_DATA_PATH + "/");
+			File directory = new File(Application.getApp().getBasePath() + "/" + ASSET_DATA_PATH + "/");
 			directory.mkdirs();
 			
 			// save file in storage
@@ -254,8 +279,14 @@ public class AssetMngr implements AssetManager {
 			throw new Exception ("The asset server was not initialized.");
 		}
 		
+		// check if the file exist
+		File asset_file = new File(getAssetFullFilename(_asset));
+		if (false == asset_file.exists()) {
+			throw new Exception ("The asset file doesn't exsit.");
+		}
+		
 		String ret_val = "";		
-		ret_val = "http://" + m_handler.getHostname() + ":" + m_handler.getPort() + "/" + getAssetFilename(_asset);
+		ret_val = "http://" + m_handler.getHostname() + ":" + String.valueOf(m_handler.getPort()) + "/" + "asset?uid="+_asset.getUid();
 		return ret_val;
 		
 	}
@@ -266,9 +297,23 @@ public class AssetMngr implements AssetManager {
 	 * @param _asset Asset information.
 	 * @return The asset file name.
 	 */
-	private String getAssetFilename(Asset _asset) {
+	public String getAssetFilename(Asset _asset) {
 		String ret_val = "";
 		ret_val = _asset.getUid() + "-" + _asset.getLabel();
+		return ret_val;
+	}
+	
+	/**
+	 * Return the asset full file name.
+	 * 
+	 * @param _asset Asset information.
+	 * @return The asset full file name with path.
+	 */
+	public String getAssetFullFilename(Asset _asset) {
+		String ret_val = "";
+		ret_val = 	Application.getApp().getBasePath() + "/" + 
+					ASSET_DATA_PATH + "/" + 
+					getAssetFilename(_asset);
 		return ret_val;
 	}
 

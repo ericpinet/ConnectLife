@@ -317,6 +317,14 @@ public class DataManagerNeo4j implements DataManager {
 			zone11.createRelationshipTo(room11, Consts.RelTypes.CONTAINS);
 			
 			
+			// Create the asset
+			Node asset_home = graph.createNode(Consts.LABEL_ASSET);
+			asset_home.setProperty(Consts.UID, "12345");
+			asset_home.setProperty(Consts.ASSET_LABEL, "home.png");
+			asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
+			asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
+			
+			
 			// LIGHT COLORED DIM
 			// ACCESSORY
 			/* Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);

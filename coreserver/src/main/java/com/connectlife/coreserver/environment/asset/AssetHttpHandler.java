@@ -8,6 +8,7 @@
  */
 package com.connectlife.coreserver.environment.asset;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 
@@ -21,7 +22,11 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
+import com.clapi.data.Asset;
+import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.find.FindProcessor;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.google.common.io.Files;
 
 /**
  * Http handler for request in the asset environment data. 
@@ -50,6 +55,20 @@ public class AssetHttpHandler extends AbstractHandler {
 	 * Listen port of the asset http handler.
 	 */
 	private int m_listen_port;
+	
+	/**
+	 * Asset manager.
+	 */
+	private AssetMngr m_manager;
+	
+	/**
+	 * Default constructor.
+	 * 
+	 * @param _manager
+	 */
+	public AssetHttpHandler (AssetMngr _manager) {
+		m_manager = _manager;
+	}
 	
 	/**
 	 * Update the connection information.
@@ -118,8 +137,42 @@ public class AssetHttpHandler extends AbstractHandler {
 						HttpServletRequest request, 
 						HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		
+		FindProcessor find = null;
+		Asset asset = null;
+		
+		// check if request are completed with a uid request
+        String uid = request.getParameter("uid");
 
+        // Check if the string parameter is there and not empty
+        if (uid != null && !uid.trim().equals("")) {
+		
+			// Get the FindProcessor of the environment
+			try {
+				
+				find = Application.getApp().getEnvironment().getFindProcessor();
+				if (null != find) {
+					
+					// find the asset by the uid
+					asset = find.findAssetByUid(uid);
+					
+					// load file binary data
+					File file = new File(m_manager.getAssetFullFilename(asset));
+					byte[] bytes = Files.toByteArray(file);
+					
+					// create and send the response 
+					response.setContentType("image/png");
+					response.setStatus(HttpServletResponse.SC_OK);
+					response.getOutputStream().write(bytes);
+					baseRequest.setHandled(true);
+				}
+				
+			} catch (Exception e) {
+				m_logger.error(e.getMessage());
+				StdOutErrLog.tieSystemOutAndErrToLog();
+				e.printStackTrace();
+			}
+        }
 	}
-
 }

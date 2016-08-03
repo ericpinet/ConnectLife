@@ -24,6 +24,8 @@ import com.connectlife.coreserver.console.Console;
 import com.connectlife.coreserver.console.ConsoleSSH;
 import com.connectlife.coreserver.environment.Environment;
 import com.connectlife.coreserver.environment.EnvironmentManager;
+import com.connectlife.coreserver.environment.asset.AssetManager;
+import com.connectlife.coreserver.environment.asset.AssetMngr;
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.data.DataManagerNeo4j;
 import com.connectlife.coreserver.environment.device.DeviceManager;
@@ -59,6 +61,7 @@ public class ApplicationInject extends AbstractModule {
 		bind(DiscoveryService.class).to(DiscoveryJmdns.class);
 		bind(DeviceManager.class).to(DeviceMngr.class);
 		bind(DataManager.class).to(DataManagerNeo4j.class);
+		bind(AssetManager.class).to(AssetMngr.class);
 		
 		// Api 
 		bind(Api.class).to(ApiGrpc.class);

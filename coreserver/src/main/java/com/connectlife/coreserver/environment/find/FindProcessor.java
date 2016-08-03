@@ -19,6 +19,7 @@ import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Asset;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Consts;
@@ -230,5 +231,41 @@ public abstract class FindProcessor {
 		}
 		
 		return ret;
+	}
+	
+	/**
+	 * Find the asset by UID.
+	 *  
+	 * @param _uid UID of the asset.
+	 * @return Asset found. Null if not found.
+	 */
+	public Asset findAssetByUid (String _uid) {
+		Asset ret = null;
+		
+		// begin transaction
+		try ( Transaction tx = m_graph.beginTx() ) {
+			
+			Node node = m_graph.findNode( 	Consts.LABEL_ASSET, 
+											Consts.UID, 
+											_uid );
+			
+			// if the node was found
+			if (null != node) {
+				
+				try {
+					ret = DataManagerFactory.buildAsset(node);
+				}
+				catch (Exception e) {
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+			}
+			
+			tx.success();
+		}
+		
+		return ret;
+		
 	}
 }
