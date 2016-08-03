@@ -246,7 +246,7 @@ public class DataManagerNeo4j implements DataManager {
 			eric.setProperty(Consts.UID, UIDGenerator.getUID());
 			eric.setProperty(Consts.PERSON_FIRSTNAME, "Eric");
 			eric.setProperty(Consts.PERSON_LASTNAME, "Pinet");
-			eric.setProperty(Consts.PERSON_IMAGEURL, "");
+			eric.setProperty(Consts.PERSON_IMAGEUID, "");
 			
 			// MAIL1
 			Node mail11 = graph.createNode(Consts.LABEL_EMAIL);
@@ -298,13 +298,13 @@ public class DataManagerNeo4j implements DataManager {
 			Node home11 = graph.createNode(Consts.LABEL_HOME);
 			home11.setProperty(Consts.UID, UIDGenerator.getUID());
 			home11.setProperty(Consts.HOME_LABEL, "Home");
-			home11.setProperty(Consts.HOME_IMAGEURL, "");
+			home11.setProperty(Consts.HOME_IMAGEUID, "");
 			
 			// FIRST FLOOR
 			Node zone11 = graph.createNode(Consts.LABEL_ZONE);
 			zone11.setProperty(Consts.UID, UIDGenerator.getUID());
 			zone11.setProperty(Consts.ZONE_LABEL, "First floor");
-			zone11.setProperty(Consts.ZONE_IMAGEURL, "");
+			zone11.setProperty(Consts.ZONE_IMAGEUID, "");
 			
 			home11.createRelationshipTo(zone11, Consts.RelTypes.CONTAINS);
 			
@@ -312,9 +312,17 @@ public class DataManagerNeo4j implements DataManager {
 			Node room11 = graph.createNode(Consts.LABEL_ROOM);
 			room11.setProperty(Consts.UID, UIDGenerator.getUID());
 			room11.setProperty(Consts.ROOM_LABEL, "Leving room");
-			room11.setProperty(Consts.ROOM_IMAGEURL, "");
+			room11.setProperty(Consts.ROOM_IMAGEUID, "");
 			
 			zone11.createRelationshipTo(room11, Consts.RelTypes.CONTAINS);
+			
+			
+			// Create the asset
+			Node asset_home = graph.createNode(Consts.LABEL_ASSET);
+			asset_home.setProperty(Consts.UID, "12345");
+			asset_home.setProperty(Consts.ASSET_LABEL, "home.png");
+			asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
+			asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
 			
 			
 			// LIGHT COLORED DIM

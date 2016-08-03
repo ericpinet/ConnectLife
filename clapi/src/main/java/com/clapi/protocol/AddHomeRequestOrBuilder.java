@@ -22,16 +22,16 @@ public interface AddHomeRequestOrBuilder extends
       getLabelBytes();
 
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageuid = 2;</code>
    */
-  boolean hasImageurl();
+  boolean hasImageuid();
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageuid = 2;</code>
    */
-  java.lang.String getImageurl();
+  java.lang.String getImageuid();
   /**
-   * <code>optional string imageurl = 2;</code>
+   * <code>optional string imageuid = 2;</code>
    */
   com.google.protobuf.ByteString
-      getImageurlBytes();
+      getImageuidBytes();
 }

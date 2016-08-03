@@ -8,6 +8,7 @@
  */
 package com.connectlife.coreserver.environment;
 
+import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
 
@@ -39,5 +40,12 @@ public interface EnvironmentContext {
 	 * @return DeviceManager of the environment.
 	 */
 	public DeviceManager getDeviceManager();
+	
+	/**
+	 * Return the asset manager of the environment.
+	 * 
+	 * @return AssetManager of the environment.
+	 */
+	public AssetManager getAssetManager();
 	
 }

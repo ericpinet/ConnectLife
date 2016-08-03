@@ -37,7 +37,7 @@ public class Zone implements DataObj {
 	/**
 	 * Image of the zone.
 	 */
-	private String imageurl;
+	private String imageuid;
 
 	/**
 	 * Default constructor.
@@ -45,14 +45,14 @@ public class Zone implements DataObj {
 	 * @param uid Uid of the zone.
 	 * @param label Label of the zone.
 	 * @param rooms Rooms of the zone.
-	 * @param imageurl ImageURL of the zone.
+	 * @param imageuid ImageUID of the zone.
 	 */
-	public Zone(String uid, String label, List<Room> rooms, String imageurl) {
+	public Zone(String uid, String label, List<Room> rooms, String imageuid) {
 		super();
 		this.uid = uid;
 		this.label = label;
 		this.rooms = rooms;
-		this.imageurl = imageurl;
+		this.imageuid = imageuid;
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class Zone implements DataObj {
 		this.uid = uid;
 		this.label = label;
 		this.rooms = new Vector<Room>();
-		this.imageurl = "";
+		this.imageuid = "";
 	}
 
 	/**
@@ -119,17 +119,17 @@ public class Zone implements DataObj {
 	}
 
 	/**
-	 * @return the imageurl
+	 * @return the imageuid
 	 */
-	public String getImageurl() {
-		return imageurl;
+	public String getImageuid() {
+		return imageuid;
 	}
 
 	/**
-	 * @param imageurl the imageurl to set
+	 * @param imageuid the imageuid to set
 	 */
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 	
 	/**

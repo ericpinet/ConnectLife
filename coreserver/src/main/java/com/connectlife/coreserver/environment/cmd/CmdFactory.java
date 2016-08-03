@@ -9,11 +9,13 @@
 package com.connectlife.coreserver.environment.cmd;
 
 import com.clapi.data.Accessory;
+import com.clapi.data.Asset;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
 import com.clapi.data.Zone;
+import com.google.protobuf.ByteString;
 
 /**
  * Environment command factory. Use this class to create command that you can execute on the environment data.
@@ -185,6 +187,48 @@ public abstract class CmdFactory {
 	 */
 	static public CmdCharacteristicWrite getCmdCharacteristicWrite(Characteristic _characteristic, Characteristic _target_value){
 		return new CmdCharacteristicWrite(_characteristic, _target_value);
+	}
+	
+	/**
+	 * Return the CmdAddAsset. 
+	 * 
+	 * @param _asset Asset to add.
+	 * @param _data Data of the asset. (file binary data)
+	 * @return Return the CmdAddAsset.
+	 */
+	static public CmdAddAsset getCmdAddAsset (Asset _asset, ByteString _data) {
+		return new CmdAddAsset(_asset, _data);
+	}
+	
+	/**
+	 * Return the CmdUpdateAsset.
+	 * 
+	 * @param _asset Asset to update.
+	 * @param _data Data of the asset (File binary data)
+	 * @return Return the CmdUpdateAsset.
+	 */
+	static public CmdUpdateAsset getCmdUpdateAsset (Asset _asset, ByteString _data) {
+		return new CmdUpdateAsset(_asset, _data);
+	}
+	
+	/**
+	 * Return the CmdDeleteAsset.
+	 * 
+	 * @param _asset Asset to delete.
+	 * @return Return the CmdDeleteAsset.
+	 */
+	static public CmdDeleteAsset getCmdDeleteAsset (Asset _asset) {
+		return new CmdDeleteAsset(_asset);
+	}
+	
+	/**
+	 * Return the CmdGetAssetUrl.
+	 * 
+	 * @param _asset Asset information.
+	 * @return The CmdGetAssetUrl.
+	 */
+	static public CmdGetAssetUrl getCmdGetAssetUrl (Asset _asset) {
+		return new CmdGetAssetUrl(_asset);
 	}
 	
 }

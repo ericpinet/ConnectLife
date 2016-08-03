@@ -63,9 +63,15 @@ service CLApi {
 	rpc updateRoom(clapi.UpdateRoomRequest) returns (clapi.UpdateRoomResponse) {}
 	rpc deleteRoom(clapi.DeleteRoomRequest) returns (clapi.DeleteRoomResponse) {}
 
-	// Accessory Management
+	// Accessory management
 	rpc addAccessory(clapi.AddAccessoryRequest) returns (clapi.AddAccessoryResponse) {}
 	rpc deleteAccessory(clapi.DeleteAccessoryRequest) returns (clapi.DeleteAccessoryResponse) {}
+
+	// Asset management
+	rpc addAsset(clapi.AddAssetRequest) returns (clapi.AddAssetResponse) {}
+	rpc updateAsset(clapi.UpdateAssetRequest) returns (clapi.UpdateAssetResponse) {}
+	rpc deleteAsset(clapi.DeleteAssetRequest) returns (clapi.DeleteAssetResponse) {}
+	rpc getAssetUrl(clapi.GetAssetUrlRequest) returns (clapi.GetAssetUrlResponse) {}
 }
 
 // Declaration of message request and response //////////////////
@@ -103,7 +109,7 @@ message GetJsonDataResponse {
 message AddPersonRequest {
 	required string firstname = 1;
 	optional string lastname = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message AddPersonResponse {
 	required string uid = 1;
@@ -114,7 +120,7 @@ message UpdatePersonRequest {
 	required string uid = 1;
 	required string firstname = 2;
 	optional string lastname = 3;
-	optional string imageurl = 4;
+	optional string imageuid = 4;
 }
 message UpdatePersonResponse {
 	required string uid = 1;
@@ -240,7 +246,7 @@ message DeleteAccessoryResponse {
 // The request/response for addHome
 message AddHomeRequest {
 	required string label = 1;
-	optional string imageurl = 2;
+	optional string imageuid = 2;
 }
 message AddHomeResponse {
 	required string uid = 1;
@@ -250,7 +256,7 @@ message AddHomeResponse {
 message UpdateHomeRequest {
 	required string uid = 1;
 	required string label = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message UpdateHomeResponse {
 	required string uid = 1;
@@ -268,7 +274,7 @@ message DeleteHomeResponse {
 message AddZoneRequest {
 	required string uid_home = 1;
 	required string label = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message AddZoneResponse {
 	required string uid = 1;
@@ -278,7 +284,7 @@ message AddZoneResponse {
 message UpdateZoneRequest {
 	required string uid = 1;
 	required string label = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message UpdateZoneResponse {
 	required string uid = 1;
@@ -296,7 +302,7 @@ message DeleteZoneResponse {
 message AddRoomRequest {
 	required string uid_zone = 1;
 	required string label = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message AddRoomResponse {
 	required string uid = 1;
@@ -306,7 +312,7 @@ message AddRoomResponse {
 message UpdateRoomRequest {
 	required string uid = 1;
 	required string label = 2;
-	optional string imageurl = 3;
+	optional string imageuid = 3;
 }
 message UpdateRoomResponse {
 	required string uid = 1;
@@ -320,6 +326,44 @@ message DeleteRoomResponse {
 	required string uid = 1;
 }
 
+// The request/response for addAsset
+message AddAssetRequest {
+	required string label = 1;
+	required int32 type = 2;
+	required int32 mode = 3;
+	required bytes data = 4;
+}
+message AddAssetResponse {
+	required string uid = 1;
+}
+
+// The request/response for updateAsset
+message UpdateAssetRequest {
+	required string uid = 1;
+	required string label = 2;
+	required int32 type = 3;
+	required int32 mode = 4;
+	required bytes data = 5;
+}
+message UpdateAssetResponse {
+	required string uid = 1;
+}
+
+// The request/response for deleteAsset
+message DeleteAssetRequest {
+	required string uid = 1;
+}
+message DeleteAssetResponse {
+	required string uid = 1;
+}
+
+// The request/response for getAssetUrl
+message GetAssetUrlRequest {
+	required string uid = 1;
+}
+message GetAssetUrlResponse {
+	required string url = 1;
+}
 
 // Declaration of base objects ///////////////////////////////////
 

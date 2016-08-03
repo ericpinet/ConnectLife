@@ -20,6 +20,9 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
+import com.clapi.data.Asset;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -109,7 +112,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _home.getUid());
 				_node.setProperty(Consts.HOME_LABEL, _home.getLabel());
-				_node.setProperty(Consts.HOME_IMAGEURL, _home.getImageurl());
+				_node.setProperty(Consts.HOME_IMAGEUID, _home.getImageuid());
 				
 				if (null != _home.getZones()) {
 					// zone
@@ -203,7 +206,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _zone.getUid());
 				_node.setProperty(Consts.ZONE_LABEL, _zone.getLabel());
-				_node.setProperty(Consts.ZONE_IMAGEURL, _zone.getImageurl());
+				_node.setProperty(Consts.ZONE_IMAGEUID, _zone.getImageuid());
 				
 				if (null != _zone.getRooms()) {
 					// room
@@ -297,7 +300,7 @@ public abstract class DataManagerNodeFactory {
 			
 				_node.setProperty(Consts.UID, _room.getUid());
 				_node.setProperty(Consts.ROOM_LABEL, _room.getLabel());
-				_node.setProperty(Consts.ROOM_IMAGEURL, _room.getImageurl());
+				_node.setProperty(Consts.ROOM_IMAGEUID, _room.getImageuid());
 				
 				if (null != _room.getAccessories()) {
 					// accessory
@@ -424,7 +427,7 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.UID, _person.getUid());
 				_node.setProperty(Consts.PERSON_FIRSTNAME, _person.getFirstname());
 				_node.setProperty(Consts.PERSON_LASTNAME, _person.getLastname());
-				_node.setProperty(Consts.PERSON_IMAGEURL, _person.getImageurl());
+				_node.setProperty(Consts.PERSON_IMAGEUID, _person.getImageuid());
 				
 				if (null != _person.getEmails()) {
 					// email
@@ -1075,6 +1078,82 @@ public abstract class DataManagerNodeFactory {
 		}
 		
 		return ret_val;
+	}
+	
+	/**
+	 * Build an asset node in graph with asset information.
+	 * 
+	 * @param _graph Main graph 
+	 * @param _asset Asset information.
+	 * @return Node builded in graph.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static Node buildAssetNode(GraphDatabaseService _graph, Asset _asset) throws Exception {
+		
+		Node node = null;
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (checkUidExist(_graph, Consts.LABEL_ASSET, _asset.getUid())) {
+				throw new Exception ("Uid already exist : " + _asset.getUid());
+			}
+			
+			// create node
+			node = _graph.createNode(Consts.LABEL_ASSET);
+			
+			// update data
+			updateAssetNode(_graph, node, _asset);
+			
+			tx.success();
+		}
+		
+		return node;
+	}
+	
+	/**
+	 * Update an asset node in graph with new information.
+	 * 
+	 * @param _graph Main graph
+	 * @param _node Asset node to update.
+	 * @param _asset New asset information.
+	 * @throws Exception If something goes wrong.
+	 */
+	public static void updateAssetNode(GraphDatabaseService _graph, Node _node, Asset _asset) throws Exception {
+		
+		// begin transaction
+		try ( Transaction tx = _graph.beginTx() ) {
+			
+			if (_node.hasLabel(Consts.LABEL_ASSET)) {
+				
+				_node.setProperty(Consts.UID, _asset.getUid());
+				_node.setProperty(Consts.ASSET_LABEL, _asset.getLabel());
+				
+				// type
+				if (AssetType.IMAGE == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
+				}
+				else if (AssetType.FILE == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_FILE);
+				}
+				else if (AssetType.OTHER == _asset.getType()) {
+					_node.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_OTHER);
+				}
+				
+				// mode
+				if (AssetMode.SYSTEM == _asset.getMode()) {
+					_node.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
+				}
+				else if (AssetMode.USER == _asset.getMode()) {
+					_node.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_USER);
+				}
+			}
+			else {
+				throw new Exception ("It's not an asset node! ["+_node.getLabels()+"]");
+			}
+			
+			tx.success();
+		}
 	}
 	
 	/**

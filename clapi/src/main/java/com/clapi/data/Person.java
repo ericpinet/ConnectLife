@@ -52,9 +52,9 @@ public class Person implements DataObj {
 	private List <Address> addresses;
 	
 	/**
-	 * Image url of the person.
+	 * Image uid of the person.
 	 */
-	private String imageurl;
+	private String imageuid;
 
 	/**
 	 * Default constructor. 
@@ -65,10 +65,10 @@ public class Person implements DataObj {
 	 * @param emails Emails of the person.
 	 * @param phones Phones of the person.
 	 * @param addresses Addresses of the person.
-	 * @param imageurl ImageURL of the person.
+	 * @param imageuid ImageUID of the person.
 	 */
 	public Person(String uid, String firstname, String lastname, List<Email> emails, List<Phone> phones,
-			List<Address> addresses, String imageurl) {
+			List<Address> addresses, String imageuid) {
 		super();
 		this.uid = uid;
 		this.firstname = firstname;
@@ -76,7 +76,7 @@ public class Person implements DataObj {
 		this.emails = emails;
 		this.phones = phones;
 		this.addresses = addresses;
-		this.imageurl = imageurl;
+		this.imageuid = imageuid;
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class Person implements DataObj {
 		this.emails = new ArrayList<Email>();
 		this.phones = new ArrayList<Phone>();
 		this.addresses = new ArrayList<Address>();
-		this.imageurl = "";
+		this.imageuid = "";
 	}
 	
 	/**
@@ -101,9 +101,9 @@ public class Person implements DataObj {
 	 * @param uid Uid of the person.
 	 * @param firstname First name of the person.
 	 * @param lastname Last name of the person.
-	 * @param imageurl ImageURL of the person.
+	 * @param imageuid ImageUID of the person.
 	 */
-	public Person(String uid, String firstname, String lastname, String imageurl) {
+	public Person(String uid, String firstname, String lastname, String imageuid) {
 		super();
 		this.uid = uid;
 		this.firstname = firstname;
@@ -111,7 +111,7 @@ public class Person implements DataObj {
 		this.emails = new ArrayList<Email>();
 		this.phones = new ArrayList<Phone>();
 		this.addresses = new ArrayList<Address>();
-		this.imageurl = imageurl;
+		this.imageuid = imageuid;
 	}
 
 	/**
@@ -199,17 +199,17 @@ public class Person implements DataObj {
 	}
 
 	/**
-	 * @return the imageurl
+	 * @return the imageuid
 	 */
-	public String getImageurl() {
-		return imageurl;
+	public String getImageuid() {
+		return imageuid;
 	}
 
 	/**
-	 * @param imageurl the imageurl to set
+	 * @param imageuid the imageuid to set
 	 */
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class Person implements DataObj {
 		setUid(_person.getUid());
 		setFirstname(_person.getFirstname());
 		setLastname(_person.getLastname());
-		setImageurl(_person.getImageurl());
+		setImageuid(_person.getImageuid());
 		setAddresses(_person.getAddresses());
 		setEmails(_person.getEmails());
 		setPhones(_person.getPhones());

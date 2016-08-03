@@ -28,16 +28,23 @@ public class Data {
 	 * List of homes in data.
 	 */
 	private List<Home> homes;
+	
+	/**
+	 * List of assets in data.
+	 */
+	private List<Asset> assets;
 
 	/**
 	 * Default constructor.
 	 * @param persons Persons of the data.
 	 * @param homes Homes of the data.
+	 * @param assets Assets of the data.
 	 */
-	public Data(List<Person> persons, List<Home> homes) {
+	public Data(List<Person> persons, List<Home> homes, List<Asset> assets) {
 		super();
 		this.persons = persons;
 		this.homes = homes;
+		this.assets = assets;
 	}
 	
 	/**
@@ -47,6 +54,7 @@ public class Data {
 		super();
 		this.persons = new ArrayList<Person>();
 		this.homes = new ArrayList<Home>();
+		this.assets = new ArrayList<Asset>();
 	}
 
 	/**
@@ -75,5 +83,19 @@ public class Data {
 	 */
 	public void setHomes(List<Home> homes) {
 		this.homes = homes;
+	}
+	
+	/**
+	 * @return the assets
+	 */
+	public List<Asset> getAssets() {
+		return assets;
+	}
+
+	/**
+	 * @param assets the assets to set
+	 */
+	public void setAssets(List<Asset> assets) {
+		this.assets = assets;
 	}
 }

@@ -19,6 +19,7 @@ import org.neo4j.graphdb.Transaction;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
+import com.clapi.data.Asset;
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicAccessMode;
 import com.clapi.data.Characteristic.CharacteristicEventType;
@@ -31,6 +32,8 @@ import com.clapi.data.Phone;
 import com.clapi.data.Room;
 import com.clapi.data.Service;
 import com.clapi.data.Zone;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.Consts;
 
 /**
@@ -74,6 +77,15 @@ public abstract class DataManagerFactory {
 				}
 				ret_data.setHomes(homes);
 				
+				ResourceIterator<Node> iassets = _graph.findNodes(Consts.LABEL_ASSET);
+				Vector<Asset> assets = new Vector<Asset>();
+				
+				while (iassets.hasNext()) {
+					Node aasset = iassets.next();
+					assets.add(buildAsset(aasset));
+				}
+				ret_data.setAssets(assets);
+				
 				tx.success();
 			}
 		}
@@ -101,7 +113,7 @@ public abstract class DataManagerFactory {
 			ret_person.setUid((String) _node.getProperty(Consts.UID));
 			ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
-			ret_person.setImageurl((String)_node.getProperty(Consts.PERSON_IMAGEURL));
+			ret_person.setImageuid((String)_node.getProperty(Consts.PERSON_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -290,7 +302,7 @@ public abstract class DataManagerFactory {
 			
 			ret_home.setUid((String) _node.getProperty(Consts.UID));
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
-			ret_home.setImageurl((String)_node.getProperty(Consts.HOME_IMAGEURL));
+			ret_home.setImageuid((String)_node.getProperty(Consts.HOME_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -336,7 +348,7 @@ public abstract class DataManagerFactory {
 		
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
-			ret.setImageurl((String)_node.getProperty(Consts.ZONE_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ZONE_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -383,7 +395,7 @@ public abstract class DataManagerFactory {
 		
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
-			ret.setImageurl((String)_node.getProperty(Consts.ROOM_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ROOM_IMAGEUID));
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -630,6 +642,54 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+		}
+		
+		return ret;
+	}
+	
+	/**
+	 * Build an Asset data object from a Node of asset.
+	 * 
+	 * @param _node Asset node.
+	 * @return Asset
+	 * @throws Exception Throw an exception is something goes wrong.
+	 */
+	public static Asset buildAsset(Node _node) throws Exception {
+		
+		Asset ret = null;
+		
+		if (_node.hasLabel(Consts.LABEL_ASSET)) {
+			
+			// set UID and Label
+			ret = new Asset((String)_node.getProperty(Consts.UID), (String)_node.getProperty(Consts.ASSET_LABEL), null, null);
+		
+			// set type
+			if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_IMAGE)) {
+				ret.setType(AssetType.IMAGE);
+			} 
+			else if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_FILE)) {
+				ret.setType(AssetType.FILE);
+			}
+			else if (_node.getProperty(Consts.ASSET_TYPE).equals(Consts.ASSET_TYPE_OTHER)) {
+				ret.setType(AssetType.OTHER);
+			}
+			else {
+				throw new Exception ("Asset type not supported yet! ["+_node.getProperty(Consts.ASSET_TYPE)+"]");
+			}
+			
+			// set mode
+			if (_node.getProperty(Consts.ASSET_MODE).equals(Consts.ASSET_MODE_SYSTEM)) {
+				ret.setMode(AssetMode.SYSTEM);
+			} 
+			else if (_node.getProperty(Consts.ASSET_MODE).equals(Consts.ASSET_MODE_USER)) {
+				ret.setMode(AssetMode.USER);
+			}
+			else {
+				throw new Exception ("Asset mode not supported yet! ["+_node.getProperty(Consts.ASSET_MODE)+"]");
+			}
+		}
+		else {
+			throw new Exception ("It's not a asset node! ["+_node.getLabels()+"]");
 		}
 		
 		return ret;

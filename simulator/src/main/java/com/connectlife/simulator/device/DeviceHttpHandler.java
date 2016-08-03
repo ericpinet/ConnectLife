@@ -160,7 +160,10 @@ public class DeviceHttpHandler extends AbstractHandler {
 	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public void handle(String _target, Request _baserequest, HttpServletRequest _request, HttpServletResponse _response)
+	public void handle(	String _target, 
+						Request _baserequest, 
+						HttpServletRequest _request, 
+						HttpServletResponse _response)
 			throws IOException, ServletException {
 		
         // process the request

@@ -264,6 +264,42 @@ public class CLApiGrpc {
               "clapi.CLApi", "deleteAccessory"),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddAssetRequest,
+      com.clapi.protocol.AddAssetResponse> METHOD_ADD_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateAssetRequest,
+      com.clapi.protocol.UpdateAssetResponse> METHOD_UPDATE_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteAssetRequest,
+      com.clapi.protocol.DeleteAssetResponse> METHOD_DELETE_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.GetAssetUrlRequest,
+      com.clapi.protocol.GetAssetUrlResponse> METHOD_GET_ASSET_URL =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "getAssetUrl"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssetUrlRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssetUrlResponse.getDefaultInstance()));
 
   public static CLApiStub newStub(io.grpc.Channel channel) {
     return new CLApiStub(channel);
@@ -361,6 +397,18 @@ public class CLApiGrpc {
 
     public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
         io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver);
+
+    public void addAsset(com.clapi.protocol.AddAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse> responseObserver);
+
+    public void updateAsset(com.clapi.protocol.UpdateAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse> responseObserver);
+
+    public void deleteAsset(com.clapi.protocol.DeleteAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse> responseObserver);
+
+    public void getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse> responseObserver);
   }
 
   public static interface CLApiBlockingClient {
@@ -418,6 +466,14 @@ public class CLApiGrpc {
     public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request);
 
     public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.clapi.protocol.AddAssetResponse addAsset(com.clapi.protocol.AddAssetRequest request);
+
+    public com.clapi.protocol.UpdateAssetResponse updateAsset(com.clapi.protocol.UpdateAssetRequest request);
+
+    public com.clapi.protocol.DeleteAssetResponse deleteAsset(com.clapi.protocol.DeleteAssetRequest request);
+
+    public com.clapi.protocol.GetAssetUrlResponse getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request);
   }
 
   public static interface CLApiFutureClient {
@@ -502,6 +558,18 @@ public class CLApiGrpc {
 
     public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
         com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssetResponse> addAsset(
+        com.clapi.protocol.AddAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssetResponse> updateAsset(
+        com.clapi.protocol.UpdateAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssetResponse> deleteAsset(
+        com.clapi.protocol.DeleteAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssetUrlResponse> getAssetUrl(
+        com.clapi.protocol.GetAssetUrlRequest request);
   }
 
   public static class CLApiStub extends io.grpc.stub.AbstractStub<CLApiStub>
@@ -709,6 +777,34 @@ public class CLApiGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request, responseObserver);
     }
+
+    @java.lang.Override
+    public void addAsset(com.clapi.protocol.AddAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateAsset(com.clapi.protocol.UpdateAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteAsset(com.clapi.protocol.DeleteAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request, responseObserver);
+    }
   }
 
   public static class CLApiBlockingStub extends io.grpc.stub.AbstractStub<CLApiBlockingStub>
@@ -888,6 +984,30 @@ public class CLApiGrpc {
     public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request) {
       return blockingUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddAssetResponse addAsset(com.clapi.protocol.AddAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateAssetResponse updateAsset(com.clapi.protocol.UpdateAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteAssetResponse deleteAsset(com.clapi.protocol.DeleteAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.GetAssetUrlResponse getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request);
     }
   }
 
@@ -1096,6 +1216,34 @@ public class CLApiGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
     }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssetResponse> addAsset(
+        com.clapi.protocol.AddAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssetResponse> updateAsset(
+        com.clapi.protocol.UpdateAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssetResponse> deleteAsset(
+        com.clapi.protocol.DeleteAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssetUrlResponse> getAssetUrl(
+        com.clapi.protocol.GetAssetUrlRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_VERSION = 0;
@@ -1125,6 +1273,10 @@ public class CLApiGrpc {
   private static final int METHODID_DELETE_ROOM = 24;
   private static final int METHODID_ADD_ACCESSORY = 25;
   private static final int METHODID_DELETE_ACCESSORY = 26;
+  private static final int METHODID_ADD_ASSET = 27;
+  private static final int METHODID_UPDATE_ASSET = 28;
+  private static final int METHODID_DELETE_ASSET = 29;
+  private static final int METHODID_GET_ASSET_URL = 30;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -1249,6 +1401,22 @@ public class CLApiGrpc {
         case METHODID_DELETE_ACCESSORY:
           serviceImpl.deleteAccessory((com.clapi.protocol.DeleteAccessoryRequest) request,
               (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ASSET:
+          serviceImpl.addAsset((com.clapi.protocol.AddAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ASSET:
+          serviceImpl.updateAsset((com.clapi.protocol.UpdateAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ASSET:
+          serviceImpl.deleteAsset((com.clapi.protocol.DeleteAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse>) responseObserver);
+          break;
+        case METHODID_GET_ASSET_URL:
+          serviceImpl.getAssetUrl((com.clapi.protocol.GetAssetUrlRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -1457,6 +1625,34 @@ public class CLApiGrpc {
               com.clapi.protocol.DeleteAccessoryRequest,
               com.clapi.protocol.DeleteAccessoryResponse>(
                 serviceImpl, METHODID_DELETE_ACCESSORY)))
+        .addMethod(
+          METHOD_ADD_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddAssetRequest,
+              com.clapi.protocol.AddAssetResponse>(
+                serviceImpl, METHODID_ADD_ASSET)))
+        .addMethod(
+          METHOD_UPDATE_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateAssetRequest,
+              com.clapi.protocol.UpdateAssetResponse>(
+                serviceImpl, METHODID_UPDATE_ASSET)))
+        .addMethod(
+          METHOD_DELETE_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteAssetRequest,
+              com.clapi.protocol.DeleteAssetResponse>(
+                serviceImpl, METHODID_DELETE_ASSET)))
+        .addMethod(
+          METHOD_GET_ASSET_URL,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.GetAssetUrlRequest,
+              com.clapi.protocol.GetAssetUrlResponse>(
+                serviceImpl, METHODID_GET_ASSET_URL)))
         .build();
   }
 }

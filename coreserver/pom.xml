@@ -31,7 +31,6 @@
       <version>1.3.0</version>
 	</dependency>
 
-    
     <dependency>
 	  <groupId>org.slf4j</groupId>
 	  <artifactId>slf4j-api</artifactId>
@@ -51,6 +50,13 @@
 	  <artifactId>grpc-all</artifactId>
 	  <version>0.9.0</version>
 	</dependency>
+	
+	<!-- Google toolkit java -->
+	<dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>19.0</version>
+    </dependency>
     
     <!-- LOG4J2  -->
     <dependency>
@@ -170,6 +176,13 @@
     <version>3.4</version>
   </dependency>
   
+  <!-- Jetty Http server -->
+  <dependency>
+	<groupId>org.eclipse.jetty</groupId>
+	<artifactId>jetty-server</artifactId>
+	<version>9.3.6.v20151106</version>
+  </dependency>
+  
   <!-- EasyMock -->
   <dependency>
       <groupId>org.powermock</groupId>
@@ -250,6 +263,16 @@
       </plugin>
      
     </plugins>
+    
+    <resources>
+        <resource>
+            <directory>${basedir}/src/main/resources</directory>
+            <includes>
+                <include>**/*</include>
+            </includes>
+        </resource>
+     </resources>
+     
   </build>
   
 </project>

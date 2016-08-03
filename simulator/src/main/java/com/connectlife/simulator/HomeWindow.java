@@ -312,7 +312,7 @@ public class HomeWindow extends Dialog {
 						if (dialog.open() == Window.OK) {
 							String result = dialog.getResult(); 
 							if (false == result.isEmpty()) {
-								client.updateHome(home.getUid(), result, home.getImageurl());
+								client.updateHome(home.getUid(), result, home.getImageuid());
 							}
 						}
 					}
@@ -340,7 +340,7 @@ public class HomeWindow extends Dialog {
 						if (dialog.open() == Window.OK) {
 							String result = dialog.getResult(); 
 							if (false == result.isEmpty()) {
-								client.addZone(home.getUid(), result, zone.getImageurl());
+								client.addZone(home.getUid(), result, zone.getImageuid());
 							}
 						}
 					}
@@ -391,7 +391,7 @@ public class HomeWindow extends Dialog {
 						if (dialog.open() == Window.OK) {
 							String result = dialog.getResult(); 
 							if (false == result.isEmpty()) {
-								client.updateZone(zone.getUid(), result, zone.getImageurl());
+								client.updateZone(zone.getUid(), result, zone.getImageuid());
 							}
 						}
 					}
@@ -419,7 +419,7 @@ public class HomeWindow extends Dialog {
 						if (dialog.open() == Window.OK) {
 							String result = dialog.getResult(); 
 							if (false == result.isEmpty()) {
-								client.addRoom(zone.getUid(), result, room.getImageurl());
+								client.addRoom(zone.getUid(), result, room.getImageuid());
 							}
 						}
 					}
@@ -470,7 +470,7 @@ public class HomeWindow extends Dialog {
 						if (dialog.open() == Window.OK) {
 							String result = dialog.getResult(); 
 							if (false == result.isEmpty()) {
-								client.updateRoom(room.getUid(), result, room.getImageurl());
+								client.updateRoom(room.getUid(), result, room.getImageuid());
 							}
 						}
 					}
