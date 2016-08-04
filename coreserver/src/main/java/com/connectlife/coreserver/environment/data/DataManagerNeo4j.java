@@ -22,6 +22,7 @@ import com.clapi.data.Data;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -316,15 +317,16 @@ public class DataManagerNeo4j implements DataManager {
 			
 			zone11.createRelationshipTo(room11, Consts.RelTypes.CONTAINS);
 			
-			
-			// Create the asset
-			Node asset_home = graph.createNode(Consts.LABEL_ASSET);
-			asset_home.setProperty(Consts.UID, "12345");
-			asset_home.setProperty(Consts.ASSET_LABEL, "home.png");
-			asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
-			asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
-			
-			
+			// Create assets
+			String assets [][] = SystemFactoryAsset.AssetItems;
+			for (int i=0 ; i<assets.length ; i++) {
+				Node asset_home = graph.createNode(Consts.LABEL_ASSET);
+				asset_home.setProperty(Consts.UID, assets[i][SystemFactoryAsset.UID]);
+				asset_home.setProperty(Consts.ASSET_LABEL, assets[i][SystemFactoryAsset.LABEL]);
+				asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
+				asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
+			}
+
 			// LIGHT COLORED DIM
 			// ACCESSORY
 			/* Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);
