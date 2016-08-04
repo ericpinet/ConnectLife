@@ -8,6 +8,7 @@
  */
 package com.connectlife.coreserver.environment.asset;
 
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -17,8 +18,11 @@ import org.eclipse.jetty.server.Server;
 
 import com.connectlife.coreserver.Application;
 import com.clapi.data.Asset;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.api.client.repackaged.com.google.common.base.Preconditions;
+import com.google.common.io.Files;
 import com.google.protobuf.ByteString;
 
 /**
@@ -146,6 +150,17 @@ public class AssetMngr implements AssetManager {
 	        }
 	        
 	        ret_val = m_is_init;
+	        
+	        if(m_is_init) {
+	        	try {
+					prepareSystemFactoryAsset();
+				} catch (Exception e) {
+					unInit();
+					m_logger.error(e.getMessage());
+					StdOutErrLog.tieSystemOutAndErrToLog();
+					e.printStackTrace();
+				}
+	        }
 		}
 		else {
 			m_logger.warn("Service already started.");
@@ -336,5 +351,42 @@ public class AssetMngr implements AssetManager {
 					ASSET_DATA_PATH + "/" + 
 					getAssetFilename(_asset);
 		return ret_val;
+	}
+	
+	/**
+	 * Prepare all system factory asset.
+	 * 
+	 * @throws Exception If somethings goes wrong.
+	 */
+	public void prepareSystemFactoryAsset() throws Exception {
+		
+		m_logger.info("Building the system factory asset ...");
+		
+		String assets [][] = SystemFactoryAsset.AssetItems;
+		for (int i=0 ; i<assets.length ; i++) {
+			Asset asset = new Asset(assets[i][SystemFactoryAsset.UID], 
+									assets[i][SystemFactoryAsset.LABEL], 
+									AssetType.IMAGE, 
+									AssetMode.SYSTEM);
+			
+			// build filename full path
+			String filename = getAssetFullFilename(asset);
+			
+			File file = new File(filename);
+			if (false == file.exists()) { 
+				
+				// read file
+				File image = new File(getClass().getResource("/" + asset.getLabel()).getFile());
+				byte[] bytes = null;
+				bytes = Files.toByteArray(image);
+				
+				// add asset
+				addAsset(asset, ByteString.copyFrom(bytes));
+				
+				m_logger.info(asset.toString());
+			}
+		}
+		
+		m_logger.info("The system factory asset completed.");
 	}
 }
