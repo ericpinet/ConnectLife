@@ -16,6 +16,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Person;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to add a new person in the environment.
@@ -55,16 +56,8 @@ public class CmdAddPerson extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the person to add in the environment
-		if( null == m_person ){
-			m_logger.error("Error! It's not possible to add null person in the environment.");
-			throw new Exception ("Error! It's not possible to add null person in the environment.");
-		}
-		
-		if( false == m_person.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a person with a UID.");
-			throw new Exception ("Error! It's not possible to add a person with a UID.");
-		}
+		Preconditions.checkNotNull(m_person, "Error! It's not possible to add null person in the environment.");
+		Preconditions.checkArgument(m_person.getUid().isEmpty(), "Error! It's not possible to add a person with a UID.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

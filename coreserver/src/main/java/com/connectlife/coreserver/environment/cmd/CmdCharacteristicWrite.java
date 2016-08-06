@@ -18,6 +18,7 @@ import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicType;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to change value of a characteristic for an Accessory.
@@ -65,17 +66,8 @@ public class CmdCharacteristicWrite extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check if the characteristic isn't null
-		if( null == m_characteristic ) {
-			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
-			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
-		}
-		
-		// check if the characteristic target value isn't null
-		if( null == m_target_value ) {
-			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
-			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
-		}
+		Preconditions.checkNotNull(m_characteristic, "Error! It's not possible to update null characteristic in the environment.");
+		Preconditions.checkNotNull(m_target_value, "Error! It's not possible to update characteristic with null target value in the environment.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

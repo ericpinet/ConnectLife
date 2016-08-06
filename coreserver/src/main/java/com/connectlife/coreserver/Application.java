@@ -201,6 +201,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the base path of the application.
+	 * 
 	 * @return The application base path.
 	 */
 	public String getBasePath(){
@@ -208,6 +209,8 @@ public class Application implements Observer{
 	}
 	
 	/**
+	 * Return true if the application must is running. 
+	 * 
 	 * @return the m_is_running
 	 */
 	public boolean isRunning() {
@@ -215,6 +218,8 @@ public class Application implements Observer{
 	}
 
 	/**
+	 * Set if the application must running.
+	 * 
 	 * @param _is_running the m_is_running to set
 	 */
 	private void setRunning(boolean _is_running) {
@@ -263,11 +268,9 @@ public class Application implements Observer{
 						}
 						
 						ret_val = true;
-						
 					}
 				}
 			}
-			
 		}
 		else{
 			m_logger.error("Unable to initialize modules. At less one module is null.");
@@ -382,6 +385,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the configuration manager for this application.
+	 * 
 	 * @return Return configuration manager.
 	 */
 	public Config getConfig(){
@@ -390,6 +394,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the environment manager for this application.
+	 * 
 	 * @return Return environement manager.
 	 */
 	public Environment getEnvironment(){
@@ -398,6 +403,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the api manager for this application.
+	 * 
 	 * @return Return api manager.
 	 */
 	public Api getApi(){
@@ -406,6 +412,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the console manager for this application.
+	 * 
 	 * @return Return console manager.
 	 */
 	public Console getConsole(){
@@ -413,6 +420,8 @@ public class Application implements Observer{
 	}
 
 	/**
+	 * Callback when environment was updated.
+	 * 
 	 * @param o Reference of the object source
 	 * @param arg Argument of the environment.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)

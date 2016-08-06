@@ -19,6 +19,7 @@ import com.clapi.data.Zone;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to add a new room in the environment.
@@ -65,21 +66,9 @@ public class CmdAddRoom extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the room to add in the environment
-		if( null == m_room ){
-			m_logger.error("Error! It's not possible to add null room in the environment.");
-			throw new Exception ("Error! It's not possible to add null room in the environment.");
-		}
-		
-		if( false == m_room.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a room with a UID.");
-			throw new Exception ("Error! It's not possible to add a room with a UID.");
-		}
-		
-		if (null == m_zone) {
-			m_logger.error("Error! It's not possible to add room in a null zone in the environment.");
-			throw new Exception ("Error! It's not possible to add room in a null zone in the environment.");
-		}
+		Preconditions.checkNotNull(m_room, "Error! It's not possible to add null room in the environment.");
+		Preconditions.checkArgument(m_room.getUid().isEmpty(), "Error! It's not possible to add a room with a UID.");
+		Preconditions.checkNotNull(m_zone, "Error! It's not possible to add room in a null zone in the environment.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

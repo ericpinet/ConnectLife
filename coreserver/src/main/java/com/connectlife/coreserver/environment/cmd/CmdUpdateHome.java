@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Home;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.api.client.util.Preconditions;
 
 /**
  * Command to update a home in the environment.
@@ -56,11 +57,7 @@ public class CmdUpdateHome extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the accessory
-		if (null == m_home) {
-			m_logger.error("Error! It's not possible to update null home in the environment.");
-			throw new Exception ("Error! It's not possible to update null home in the environment.");
-		}
+		Preconditions.checkNotNull(m_home, "Error! It's not possible to update null home in the environment.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

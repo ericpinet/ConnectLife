@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.parboiled.common.Preconditions;
 
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.DatabaseStructure;
@@ -71,6 +72,7 @@ public class ConfigSqlite implements Config {
 	
 	/**
 	 * Default ConfigSqlite constructor.
+	 * 
 	 * @param _setting Settings at use in this ConfigSqlite.
 	 */
 	@Inject
@@ -141,6 +143,9 @@ public class ConfigSqlite implements Config {
 	public ConfigItem getConfig(String _section, String _item){
 		ConfigItem ret_config = null;
 		Statement statement = null;
+		
+		Preconditions.checkNotNull(_section);
+		Preconditions.checkNotNull(_item);
 		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
@@ -243,6 +248,8 @@ public class ConfigSqlite implements Config {
 	public boolean setConfig(ConfigItem _object){
 		Statement statement = null;
 		boolean ret = false;
+		
+		Preconditions.checkNotNull(_object);
 		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
