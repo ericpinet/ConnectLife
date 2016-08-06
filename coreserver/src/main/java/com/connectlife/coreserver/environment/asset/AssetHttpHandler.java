@@ -83,7 +83,7 @@ public class AssetHttpHandler extends AbstractHandler {
 			// Get IP Address
 			m_ip_address = addr.getHostAddress();
 			
-			// Get hostname
+			// Get host name
 			m_hostname = addr.getHostName();
 			
 			// listen port
@@ -121,10 +121,10 @@ public class AssetHttpHandler extends AbstractHandler {
 	/**
 	 * Handle a HTTP request.
 	 * 
-	 * @param target Target of the request.
-	 * @param baseRequest Base request.
-	 * @param request HTTP request.
-	 * @param response HTTP response.
+	 * @param _target Target of the request.
+	 * @param _baseRequest Base request.
+	 * @param _request HTTP request.
+	 * @param _response HTTP response.
 	 *
 	 * @throws IOException If something goes wrong.
 	 * @throws ServletException If something goes wrong.
@@ -132,10 +132,10 @@ public class AssetHttpHandler extends AbstractHandler {
 	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public void handle(	String target, 
-						Request baseRequest, 
-						HttpServletRequest request, 
-						HttpServletResponse response)
+	public void handle(	String _target, 
+						Request _baseRequest, 
+						HttpServletRequest _request, 
+						HttpServletResponse _response)
 			throws IOException, ServletException {
 		
 		
@@ -143,7 +143,7 @@ public class AssetHttpHandler extends AbstractHandler {
 		Asset asset = null;
 		
 		// check if request are completed with a uid request
-        String uid = request.getParameter("uid");
+        String uid = _request.getParameter("uid");
 
         // Check if the string parameter is there and not empty
         if (uid != null && !uid.trim().equals("")) {
@@ -151,21 +151,26 @@ public class AssetHttpHandler extends AbstractHandler {
 			// Get the FindProcessor of the environment
 			try {
 				
+				m_logger.info("Request asset data for :" + uid);
+				
 				find = Application.getApp().getEnvironment().getFindProcessor();
-				if (null != find) {
-					
-					// find the asset by the uid
-					asset = find.findAssetByUid(uid);
-					
+	
+				// find the asset by the uid
+				asset = find.findAssetByUid(uid);
+				
+				if (null != asset) {
 					// load file binary data
 					File file = new File(m_manager.getAssetFullFilename(asset));
 					byte[] bytes = Files.toByteArray(file);
 					
 					// create and send the response 
-					response.setContentType("image/png");
-					response.setStatus(HttpServletResponse.SC_OK);
-					response.getOutputStream().write(bytes);
-					baseRequest.setHandled(true);
+					_response.setContentType("image/png");
+					_response.setStatus(HttpServletResponse.SC_OK);
+					_response.getOutputStream().write(bytes);
+					_baseRequest.setHandled(true);
+				}
+				else {
+					m_logger.warn("Unable to find asset for uid :" + uid);
 				}
 				
 			} catch (Exception e) {

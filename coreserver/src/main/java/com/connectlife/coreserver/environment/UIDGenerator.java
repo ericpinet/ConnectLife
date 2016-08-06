@@ -31,7 +31,7 @@ public class UIDGenerator {
 	}
 	
 	/**
-	 * Set the constructor private to block instanciation of this class.
+	 * Set the constructor private to block instantiation of this class.
 	 */
 	private UIDGenerator(){
 		

@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.api.client.util.Preconditions;
 
 /**
  * Command to update a room in the environment.
@@ -56,11 +57,7 @@ public class CmdUpdateRoom extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the accessory
-		if (null == m_room) {
-			m_logger.error("Error! It's not possible to update null room in the environment.");
-			throw new Exception ("Error! It's not possible to update null room in the environment.");
-		}
+		Preconditions.checkNotNull(m_room, "Error! It's not possible to update null room in the environment.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

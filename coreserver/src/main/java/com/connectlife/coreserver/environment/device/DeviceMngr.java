@@ -176,7 +176,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	 */
 	@Override
 	public void forceSynchronizationOfAllDevices() {
-		// to force the synchronization of all devices, all devices set at unsynchronize.
+		// to force the synchronization of all devices, all devices set at unsynchronized.
 		Iterator<Device> it = m_devices.iterator();
 		while(it.hasNext()){
 			Device device = it.next();

@@ -59,7 +59,7 @@ public class CmdDeleteAsset extends CmdDefault {
 		m_logger.info("Execution start ...");
 		
 		Preconditions.checkNotNull(m_asset, "Error! It's not possible to delete null asset in the environment.");
-		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), "Error! It's not possible to delete a asset with a UID.");
+		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), "Error! It's not possible to delete a asset with a empty UID.");
 				
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

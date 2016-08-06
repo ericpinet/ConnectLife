@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Accessory;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to delete an accessory from the environment.
@@ -56,11 +57,7 @@ public class CmdDeleteAccessory extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the accessory to add in the environment
-		if( null == m_accessory ){
-			m_logger.error("Error! It's not possible to delete null accessory in the environment.");
-			throw new Exception ("Error! It's not possible to delete null accessory in the environment.");
-		}
+		Preconditions.checkNotNull(m_accessory, "Error! It's not possible to delete null accessory in the environment.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();

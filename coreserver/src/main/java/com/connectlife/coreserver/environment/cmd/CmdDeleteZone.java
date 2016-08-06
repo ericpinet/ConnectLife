@@ -17,6 +17,7 @@ import org.neo4j.graphdb.Transaction;
 import com.clapi.data.Zone;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.api.client.util.Preconditions;
 
 /**
  * Command to delete a zone from the environment.
@@ -56,11 +57,8 @@ public class CmdDeleteZone extends CmdDefault {
 		
 		m_logger.info("Execution start ...");
 		
-		// check the accessory to add in the environment
-		if( null == m_zone ){
-			m_logger.error("Error! It's not possible to delete null home in the environment.");
-			throw new Exception ("Error! It's not possible to delete null home in the environment.");
-		}
+		Preconditions.checkNotNull(m_zone, "Error! It's not possible to delete null zone in the environment.");
+		Preconditions.checkArgument(false == m_zone.getUid().isEmpty(), "Error! It's not possible to delete a zone with a empty UID.");
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
