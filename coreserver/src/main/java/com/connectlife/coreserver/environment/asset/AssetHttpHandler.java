@@ -22,7 +22,6 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
 import com.connectlife.coreserver.Application;
@@ -46,7 +45,7 @@ public class AssetHttpHandler extends AbstractHandler {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(AssetHttpHandler.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Ip address of the asset http handler.

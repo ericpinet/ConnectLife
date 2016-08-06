@@ -14,9 +14,9 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Accessory;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.api.client.util.Preconditions;
@@ -37,7 +37,7 @@ public class CmdUpdateAccessory extends CmdDefault {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdUpdateAccessory.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Person to add in the environment.

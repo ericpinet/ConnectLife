@@ -13,8 +13,8 @@ import java.util.concurrent.Callable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
+import com.connectlife.coreserver.Application;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
@@ -40,7 +40,7 @@ public class RaspberryPiGpio implements Gpio {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(RaspberryPiGpio.class);
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * @return True if the initialization is completed.

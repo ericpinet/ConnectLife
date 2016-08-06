@@ -13,9 +13,9 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.asset.AssetManager;
@@ -39,7 +39,7 @@ public class CmdAddAsset extends CmdDefault {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdAddAsset.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Asset to add in the environment.

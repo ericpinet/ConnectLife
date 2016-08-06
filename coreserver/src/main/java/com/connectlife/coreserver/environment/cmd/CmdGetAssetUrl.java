@@ -11,9 +11,9 @@ package com.connectlife.coreserver.environment.cmd;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.google.api.client.util.Preconditions;
 
@@ -33,7 +33,7 @@ public class CmdGetAssetUrl extends CmdDefault {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdGetAssetUrl.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Asset to add in the environment.

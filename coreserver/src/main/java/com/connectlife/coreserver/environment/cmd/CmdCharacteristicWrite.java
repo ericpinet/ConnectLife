@@ -14,10 +14,10 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerFactory;
 import com.google.common.base.Preconditions;
@@ -38,7 +38,7 @@ public class CmdCharacteristicWrite extends CmdDefault {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdCharacteristicWrite.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Characteristic.

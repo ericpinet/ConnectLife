@@ -11,7 +11,8 @@ package com.connectlife.coreserver.gpio;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * SimulatorGpio controller. This class simulate the access of the GPIO on Raspberry PI.
@@ -29,7 +30,7 @@ public class SimulatorGpio implements Gpio {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(SimulatorGpio.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Is initialized

@@ -9,8 +9,8 @@
 package com.connectlife.coreserver.environment.cmd;
 
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.EnvironmentContext;
 
 /**
@@ -24,7 +24,7 @@ public abstract class CmdDefault implements Cmd {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdDefault.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * The environment context for the execution of this command.

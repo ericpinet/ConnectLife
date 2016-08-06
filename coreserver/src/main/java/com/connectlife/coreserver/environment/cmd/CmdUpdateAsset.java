@@ -14,9 +14,9 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
@@ -39,7 +39,7 @@ public class CmdUpdateAsset extends CmdDefault {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(CmdUpdateAsset.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Asset to add in the environment.

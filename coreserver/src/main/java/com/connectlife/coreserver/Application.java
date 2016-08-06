@@ -53,7 +53,7 @@ public class Application implements Observer{
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(Application.class);
+	public static I18n i18n = I18nFactory.getI18n(Application.class, "i18n.Messages", java.util.Locale.ENGLISH);
 	
 	/**
 	 * Config manager for the application.
@@ -135,7 +135,7 @@ public class Application implements Observer{
 	 */
 	@Inject
 	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio){
-		m_logger.debug(i18n.tr("Application constructor."));
+		m_logger.debug(i18n.tr("Application statup."));
 		m_config = _config;
 		m_environment = _env;
 		m_api = _api;

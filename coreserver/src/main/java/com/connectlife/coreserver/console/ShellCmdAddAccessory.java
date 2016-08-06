@@ -13,7 +13,6 @@ import java.io.InterruptedIOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
@@ -37,7 +36,7 @@ public class ShellCmdAddAccessory implements ShellCmd {
     /**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ShellCmdAddAccessory.class);
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.

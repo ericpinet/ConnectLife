@@ -16,7 +16,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 import com.clapi.data.Asset;
@@ -56,7 +55,7 @@ public class AssetMngr implements AssetManager {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(AssetMngr.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Environment data path contain the binary data of the asset

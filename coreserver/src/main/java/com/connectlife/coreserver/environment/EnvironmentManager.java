@@ -11,12 +11,12 @@ package com.connectlife.coreserver.environment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.google.inject.Inject;
 
 import java.util.Observable;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.data.DataManager;
@@ -41,7 +41,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(EnvironmentManager.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Flag to indicate if the module is correctly initialized.

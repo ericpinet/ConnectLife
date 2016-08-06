@@ -13,7 +13,6 @@ import javax.jmdns.ServiceInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Accessory;
 import com.clapi.simulator.device.ServiceDefinition;
@@ -40,7 +39,7 @@ public class DeviceJson implements Device {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(DeviceJson.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Service definition of the service.

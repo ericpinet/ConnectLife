@@ -16,7 +16,6 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.*;
 import com.clapi.data.Asset.AssetMode;
@@ -25,6 +24,7 @@ import com.clapi.protocol.*;
 import com.connectlife.coreserver.environment.cmd.*;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.clapi.protocol.Notification.NotificationType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.Environment;
 import com.google.inject.Inject;
 
@@ -46,7 +46,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ApiProcessor.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Api server version.

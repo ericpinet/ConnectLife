@@ -20,9 +20,6 @@ import static com.connectlife.coreserver.ApplicationStateMachine.States.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
-
-// internal
 
 /**
  * 
@@ -40,7 +37,7 @@ public class ApplicationStateMachine {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ApplicationStateMachine.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Flow Context for the state machine.

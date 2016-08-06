@@ -20,9 +20,9 @@ import javax.jmdns.ServiceEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Accessory.AccessoryProtocolType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -44,7 +44,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(DeviceMngr.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Flag to indicate if the module is correctly initialized.

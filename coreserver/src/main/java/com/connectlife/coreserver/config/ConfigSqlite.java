@@ -21,8 +21,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.parboiled.common.Preconditions;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.DatabaseStructure;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -45,7 +45,7 @@ public class ConfigSqlite implements Config {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ConfigSqlite.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Path of the database from the application base path.

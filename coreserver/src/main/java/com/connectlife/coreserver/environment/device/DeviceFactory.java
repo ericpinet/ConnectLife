@@ -20,9 +20,9 @@ import javax.jmdns.ServiceEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.simulator.device.ServiceDefinition;
+import com.connectlife.coreserver.Application;
 import com.google.gson.Gson;
 
 /**
@@ -42,7 +42,7 @@ public abstract class DeviceFactory {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(DeviceFactory.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Service application HTTP application.

@@ -226,8 +226,6 @@
     <version>0.9.8</version>
   </dependency>
 
-  
-
   </dependencies>
   
   <!-- Build -->
@@ -271,28 +269,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-      
-      <!-- Configuration of the gettext commons -->
-      <plugin> 
-        <groupId>com.googlecode.gettext-commons</groupId> 
-        <artifactId>gettext-maven-plugin</artifactId> 
-        <version>1.2.4</version> 
-        <executions> 
-          <execution> 
-            <id>convert-po-class</id> 
-            <phase>compile</phase> 
-            <goals> 
-              <goal>dist</goal> 
-            </goals> 
-          </execution> 
-        </executions> 
-        <configuration> 
-          <poDirectory>${basedir}/po</poDirectory> 
-          <targetBundle>connectlife.package.Messages</targetBundle> 
-          <outputFormat>properties</outputFormat> 
-        </configuration> 
-      </plugin>
-     
+  
     </plugins>
     </pluginManagement>
     

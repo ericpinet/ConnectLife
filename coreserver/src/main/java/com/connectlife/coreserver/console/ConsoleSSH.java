@@ -23,8 +23,8 @@ import org.apache.sshd.server.auth.UserAuthPassword;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.session.ServerSession;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -46,7 +46,7 @@ public class ConsoleSSH implements Console {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ConsoleSSH.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Hostkey for the SSH server.

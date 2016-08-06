@@ -8,6 +8,7 @@
  */
 package com.connectlife.coreserver.apiserver;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -19,7 +20,6 @@ import io.grpc.ServerBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.protocol.*;
 
@@ -40,7 +40,7 @@ public class ApiGrpc implements Api {
 	/**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ApiGrpc.class);
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Config use for this class.

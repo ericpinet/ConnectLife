@@ -17,7 +17,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * Shell command for output log of the application.
@@ -35,7 +36,7 @@ public class ShellCmdOutputLog implements ShellCmd {
     /**
 	 * Initialization of translation system.
 	 */
-	private static I18n i18n = I18nFactory.getI18n(ShellCmdOutputLog.class);
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.

@@ -13,7 +13,6 @@ import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
 import org.xnap.commons.i18n.I18n;
-import org.xnap.commons.i18n.I18nFactory;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
@@ -30,6 +29,7 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -67,7 +67,7 @@ public class InAppShellFactory implements Factory {
         /**
     	 * Initialization of translation system.
     	 */
-    	private static I18n i18n = I18nFactory.getI18n(InAppShell.class);
+    	private static I18n i18n = Application.i18n;
 
         /**
          * Use to check the OS for a fix.
