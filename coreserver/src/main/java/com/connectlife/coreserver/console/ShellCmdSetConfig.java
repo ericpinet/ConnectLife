@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -29,6 +31,11 @@ public class ShellCmdSetConfig implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdSetConfig.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdSetConfig.class);
 
 	/**
 	 * Shell command.
@@ -38,7 +45,7 @@ public class ShellCmdSetConfig implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Modify the configuration of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - Modify the configuration of the system.\n");
 	 
 	/**
 	 * Get the shell command.
@@ -103,7 +110,7 @@ public class ShellCmdSetConfig implements ShellCmd {
     		(_line.length() <= item_end_at + 1) || 
     		(_line.charAt(item_end_at+1) != ' '))
     	{
-    		response = "Format error! Please use format like : " + SHELL_CMD+" [section][item] value";
+    		response = i18n.tr("Format error! Please use format like : ") + SHELL_CMD+" [section][item] " + i18n.tr("value");
     	}
     	else
     	{
@@ -112,7 +119,7 @@ public class ShellCmdSetConfig implements ShellCmd {
         	
         	ConfigItem config = Application.getApp().getConfig().getConfig(section, item);
         	if(config == null){
-        		response = "This configuration doesn't exist.";
+        		response = i18n.tr("This configuration doesn't exist.");
         	}
         	else{
             	if(config.getType() == ConfigType.INTEGER){
@@ -120,11 +127,11 @@ public class ShellCmdSetConfig implements ShellCmd {
         		}
             	
             	if(!isValideValue){
-            		response = "Format error! The value is not valide !";
+            		response = i18n.tr("Format error! The value is not valide !");
             	}
             	else{
             		if(Application.getApp().getConfig().setConfig(new ConfigItem(section, item, strValue))){
-            			response = "Config is updated.";	
+            			response = i18n.tr("Config is updated.");	
             		}
             	}
         	} 

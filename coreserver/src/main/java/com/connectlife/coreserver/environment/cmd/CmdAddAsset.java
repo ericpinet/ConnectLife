@@ -12,6 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
 import com.connectlife.coreserver.Consts;
@@ -33,6 +35,11 @@ public class CmdAddAsset extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdAddAsset.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdAddAsset.class);
 	
 	/**
 	 * Asset to add in the environment.
@@ -64,12 +71,12 @@ public class CmdAddAsset extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_asset, "Error! It's not possible to add null asset in the environment.");
-		Preconditions.checkNotNull(m_data, "Error! It's not possible to add null data asset in the environment.");
-		Preconditions.checkArgument(m_asset.getUid().isEmpty(), "Error! It's not possible to add a asset with a UID.");
-		Preconditions.checkArgument(false == m_asset.getLabel().isEmpty(), "Error! It's not possible to add a asset with empty label.");
+		Preconditions.checkNotNull(m_asset, i18n.tr("Error! It's not possible to add null asset in the environment."));
+		Preconditions.checkNotNull(m_data, i18n.tr("Error! It's not possible to add null data asset in the environment."));
+		Preconditions.checkArgument(m_asset.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a asset with a UID."));
+		Preconditions.checkArgument(false == m_asset.getLabel().isEmpty(), i18n.tr("Error! It's not possible to add a asset with empty label."));
 				
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -106,6 +113,6 @@ public class CmdAddAsset extends CmdDefault {
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

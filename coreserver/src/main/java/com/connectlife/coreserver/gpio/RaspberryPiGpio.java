@@ -12,6 +12,8 @@ import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
@@ -34,6 +36,11 @@ public class RaspberryPiGpio implements Gpio {
 	 * Logger use for this class.
 	 */
 	private final Logger m_logger = LogManager.getLogger(RaspberryPiGpio.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(RaspberryPiGpio.class);
 
 	/**
 	 * @return True if the initialization is completed.
@@ -43,7 +50,7 @@ public class RaspberryPiGpio implements Gpio {
 	public boolean init() {
 		
 		// TODO: GPIO 
-		m_logger.info("<--Pi4J--> GPIO Control Example ... started.");
+		m_logger.info(i18n.tr("<--Pi4J--> GPIO Control Example ... started."));
         
         // create gpio controller
         final GpioController gpio = GpioFactory.getInstance();

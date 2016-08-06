@@ -22,6 +22,8 @@ import org.apache.sshd.server.UserAuth;
 import org.apache.sshd.server.auth.UserAuthPassword;
 import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider;
 import org.apache.sshd.server.session.ServerSession;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -40,6 +42,11 @@ public class ConsoleSSH implements Console {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(ConsoleSSH.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ConsoleSSH.class);
 	
 	/**
 	 * Hostkey for the SSH server.
@@ -81,12 +88,12 @@ public class ConsoleSSH implements Console {
 		
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization in progress ...");
+		m_logger.info(i18n.tr("Initialization in progress ..."));
 		
 		ConfigItem tcpip_port 		= m_config.getConfig("CONSOLE", "TCPIP_PORT");
 		
 		
-		m_logger.info("TCP/IP Port: " + tcpip_port.getIntegerValue());
+		m_logger.info(i18n.tr("TCP/IP Port: ") + tcpip_port.getIntegerValue());
 		
 		m_sshd = SshServer.setUpDefaultServer();
 		m_sshd.setPort(tcpip_port.getIntegerValue());
@@ -107,10 +114,10 @@ public class ConsoleSSH implements Console {
 				
 		    	if( admin_username.getStringValue().equals(username) && admin_password.getStringValue().equals(password) ){
 		    		ret_val = true;
-		    		m_logger.info("Authentification succeed for the "+ username +".");
+		    		m_logger.info(i18n.tr("Authentification succeed for the ")+ username +".");
 		    	}
 		    	else{
-		    		m_logger.info("Authentification failed for the "+ username +".");
+		    		m_logger.info(i18n.tr("Authentification failed for the ")+ username +".");
 		    	}
 		        return ret_val;
 		    }
@@ -128,9 +135,9 @@ public class ConsoleSSH implements Console {
 	    
 	    // return the right message if succeed or failed.
 		if( true==ret_val )
-			m_logger.info("Initialization completed.");
+			m_logger.info(i18n.tr("Initialization completed."));
 		else
-			m_logger.error("Initialization failed.");
+			m_logger.error(i18n.tr("Initialization failed."));
 		
 		return ret_val;
 	}
@@ -147,7 +154,7 @@ public class ConsoleSSH implements Console {
 	 */
 	public void unInit() {
 		
-		m_logger.info("Uninitialization started ...");
+		m_logger.info(i18n.tr("Uninitialization started ..."));
 		
 		if(	true == m_isInit &&
 			null != m_sshd ){
@@ -156,11 +163,11 @@ public class ConsoleSSH implements Console {
 				m_sshd.stop(true);
 				m_isInit = false;
 				
-				m_logger.info("Uninitialization completed.");
+				m_logger.info(i18n.tr("Uninitialization completed."));
 				
 			} catch (InterruptedException e) {
 				// Ignore
-				m_logger.warn("Uninitialization interrupted.");
+				m_logger.warn(i18n.tr("Uninitialization interrupted."));
 			} finally{
 				m_sshd = null;
 			}

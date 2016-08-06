@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -28,6 +30,11 @@ public class ShellCmdOutputConfig implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputConfig.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdOutputConfig.class);
 
 	/**
 	 * Shell command.
@@ -37,7 +44,7 @@ public class ShellCmdOutputConfig implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - return the specific configuration of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - return the specific configuration of the system.\n");
 	 
 	/**
 	 * Get the shell command.

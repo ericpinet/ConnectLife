@@ -18,6 +18,8 @@ import io.grpc.ServerBuilder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.protocol.*;
 
@@ -34,6 +36,11 @@ public class ApiGrpc implements Api {
 	 * Logger use for this class.
 	 */
 	private final Logger m_logger = LogManager.getLogger(ApiGrpc.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ApiGrpc.class);
 	
 	/**
 	 * Config use for this class.
@@ -75,7 +82,7 @@ public class ApiGrpc implements Api {
 	public boolean init() {
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization in progress ...");
+		m_logger.info(i18n.tr("Initialization in progress ..."));
 		
 		// retrive config
 		ConfigItem tcpip_port 			= m_config.getConfig("APISERVER", "TCPIP_PORT");
@@ -92,7 +99,7 @@ public class ApiGrpc implements Api {
             	        .addService(CLApiGrpc.bindService(m_processor))
             	        .build()
             	        .start();
-            	    m_logger.info("Server started, listening on " + tcpip_port.getIntegerValue());
+            	    m_logger.info(i18n.tr("Server started, listening on ") + tcpip_port.getIntegerValue());
             	    Runtime.getRuntime().addShutdownHook(new Thread() {
             	      @Override
             	      public void run() {
@@ -103,19 +110,19 @@ public class ApiGrpc implements Api {
 	            ret_val = m_isInit = true;
 	            
             } catch (Exception e) {
-				m_logger.error("Unable to start or join http server.");
+				m_logger.error(i18n.tr("Unable to start or join http server."));
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to initialize. Configuration not found!");
+			m_logger.error(i18n.tr("Unable to initialize. Configuration not found!"));
 		}
 		
 		if( true==ret_val )
-			m_logger.info("Initialization completed.");
+			m_logger.info(i18n.tr("Initialization completed."));
 		else
-			m_logger.error("Initialization failed.");
+			m_logger.error(i18n.tr("Initialization failed."));
 		
 		return ret_val;
 	}

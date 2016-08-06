@@ -21,6 +21,8 @@ import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
 import com.connectlife.coreserver.Application;
@@ -40,6 +42,11 @@ public class AssetHttpHandler extends AbstractHandler {
 	 * Init logger instance for this class
 	 */
 	private static Logger m_logger = LogManager.getLogger(AssetHttpHandler.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(AssetHttpHandler.class);
 	
 	/**
 	 * Ip address of the asset http handler.
@@ -90,7 +97,7 @@ public class AssetHttpHandler extends AbstractHandler {
 			m_listen_port = ((ServerConnector)this.getServer().getConnectors()[0]).getLocalPort();
 	        
 		} catch (Exception e) {
-			m_logger.error("Unable to get the connection information.");
+			m_logger.error(i18n.tr("Unable to get the connection information."));
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
@@ -151,7 +158,7 @@ public class AssetHttpHandler extends AbstractHandler {
 			// Get the FindProcessor of the environment
 			try {
 				
-				m_logger.info("Request asset data for :" + uid);
+				m_logger.info(i18n.tr("Request asset data for :") + uid);
 				
 				find = Application.getApp().getEnvironment().getFindProcessor();
 	
@@ -170,7 +177,7 @@ public class AssetHttpHandler extends AbstractHandler {
 					_baseRequest.setHandled(true);
 				}
 				else {
-					m_logger.warn("Unable to find asset for uid :" + uid);
+					m_logger.warn(i18n.tr("Unable to find asset for uid :") + uid);
 				}
 				
 			} catch (Exception e) {

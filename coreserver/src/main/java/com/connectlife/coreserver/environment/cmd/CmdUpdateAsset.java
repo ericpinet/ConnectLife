@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Asset;
 import com.connectlife.coreserver.Consts;
@@ -33,6 +35,11 @@ public class CmdUpdateAsset extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdUpdateAsset.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdUpdateAsset.class);
 	
 	/**
 	 * Asset to add in the environment.
@@ -64,12 +71,12 @@ public class CmdUpdateAsset extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_asset, "Error! It's not possible to update null asset in the environment.");
-		Preconditions.checkNotNull(m_data, "Error! It's not possible to update null data asset in the environment.");
-		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), "Error! It's not possible to update a asset with a UID.");
-		Preconditions.checkArgument(false == m_asset.getLabel().isEmpty(), "Error! It's not possible to updtae a asset with empty label.");
+		Preconditions.checkNotNull(m_asset, i18n.tr("Error! It's not possible to update null asset in the environment."));
+		Preconditions.checkNotNull(m_data, i18n.tr("Error! It's not possible to update null data asset in the environment."));
+		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), i18n.tr("Error! It's not possible to update a asset with a UID."));
+		Preconditions.checkArgument(false == m_asset.getLabel().isEmpty(), i18n.tr("Error! It's not possible to updtae a asset with empty label."));
 				
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -96,8 +103,8 @@ public class CmdUpdateAsset extends CmdDefault {
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.error("Home not found. " + m_asset.toString());
-				throw new Exception("Home not found. " + m_asset.toString());
+				m_logger.error(i18n.tr("Home not found: ") + m_asset.toString());
+				throw new Exception(i18n.tr("Home not found: ") + m_asset.toString());
 			}
 			
 			// display info in log
@@ -109,6 +116,6 @@ public class CmdUpdateAsset extends CmdDefault {
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

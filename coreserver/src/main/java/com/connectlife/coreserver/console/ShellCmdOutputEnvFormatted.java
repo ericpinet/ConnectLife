@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 
@@ -28,6 +30,11 @@ public class ShellCmdOutputEnvFormatted implements ShellCmd {
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputEnvFormatted.class);
 
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdOutputEnvFormatted.class);
+	
 	/**
 	 * Shell command.
 	 */
@@ -36,7 +43,7 @@ public class ShellCmdOutputEnvFormatted implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - output the system environment (JSON formatted).\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - output the system environment (JSON formatted).\n");
 	 
 	/**
 	 * Get the shell command.

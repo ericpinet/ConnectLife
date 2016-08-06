@@ -12,6 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Person;
 import com.connectlife.coreserver.environment.UIDGenerator;
@@ -30,6 +32,11 @@ public class CmdAddPerson extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdAddPerson.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdAddPerson.class);
 	
 	/**
 	 * Person to add in the environment.
@@ -54,10 +61,10 @@ public class CmdAddPerson extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_person, "Error! It's not possible to add null person in the environment.");
-		Preconditions.checkArgument(m_person.getUid().isEmpty(), "Error! It's not possible to add a person with a UID.");
+		Preconditions.checkNotNull(m_person, i18n.tr("Error! It's not possible to add null person in the environment."));
+		Preconditions.checkArgument(m_person.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a person with a UID."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -80,6 +87,6 @@ public class CmdAddPerson extends CmdDefault {
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

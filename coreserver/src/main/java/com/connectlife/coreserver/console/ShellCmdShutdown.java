@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 
@@ -27,6 +29,11 @@ public class ShellCmdShutdown implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdShutdown.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdShutdown.class);
 
 	/**
 	 * Shell command.
@@ -36,7 +43,7 @@ public class ShellCmdShutdown implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - shutdown the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - shutdown the system.\n");
 	 
 	/**
 	 * Get the shell command.

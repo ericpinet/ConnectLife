@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Shell command for save environment from the console.
@@ -25,6 +27,11 @@ public class ShellCmdSaveEnv implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdSaveEnv.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdSaveEnv.class);
 
 	/**
 	 * Shell command.
@@ -34,7 +41,7 @@ public class ShellCmdSaveEnv implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - save the environment file if it's not already saved.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - save the environment file if it's not already saved.\n");
 	 
 	/**
 	 * Get the shell command.
@@ -83,7 +90,7 @@ public class ShellCmdSaveEnv implements ShellCmd {
     	m_logger.debug(SHELL_CMD);
     	
     	// TODO: Complete command
-    	response = SHELL_CMD + " not supported yet!";
+    	response = SHELL_CMD + i18n.tr(" not supported yet!");
     	
     	return response;
 	}

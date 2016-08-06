@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Room;
 import com.connectlife.coreserver.Consts;
@@ -31,6 +33,11 @@ public class CmdUpdateRoom extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdUpdateRoom.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdUpdateRoom.class);
 	
 	/**
 	 * Room to update in the environment.
@@ -55,9 +62,9 @@ public class CmdUpdateRoom extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_room, "Error! It's not possible to update null room in the environment.");
+		Preconditions.checkNotNull(m_room, i18n.tr("Error! It's not possible to update null room in the environment."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -82,14 +89,14 @@ public class CmdUpdateRoom extends CmdDefault {
 				
 			}
 			else {
-				m_logger.error("Room not found. " + m_room.toString());
-				throw new Exception("Room not found. " + m_room.toString());
+				m_logger.error(i18n.tr("Room not found: ") + m_room.toString());
+				throw new Exception(i18n.tr("Room not found: ") + m_room.toString());
 			}
 			
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}
 	
 	/**

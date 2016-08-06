@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Home;
 import com.clapi.data.Zone;
@@ -33,6 +35,11 @@ public class CmdAddZone extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdAddZone.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdAddZone.class);
 	
 	/**
 	 * Zone to add in the environment.
@@ -64,11 +71,11 @@ public class CmdAddZone extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_zone, "Error! It's not possible to add null zone in the environment.");
-		Preconditions.checkArgument(m_zone.getUid().isEmpty(), "Error! It's not possible to add a zone with a UID.");
-		Preconditions.checkNotNull(m_home, "Error! It's not possible to add room in a null home in the environment.");
+		Preconditions.checkNotNull(m_zone, i18n.tr("Error! It's not possible to add null zone in the environment."));
+		Preconditions.checkArgument(m_zone.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a zone with a UID."));
+		Preconditions.checkNotNull(m_home, i18n.tr("Error! It's not possible to add room in a null home in the environment."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -98,13 +105,13 @@ public class CmdAddZone extends CmdDefault {
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.error("Home not found. " + m_home.toString());
-				throw new Exception("Home not found. " + m_home.toString());
+				m_logger.error(i18n.tr("Home not found: ") + m_home.toString());
+				throw new Exception(i18n.tr("Home not found: ") + m_home.toString());
 			}
 
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

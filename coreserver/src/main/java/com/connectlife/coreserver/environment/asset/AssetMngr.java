@@ -15,6 +15,8 @@ import java.io.FileOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 import com.clapi.data.Asset;
@@ -50,6 +52,11 @@ public class AssetMngr implements AssetManager {
 	 * Init logger instance for this class
 	 */
 	private static Logger m_logger = LogManager.getLogger(AssetMngr.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(AssetMngr.class);
 	
 	/**
 	 * Environment data path contain the binary data of the asset
@@ -94,7 +101,7 @@ public class AssetMngr implements AssetManager {
 	public boolean init() {
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization starting ...");
+		m_logger.info(i18n.tr("Initialization starting ..."));
 		
 		if (null == m_server && false == m_is_init) {
 		
@@ -115,7 +122,7 @@ public class AssetMngr implements AssetManager {
 	        			// Update the connection information (At this point the tcp/port is reserved)
 	        			m_handler.updateConnectionInformaiton();
 	        			
-	        			m_logger.info("Service started: http://"+m_handler.getHostname()+":"+m_handler.getPort());
+	        			m_logger.info(i18n.tr("Service started: ")+"http://"+m_handler.getHostname()+":"+m_handler.getPort());
 	        			
 	        			// restore flag 
 	        			m_is_init = true;
@@ -125,7 +132,7 @@ public class AssetMngr implements AssetManager {
 	        			m_server.join();
 	        			
 	        		} catch (Exception e) {
-	        			m_logger.error("Unable to start the asset http server.");
+	        			m_logger.error(i18n.tr("Unable to start the asset http server."));
 	        			m_logger.error(e.getMessage());
 	        			StdOutErrLog.tieSystemOutAndErrToLog();
 	        			e.printStackTrace();
@@ -166,11 +173,11 @@ public class AssetMngr implements AssetManager {
 				}
 	        }
 	        
-	        m_logger.info("Initialization completed.");
+	        m_logger.info(i18n.tr("Initialization completed."));
 	        
 		}
 		else {
-			m_logger.warn("Already initialized.");
+			m_logger.warn(i18n.tr("Already initialized."));
 		}
 		
 		return ret_val;
@@ -195,13 +202,13 @@ public class AssetMngr implements AssetManager {
 	@Override
 	public void unInit() {
 		
-		m_logger.info("UnInit ...");
+		m_logger.info(i18n.tr("UnInit ..."));
 		
 		try {
 			m_server.stop();
 			m_handler.stop();
 		} catch (Exception e) {
-			m_logger.error("Unable to start the asset http server.");
+			m_logger.error(i18n.tr("Unable to stop the asset http server."));
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
@@ -212,7 +219,7 @@ public class AssetMngr implements AssetManager {
 			m_is_init = false;
 		}
 		
-		m_logger.info("UnInit completed.");
+		m_logger.info(i18n.tr("UnInit completed."));
 	}
 
 	/**
@@ -251,10 +258,10 @@ public class AssetMngr implements AssetManager {
 	 */
 	private void saveAsset(Asset _asset, ByteString _data, boolean _add) throws Exception {
 		
-		Preconditions.checkState(m_is_init, "Asset manager must be initialized before save asset.");
-		Preconditions.checkArgument(null != _asset, "Asset file information cannot be null.");
-		Preconditions.checkArgument(null != _data, "Asset data cannot be null.");
-		Preconditions.checkArgument(false == _asset.getUid().isEmpty() && false == _asset.getLabel().isEmpty(), "Asset uid or label cannot be empty.");
+		Preconditions.checkState(m_is_init, i18n.tr("Asset manager must be initialized before save asset."));
+		Preconditions.checkArgument(null != _asset, i18n.tr("Asset file information cannot be null."));
+		Preconditions.checkArgument(null != _data, i18n.tr("Asset data cannot be null."));
+		Preconditions.checkArgument(false == _asset.getUid().isEmpty() && false == _asset.getLabel().isEmpty(), i18n.tr("Asset uid or label cannot be empty."));
 		
 		// build filename full path
 		String filename = getAssetFullFilename(_asset);
@@ -265,13 +272,13 @@ public class AssetMngr implements AssetManager {
 		if (true == _add) {
 			// check if the file name does not already exist
 			if (file.exists() && !file.isDirectory()) { 
-			    throw new Exception("This file asset already exist. Use the updateAsset instead of addAsset. "+_asset.toString() + "\nFilename: " + filename);
+			    throw new Exception(i18n.tr("This file asset already exist. Use the updateAsset instead of addAsset. ")+_asset.toString() + i18n.tr("\nFilename: ") + filename);
 			}
 		}
 		else {
 			// check if the file name already exist
 			if (!file.exists() || file.isDirectory()) { 
-			    throw new Exception("This file asset does not already exist. Use the addAsset instead of updateAsset. "+_asset.toString() + "\nFilename: " + filename);
+			    throw new Exception(i18n.tr("This file asset does not already exist. Use the addAsset instead of updateAsset. ")+_asset.toString() + i18n.tr("\nFilename: ") + filename);
 			}
 		}
 		
@@ -286,10 +293,10 @@ public class AssetMngr implements AssetManager {
 			fos.flush();
 			fos.close();
 			
-			m_logger.debug("Asset save completed");
+			m_logger.debug(i18n.tr("Asset save completed"));
 		}
 		catch (Exception e) {
-			m_logger.error("Unable save asset file. Filename: " + filename);
+			m_logger.error(i18n.tr("Unable save asset file. Filename: ") + filename);
 			m_logger.error(e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
@@ -306,7 +313,7 @@ public class AssetMngr implements AssetManager {
 	@Override
 	public void deleteAsset(Asset _asset) throws Exception {
 		
-		Preconditions.checkNotNull(_asset, "It's not possible to delete null asset.");
+		Preconditions.checkNotNull(_asset, i18n.tr("It's not possible to delete null asset."));
 		
 		// build filename full path
 		String filename = getAssetFullFilename(_asset);
@@ -317,7 +324,7 @@ public class AssetMngr implements AssetManager {
 		if (file.exists() && !file.isDirectory()) { 
 		    file.delete();
 		    
-		    m_logger.debug("File deleted : " + filename);
+		    m_logger.debug(i18n.tr("File deleted : ") + filename);
 		}
 	}
 
@@ -333,19 +340,19 @@ public class AssetMngr implements AssetManager {
 	public String getAssetUrl(Asset _asset) throws Exception {
 		
 		String ret_val = "";
-		Preconditions.checkNotNull(m_handler, "The asset server was not initialized.");
+		Preconditions.checkNotNull(m_handler, i18n.tr("The asset server was not initialized."));
 		
 		// check if the file exist
 		File asset_file = new File(getAssetFullFilename(_asset));
 		if (false == asset_file.exists()) {
-			throw new Exception ("The asset file doesn't exist.");
+			throw new Exception (i18n.tr("The asset file doesn't exist."));
 		}
 		
-		m_logger.debug("Asset: " + _asset.toString());
+		m_logger.debug(i18n.tr("Asset: ") + _asset.toString());
 				
 		ret_val = "http://" + m_handler.getHostname() + ":" + String.valueOf(m_handler.getPort()) + "/" + "asset?uid="+_asset.getUid();
 		
-		m_logger.debug("Url returned for the asset: " + ret_val);
+		m_logger.debug(i18n.tr("Url returned for the asset: ") + ret_val);
 		
 		return ret_val;
 		
@@ -361,8 +368,8 @@ public class AssetMngr implements AssetManager {
 		String ret_val = "";
 		
 		Preconditions.checkNotNull(_asset);
-		Preconditions.checkArgument(false == _asset.getUid().isEmpty(), "The asset uid must not be empty.");
-		Preconditions.checkArgument(false == _asset.getLabel().isEmpty(), "The asset label must not be empty.");
+		Preconditions.checkArgument(false == _asset.getUid().isEmpty(), i18n.tr("The asset uid must not be empty."));
+		Preconditions.checkArgument(false == _asset.getLabel().isEmpty(), i18n.tr("The asset label must not be empty."));
 		
 		ret_val = _asset.getUid() + "-" + _asset.getLabel();
 		return ret_val;
@@ -378,8 +385,8 @@ public class AssetMngr implements AssetManager {
 		String ret_val = "";
 		
 		Preconditions.checkNotNull(_asset);
-		Preconditions.checkArgument(false == _asset.getUid().isEmpty(), "The asset uid must not be empty.");
-		Preconditions.checkArgument(false == _asset.getLabel().isEmpty(), "The asset label must not be empty.");
+		Preconditions.checkArgument(false == _asset.getUid().isEmpty(), i18n.tr("The asset uid must not be empty."));
+		Preconditions.checkArgument(false == _asset.getLabel().isEmpty(), i18n.tr("The asset label must not be empty."));
 		
 		ret_val = 	Application.getApp().getBasePath() + "/" + 
 					ASSET_DATA_PATH + "/" + 
@@ -394,7 +401,7 @@ public class AssetMngr implements AssetManager {
 	 */
 	public void prepareSystemFactoryAsset() throws Exception {
 		
-		m_logger.info("Building the system factory asset ...");
+		m_logger.info(i18n.tr("Building the system factory asset ..."));
 		
 		String assets [][] = SystemFactoryAsset.AssetItems;
 		for (int i=0 ; i<assets.length ; i++) {
@@ -421,6 +428,6 @@ public class AssetMngr implements AssetManager {
 			}
 		}
 		
-		m_logger.info("The system factory asset completed.");
+		m_logger.info(i18n.tr("The system factory asset completed."));
 	}
 }

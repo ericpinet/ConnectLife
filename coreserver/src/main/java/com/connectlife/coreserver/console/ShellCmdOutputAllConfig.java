@@ -13,6 +13,8 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.ConfigItem;
@@ -29,6 +31,11 @@ public class ShellCmdOutputAllConfig implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputAllConfig.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdHelp.class);
 
 	/**
 	 * Shell command.
@@ -38,7 +45,7 @@ public class ShellCmdOutputAllConfig implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - return the configurations of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - return the configurations of the system.\n");
 	 
 	/**
 	 * Get the shell command.

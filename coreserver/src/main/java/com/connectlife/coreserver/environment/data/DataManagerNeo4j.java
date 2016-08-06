@@ -288,8 +288,8 @@ public class DataManagerNeo4j implements DataManager {
 			Node address11 = graph.createNode(Consts.LABEL_ADDRESS);
 			address11.setProperty(Consts.UID, UIDGenerator.getUID());
 			address11.setProperty(Consts.ADDRESS_STREET, "2353 rue du cuir");
-			address11.setProperty(Consts.ADDRESS_CITY, "Québec");
-			address11.setProperty(Consts.ADDRESS_REGION, "Québec");
+			address11.setProperty(Consts.ADDRESS_CITY, "Quebec");
+			address11.setProperty(Consts.ADDRESS_REGION, "Quebec");
 			address11.setProperty(Consts.ADDRESS_ZIPCODE, "G3E 0G3");
 			address11.setProperty(Consts.ADDRESS_COUNTRY, "Canada");
 			address11.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);

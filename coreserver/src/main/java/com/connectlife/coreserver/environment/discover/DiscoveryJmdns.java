@@ -15,10 +15,12 @@ import javax.jmdns.ServiceEvent;
 import javax.jmdns.ServiceListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
+
 import java.io.IOException;
 import java.util.Vector;
 
-// internal
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 
@@ -34,6 +36,11 @@ public class DiscoveryJmdns implements DiscoveryService {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(DiscoveryJmdns.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(DiscoveryJmdns.class);
 	
 	/**
 	 * Discover service manager.
@@ -77,7 +84,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceAdded(ServiceEvent _service) {
 			  
-			m_logger.debug("Service discovered: "+_service.getName() + " - " + _service.getType());
+			m_logger.debug(i18n.tr("Service discovered: ")+_service.getName() + " - " + _service.getType());
 			m_discover.requestServiceInfo(_service.getType(), _service.getName());
 		}
 		
@@ -89,7 +96,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceRemoved(ServiceEvent _service) {
 
-			m_logger.debug("Service removed: "+_service.getName());
+			m_logger.debug(i18n.tr("Service removed: ")+_service.getName());
 			informListerServiceRemove(_service);
 		}
 		
@@ -101,7 +108,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 		 */
 		public void serviceResolved(ServiceEvent _service) {
 			
-			m_logger.debug("Service resolved: "+_service.getName() + " - " + _service.getType());
+			m_logger.debug(i18n.tr("Service resolved: ")+_service.getName() + " - " + _service.getType());
 			informListerServiceDiscover(_service);
 		}
 	};
@@ -120,7 +127,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 	 */
 	public void start(){
 		
-		m_logger.info("Starting...");
+		m_logger.info(i18n.tr("Starting..."));
 		
 		// start discovering
 		if(null == m_discover){
@@ -128,21 +135,21 @@ public class DiscoveryJmdns implements DiscoveryService {
 				m_discover = JmDNS.create();
 				
 				for(int i=0 ; i<m_service_list.length ; i++){
-					m_logger.info("Add service listner: "+m_service_list[i]);
+					m_logger.info(i18n.tr("Add service listner: ")+m_service_list[i]);
 					m_discover.addServiceListener(m_service_list[i], this.m_mdnsServiceListener);
 				}
 				
 			} catch (IOException e) {
-				m_logger.error("Unable to create JmDNS service :"+e.getMessage());
+				m_logger.error(i18n.tr("Unable to create JmDNS service :")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.warn("Discovering is already started.");
+			m_logger.warn(i18n.tr("Discovering is already started."));
 		}
 		
-		m_logger.info("Start completed.");
+		m_logger.info(i18n.tr("Start completed."));
 	}
 	
 	/**
@@ -154,20 +161,20 @@ public class DiscoveryJmdns implements DiscoveryService {
 			try {
 				
 				for(int i=0 ; i<m_service_list.length ; i++){
-					m_logger.info("Remove service listner: "+m_service_list[i]);
+					m_logger.info(i18n.tr("Remove service listner: ")+m_service_list[i]);
 					m_discover.removeServiceListener(m_service_list[i], this.m_mdnsServiceListener);
 				}
 				
 				m_discover.close();
 				
 			} catch (IOException e) {
-				m_logger.error("Unable to close correctly the discovering service: "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to close correctly the discovering service: ")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.warn("Discovering is already stoped.");
+			m_logger.warn(i18n.tr("Discovering is already stoped."));
 		}
 	}
 	
@@ -181,7 +188,7 @@ public class DiscoveryJmdns implements DiscoveryService {
 			m_listners.add(_listner);
 		}
 		else{
-			m_logger.warn("Can not add a null listner.");
+			m_logger.warn(i18n.tr("Can not add a null listner."));
 		}
 	}
 	

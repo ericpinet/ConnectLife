@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.Zone;
 import com.connectlife.coreserver.Consts;
@@ -31,6 +33,11 @@ public class CmdDeleteZone extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdDeleteZone.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(CmdDeleteZone.class);
 	
 	/**
 	 * Zone to delete from the environment.
@@ -55,10 +62,10 @@ public class CmdDeleteZone extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_zone, "Error! It's not possible to delete null zone in the environment.");
-		Preconditions.checkArgument(false == m_zone.getUid().isEmpty(), "Error! It's not possible to delete a zone with a empty UID.");
+		Preconditions.checkNotNull(m_zone, i18n.tr("Error! It's not possible to delete null zone in the environment."));
+		Preconditions.checkArgument(false == m_zone.getUid().isEmpty(), i18n.tr("Error! It's not possible to delete a zone with a empty UID."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -87,14 +94,14 @@ public class CmdDeleteZone extends CmdDefault {
 				this.m_data_is_changed = true;		
 			}
 			else{
-				m_logger.error("Zone wasn't found. "+m_zone.toString());
-				throw new Exception("Zone wasn't found. "+m_zone.toString());
+				m_logger.error(i18n.tr("Zone wasn't found: ")+m_zone.toString());
+				throw new Exception(i18n.tr("Zone wasn't found: ")+m_zone.toString());
 			}
 			
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}
 	
 }

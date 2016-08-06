@@ -12,6 +12,8 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 /**
  * Shell command for exit the console screen.
@@ -25,6 +27,11 @@ public class ShellCmdExit implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdExit.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ShellCmdExit.class);
 
 	/**
 	 * Shell command.
@@ -34,7 +41,7 @@ public class ShellCmdExit implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - exit console cli.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - exit console cli.\n");
 	 
 	/**
 	 * Get the shell command.

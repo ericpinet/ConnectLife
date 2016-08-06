@@ -15,6 +15,8 @@ import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
 
 import com.clapi.data.*;
 import com.clapi.data.Asset.AssetMode;
@@ -40,6 +42,11 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 * Logger use for this class.
 	 */
 	private final Logger m_logger = LogManager.getLogger(ApiProcessor.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = I18nFactory.getI18n(ApiProcessor.class);
 	
 	/**
 	 * Api server version.
@@ -114,12 +121,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 				ret_val = true;
 			}
 			else{
-				m_logger.info("The client version:" + request.getVersion() + " isn't compatible with this server version :"+
+				m_logger.info(i18n.tr("The client version: ") + request.getVersion() + i18n.tr(" isn't compatible with this server version : ")+
 						      new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] ));
 			}
 		}
 		catch(Exception e){
-			m_logger.error("Unable to check compatibility of client api : " + request.getVersion());
+			m_logger.error(i18n.tr("Unable to check compatibility of client api : ") + request.getVersion());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -143,7 +150,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		m_wait_client_notification.remove(responseObserver);
 		m_wait_client_notification.add(responseObserver);
 		
-		m_logger.info("New client waiting for notification.");
+		m_logger.info(i18n.tr("New client waiting for notification."));
 	}
 	
 	/**
@@ -160,7 +167,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 				response.onNext(reply);
 				response.onCompleted();
 				
-				m_logger.info("Notify client.");
+				m_logger.info(i18n.tr("Notify client."));
 			}
 		}
 		m_wait_client_notification.removeAllElements();
@@ -810,7 +817,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if(m_environment == o){
-			m_logger.info("Environment was updated, send new environment at all client.");
+			m_logger.info(i18n.tr("Environment was updated, send new environment at all client."));
 			
 			sendNotificationToAllClient( Notification.newBuilder()
 													 .setType(NotificationType.ENV_UPDATED)
