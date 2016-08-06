@@ -27,6 +27,16 @@ import com.google.protobuf.ByteString;
 /**
  * Client to connect with connectlife server. 
  * 
+ * <p>
+ * <pre>
+ * {@code 
+ * CLApiClient client = new CLApiClient("127.0.0.1", 9008, notification_listner);
+ * m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
+ * if (client.checkCompatibility()) {
+ *     client.getJsonData();
+ * }
+ * }
+ * </pre>
  * @author ericpinet
  * <br> 2015-11-05
  */
@@ -73,12 +83,12 @@ public class CLApiClient {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param host Host name of the server ConnectLife.
-	 * @param port Port of the server ConnectLife.
+	 * @param _host Host name of the server ConnectLife.
+	 * @param _port Port of the server ConnectLife.
 	 * @param _listener Listner of the notification.
 	 */
-	public CLApiClient(String host, int port, NotificationListener _listener) {
-	  m_channel = ManagedChannelBuilder.forAddress(host, port)
+	public CLApiClient(String _host, int _port, NotificationListener _listener) {
+	  m_channel = ManagedChannelBuilder.forAddress(_host, _port)
 	      .usePlaintext(true)
 	      .build();
 	  m_blockingStub = CLApiGrpc.newBlockingStub(m_channel);
@@ -121,14 +131,14 @@ public class CLApiClient {
 	/**
 	 * Add home in environment. 
 	 * 
-	 * @param label Label of the new home.
-	 * @param imageuid Image uid of the new home.
+	 * @param _label Label of the new home.
+	 * @param _imageuid Image uid of the new home.
 	 * @return Uid of the new home.
 	 */
-	public String addHome (String label, String imageuid) {
+	public String addHome (String _label, String _imageuid) {
 		AddHomeRequest request = AddHomeRequest.newBuilder()
-											   .setLabel(label)
-											   .setImageuid(imageuid)
+											   .setLabel(_label)
+											   .setImageuid(_imageuid)
 											   .build();
 		AddHomeResponse response = m_blockingStub.addHome(request);
 		return response.getUid();
@@ -137,16 +147,16 @@ public class CLApiClient {
 	/**
 	 * Update home in the environment.
 	 * 
-	 * @param uid Uid of the environment to update.
-	 * @param label New label.
-	 * @param imageuid New image uid.
+	 * @param _uid Uid of the environment to update.
+	 * @param _label New label.
+	 * @param _imageuid New image uid.
 	 * @return Uid of the home updated.
 	 */
-	public String updateHome (String uid, String label, String imageuid) {
+	public String updateHome (String _uid, String _label, String _imageuid) {
 		UpdateHomeRequest request = UpdateHomeRequest.newBuilder()
-											 		 .setUid(uid)
-													 .setLabel(label)
-											 		 .setImageuid(imageuid)
+											 		 .setUid(_uid)
+													 .setLabel(_label)
+											 		 .setImageuid(_imageuid)
 											 		 .build();
 		UpdateHomeResponse response = m_blockingStub.updateHome(request);
 		return response.getUid();
@@ -155,12 +165,12 @@ public class CLApiClient {
 	/**
 	 * Delete home in the environment.
 	 * 
-	 * @param uid Uid of the home to delete.
+	 * @param _uid Uid of the home to delete.
 	 * @return Uid of the home deleted.
 	 */
-	public String deleteHome (String uid) {
+	public String deleteHome (String _uid) {
 		DeleteHomeRequest request = DeleteHomeRequest.newBuilder()
-											 		 .setUid(uid)
+											 		 .setUid(_uid)
 											 		 .build();
 		DeleteHomeResponse response = m_blockingStub.deleteHome(request);
 		return response.getUid();
@@ -168,16 +178,16 @@ public class CLApiClient {
 	
 	/**
 	 * Add new zone in the environment.
-	 * @param uid Uid of the home where add the zone.
-	 * @param label Label of the new zone.
-	 * @param imageuid Image uid of the new zone.
+	 * @param _uid Uid of the home where add the zone.
+	 * @param _label Label of the new zone.
+	 * @param _imageuid Image uid of the new zone.
 	 * @return Uid of the new zone added.
 	 */
-	public String addZone (String uid, String label, String imageuid) {
+	public String addZone (String _uid, String _label, String _imageuid) {
 		AddZoneRequest request = AddZoneRequest.newBuilder()
-											   .setUidHome(uid)
-											   .setLabel(label)
-											   .setImageuid(imageuid)
+											   .setUidHome(_uid)
+											   .setLabel(_label)
+											   .setImageuid(_imageuid)
 											   .build();
 		AddZoneResponse response = m_blockingStub.addZone(request);
 		return response.getUid();
@@ -186,16 +196,16 @@ public class CLApiClient {
 	/**
 	 * Update zone in the environment.
 	 * 
-	 * @param uid Uid of the zone to update.
-	 * @param label New label of the zone.
-	 * @param imageuid New image uid of the zone.
+	 * @param _uid Uid of the zone to update.
+	 * @param _label New label of the zone.
+	 * @param _imageuid New image uid of the zone.
 	 * @return Uid of the updated zone.
 	 */
-	public String updateZone (String uid, String label, String imageuid) {
+	public String updateZone (String _uid, String _label, String _imageuid) {
 		UpdateZoneRequest request = UpdateZoneRequest.newBuilder()
-											 		 .setUid(uid)
-													 .setLabel(label)
-											 		 .setImageuid(imageuid)
+											 		 .setUid(_uid)
+													 .setLabel(_label)
+											 		 .setImageuid(_imageuid)
 											 		 .build();
 		UpdateZoneResponse response = m_blockingStub.updateZone(request);
 		return response.getUid();
@@ -204,12 +214,12 @@ public class CLApiClient {
 	/**
 	 * Delete zone from the environment.
 	 * 
-	 * @param uid Uid of the zone to delete.
+	 * @param _uid Uid of the zone to delete.
 	 * @return Uid of the deleted zone.
 	 */
-	public String deleteZone (String uid) {
+	public String deleteZone (String _uid) {
 		DeleteZoneRequest request = DeleteZoneRequest.newBuilder()
-											 		 .setUid(uid)
+											 		 .setUid(_uid)
 											 		 .build();
 		DeleteZoneResponse response = m_blockingStub.deleteZone(request);
 		return response.getUid();
@@ -218,16 +228,16 @@ public class CLApiClient {
 	/**
 	 * Add new room in the environment.
 	 * 
-	 * @param uid Uid of the zone where add room.
-	 * @param label Label of the new room.
-	 * @param imageuid Image uid of the new room.
+	 * @param _uid Uid of the zone where add room.
+	 * @param _label Label of the new room.
+	 * @param _imageuid Image uid of the new room.
 	 * @return Uid of the added room.
 	 */
-	public String addRoom (String uid, String label, String imageuid) {
+	public String addRoom (String _uid, String _label, String _imageuid) {
 		AddRoomRequest request = AddRoomRequest.newBuilder()
-											   .setUidZone(uid)
-											   .setLabel(label)
-											   .setImageuid(imageuid)
+											   .setUidZone(_uid)
+											   .setLabel(_label)
+											   .setImageuid(_imageuid)
 											   .build();
 		AddRoomResponse response = m_blockingStub.addRoom(request);
 		return response.getUid();
@@ -236,16 +246,16 @@ public class CLApiClient {
 	/**
 	 * Update room of the environment.
 	 * 
-	 * @param uid Uid  of the room to update.
-	 * @param label New lavel of the room.
-	 * @param imageuid New image uid of the room.
+	 * @param _uid Uid  of the room to update.
+	 * @param _label New lavel of the room.
+	 * @param _imageuid New image uid of the room.
 	 * @return Uid of the updated room.
 	 */
-	public String updateRoom (String uid, String label, String imageuid) {
+	public String updateRoom (String _uid, String _label, String _imageuid) {
 		UpdateRoomRequest request = UpdateRoomRequest.newBuilder()
-											 		 .setUid(uid)
-													 .setLabel(label)
-											 		 .setImageuid(imageuid)
+											 		 .setUid(_uid)
+													 .setLabel(_label)
+											 		 .setImageuid(_imageuid)
 											 		 .build();
 		UpdateRoomResponse response = m_blockingStub.updateRoom(request);
 		return response.getUid();
@@ -254,12 +264,12 @@ public class CLApiClient {
 	/**
 	 * Delete room in the environment.
 	 * 
-	 * @param uid Uid of the room the delete.
+	 * @param _uid Uid of the room the delete.
 	 * @return Uid of the deleted room.
 	 */
-	public String deleteRoom (String uid) {
+	public String deleteRoom (String _uid) {
 		DeleteRoomRequest request = DeleteRoomRequest.newBuilder()
-											 		 .setUid(uid)
+											 		 .setUid(_uid)
 											 		 .build();
 		DeleteRoomResponse response = m_blockingStub.deleteRoom(request);
 		return response.getUid();
@@ -268,16 +278,16 @@ public class CLApiClient {
 	/**
 	 * Add person in environment.
 	 * 
-	 * @param firstname First name of the person.
-	 * @param lastname Last name of the person.
-	 * @param imageuid Image uid of the person.
+	 * @param _firstname First name of the person.
+	 * @param _lastname Last name of the person.
+	 * @param _imageuid Image uid of the person.
 	 * @return UID of the new person.
 	 */
-	public String addPerson(String firstname, String lastname, String imageuid){
+	public String addPerson(String _firstname, String _lastname, String _imageuid){
 		AddPersonRequest request = AddPersonRequest.newBuilder()
-												   .setFirstname(firstname)
-												   .setLastname(lastname)
-												   .setImageuid(imageuid)
+												   .setFirstname(_firstname)
+												   .setLastname(_lastname)
+												   .setImageuid(_imageuid)
 												   .build();
 		AddPersonResponse response = m_blockingStub.addPerson(request);
 		return response.getUid();
@@ -285,18 +295,18 @@ public class CLApiClient {
 	
 	/**
 	 * Update person in environment.
-	 * @param uid UID of the person.
-	 * @param firstname First name of the person. 
-	 * @param lastname Last name of the person.
-	 * @param imageuid Image uid of the person.
+	 * @param _uid UID of the person.
+	 * @param _firstname First name of the person. 
+	 * @param _lastname Last name of the person.
+	 * @param _imageuid Image uid of the person.
 	 * @return UID of the person.
 	 */
-	public String updatePerson(String uid, String firstname, String lastname, String imageuid){
+	public String updatePerson(String _uid, String _firstname, String _lastname, String _imageuid){
 		UpdatePersonRequest request = UpdatePersonRequest.newBuilder()
-												   .setUid(uid)
-												   .setFirstname(firstname)
-												   .setLastname(lastname)
-												   .setImageuid(imageuid)
+												   .setUid(_uid)
+												   .setFirstname(_firstname)
+												   .setLastname(_lastname)
+												   .setImageuid(_imageuid)
 												   .build();
 		UpdatePersonResponse response = m_blockingStub.updatePerson(request);
 		return response.getUid();
@@ -304,12 +314,12 @@ public class CLApiClient {
 	
 	/**
 	 * Delete the person.
-	 * @param uid UID of the person.
+	 * @param _uid UID of the person.
 	 * @return UID of the person.
 	 */
-	public String deletePerson(String uid){
+	public String deletePerson(String _uid){
 		DeletePersonRequest request = DeletePersonRequest.newBuilder()
-												   .setUid(uid)
+												   .setUid(_uid)
 												   .build();
 		DeletePersonResponse response = m_blockingStub.deletePerson(request);
 		return response.getUid();
