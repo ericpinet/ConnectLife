@@ -27,6 +27,16 @@ import com.google.protobuf.ByteString;
 /**
  * Client to connect with connectlife server. 
  * 
+ * <p>
+ * <pre>
+ * {@code 
+ * CLApiClient client = new CLApiClient("127.0.0.1", 9008, notification_listner);
+ * m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
+ * if (client.checkCompatibility()) {
+ *     client.getJsonData();
+ * }
+ * }
+ * </pre>
  * @author ericpinet
  * <br> 2015-11-05
  */
