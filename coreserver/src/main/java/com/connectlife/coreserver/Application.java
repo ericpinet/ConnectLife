@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+import org.xnap.commons.i18n.I18nFactory;
+
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -46,6 +49,11 @@ public class Application implements Observer{
 	 * Init logger instance for this class
 	 */
 	private static Logger m_logger = LogManager.getLogger(Application.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	public static I18n i18n = I18nFactory.getI18n(Application.class, "i18n.Messages", java.util.Locale.ENGLISH);
 	
 	/**
 	 * Config manager for the application.
@@ -94,6 +102,7 @@ public class Application implements Observer{
 
 	/**
 	 * Main methode of the application.
+	 * 
 	 * @param args Arguments past to the application.
 	 */
 	public static void main(String[] args) {
@@ -117,6 +126,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Default constructor
+	 * 
 	 * @param _config Config manager for the application.
 	 * @param _env Environment manager for the application.
 	 * @param _api Api for the application.
@@ -125,7 +135,7 @@ public class Application implements Observer{
 	 */
 	@Inject
 	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio){
-		m_logger.debug("Application constructor.");
+		m_logger.debug(i18n.tr("Application statup."));
 		m_config = _config;
 		m_environment = _env;
 		m_api = _api;
@@ -153,7 +163,7 @@ public class Application implements Observer{
 		
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization started ...");
+		m_logger.info(i18n.tr("Initialization started ..."));
 		
 		if(false == m_isInit){
 		
@@ -161,14 +171,14 @@ public class Application implements Observer{
 			if( true == initBasePath() &&
 				true == initModules() ){
 				m_isInit = ret_val = true;
-				m_logger.info("Initialization completed.");
+				m_logger.info(i18n.tr("Initialization completed."));
 			}
 			else{
-				m_logger.error("Initialization failed.");
+				m_logger.error(i18n.tr("Initialization failed."));
 			}
 		}
 		else{
-			m_logger.warn("Application is already initialized.");
+			m_logger.warn(i18n.tr("Application is already initialized."));
 		}
 		
 		return ret_val;
@@ -185,11 +195,11 @@ public class Application implements Observer{
 		
 		try {
 			m_base_path = new File(".").getCanonicalPath();
-			m_logger.info("Base path: '"+ m_base_path +"'.");
+			m_logger.info(i18n.tr("Base path:") + "'" + m_base_path +"'.");
 			ret_val = true;
 			
 		} catch (IOException e) {
-			m_logger.error("Load base path failed! "+e.getMessage());
+			m_logger.error(i18n.tr("Load base path failed! ")+e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -199,6 +209,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the base path of the application.
+	 * 
 	 * @return The application base path.
 	 */
 	public String getBasePath(){
@@ -206,6 +217,8 @@ public class Application implements Observer{
 	}
 	
 	/**
+	 * Return true if the application must is running. 
+	 * 
 	 * @return the m_is_running
 	 */
 	public boolean isRunning() {
@@ -213,6 +226,8 @@ public class Application implements Observer{
 	}
 
 	/**
+	 * Set if the application must running.
+	 * 
 	 * @param _is_running the m_is_running to set
 	 */
 	private void setRunning(boolean _is_running) {
@@ -261,14 +276,12 @@ public class Application implements Observer{
 						}
 						
 						ret_val = true;
-						
 					}
 				}
 			}
-			
 		}
 		else{
-			m_logger.error("Unable to initialize modules. At less one module is null.");
+			m_logger.error(i18n.tr("Unable to initialize modules. At less one module is null."));
 		}
 		
 		return ret_val;
@@ -294,7 +307,7 @@ public class Application implements Observer{
 			
 		}
 		else{
-			m_logger.error("Unable to uninitialize modules. At less one module is null.");
+			m_logger.error(i18n.tr("Unable to uninitialize modules. At less one module is null."));
 		}
 		
 	}
@@ -316,7 +329,7 @@ public class Application implements Observer{
 				Thread.sleep(2000);
 				
 			} catch (InterruptedException e) {
-				m_logger.info("Main application thread was stopted.");
+				m_logger.info(i18n.tr("Main application thread was stopted."));
 			}
 		}
 	}
@@ -329,7 +342,7 @@ public class Application implements Observer{
 	 */
 	public void startup() throws Exception {
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting ...");
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION + i18n.tr(" is starting ..."));
 		
 		try{
 			if( true == init() ){
@@ -344,7 +357,7 @@ public class Application implements Observer{
 			unInitModules();
 		}
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION + i18n.tr(" closed."));
 	}
 	
 	/**
@@ -353,7 +366,7 @@ public class Application implements Observer{
 	 */
 	public void startupTest() {
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" is starting for test ...");
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION + i18n.tr(" is starting for test ..."));
 		
 		try{
 			if( true == init() ){
@@ -368,7 +381,7 @@ public class Application implements Observer{
 			unInitModules();
 		}
 		
-		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION +" closed.");
+		m_logger.info(Consts.APP_NAME +" "+ Consts.APP_VERSION + i18n.tr(" closed."));
 	}
 
 	/**
@@ -380,6 +393,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the configuration manager for this application.
+	 * 
 	 * @return Return configuration manager.
 	 */
 	public Config getConfig(){
@@ -388,6 +402,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the environment manager for this application.
+	 * 
 	 * @return Return environement manager.
 	 */
 	public Environment getEnvironment(){
@@ -396,6 +411,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the api manager for this application.
+	 * 
 	 * @return Return api manager.
 	 */
 	public Api getApi(){
@@ -404,6 +420,7 @@ public class Application implements Observer{
 	
 	/**
 	 * Return the console manager for this application.
+	 * 
 	 * @return Return console manager.
 	 */
 	public Console getConsole(){
@@ -411,6 +428,8 @@ public class Application implements Observer{
 	}
 
 	/**
+	 * Callback when environment was updated.
+	 * 
 	 * @param o Reference of the object source
 	 * @param arg Argument of the environment.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
@@ -419,7 +438,7 @@ public class Application implements Observer{
 	public void update(Observable o, Object arg) {
 		// TODO: Complete this function.
 		if(m_environment == o){
-			m_logger.info("Environment was updated.");
+			m_logger.info(i18n.tr("Environment was updated."));
 		}
 	}
 }

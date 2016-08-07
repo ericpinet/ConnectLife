@@ -13,6 +13,9 @@ import java.util.Iterator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * Shell command for show all commands.
@@ -26,6 +29,11 @@ public class ShellCmdHelp implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdHelp.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -35,7 +43,7 @@ public class ShellCmdHelp implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - show all commands.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - show all commands.\n");
 	 
 	/**
 	 * Get the shell command.

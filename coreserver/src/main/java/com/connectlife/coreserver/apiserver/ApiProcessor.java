@@ -15,14 +15,17 @@ import java.util.Vector;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
-import com.clapi.data.Person;
+import com.clapi.data.*;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.clapi.protocol.*;
-import com.clapi.protocol.Notification.NotificationType;
-import com.connectlife.coreserver.environment.Environment;
-import com.connectlife.coreserver.environment.cmd.CmdAddPerson;
-import com.connectlife.coreserver.environment.cmd.CmdFactory;
+import com.connectlife.coreserver.environment.cmd.*;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.clapi.protocol.Notification.NotificationType;
+import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.Environment;
 import com.google.inject.Inject;
 
 import io.grpc.stub.StreamObserver;
@@ -39,6 +42,11 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 * Logger use for this class.
 	 */
 	private final Logger m_logger = LogManager.getLogger(ApiProcessor.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Api server version.
@@ -113,12 +121,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 				ret_val = true;
 			}
 			else{
-				m_logger.info("The client version:" + request.getVersion() + " isn't compatible with this server version :"+
+				m_logger.info(i18n.tr("The client version: ") + request.getVersion() + i18n.tr(" isn't compatible with this server version : ")+
 						      new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] ));
 			}
 		}
 		catch(Exception e){
-			m_logger.error("Unable to check compatibility of client api : " + request.getVersion());
+			m_logger.error(i18n.tr("Unable to check compatibility of client api : ") + request.getVersion());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -142,7 +150,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		m_wait_client_notification.remove(responseObserver);
 		m_wait_client_notification.add(responseObserver);
 		
-		m_logger.info("New client waiting for notification.");
+		m_logger.info(i18n.tr("New client waiting for notification."));
 	}
 	
 	/**
@@ -159,7 +167,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 				response.onNext(reply);
 				response.onCompleted();
 				
-				m_logger.info("Notify client.");
+				m_logger.info(i18n.tr("Notify client."));
 			}
 		}
 		m_wait_client_notification.removeAllElements();
@@ -175,6 +183,251 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}
+	
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addHome(com.clapi.protocol.AddHomeRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addHome(AddHomeRequest request, StreamObserver<AddHomeResponse> responseObserver) {
+		Home home = new Home("", request.getLabel(), null, request.getImageuid());
+		AddHomeResponse reply = null;
+		try {
+			CmdAddHome cmd = CmdFactory.getCmdAddHome(home);
+			m_environment.executeCommand(cmd);
+			reply = AddHomeResponse.newBuilder().setUid(home.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateHome(com.clapi.protocol.UpdateHomeRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void updateHome(UpdateHomeRequest request, StreamObserver<UpdateHomeResponse> responseObserver) {
+		Home home = new Home(request.getUid(), request.getLabel(), null, request.getImageuid());
+		UpdateHomeResponse reply = null;
+		try {
+			CmdUpdateHome cmd = CmdFactory.getCmdUpdateHome(home);
+			m_environment.executeCommand(cmd);
+			reply = UpdateHomeResponse.newBuilder().setUid(home.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = UpdateHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteHome(com.clapi.protocol.DeleteHomeRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteHome(DeleteHomeRequest request, StreamObserver<DeleteHomeResponse> responseObserver) {
+		Home home = new Home(request.getUid(), "", null, "");
+		DeleteHomeResponse reply = null;
+		try {
+			CmdDeleteHome cmd = CmdFactory.getCmdDeleteHome(home);
+			m_environment.executeCommand(cmd);
+			reply = DeleteHomeResponse.newBuilder().setUid(home.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addZone(com.clapi.protocol.AddZoneRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addZone(AddZoneRequest request, StreamObserver<AddZoneResponse> responseObserver) {
+		Home home = new Home(request.getUidHome(), null);
+		Zone zone = new Zone("", request.getLabel(), null, request.getImageuid());
+		AddZoneResponse reply = null;
+		try {
+			CmdAddZone cmd = CmdFactory.getCmdAddZone(zone, home);
+			m_environment.executeCommand(cmd);
+			reply = AddZoneResponse.newBuilder().setUid(zone.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateZone(com.clapi.protocol.UpdateZoneRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void updateZone(UpdateZoneRequest request, StreamObserver<UpdateZoneResponse> responseObserver) {
+		Zone zone = new Zone(request.getUid(), request.getLabel(), null, request.getImageuid());
+		UpdateZoneResponse reply = null;
+		try {
+			CmdUpdateZone cmd = CmdFactory.getCmdUpdateZone(zone);
+			m_environment.executeCommand(cmd);
+			reply = UpdateZoneResponse.newBuilder().setUid(zone.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = UpdateZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteZone(com.clapi.protocol.DeleteZoneRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteZone(DeleteZoneRequest request, StreamObserver<DeleteZoneResponse> responseObserver) {
+		Zone zone = new Zone(request.getUid(), "", null, "");
+		DeleteZoneResponse reply = null;
+		try {
+			CmdDeleteZone cmd = CmdFactory.getCmdDeleteZone(zone);
+			m_environment.executeCommand(cmd);
+			reply = DeleteZoneResponse.newBuilder().setUid(zone.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addRoom(com.clapi.protocol.AddRoomRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addRoom(AddRoomRequest request, StreamObserver<AddRoomResponse> responseObserver) {
+		Zone zone = new Zone(request.getUidZone(), "");
+		Room room = new Room("", request.getLabel(), null, request.getImageuid());
+		AddRoomResponse reply = null;
+		try {
+			CmdAddRoom cmd = CmdFactory.getCmdAddRoom(room, zone);
+			m_environment.executeCommand(cmd);
+			reply = AddRoomResponse.newBuilder().setUid(room.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateRoom(com.clapi.protocol.UpdateRoomRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void updateRoom(UpdateRoomRequest request, StreamObserver<UpdateRoomResponse> responseObserver) {
+		Room room = new Room(request.getUid(), request.getLabel(), null, request.getImageuid());
+		UpdateRoomResponse reply = null;
+		try {
+			CmdUpdateRoom cmd = CmdFactory.getCmdUpdateRoom(room);
+			m_environment.executeCommand(cmd);
+			reply = UpdateRoomResponse.newBuilder().setUid(room.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = UpdateRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteRoom(com.clapi.protocol.DeleteRoomRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteRoom(DeleteRoomRequest request, StreamObserver<DeleteRoomResponse> responseObserver) {
+		Room room = new Room(request.getUid(), "", null, "");
+		DeleteRoomResponse reply = null;
+		try {
+			CmdDeleteRoom cmd = CmdFactory.getCmdDeleteRoom(room);
+			m_environment.executeCommand(cmd);
+			reply = DeleteRoomResponse.newBuilder().setUid(room.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
 
 	/**
 	 * @param request Client request.
@@ -182,7 +435,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
-		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageurl());
+		Person person = new Person("", request.getFirstname(), request.getLastname(), request.getImageuid());
 		AddPersonResponse reply = null;
 		try {
 			CmdAddPerson cmd = CmdFactory.getCmdAddPerson(person);
@@ -390,6 +643,173 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
+	 * @param request Client request.
+	 * @param responseObserver Response.
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAccessory(com.clapi.protocol.AddAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addAccessory(AddAccessoryRequest request, StreamObserver<AddAccessoryResponse> responseObserver) {
+		Accessory accessory = new Accessory(null, null, null, null, request.getSerialnumber(), null, null, null, null);
+		Room room = new Room(request.getUidRoom(), null);
+		AddAccessoryResponse reply = null;
+		try {
+			CmdAddAccessory cmd = CmdFactory.getCmdAddAccesssory(accessory, room);
+			m_environment.executeCommand(cmd);
+			accessory = cmd.getAccessory();
+			reply = AddAccessoryResponse.newBuilder().setUid(accessory.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request Client request.
+	 * @param responseObserver Response.
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteAccessory(DeleteAccessoryRequest request,
+			StreamObserver<DeleteAccessoryResponse> responseObserver) {
+		Accessory accessory = new Accessory(request.getUid(), null, null, null, null, null, null, null, null);
+		DeleteAccessoryResponse reply = null;
+		try {
+			CmdDeleteAccessory cmd = CmdFactory.getCmdDeleteAccesssory(accessory);
+			m_environment.executeCommand(cmd);
+			reply = DeleteAccessoryResponse.newBuilder().setUid(accessory.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+	
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAsset(com.clapi.protocol.AddAssetRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void addAsset(AddAssetRequest request, StreamObserver<AddAssetResponse> responseObserver) {
+		// TODO: Manage type and mode correctly
+		Asset asset = new Asset("", request.getLabel(), AssetType.IMAGE, AssetMode.USER);
+		AddAssetResponse reply = null;
+		try {
+			CmdAddAsset cmd = CmdFactory.getCmdAddAsset(asset, request.getData());
+			m_environment.executeCommand(cmd);
+			reply = AddAssetResponse.newBuilder().setUid(asset.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = AddAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAsset(com.clapi.protocol.UpdateAssetRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void updateAsset(UpdateAssetRequest request, StreamObserver<UpdateAssetResponse> responseObserver) {
+		// TODO: Manage type and mode correctly
+		Asset asset = new Asset(request.getUid(), request.getLabel(), AssetType.IMAGE, AssetMode.USER);
+		UpdateAssetResponse reply = null;
+		try {
+			CmdUpdateAsset cmd = CmdFactory.getCmdUpdateAsset(asset, request.getData());
+			m_environment.executeCommand(cmd);
+			reply = UpdateAssetResponse.newBuilder().setUid(asset.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = UpdateAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteAsset(com.clapi.protocol.DeleteAssetRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void deleteAsset(DeleteAssetRequest request, StreamObserver<DeleteAssetResponse> responseObserver) {
+		Asset asset = new Asset(request.getUid(), "", null, null);
+		DeleteAssetResponse reply = null;
+		try {
+			CmdDeleteAsset cmd = CmdFactory.getCmdDeleteAsset(asset);
+			m_environment.executeCommand(cmd);
+			reply = DeleteAssetResponse.newBuilder().setUid(asset.getUid()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = DeleteAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+
+	/**
+	 * @param request
+	 * @param responseObserver
+	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssetUrl(com.clapi.protocol.GetAssetUrlRequest, io.grpc.stub.StreamObserver)
+	 */
+	@Override
+	public void getAssetUrl(GetAssetUrlRequest request, StreamObserver<GetAssetUrlResponse> responseObserver) {
+		Asset asset = new Asset(request.getUid(), "", null, null);
+		GetAssetUrlResponse reply = null;
+		try {
+			CmdGetAssetUrl cmd = CmdFactory.getCmdGetAssetUrl(asset);
+			m_environment.executeCommand(cmd);
+			reply = GetAssetUrlResponse.newBuilder().setUrl(cmd.getUrl()).build(); // uid is return to client.
+			
+		} catch (Exception e) {
+			
+			reply = GetAssetUrlResponse.newBuilder().setUrl("").build(); // no url in response if failed.
+			
+			m_logger.error(e.getMessage());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
+	}
+	
+	/**
 	 * @param o Object source.
 	 * @param arg Argument of the event.
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
@@ -397,7 +817,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if(m_environment == o){
-			m_logger.info("Environment was updated, send new environment at all client.");
+			m_logger.info(i18n.tr("Environment was updated, send new environment at all client."));
 			
 			sendNotificationToAllClient( Notification.newBuilder()
 													 .setType(NotificationType.ENV_UPDATED)

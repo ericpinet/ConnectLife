@@ -1,0 +1,996 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-06 19:14-0400\n"
+"PO-Revision-Date: 2016-08-06 17:16-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:85
+#: com/connectlife/coreserver/config/ConfigSqlite.java:103
+#: com/connectlife/coreserver/console/ConsoleSSH.java:91
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:108
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:89
+msgid "Initialization in progress ..."
+msgstr "Initialization in progress ..."
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:102
+msgid "Server started, listening on "
+msgstr "Server started, listening on "
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:113
+msgid "Unable to start or join http server."
+msgstr "Unable to start or join http server."
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:119
+msgid "Unable to initialize. Configuration not found!"
+msgstr "Unable to initialize. Configuration not found!"
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:123
+#: com/connectlife/coreserver/Application.java:174
+#: com/connectlife/coreserver/config/ConfigSqlite.java:109
+#: com/connectlife/coreserver/console/ConsoleSSH.java:138
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:175
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:126
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:133
+msgid "Initialization completed."
+msgstr "Initialization completed."
+
+#: com/connectlife/coreserver/apiserver/ApiGrpc.java:125
+#: com/connectlife/coreserver/Application.java:177
+#: com/connectlife/coreserver/config/ConfigSqlite.java:111
+#: com/connectlife/coreserver/console/ConsoleSSH.java:140
+msgid "Initialization failed."
+msgstr "Initialization failed."
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:124
+msgid "The client version: "
+msgstr "The client version: "
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:124
+msgid " isn't compatible with this server version : "
+msgstr " isn't compatible with this server version : "
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:129
+msgid "Unable to check compatibility of client api : "
+msgstr "Unable to check compatibility of client api : "
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:153
+msgid "New client waiting for notification."
+msgstr "New client waiting for notification."
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:170
+msgid "Notify client."
+msgstr "Notify client."
+
+#: com/connectlife/coreserver/apiserver/ApiProcessor.java:820
+msgid "Environment was updated, send new environment at all client."
+msgstr "Environment was updated, send new environment at all client."
+
+#: com/connectlife/coreserver/Application.java:138
+msgid "Application constructor."
+msgstr "Application constructor."
+
+#: com/connectlife/coreserver/Application.java:166
+msgid "Initialization started ..."
+msgstr "Initialization started ..."
+
+#: com/connectlife/coreserver/Application.java:181
+msgid "Application is already initialized."
+msgstr "Application is already initialized."
+
+#: com/connectlife/coreserver/Application.java:198
+msgid "Base path:"
+msgstr "Base path:"
+
+#: com/connectlife/coreserver/Application.java:202
+msgid "Load base path failed! "
+msgstr "Load base path failed! "
+
+#: com/connectlife/coreserver/Application.java:284
+msgid "Unable to initialize modules. At less one module is null."
+msgstr "Unable to initialize modules. At less one module is null."
+
+#: com/connectlife/coreserver/Application.java:310
+msgid "Unable to uninitialize modules. At less one module is null."
+msgstr "Unable to uninitialize modules. At less one module is null."
+
+#: com/connectlife/coreserver/Application.java:332
+msgid "Main application thread was stopted."
+msgstr "Main application thread was stopted."
+
+#: com/connectlife/coreserver/Application.java:345
+msgid " is starting ..."
+msgstr " is starting ..."
+
+#: com/connectlife/coreserver/Application.java:360
+#: com/connectlife/coreserver/Application.java:384
+msgid " closed."
+msgstr " closed."
+
+#: com/connectlife/coreserver/Application.java:369
+msgid " is starting for test ..."
+msgstr " is starting for test ..."
+
+#: com/connectlife/coreserver/Application.java:441
+msgid "Environment was updated."
+msgstr "Environment was updated."
+
+#: com/connectlife/coreserver/ApplicationStateMachine.java:94
+msgid "State machine starting ..."
+msgstr "State machine starting ..."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:128
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:154
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:153
+msgid "UnInitialization in progress ..."
+msgstr "UnInitialization in progress ..."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:134
+msgid "Unable to close connection: "
+msgstr "Unable to close connection: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:140
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:172
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:167
+msgid "UnInitialization completed."
+msgstr "UnInitialization completed."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:182
+#: com/connectlife/coreserver/config/ConfigSqlite.java:231
+msgid "Unable to get config from database. Invalid type ("
+msgstr "Unable to get config from database. Invalid type ("
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:182
+#: com/connectlife/coreserver/config/ConfigSqlite.java:231
+msgid ") or section ("
+msgstr ") or section ("
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:182
+#: com/connectlife/coreserver/config/ConfigSqlite.java:231
+msgid ") and item ("
+msgstr ") and item ("
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:182
+#: com/connectlife/coreserver/config/ConfigSqlite.java:231
+msgid ") invalid."
+msgstr ") invalid."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:187
+msgid "Unable to retrive configuration: "
+msgstr "Unable to retrive configuration: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:193
+msgid "Unable to retrive config from database, the connection is not ready."
+msgstr "Unable to retrive config from database, the connection is not ready."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:237
+#: com/connectlife/coreserver/config/ConfigSqlite.java:274
+msgid "Unable to retrive configurations: "
+msgstr "Unable to retrive configurations: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:243
+#: com/connectlife/coreserver/config/ConfigSqlite.java:280
+msgid "Unable to retrive configs from database, the connection is not ready."
+msgstr "Unable to retrive configs from database, the connection is not ready."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:306
+msgid "Load database file"
+msgstr "Load database file"
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:310
+msgid "Set database default timeout"
+msgstr "Set database default timeout"
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:325
+msgid "Database version "
+msgstr "Database version "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:325
+msgid " is good."
+msgstr " is good."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:328
+msgid "Database version isn't the right version. Database must be rebuild."
+msgstr "Database version isn't the right version. Database must be rebuild."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:332
+msgid ""
+"Unable to load the configuration database version. Database must be rebuild."
+msgstr ""
+"Unable to load the configuration database version. Database must be rebuild."
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:341
+#: com/connectlife/coreserver/config/ConfigSqlite.java:347
+#: com/connectlife/coreserver/config/ConfigSqlite.java:354
+#: com/connectlife/coreserver/config/ConfigSqlite.java:404
+#: com/connectlife/coreserver/config/ConfigSqlite.java:410
+#: com/connectlife/coreserver/config/ConfigSqlite.java:417
+msgid "Execute statement: "
+msgstr "Execute statement: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:362
+#: com/connectlife/coreserver/config/ConfigSqlite.java:366
+msgid "Unable to prepare database: "
+msgstr "Unable to prepare database: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:376
+msgid "Unable to close database statement: "
+msgstr "Unable to close database statement: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:423
+msgid "Unable to restore factory configurations: "
+msgstr "Unable to restore factory configurations: "
+
+#: com/connectlife/coreserver/config/ConfigSqlite.java:429
+msgid "Unable to  restore factory, the connection is not ready."
+msgstr "Unable to  restore factory, the connection is not ready."
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:96
+msgid "TCP/IP Port: "
+msgstr "TCP/IP Port: "
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:117
+msgid "Authentification succeed for the "
+msgstr "Authentification succeed for the "
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:120
+msgid "Authentification failed for the "
+msgstr "Authentification failed for the "
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:157
+msgid "Uninitialization started ..."
+msgstr "Uninitialization started ..."
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:166
+msgid "Uninitialization completed."
+msgstr "Uninitialization completed."
+
+#: com/connectlife/coreserver/console/ConsoleSSH.java:170
+msgid "Uninitialization interrupted."
+msgstr "Uninitialization interrupted."
+
+#: com/connectlife/coreserver/console/InAppShellFactory.java:230
+msgid "- Welcome to ConnectLife Shell -"
+msgstr "- Welcome to ConnectLife Shell -"
+
+#: com/connectlife/coreserver/console/InAppShellFactory.java:241
+msgid "Error executing shell..."
+msgstr "Error executing shell..."
+
+#: com/connectlife/coreserver/console/InAppShellFactory.java:272
+msgid "Command not found:"
+msgstr "Command not found:"
+
+#: com/connectlife/coreserver/console/ShellCmdAddAccessory.java:49
+msgid " - Add accessory in the environment.\n"
+msgstr " - Add accessory in the environment.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdAddAccessory.java:106
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:112
+msgid "Format error! Please use format like : "
+msgstr "Format error! Please use format like : "
+
+#: com/connectlife/coreserver/console/ShellCmdAddAccessory.java:130
+msgid "Accessory added."
+msgstr "Accessory added."
+
+#: com/connectlife/coreserver/console/ShellCmdExit.java:45
+msgid " - exit console cli.\n"
+msgstr " - exit console cli.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdHelp.java:46
+msgid " - show all commands.\n"
+msgstr " - show all commands.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdOutputAllConfig.java:47
+msgid " - return the configurations of the system.\n"
+msgstr " - return the configurations of the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdOutputConfig.java:46
+msgid " - return the specific configuration of the system.\n"
+msgstr " - return the specific configuration of the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdOutputEnv.java:45
+msgid " - output the system environment (JSON).\n"
+msgstr " - output the system environment (JSON).\n"
+
+#: com/connectlife/coreserver/console/ShellCmdOutputEnvFormatted.java:45
+msgid " - output the system environment (JSON formatted).\n"
+msgstr " - output the system environment (JSON formatted).\n"
+
+#: com/connectlife/coreserver/console/ShellCmdOutputLog.java:49
+msgid " - Output the log of the system.\n"
+msgstr " - Output the log of the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdQuit.java:45
+msgid " - quit console cli.\n"
+msgstr " - quit console cli.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdRemoveAccessory.java:45
+msgid " - Remove accessory in the environment.\n"
+msgstr " - Remove accessory in the environment.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdRemoveAccessory.java:93
+#: com/connectlife/coreserver/console/ShellCmdSaveEnv.java:94
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:100
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:103
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:106
+msgid " not supported yet!"
+msgstr " not supported yet!"
+
+#: com/connectlife/coreserver/console/ShellCmdRestoreFactoryConfig.java:45
+msgid " - Restore the factory configurations of the system.\n"
+msgstr " - Restore the factory configurations of the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdRestoreFactoryConfig.java:94
+msgid "Restore the factory configuration."
+msgstr "Restore the factory configuration."
+
+#: com/connectlife/coreserver/console/ShellCmdRestoreFactoryConfig.java:97
+msgid "Error. Unable to restore factory configuration."
+msgstr "Error. Unable to restore factory configuration."
+
+#: com/connectlife/coreserver/console/ShellCmdSaveEnv.java:45
+msgid " - save the environment file if it's not already saved.\n"
+msgstr " - save the environment file if it's not already saved.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:47
+msgid " - Modify the configuration of the system.\n"
+msgstr " - Modify the configuration of the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:112
+msgid "value"
+msgstr "value"
+
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:121
+msgid "This configuration doesn't exist."
+msgstr "This configuration doesn't exist."
+
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:129
+msgid "Format error! The value is not valide !"
+msgstr "Format error! The value is not valide !"
+
+#: com/connectlife/coreserver/console/ShellCmdSetConfig.java:133
+msgid "Config is updated."
+msgstr "Config is updated."
+
+#: com/connectlife/coreserver/console/ShellCmdShutdown.java:45
+msgid " - shutdown the system.\n"
+msgstr " - shutdown the system.\n"
+
+#: com/connectlife/coreserver/console/ShellCmdVersion.java:46
+msgid " - return the version of the system.\n"
+msgstr " - return the version of the system.\n"
+
+#: com/connectlife/coreserver/environment/asset/AssetHttpHandler.java:99
+msgid "Unable to get the connection information."
+msgstr "Unable to get the connection information."
+
+#: com/connectlife/coreserver/environment/asset/AssetHttpHandler.java:160
+msgid "Request asset data for :"
+msgstr "Request asset data for :"
+
+#: com/connectlife/coreserver/environment/asset/AssetHttpHandler.java:179
+msgid "Unable to find asset for uid :"
+msgstr "Unable to find asset for uid :"
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:103
+msgid "Initialization starting ..."
+msgstr "Initialization starting ..."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:124
+msgid "Service started: "
+msgstr "Service started: "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:134
+msgid "Unable to start the asset http server."
+msgstr "Unable to start the asset http server."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:179
+msgid "Already initialized."
+msgstr "Already initialized."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:204
+msgid "UnInit ..."
+msgstr "UnInit ..."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:210
+msgid "Unable to stop the asset http server."
+msgstr "Unable to stop the asset http server."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:221
+msgid "UnInit completed."
+msgstr "UnInit completed."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:260
+msgid "Asset manager must be initialized before save asset."
+msgstr "Asset manager must be initialized before save asset."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:261
+msgid "Asset file information cannot be null."
+msgstr "Asset file information cannot be null."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:262
+msgid "Asset data cannot be null."
+msgstr "Asset data cannot be null."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:263
+msgid "Asset uid or label cannot be empty."
+msgstr "Asset uid or label cannot be empty."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:274
+msgid ""
+"This file asset already exist. Use the updateAsset instead of addAsset. "
+msgstr ""
+"This file asset already exist. Use the updateAsset instead of addAsset. "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:274
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:280
+msgid ""
+"\n"
+"Filename: "
+msgstr ""
+"\n"
+"Filename: "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:280
+msgid ""
+"This file asset does not already exist. Use the addAsset instead of "
+"updateAsset. "
+msgstr ""
+"This file asset does not already exist. Use the addAsset instead of "
+"updateAsset. "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:295
+msgid "Asset save completed"
+msgstr "Asset save completed"
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:298
+msgid "Unable save asset file. Filename: "
+msgstr "Unable save asset file. Filename: "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:315
+msgid "It's not possible to delete null asset."
+msgstr "It's not possible to delete null asset."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:326
+msgid "File deleted : "
+msgstr "File deleted : "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:342
+msgid "The asset server was not initialized."
+msgstr "The asset server was not initialized."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:347
+msgid "The asset file doesn't exist."
+msgstr "The asset file doesn't exist."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:350
+msgid "Asset: "
+msgstr "Asset: "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:354
+msgid "Url returned for the asset: "
+msgstr "Url returned for the asset: "
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:370
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:387
+msgid "The asset uid must not be empty."
+msgstr "The asset uid must not be empty."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:371
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:388
+msgid "The asset label must not be empty."
+msgstr "The asset label must not be empty."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:403
+msgid "Building the system factory asset ..."
+msgstr "Building the system factory asset ..."
+
+#: com/connectlife/coreserver/environment/asset/AssetMngr.java:430
+msgid "The system factory asset completed."
+msgstr "The system factory asset completed."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:76
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:74
+#: com/connectlife/coreserver/environment/cmd/CmdAddHome.java:64
+#: com/connectlife/coreserver/environment/cmd/CmdAddPerson.java:64
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:74
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:74
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:74
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAccessory.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:66
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdGetAssetUrl.java:67
+#: com/connectlife/coreserver/environment/cmd/CmdRegisterAccessory.java:64
+#: com/connectlife/coreserver/environment/cmd/CmdUnregisterAccessory.java:64
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAccessory.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:74
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateHome.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateRoom.java:65
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateZone.java:65
+msgid "Execution start ..."
+msgstr "Execution start ..."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:78
+msgid "Error! It's not possible to add null accessory in the environment."
+msgstr "Error! It's not possible to add null accessory in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:79
+msgid "Error! It's not possible to add a accessory with a UID."
+msgstr "Error! It's not possible to add a accessory with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:132
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:133
+msgid "Accessory isn't found in the network: "
+msgstr "Accessory isn't found in the network: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:138
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:139
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateRoom.java:92
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateRoom.java:93
+msgid "Room not found: "
+msgstr "Room not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:143
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:144
+msgid ""
+"Accessory was already added in a room. Remove the accessory before try "
+"again: "
+msgstr ""
+"Accessory was already added in a room. Remove the accessory before try "
+"again: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAccessory.java:150
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:116
+#: com/connectlife/coreserver/environment/cmd/CmdAddHome.java:90
+#: com/connectlife/coreserver/environment/cmd/CmdAddPerson.java:90
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:115
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:115
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:146
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAccessory.java:100
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:110
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:104
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:104
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:104
+#: com/connectlife/coreserver/environment/cmd/CmdGetAssetUrl.java:81
+#: com/connectlife/coreserver/environment/cmd/CmdRegisterAccessory.java:96
+#: com/connectlife/coreserver/environment/cmd/CmdUnregisterAccessory.java:94
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAccessory.java:102
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:119
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateHome.java:99
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateRoom.java:99
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateZone.java:99
+msgid "Execution completed."
+msgstr "Execution completed."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:76
+msgid "Error! It's not possible to add null asset in the environment."
+msgstr "Error! It's not possible to add null asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:77
+msgid "Error! It's not possible to add null data asset in the environment."
+msgstr "Error! It's not possible to add null data asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:78
+msgid "Error! It's not possible to add a asset with a UID."
+msgstr "Error! It's not possible to add a asset with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddAsset.java:79
+msgid "Error! It's not possible to add a asset with empty label."
+msgstr "Error! It's not possible to add a asset with empty label."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddHome.java:66
+msgid "Error! It's not possible to add null home in the environment."
+msgstr "Error! It's not possible to add null home in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddHome.java:67
+msgid "Error! It's not possible to add a home with a UID."
+msgstr "Error! It's not possible to add a home with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddPerson.java:66
+msgid "Error! It's not possible to add null person in the environment."
+msgstr "Error! It's not possible to add null person in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddPerson.java:67
+msgid "Error! It's not possible to add a person with a UID."
+msgstr "Error! It's not possible to add a person with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:76
+msgid "Error! It's not possible to add null room in the environment."
+msgstr "Error! It's not possible to add null room in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:77
+msgid "Error! It's not possible to add a room with a UID."
+msgstr "Error! It's not possible to add a room with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:78
+msgid "Error! It's not possible to add room in a null zone in the environment."
+msgstr ""
+"Error! It's not possible to add room in a null zone in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:108
+#: com/connectlife/coreserver/environment/cmd/CmdAddRoom.java:109
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateZone.java:92
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateZone.java:93
+msgid "Zone not found: "
+msgstr "Zone not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:76
+msgid "Error! It's not possible to add null zone in the environment."
+msgstr "Error! It's not possible to add null zone in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:77
+msgid "Error! It's not possible to add a zone with a UID."
+msgstr "Error! It's not possible to add a zone with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:78
+msgid "Error! It's not possible to add room in a null home in the environment."
+msgstr ""
+"Error! It's not possible to add room in a null home in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:108
+#: com/connectlife/coreserver/environment/cmd/CmdAddZone.java:109
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:106
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:107
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateHome.java:92
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateHome.java:93
+msgid "Home not found: "
+msgstr "Home not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:76
+msgid ""
+"Error! It's not possible to update null characteristic in the environment."
+msgstr ""
+"Error! It's not possible to update null characteristic in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:77
+msgid ""
+"Error! It's not possible to update characteristic with null target value in "
+"the environment."
+msgstr ""
+"Error! It's not possible to update characteristic with null target value in "
+"the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:130
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:131
+msgid "Characteristic target type was invalid: "
+msgstr "Characteristic target type was invalid: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:135
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:136
+msgid "Characteristic was read only."
+msgstr "Characteristic was read only."
+
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:140
+#: com/connectlife/coreserver/environment/cmd/CmdCharacteristicWrite.java:141
+msgid "Characteristic not found: "
+msgstr "Characteristic not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdDefault.java:56
+msgid ""
+"The context wasn't set in the action. It's impossible to execute action "
+"without valid context."
+msgstr ""
+"The context wasn't set in the action. It's impossible to execute action "
+"without valid context."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDefault.java:60
+msgid ""
+"The context wasn't initialized in the action. It's impossible to execute "
+"action without valid context."
+msgstr ""
+"The context wasn't initialized in the action. It's impossible to execute "
+"action without valid context."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDefault.java:73
+msgid "Not yet implemented."
+msgstr "Not yet implemented."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAccessory.java:67
+msgid "Error! It's not possible to delete null accessory in the environment."
+msgstr "Error! It's not possible to delete null accessory in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAccessory.java:93
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAccessory.java:94
+msgid "Accessory wasn't found: "
+msgstr "Accessory wasn't found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:68
+msgid "Error! It's not possible to delete null asset in the environment."
+msgstr "Error! It's not possible to delete null asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:69
+msgid "Error! It's not possible to delete a asset with a empty UID."
+msgstr "Error! It's not possible to delete a asset with a empty UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:97
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteAsset.java:98
+msgid "Asset not found: "
+msgstr "Asset not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:67
+msgid "Error! It's not possible to delete null home in the environment."
+msgstr "Error! It's not possible to delete null home in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:68
+msgid "Error! It's not possible to delete a home with a empty UID."
+msgstr "Error! It's not possible to delete a home with a empty UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:97
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteHome.java:98
+msgid "Home wasn't found: "
+msgstr "Home wasn't found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:67
+msgid "Error! It's not possible to delete null room in the environment."
+msgstr "Error! It's not possible to delete null room in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:68
+msgid "Error! It's not possible to delete a room with a empty UID."
+msgstr "Error! It's not possible to delete a room with a empty UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:97
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteRoom.java:98
+msgid "Room wasn't found: "
+msgstr "Room wasn't found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:67
+msgid "Error! It's not possible to delete null zone in the environment."
+msgstr "Error! It's not possible to delete null zone in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:68
+msgid "Error! It's not possible to delete a zone with a empty UID."
+msgstr "Error! It's not possible to delete a zone with a empty UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:97
+#: com/connectlife/coreserver/environment/cmd/CmdDeleteZone.java:98
+msgid "Zone wasn't found: "
+msgstr "Zone wasn't found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdGetAssetUrl.java:69
+msgid "Error! It's not possible to get url of null asset in the environment."
+msgstr "Error! It's not possible to get url of null asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdGetAssetUrl.java:70
+msgid "Error! It's not possible to get url of asset with a empty UID."
+msgstr "Error! It's not possible to get url of asset with a empty UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdGetAssetUrl.java:79
+msgid ""
+"\n"
+"Url:"
+msgstr ""
+"\n"
+"Url:"
+
+#: com/connectlife/coreserver/environment/cmd/CmdRegisterAccessory.java:66
+msgid "Error! It's not possible to register null accessory in the environment."
+msgstr ""
+"Error! It's not possible to register null accessory in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdRegisterAccessory.java:90
+#: com/connectlife/coreserver/environment/cmd/CmdUnregisterAccessory.java:88
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAccessory.java:95
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAccessory.java:96
+msgid "Accessory not found: "
+msgstr "Accessory not found: "
+
+#: com/connectlife/coreserver/environment/cmd/CmdUnregisterAccessory.java:66
+msgid ""
+"Error! It's not possible to unregister null accessory in the environment."
+msgstr ""
+"Error! It's not possible to unregister null accessory in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAccessory.java:67
+msgid "Error! It's not possible to update null accessory in the environment."
+msgstr "Error! It's not possible to update null accessory in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:76
+msgid "Error! It's not possible to update null asset in the environment."
+msgstr "Error! It's not possible to update null asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:77
+msgid "Error! It's not possible to update null data asset in the environment."
+msgstr "Error! It's not possible to update null data asset in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:78
+msgid "Error! It's not possible to update a asset with a UID."
+msgstr "Error! It's not possible to update a asset with a UID."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateAsset.java:79
+msgid "Error! It's not possible to updtae a asset with empty label."
+msgstr "Error! It's not possible to updtae a asset with empty label."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateHome.java:67
+msgid "Error! It's not possible to update null home in the environment."
+msgstr "Error! It's not possible to update null home in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateRoom.java:67
+msgid "Error! It's not possible to update null room in the environment."
+msgstr "Error! It's not possible to update null room in the environment."
+
+#: com/connectlife/coreserver/environment/cmd/CmdUpdateZone.java:67
+msgid "Error! It's not possible to update null zone in the environment."
+msgstr "Error! It's not possible to update null zone in the environment."
+
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:94
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:294
+msgid "Unable to manage this http service: "
+msgstr "Unable to manage this http service: "
+
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:100
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:103
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:106
+msgid "Service application "
+msgstr "Service application "
+
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:111
+msgid "Service is null."
+msgstr "Service is null."
+
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:133
+msgid "Failed : HTTP error code : "
+msgstr "Failed : HTTP error code : "
+
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:149
+#: com/connectlife/coreserver/environment/device/DeviceFactory.java:151
+msgid "Unable to build service information: "
+msgstr "Unable to build service information: "
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:167
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:170
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:174
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:215
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:219
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:224
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:254
+msgid "Device "
+msgstr "Device "
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:167
+msgid " register."
+msgstr " register."
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:170
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:219
+msgid " cannot be register. It's not setup in the application environment."
+msgstr " cannot be register. It's not setup in the application environment."
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:174
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:224
+msgid " is already synchronized with the application environment."
+msgstr " is already synchronized with the application environment."
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:215
+msgid " unregister."
+msgstr " unregister."
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:254
+msgid " unable to update environment for a not register device."
+msgstr " unable to update environment for a not register device."
+
+#: com/connectlife/coreserver/environment/device/DeviceJson.java:289
+msgid " - Characteristic updated."
+msgstr " - Characteristic updated."
+
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:123
+msgid "No discovery manager set in the environment."
+msgstr "No discovery manager set in the environment."
+
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:129
+msgid "Initialization already completed."
+msgstr "Initialization already completed."
+
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:175
+msgid "Already unitialized."
+msgstr "Already unitialized."
+
+#: com/connectlife/coreserver/environment/device/DeviceMngr.java:261
+msgid "Error in timer execution: "
+msgstr "Error in timer execution: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:87
+msgid "Service discovered: "
+msgstr "Service discovered: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:99
+msgid "Service removed: "
+msgstr "Service removed: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:111
+msgid "Service resolved: "
+msgstr "Service resolved: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:130
+msgid "Starting..."
+msgstr "Starting..."
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:138
+msgid "Add service listner: "
+msgstr "Add service listner: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:143
+msgid "Unable to create JmDNS service :"
+msgstr "Unable to create JmDNS service :"
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:149
+msgid "Discovering is already started."
+msgstr "Discovering is already started."
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:152
+msgid "Start completed."
+msgstr "Start completed."
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:164
+msgid "Remove service listner: "
+msgstr "Remove service listner: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:171
+msgid "Unable to close correctly the discovering service: "
+msgstr "Unable to close correctly the discovering service: "
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:177
+msgid "Discovering is already stoped."
+msgstr "Discovering is already stoped."
+
+#: com/connectlife/coreserver/environment/discover/DiscoveryJmdns.java:191
+msgid "Can not add a null listner."
+msgstr "Can not add a null listner."
+
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:98
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:116
+msgid "Environment loaded."
+msgstr "Environment loaded."
+
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:102
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:120
+msgid "Environment load failed!"
+msgstr "Environment load failed!"
+
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:107
+msgid "No environment file exist. Create the base environment."
+msgstr "No environment file exist. Create the base environment."
+
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:124
+msgid "Unable to create base environment."
+msgstr "Unable to create base environment."
+
+#: com/connectlife/coreserver/environment/EnvironmentManager.java:136
+msgid "Unable to init the environment."
+msgstr "Unable to init the environment."
+
+#: com/connectlife/coreserver/gpio/RaspberryPiGpio.java:53
+msgid "<--Pi4J--> GPIO Control Example ... started."
+msgstr "<--Pi4J--> GPIO Control Example ... started."
+
+#: com/connectlife/coreserver/gpio/SimulatorGpio.java:48
+msgid "Simulation of the GPIO."
+msgstr "Simulation of the GPIO."
+
+#~ msgid "section"
+#~ msgstr "section"
+
+#~ msgid "item"
+#~ msgstr "item"
+
+#~ msgid "type"
+#~ msgstr "type"
+
+#~ msgid "number"
+#~ msgstr "number"

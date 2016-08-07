@@ -12,6 +12,7 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.connectlife.coreserver.Application;
 
@@ -27,6 +28,11 @@ public class ShellCmdRestoreFactoryConfig implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdRestoreFactoryConfig.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -36,7 +42,7 @@ public class ShellCmdRestoreFactoryConfig implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Restore the factory configurations of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - Restore the factory configurations of the system.\n");
 	 
 	/**
 	 * Get the shell command.
@@ -85,10 +91,10 @@ public class ShellCmdRestoreFactoryConfig implements ShellCmd {
 		m_logger.info(SHELL_CMD);
     	
     	if(Application.getApp().getConfig().RestoreFactory()){
-    		response = "Restore the factory configuration.";
+    		response = i18n.tr("Restore the factory configuration.");
     	}
     	else{
-    		response = "Error. Unable to restore factory configuration.";
+    		response = i18n.tr("Error. Unable to restore factory configuration.");
     	}
     	
     	return response;

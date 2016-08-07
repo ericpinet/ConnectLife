@@ -111,9 +111,9 @@ public class CmdRegisterAccessoryTest {
 		
 		try {
 			cmd.execute();
-			fail();
+			assertFalse(cmd.getAccessory().isRegister());
 		} catch (Exception e) {
-			assertNotNull(e);
+			fail();
 		}
 	}
 	

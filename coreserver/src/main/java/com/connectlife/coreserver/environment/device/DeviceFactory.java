@@ -19,8 +19,10 @@ import javax.jmdns.ServiceEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.simulator.device.ServiceDefinition;
+import com.connectlife.coreserver.Application;
 import com.google.gson.Gson;
 
 /**
@@ -36,6 +38,11 @@ public abstract class DeviceFactory {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(DeviceFactory.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Service application HTTP application.
@@ -84,24 +91,24 @@ public abstract class DeviceFactory {
 						ret_service = new DeviceJson(service_definition, _service.getInfo());
 					}
 					catch(Exception e){
-						m_logger.warn("Unable to manage this http service: " + urls[i]);
+						m_logger.warn(i18n.tr("Unable to manage this http service: ") + urls[i]);
 					}
 					
 				}// END for.
 			}
 			else if( _service.getInfo().getApplication().equals(_SERVICE_APPLICATION_AIRPLAY_) ){ // build the service object for AIR PLAY
-				m_logger.warn("Service application " +_service.getInfo().getApplication() + " not supported yet!");
+				m_logger.warn(i18n.tr("Service application ") +_service.getInfo().getApplication() + i18n.tr(" not supported yet!"));
 			}
 			else if( _service.getInfo().getApplication().equals(_SERVICE_APPLICATION_IPP_) ){ // build the service object for IPP (Print)
-				m_logger.warn("Service application " +_service.getInfo().getApplication() + " not supported yet!");
+				m_logger.warn(i18n.tr("Service application ") +_service.getInfo().getApplication() + i18n.tr(" not supported yet!"));
 			}
 			else{
-				throw new Exception("Service application " +_service.getInfo().getApplication() + " not supported yet!");
+				throw new Exception(i18n.tr("Service application ") +_service.getInfo().getApplication() + i18n.tr(" not supported yet!"));
 			}
 			
 		}
 		else{
-			throw new Exception("Service is null.");
+			throw new Exception(i18n.tr("Service is null."));
 		}
 		
 		return ret_service;
@@ -123,7 +130,7 @@ public abstract class DeviceFactory {
 			URL url = new URL(_url);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			if (conn.getResponseCode() != 200) {
-				throw new Exception("Failed : HTTP error code : " + conn.getResponseCode());
+				throw new Exception(i18n.tr("Failed : HTTP error code : ") + conn.getResponseCode());
 			}
 
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
@@ -139,9 +146,9 @@ public abstract class DeviceFactory {
 			ret_def = gson.fromJson(json, ServiceDefinition.class);
 
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new Exception(i18n.tr("Unable to build service information: ")+e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new Exception(i18n.tr("Unable to build service information: ")+e.getMessage());
 		}
 
 		return ret_def;

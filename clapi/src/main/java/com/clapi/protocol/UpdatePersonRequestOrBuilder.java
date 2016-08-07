@@ -50,16 +50,16 @@ public interface UpdatePersonRequestOrBuilder extends
       getLastnameBytes();
 
   /**
-   * <code>optional string imageurl = 4;</code>
+   * <code>optional string imageuid = 4;</code>
    */
-  boolean hasImageurl();
+  boolean hasImageuid();
   /**
-   * <code>optional string imageurl = 4;</code>
+   * <code>optional string imageuid = 4;</code>
    */
-  java.lang.String getImageurl();
+  java.lang.String getImageuid();
   /**
-   * <code>optional string imageurl = 4;</code>
+   * <code>optional string imageuid = 4;</code>
    */
   com.google.protobuf.ByteString
-      getImageurlBytes();
+      getImageuidBytes();
 }

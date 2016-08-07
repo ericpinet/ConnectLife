@@ -19,8 +19,10 @@ import javax.jmdns.ServiceEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Accessory.AccessoryProtocolType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.discover.DiscoveryListner;
 import com.connectlife.coreserver.environment.discover.DiscoveryService;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -38,6 +40,11 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(DeviceMngr.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Flag to indicate if the module is correctly initialized.
@@ -98,7 +105,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 		
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization in progress ...");
+		m_logger.info(i18n.tr("Initialization in progress ..."));
 		
 		if(false == m_isInit){
 
@@ -113,13 +120,13 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 				ret_val = m_isInit = true;
 			}
 			else{
-				m_logger.warn("No discovery manager set in the environment.");
+				m_logger.warn(i18n.tr("No discovery manager set in the environment."));
 			}
 			
-			m_logger.info("Initialization completed.");
+			m_logger.info(i18n.tr("Initialization completed."));
 		}
 		else{
-			m_logger.warn("Initialization already completed.");
+			m_logger.warn(i18n.tr("Initialization already completed."));
 		}
 		
 		return ret_val;
@@ -144,7 +151,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	@Override
 	public void unInit() {
 		
-		m_logger.info("UnInitialization in progress ...");
+		m_logger.info(i18n.tr("UnInitialization in progress ..."));
 		
 		if(true == m_isInit){
 		
@@ -162,10 +169,10 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			
 			m_isInit = false;
 			
-			m_logger.info("UnInitialization completed.");
+			m_logger.info(i18n.tr("UnInitialization completed."));
 		}
 		else{
-			m_logger.warn("Already unitialized.");
+			m_logger.warn(i18n.tr("Already unitialized."));
 		}
 	}
 	
@@ -176,7 +183,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	 */
 	@Override
 	public void forceSynchronizationOfAllDevices() {
-		// to force the synchronization of all devices, all devices set at unsynchronize.
+		// to force the synchronization of all devices, all devices set at unsynchronized.
 		Iterator<Device> it = m_devices.iterator();
 		while(it.hasNext()){
 			Device device = it.next();
@@ -251,7 +258,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 			
 		}
 		catch (Exception e){
-			m_logger.warn("Error in timer execution: "+e.getMessage());
+			m_logger.warn(i18n.tr("Error in timer execution: ")+e.getMessage());
 		}
 	}
 	

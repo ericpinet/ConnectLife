@@ -16,7 +16,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Address implements DataObj {
+public class Address extends DataObjDefault  implements DataObj {
 	
 	/**
 	 * Enum AddressType
@@ -99,6 +99,10 @@ public class Address implements DataObj {
 		this.uid = uid;
 		this.type = type;
 		this.street = street;
+		this.city = "";
+		this.region = "";
+		this.zipcode = "";
+		this.country = "";
 	}
 	
 	/**

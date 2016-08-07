@@ -13,11 +13,14 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Characteristic;
 import com.clapi.data.Characteristic.CharacteristicType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to change value of a characteristic for an Accessory.
@@ -31,6 +34,11 @@ public class CmdCharacteristicWrite extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdCharacteristicWrite.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Characteristic.
@@ -63,19 +71,10 @@ public class CmdCharacteristicWrite extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		// check if the characteristic isn't null
-		if( null == m_characteristic ) {
-			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
-			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
-		}
-		
-		// check if the characteristic target value isn't null
-		if( null == m_target_value ) {
-			m_logger.error("Error! It's not possible to update null characteristic in the environment.");
-			throw new Exception ("Error! It's not possible to update null characteristic in the environment.");
-		}
+		Preconditions.checkNotNull(m_characteristic, i18n.tr("Error! It's not possible to update null characteristic in the environment."));
+		Preconditions.checkNotNull(m_target_value, i18n.tr("Error! It's not possible to update characteristic with null target value in the environment."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -120,27 +119,31 @@ public class CmdCharacteristicWrite extends CmdDefault {
 							node.setProperty(Consts.CH_DATA, m_target_value.getDataFloat());
 						}
 						
+						// display info in log
+						m_logger.info(m_target_value.toString());
+						
 						// set the data change
 						this.m_data_is_changed = true;
 						
 					}
 					else {
-						m_logger.error("Characteristic target type was invalid. " + m_target_value.toString());
-						throw new Exception("Characteristic target type was invalid. " + m_target_value.toString());
+						m_logger.error(i18n.tr("Characteristic target type was invalid: ") + m_target_value.toString());
+						throw new Exception(i18n.tr("Characteristic target type was invalid: ") + m_target_value.toString());
 					}
 				}
 				else {
-					m_logger.error("Characteristic was read only.");
-					throw new Exception("Characteristic was read only.");
+					m_logger.error(i18n.tr("Characteristic was read only."));
+					throw new Exception(i18n.tr("Characteristic was read only."));
 				}
 			}
 			else {
-				m_logger.error("Characteristic not found. " + m_characteristic.toString());
-				throw new Exception("Characteristic not found. " + m_characteristic.toString());
+				m_logger.error(i18n.tr("Characteristic not found: ") + m_characteristic.toString());
+				throw new Exception(i18n.tr("Characteristic not found: ") + m_characteristic.toString());
 			}
 			
 			tx.success();
 		}
+		m_logger.info(i18n.tr("Execution completed."));
 	}
 	
 }

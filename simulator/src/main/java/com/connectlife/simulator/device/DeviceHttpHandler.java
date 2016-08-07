@@ -160,13 +160,16 @@ public class DeviceHttpHandler extends AbstractHandler {
 	 * @see org.eclipse.jetty.server.Handler#handle(java.lang.String, org.eclipse.jetty.server.Request, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public void handle(String _target, Request _baserequest, HttpServletRequest _request, HttpServletResponse _response)
+	public void handle(	String _target, 
+						Request _baserequest, 
+						HttpServletRequest _request, 
+						HttpServletResponse _response)
 			throws IOException, ServletException {
 		
         // process the request
 		processRequest(_target, _baserequest, _request, _response);
 		 
-        // create a string with json representation of the accessory device use to display available services.
+        // create a string with json representation of the result device use to display available services.
         Gson gson = new Gson();
 		String jsonresponse = gson.toJson(new ServiceDefinition(m_ip_address, m_hostname, m_listen_port, m_device.getAccessory()));
         

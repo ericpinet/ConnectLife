@@ -26,7 +26,7 @@ import com.clapi.data.Characteristic.CharacteristicType;
 import com.clapi.data.Service;
 
 /**
- * Base device for the simulation of accessory.
+ * Base device for the simulation of result.
  * Call the url of the device like this to change value of characteristic :
  * 
  * http://[hostname]:[port]/[service_name]/[characteristic_label]?value=[value]
@@ -99,52 +99,59 @@ public abstract class Device extends Accessory {
 	
 	/**
 	 * Start services of this device.
+	 * 
 	 * @return
 	 */
 	public boolean startServices(){
 		boolean ret_val = false;
 		
-		m_server = new Server(0);
-		m_handler = new DeviceHttpHandler(this);
-		m_server.setHandler(m_handler);
-
-        Thread thread = new Thread(new Runnable()
-        {
-        	public void run()
-        	{
-        		// this will be run in a separate thread
-        		try {
-        			
-        			// Start the handle for http request 
-        			m_server.start();
-        			
-        			m_logger.info("Service started : "+getLabel());
-        			
-        			// Update the connection information (At this point the tcp/port is reserved)
-        			m_handler.updateConnectionInformaiton();
-        			
-        			// Registrer the service for the Bonjour protocol discovery
-        			m_jmdns = JmDNS.create();
-        			m_serviceinfo = ServiceInfo.create(	"_http._tcp.local.", 
-        												getLabel(), 
-        												m_handler.getPort(), 
-        												getLabel()+" "+getSerialnumber()+" "+getManufacturer());
-        			m_jmdns.registerService(m_serviceinfo);
-        			
-        			m_logger.info("Service register : _http._tcp.local.:"+m_handler.getPort() + " "+getLabel()+" "+getManufacturer());
-        			
-        			// Ready to receive client request
-        			m_server.join();
-        			
-        		} catch (Exception e) {
-        			m_logger.error(e.getMessage());
-        			e.printStackTrace();
-        		}
-        	}
-        });
-
-        // start the thread
-        thread.start();
+		if (null == m_server) {
+		
+			m_server = new Server(0);
+			m_handler = new DeviceHttpHandler(this);
+			m_server.setHandler(m_handler);
+	
+	        Thread thread = new Thread(new Runnable()
+	        {
+	        	public void run()
+	        	{
+	        		// this will be run in a separate thread
+	        		try {
+	        			
+	        			// Start the handle for http request 
+	        			m_server.start();
+	        			
+	        			m_logger.info("Service started : "+getLabel());
+	        			
+	        			// Update the connection information (At this point the tcp/port is reserved)
+	        			m_handler.updateConnectionInformaiton();
+	        			
+	        			// Registrer the service for the Bonjour protocol discovery
+	        			m_jmdns = JmDNS.create();
+	        			m_serviceinfo = ServiceInfo.create(	"_http._tcp.local.", 
+	        												getLabel(), 
+	        												m_handler.getPort(), 
+	        												getLabel()+" "+getSerialnumber()+" "+getManufacturer());
+	        			m_jmdns.registerService(m_serviceinfo);
+	        			
+	        			m_logger.info("Service register : _http._tcp.local.:"+m_handler.getPort() + " "+getLabel()+" "+getManufacturer());
+	        			
+	        			// Ready to receive client request
+	        			m_server.join();
+	        			
+	        		} catch (Exception e) {
+	        			m_logger.error(e.getMessage());
+	        			e.printStackTrace();
+	        		}
+	        	}
+	        });
+	
+	        // start the thread
+	        thread.start();
+		}
+		else {
+			m_logger.warn("Service already started.");
+		}
 		
 		return ret_val;
 	}
@@ -155,11 +162,17 @@ public abstract class Device extends Accessory {
 	public void stopServices(){
 		try {
 			m_server.stop();
+			m_handler.stop();
 			m_jmdns.unregisterAllServices();
 			m_jmdns.close();
 		} catch (Exception e) {
 			m_logger.error(e.getMessage());
 			e.printStackTrace();
+		}
+		finally {
+			m_server = null;
+			m_handler = null;
+			m_jmdns = null;
 		}
 	}
 
@@ -171,7 +184,7 @@ public abstract class Device extends Accessory {
 	}
 	
 	/**
-	 * Return a accessory object representing this device.
+	 * Return a result object representing this device.
 	 * @return
 	 */
 	public Accessory getAccessory(){
@@ -185,6 +198,19 @@ public abstract class Device extends Accessory {
 								getImageurl(), 
 								getType(), 
 								getProtocoltype());
+	}
+	
+	/**
+	 * Return the URL of the service.
+	 * 
+	 * @return Url of the service.
+	 */
+	public String getUrl() {
+		String ret_val = "";
+		if (null != m_handler) {
+			ret_val = "http://" + m_handler.getHostname() + ":" + String.valueOf(m_handler.getPort());
+		}
+		return ret_val;
 	}
 	
 	/**

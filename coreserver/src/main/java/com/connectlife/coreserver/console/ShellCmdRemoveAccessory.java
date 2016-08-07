@@ -12,6 +12,9 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * Shell command for unregister accessory in the environment.
@@ -25,6 +28,11 @@ public class ShellCmdRemoveAccessory implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdRemoveAccessory.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -34,7 +42,7 @@ public class ShellCmdRemoveAccessory implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Remove accessory in the environment.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - Remove accessory in the environment.\n");
 	 
 	/**
 	 * Get the shell command.
@@ -82,7 +90,7 @@ public class ShellCmdRemoveAccessory implements ShellCmd {
 		
 		m_logger.info(SHELL_CMD);
 		
-		response = SHELL_CMD + " not supported yet!";
+		response = SHELL_CMD + i18n.tr(" not supported yet!");
     	
 		/*
     	// this section is to get the accessory and room from the arg.

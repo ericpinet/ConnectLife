@@ -165,6 +165,141 @@ public class CLApiGrpc {
               "clapi.CLApi", "deleteAddress"),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAddressRequest.getDefaultInstance()),
           io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAddressResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddHomeRequest,
+      com.clapi.protocol.AddHomeResponse> METHOD_ADD_HOME =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addHome"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddHomeRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddHomeResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateHomeRequest,
+      com.clapi.protocol.UpdateHomeResponse> METHOD_UPDATE_HOME =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateHome"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateHomeRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateHomeResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteHomeRequest,
+      com.clapi.protocol.DeleteHomeResponse> METHOD_DELETE_HOME =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteHome"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteHomeRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteHomeResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddZoneRequest,
+      com.clapi.protocol.AddZoneResponse> METHOD_ADD_ZONE =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addZone"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddZoneRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddZoneResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateZoneRequest,
+      com.clapi.protocol.UpdateZoneResponse> METHOD_UPDATE_ZONE =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateZone"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateZoneRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateZoneResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteZoneRequest,
+      com.clapi.protocol.DeleteZoneResponse> METHOD_DELETE_ZONE =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteZone"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteZoneRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteZoneResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddRoomRequest,
+      com.clapi.protocol.AddRoomResponse> METHOD_ADD_ROOM =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addRoom"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddRoomRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddRoomResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateRoomRequest,
+      com.clapi.protocol.UpdateRoomResponse> METHOD_UPDATE_ROOM =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateRoom"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateRoomRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateRoomResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteRoomRequest,
+      com.clapi.protocol.DeleteRoomResponse> METHOD_DELETE_ROOM =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteRoom"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteRoomRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteRoomResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddAccessoryRequest,
+      com.clapi.protocol.AddAccessoryResponse> METHOD_ADD_ACCESSORY =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addAccessory"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAccessoryRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAccessoryResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteAccessoryRequest,
+      com.clapi.protocol.DeleteAccessoryResponse> METHOD_DELETE_ACCESSORY =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteAccessory"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAccessoryResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.AddAssetRequest,
+      com.clapi.protocol.AddAssetResponse> METHOD_ADD_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "addAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.AddAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.UpdateAssetRequest,
+      com.clapi.protocol.UpdateAssetResponse> METHOD_UPDATE_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "updateAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.UpdateAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.DeleteAssetRequest,
+      com.clapi.protocol.DeleteAssetResponse> METHOD_DELETE_ASSET =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "deleteAsset"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssetRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.DeleteAssetResponse.getDefaultInstance()));
+  @io.grpc.ExperimentalApi
+  public static final io.grpc.MethodDescriptor<com.clapi.protocol.GetAssetUrlRequest,
+      com.clapi.protocol.GetAssetUrlResponse> METHOD_GET_ASSET_URL =
+      io.grpc.MethodDescriptor.create(
+          io.grpc.MethodDescriptor.MethodType.UNARY,
+          generateFullMethodName(
+              "clapi.CLApi", "getAssetUrl"),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssetUrlRequest.getDefaultInstance()),
+          io.grpc.protobuf.ProtoUtils.marshaller(com.clapi.protocol.GetAssetUrlResponse.getDefaultInstance()));
 
   public static CLApiStub newStub(io.grpc.Channel channel) {
     return new CLApiStub(channel);
@@ -229,6 +364,51 @@ public class CLApiGrpc {
 
     public void deleteAddress(com.clapi.protocol.DeleteAddressRequest request,
         io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAddressResponse> responseObserver);
+
+    public void addHome(com.clapi.protocol.AddHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddHomeResponse> responseObserver);
+
+    public void updateHome(com.clapi.protocol.UpdateHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateHomeResponse> responseObserver);
+
+    public void deleteHome(com.clapi.protocol.DeleteHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteHomeResponse> responseObserver);
+
+    public void addZone(com.clapi.protocol.AddZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddZoneResponse> responseObserver);
+
+    public void updateZone(com.clapi.protocol.UpdateZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateZoneResponse> responseObserver);
+
+    public void deleteZone(com.clapi.protocol.DeleteZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteZoneResponse> responseObserver);
+
+    public void addRoom(com.clapi.protocol.AddRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddRoomResponse> responseObserver);
+
+    public void updateRoom(com.clapi.protocol.UpdateRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateRoomResponse> responseObserver);
+
+    public void deleteRoom(com.clapi.protocol.DeleteRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteRoomResponse> responseObserver);
+
+    public void addAccessory(com.clapi.protocol.AddAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse> responseObserver);
+
+    public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver);
+
+    public void addAsset(com.clapi.protocol.AddAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse> responseObserver);
+
+    public void updateAsset(com.clapi.protocol.UpdateAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse> responseObserver);
+
+    public void deleteAsset(com.clapi.protocol.DeleteAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse> responseObserver);
+
+    public void getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse> responseObserver);
   }
 
   public static interface CLApiBlockingClient {
@@ -264,6 +444,36 @@ public class CLApiGrpc {
     public com.clapi.protocol.UpdateAddressResponse updateAddress(com.clapi.protocol.UpdateAddressRequest request);
 
     public com.clapi.protocol.DeleteAddressResponse deleteAddress(com.clapi.protocol.DeleteAddressRequest request);
+
+    public com.clapi.protocol.AddHomeResponse addHome(com.clapi.protocol.AddHomeRequest request);
+
+    public com.clapi.protocol.UpdateHomeResponse updateHome(com.clapi.protocol.UpdateHomeRequest request);
+
+    public com.clapi.protocol.DeleteHomeResponse deleteHome(com.clapi.protocol.DeleteHomeRequest request);
+
+    public com.clapi.protocol.AddZoneResponse addZone(com.clapi.protocol.AddZoneRequest request);
+
+    public com.clapi.protocol.UpdateZoneResponse updateZone(com.clapi.protocol.UpdateZoneRequest request);
+
+    public com.clapi.protocol.DeleteZoneResponse deleteZone(com.clapi.protocol.DeleteZoneRequest request);
+
+    public com.clapi.protocol.AddRoomResponse addRoom(com.clapi.protocol.AddRoomRequest request);
+
+    public com.clapi.protocol.UpdateRoomResponse updateRoom(com.clapi.protocol.UpdateRoomRequest request);
+
+    public com.clapi.protocol.DeleteRoomResponse deleteRoom(com.clapi.protocol.DeleteRoomRequest request);
+
+    public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request);
+
+    public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.clapi.protocol.AddAssetResponse addAsset(com.clapi.protocol.AddAssetRequest request);
+
+    public com.clapi.protocol.UpdateAssetResponse updateAsset(com.clapi.protocol.UpdateAssetRequest request);
+
+    public com.clapi.protocol.DeleteAssetResponse deleteAsset(com.clapi.protocol.DeleteAssetRequest request);
+
+    public com.clapi.protocol.GetAssetUrlResponse getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request);
   }
 
   public static interface CLApiFutureClient {
@@ -315,6 +525,51 @@ public class CLApiGrpc {
 
     public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAddressResponse> deleteAddress(
         com.clapi.protocol.DeleteAddressRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddHomeResponse> addHome(
+        com.clapi.protocol.AddHomeRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateHomeResponse> updateHome(
+        com.clapi.protocol.UpdateHomeRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteHomeResponse> deleteHome(
+        com.clapi.protocol.DeleteHomeRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddZoneResponse> addZone(
+        com.clapi.protocol.AddZoneRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateZoneResponse> updateZone(
+        com.clapi.protocol.UpdateZoneRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteZoneResponse> deleteZone(
+        com.clapi.protocol.DeleteZoneRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddRoomResponse> addRoom(
+        com.clapi.protocol.AddRoomRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateRoomResponse> updateRoom(
+        com.clapi.protocol.UpdateRoomRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteRoomResponse> deleteRoom(
+        com.clapi.protocol.DeleteRoomRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAccessoryResponse> addAccessory(
+        com.clapi.protocol.AddAccessoryRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
+        com.clapi.protocol.DeleteAccessoryRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssetResponse> addAsset(
+        com.clapi.protocol.AddAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssetResponse> updateAsset(
+        com.clapi.protocol.UpdateAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssetResponse> deleteAsset(
+        com.clapi.protocol.DeleteAssetRequest request);
+
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssetUrlResponse> getAssetUrl(
+        com.clapi.protocol.GetAssetUrlRequest request);
   }
 
   public static class CLApiStub extends io.grpc.stub.AbstractStub<CLApiStub>
@@ -445,6 +700,111 @@ public class CLApiGrpc {
       asyncUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request, responseObserver);
     }
+
+    @java.lang.Override
+    public void addHome(com.clapi.protocol.AddHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddHomeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_HOME, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateHome(com.clapi.protocol.UpdateHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateHomeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_HOME, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteHome(com.clapi.protocol.DeleteHomeRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteHomeResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_HOME, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void addZone(com.clapi.protocol.AddZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddZoneResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ZONE, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateZone(com.clapi.protocol.UpdateZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateZoneResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ZONE, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteZone(com.clapi.protocol.DeleteZoneRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteZoneResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ZONE, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void addRoom(com.clapi.protocol.AddRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddRoomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ROOM, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateRoom(com.clapi.protocol.UpdateRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateRoomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ROOM, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteRoom(com.clapi.protocol.DeleteRoomRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteRoomResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ROOM, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void addAccessory(com.clapi.protocol.AddAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void addAsset(com.clapi.protocol.AddAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void updateAsset(com.clapi.protocol.UpdateAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void deleteAsset(com.clapi.protocol.DeleteAssetRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request, responseObserver);
+    }
+
+    @java.lang.Override
+    public void getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request,
+        io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request, responseObserver);
+    }
   }
 
   public static class CLApiBlockingStub extends io.grpc.stub.AbstractStub<CLApiBlockingStub>
@@ -558,6 +918,96 @@ public class CLApiGrpc {
     public com.clapi.protocol.DeleteAddressResponse deleteAddress(com.clapi.protocol.DeleteAddressRequest request) {
       return blockingUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddHomeResponse addHome(com.clapi.protocol.AddHomeRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateHomeResponse updateHome(com.clapi.protocol.UpdateHomeRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteHomeResponse deleteHome(com.clapi.protocol.DeleteHomeRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddZoneResponse addZone(com.clapi.protocol.AddZoneRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateZoneResponse updateZone(com.clapi.protocol.UpdateZoneRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteZoneResponse deleteZone(com.clapi.protocol.DeleteZoneRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddRoomResponse addRoom(com.clapi.protocol.AddRoomRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateRoomResponse updateRoom(com.clapi.protocol.UpdateRoomRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteRoomResponse deleteRoom(com.clapi.protocol.DeleteRoomRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddAccessoryResponse addAccessory(com.clapi.protocol.AddAccessoryRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteAccessoryResponse deleteAccessory(com.clapi.protocol.DeleteAccessoryRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.AddAssetResponse addAsset(com.clapi.protocol.AddAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.UpdateAssetResponse updateAsset(com.clapi.protocol.UpdateAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.DeleteAssetResponse deleteAsset(com.clapi.protocol.DeleteAssetRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.clapi.protocol.GetAssetUrlResponse getAssetUrl(com.clapi.protocol.GetAssetUrlRequest request) {
+      return blockingUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request);
     }
   }
 
@@ -689,6 +1139,111 @@ public class CLApiGrpc {
       return futureUnaryCall(
           getChannel().newCall(METHOD_DELETE_ADDRESS, getCallOptions()), request);
     }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddHomeResponse> addHome(
+        com.clapi.protocol.AddHomeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateHomeResponse> updateHome(
+        com.clapi.protocol.UpdateHomeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteHomeResponse> deleteHome(
+        com.clapi.protocol.DeleteHomeRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_HOME, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddZoneResponse> addZone(
+        com.clapi.protocol.AddZoneRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateZoneResponse> updateZone(
+        com.clapi.protocol.UpdateZoneRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteZoneResponse> deleteZone(
+        com.clapi.protocol.DeleteZoneRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ZONE, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddRoomResponse> addRoom(
+        com.clapi.protocol.AddRoomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateRoomResponse> updateRoom(
+        com.clapi.protocol.UpdateRoomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteRoomResponse> deleteRoom(
+        com.clapi.protocol.DeleteRoomRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ROOM, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAccessoryResponse> addAccessory(
+        com.clapi.protocol.AddAccessoryRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAccessoryResponse> deleteAccessory(
+        com.clapi.protocol.DeleteAccessoryRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ACCESSORY, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.AddAssetResponse> addAsset(
+        com.clapi.protocol.AddAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_ADD_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.UpdateAssetResponse> updateAsset(
+        com.clapi.protocol.UpdateAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_UPDATE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.DeleteAssetResponse> deleteAsset(
+        com.clapi.protocol.DeleteAssetRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_DELETE_ASSET, getCallOptions()), request);
+    }
+
+    @java.lang.Override
+    public com.google.common.util.concurrent.ListenableFuture<com.clapi.protocol.GetAssetUrlResponse> getAssetUrl(
+        com.clapi.protocol.GetAssetUrlRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(METHOD_GET_ASSET_URL, getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_VERSION = 0;
@@ -707,6 +1262,21 @@ public class CLApiGrpc {
   private static final int METHODID_ADD_ADDRESS = 13;
   private static final int METHODID_UPDATE_ADDRESS = 14;
   private static final int METHODID_DELETE_ADDRESS = 15;
+  private static final int METHODID_ADD_HOME = 16;
+  private static final int METHODID_UPDATE_HOME = 17;
+  private static final int METHODID_DELETE_HOME = 18;
+  private static final int METHODID_ADD_ZONE = 19;
+  private static final int METHODID_UPDATE_ZONE = 20;
+  private static final int METHODID_DELETE_ZONE = 21;
+  private static final int METHODID_ADD_ROOM = 22;
+  private static final int METHODID_UPDATE_ROOM = 23;
+  private static final int METHODID_DELETE_ROOM = 24;
+  private static final int METHODID_ADD_ACCESSORY = 25;
+  private static final int METHODID_DELETE_ACCESSORY = 26;
+  private static final int METHODID_ADD_ASSET = 27;
+  private static final int METHODID_UPDATE_ASSET = 28;
+  private static final int METHODID_DELETE_ASSET = 29;
+  private static final int METHODID_GET_ASSET_URL = 30;
 
   private static class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -787,6 +1357,66 @@ public class CLApiGrpc {
         case METHODID_DELETE_ADDRESS:
           serviceImpl.deleteAddress((com.clapi.protocol.DeleteAddressRequest) request,
               (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAddressResponse>) responseObserver);
+          break;
+        case METHODID_ADD_HOME:
+          serviceImpl.addHome((com.clapi.protocol.AddHomeRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddHomeResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_HOME:
+          serviceImpl.updateHome((com.clapi.protocol.UpdateHomeRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateHomeResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_HOME:
+          serviceImpl.deleteHome((com.clapi.protocol.DeleteHomeRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteHomeResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ZONE:
+          serviceImpl.addZone((com.clapi.protocol.AddZoneRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddZoneResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ZONE:
+          serviceImpl.updateZone((com.clapi.protocol.UpdateZoneRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateZoneResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ZONE:
+          serviceImpl.deleteZone((com.clapi.protocol.DeleteZoneRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteZoneResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ROOM:
+          serviceImpl.addRoom((com.clapi.protocol.AddRoomRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddRoomResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ROOM:
+          serviceImpl.updateRoom((com.clapi.protocol.UpdateRoomRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateRoomResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ROOM:
+          serviceImpl.deleteRoom((com.clapi.protocol.DeleteRoomRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteRoomResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ACCESSORY:
+          serviceImpl.addAccessory((com.clapi.protocol.AddAccessoryRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddAccessoryResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ACCESSORY:
+          serviceImpl.deleteAccessory((com.clapi.protocol.DeleteAccessoryRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAccessoryResponse>) responseObserver);
+          break;
+        case METHODID_ADD_ASSET:
+          serviceImpl.addAsset((com.clapi.protocol.AddAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.AddAssetResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_ASSET:
+          serviceImpl.updateAsset((com.clapi.protocol.UpdateAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.UpdateAssetResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_ASSET:
+          serviceImpl.deleteAsset((com.clapi.protocol.DeleteAssetRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.DeleteAssetResponse>) responseObserver);
+          break;
+        case METHODID_GET_ASSET_URL:
+          serviceImpl.getAssetUrl((com.clapi.protocol.GetAssetUrlRequest) request,
+              (io.grpc.stub.StreamObserver<com.clapi.protocol.GetAssetUrlResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -918,6 +1548,111 @@ public class CLApiGrpc {
               com.clapi.protocol.DeleteAddressRequest,
               com.clapi.protocol.DeleteAddressResponse>(
                 serviceImpl, METHODID_DELETE_ADDRESS)))
+        .addMethod(
+          METHOD_ADD_HOME,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddHomeRequest,
+              com.clapi.protocol.AddHomeResponse>(
+                serviceImpl, METHODID_ADD_HOME)))
+        .addMethod(
+          METHOD_UPDATE_HOME,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateHomeRequest,
+              com.clapi.protocol.UpdateHomeResponse>(
+                serviceImpl, METHODID_UPDATE_HOME)))
+        .addMethod(
+          METHOD_DELETE_HOME,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteHomeRequest,
+              com.clapi.protocol.DeleteHomeResponse>(
+                serviceImpl, METHODID_DELETE_HOME)))
+        .addMethod(
+          METHOD_ADD_ZONE,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddZoneRequest,
+              com.clapi.protocol.AddZoneResponse>(
+                serviceImpl, METHODID_ADD_ZONE)))
+        .addMethod(
+          METHOD_UPDATE_ZONE,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateZoneRequest,
+              com.clapi.protocol.UpdateZoneResponse>(
+                serviceImpl, METHODID_UPDATE_ZONE)))
+        .addMethod(
+          METHOD_DELETE_ZONE,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteZoneRequest,
+              com.clapi.protocol.DeleteZoneResponse>(
+                serviceImpl, METHODID_DELETE_ZONE)))
+        .addMethod(
+          METHOD_ADD_ROOM,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddRoomRequest,
+              com.clapi.protocol.AddRoomResponse>(
+                serviceImpl, METHODID_ADD_ROOM)))
+        .addMethod(
+          METHOD_UPDATE_ROOM,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateRoomRequest,
+              com.clapi.protocol.UpdateRoomResponse>(
+                serviceImpl, METHODID_UPDATE_ROOM)))
+        .addMethod(
+          METHOD_DELETE_ROOM,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteRoomRequest,
+              com.clapi.protocol.DeleteRoomResponse>(
+                serviceImpl, METHODID_DELETE_ROOM)))
+        .addMethod(
+          METHOD_ADD_ACCESSORY,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddAccessoryRequest,
+              com.clapi.protocol.AddAccessoryResponse>(
+                serviceImpl, METHODID_ADD_ACCESSORY)))
+        .addMethod(
+          METHOD_DELETE_ACCESSORY,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteAccessoryRequest,
+              com.clapi.protocol.DeleteAccessoryResponse>(
+                serviceImpl, METHODID_DELETE_ACCESSORY)))
+        .addMethod(
+          METHOD_ADD_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.AddAssetRequest,
+              com.clapi.protocol.AddAssetResponse>(
+                serviceImpl, METHODID_ADD_ASSET)))
+        .addMethod(
+          METHOD_UPDATE_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.UpdateAssetRequest,
+              com.clapi.protocol.UpdateAssetResponse>(
+                serviceImpl, METHODID_UPDATE_ASSET)))
+        .addMethod(
+          METHOD_DELETE_ASSET,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.DeleteAssetRequest,
+              com.clapi.protocol.DeleteAssetResponse>(
+                serviceImpl, METHODID_DELETE_ASSET)))
+        .addMethod(
+          METHOD_GET_ASSET_URL,
+          asyncUnaryCall(
+            new MethodHandlers<
+              com.clapi.protocol.GetAssetUrlRequest,
+              com.clapi.protocol.GetAssetUrlResponse>(
+                serviceImpl, METHODID_GET_ASSET_URL)))
         .build();
   }
 }

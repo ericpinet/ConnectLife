@@ -17,12 +17,12 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
 import org.neo4j.graphdb.factory.GraphDatabaseSettings;
-import org.neo4j.kernel.internal.GraphDatabaseAPI;
 
 import com.clapi.data.Data;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.UIDGenerator;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -247,7 +247,7 @@ public class DataManagerNeo4j implements DataManager {
 			eric.setProperty(Consts.UID, UIDGenerator.getUID());
 			eric.setProperty(Consts.PERSON_FIRSTNAME, "Eric");
 			eric.setProperty(Consts.PERSON_LASTNAME, "Pinet");
-			eric.setProperty(Consts.PERSON_IMAGEURL, "");
+			eric.setProperty(Consts.PERSON_IMAGEUID, "");
 			
 			// MAIL1
 			Node mail11 = graph.createNode(Consts.LABEL_EMAIL);
@@ -288,8 +288,8 @@ public class DataManagerNeo4j implements DataManager {
 			Node address11 = graph.createNode(Consts.LABEL_ADDRESS);
 			address11.setProperty(Consts.UID, UIDGenerator.getUID());
 			address11.setProperty(Consts.ADDRESS_STREET, "2353 rue du cuir");
-			address11.setProperty(Consts.ADDRESS_CITY, "Québec");
-			address11.setProperty(Consts.ADDRESS_REGION, "Québec");
+			address11.setProperty(Consts.ADDRESS_CITY, "Quebec");
+			address11.setProperty(Consts.ADDRESS_REGION, "Quebec");
 			address11.setProperty(Consts.ADDRESS_ZIPCODE, "G3E 0G3");
 			address11.setProperty(Consts.ADDRESS_COUNTRY, "Canada");
 			address11.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);
@@ -299,13 +299,13 @@ public class DataManagerNeo4j implements DataManager {
 			Node home11 = graph.createNode(Consts.LABEL_HOME);
 			home11.setProperty(Consts.UID, UIDGenerator.getUID());
 			home11.setProperty(Consts.HOME_LABEL, "Home");
-			home11.setProperty(Consts.HOME_IMAGEURL, "");
+			home11.setProperty(Consts.HOME_IMAGEUID, "");
 			
 			// FIRST FLOOR
 			Node zone11 = graph.createNode(Consts.LABEL_ZONE);
 			zone11.setProperty(Consts.UID, UIDGenerator.getUID());
 			zone11.setProperty(Consts.ZONE_LABEL, "First floor");
-			zone11.setProperty(Consts.ZONE_IMAGEURL, "");
+			zone11.setProperty(Consts.ZONE_IMAGEUID, "");
 			
 			home11.createRelationshipTo(zone11, Consts.RelTypes.CONTAINS);
 			
@@ -313,11 +313,20 @@ public class DataManagerNeo4j implements DataManager {
 			Node room11 = graph.createNode(Consts.LABEL_ROOM);
 			room11.setProperty(Consts.UID, UIDGenerator.getUID());
 			room11.setProperty(Consts.ROOM_LABEL, "Leving room");
-			room11.setProperty(Consts.ROOM_IMAGEURL, "");
+			room11.setProperty(Consts.ROOM_IMAGEUID, "");
 			
 			zone11.createRelationshipTo(room11, Consts.RelTypes.CONTAINS);
 			
-			
+			// Create assets
+			String assets [][] = SystemFactoryAsset.AssetItems;
+			for (int i=0 ; i<assets.length ; i++) {
+				Node asset_home = graph.createNode(Consts.LABEL_ASSET);
+				asset_home.setProperty(Consts.UID, assets[i][SystemFactoryAsset.UID]);
+				asset_home.setProperty(Consts.ASSET_LABEL, assets[i][SystemFactoryAsset.LABEL]);
+				asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
+				asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
+			}
+
 			// LIGHT COLORED DIM
 			// ACCESSORY
 			/* Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);

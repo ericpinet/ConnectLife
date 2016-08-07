@@ -12,6 +12,7 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Room;
@@ -31,6 +32,11 @@ public class ShellCmdAddAccessory implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdAddAccessory.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -40,7 +46,7 @@ public class ShellCmdAddAccessory implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Add accessory in the environment.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - Add accessory in the environment.\n");
 	 
 	/**
 	 * Get the shell command.
@@ -97,7 +103,7 @@ public class ShellCmdAddAccessory implements ShellCmd {
     	
     	if((_line.length() < minLength) || (_line.charAt(SHELL_CMD.length()) != ' ') || (accessory_start_at + 1 >= accessory_end_at) || (accessory_end_at + 1 != room_start_at) || (room_start_at + 1 >= room_end_at) || (_line.length() != room_end_at + 1))
     	{
-    		response = "Format error! Please use format like : " + SHELL_CMD+" [accessory serial number][room uid]";
+    		response = i18n.tr("Format error! Please use format like : ") + SHELL_CMD+" [accessory serial number][room uid]";
     	}
     	else
     	{
@@ -121,7 +127,7 @@ public class ShellCmdAddAccessory implements ShellCmd {
     			
     			Application.getApp().getEnvironment().executeCommand(command);
     			
-				response = "Accessory added.";
+				response = i18n.tr("Accessory added.");
 				
 			} catch (Exception e) {
 				m_logger.error(e.getMessage());

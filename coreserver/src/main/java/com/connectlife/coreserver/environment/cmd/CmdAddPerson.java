@@ -12,10 +12,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Person;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
+import com.google.common.base.Preconditions;
 
 /**
  * Command to add a new person in the environment.
@@ -29,6 +32,11 @@ public class CmdAddPerson extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdAddPerson.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Person to add in the environment.
@@ -53,18 +61,10 @@ public class CmdAddPerson extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		// check the person to add in the environment
-		if( null == m_person ){
-			m_logger.error("Error! It's not possible to add null person in the environment.");
-			throw new Exception ("Error! It's not possible to add null person in the environment.");
-		}
-		
-		if( false == m_person.getUid().isEmpty() ){
-			m_logger.error("Error! It's not possible to add a person with a UID.");
-			throw new Exception ("Error! It's not possible to add a person with a UID.");
-		}
+		Preconditions.checkNotNull(m_person, i18n.tr("Error! It's not possible to add null person in the environment."));
+		Preconditions.checkArgument(m_person.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a person with a UID."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -78,12 +78,15 @@ public class CmdAddPerson extends CmdDefault {
 			// build person node
 			DataManagerNodeFactory.buildPersonNode(graph, m_person);
 			
+			// display info in log
+			m_logger.info(m_person.toString());
+			
 			// set the data change
 			this.m_data_is_changed = true;
 
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

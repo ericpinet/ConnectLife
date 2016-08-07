@@ -32,6 +32,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import com.clapi.data.Data;
 import com.clapi.data.Address;
 import com.clapi.data.Address.AddressType;
+import com.clapi.data.Asset;
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
 import com.clapi.data.Email;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Home;
@@ -93,7 +96,7 @@ public class DataManagerFactoryTest {
 	@Test
 	public void testprepareData() {
 		
-		PowerMockito.mockStatic(DataManagerFactory.class);
+		PowerMockito.spy(DataManagerFactory.class);
 		
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Transaction tx = Mockito.mock(Transaction.class);
@@ -103,10 +106,14 @@ public class DataManagerFactoryTest {
 		@SuppressWarnings("unchecked")
 		ResourceIterator<Node> ihomes = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		Node home = Mockito.mock(Node.class);
+		@SuppressWarnings("unchecked")
+		ResourceIterator<Node> iasserts = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
+		Node aassert = Mockito.mock(Node.class);
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSET)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(true,false);
 		Mockito.when(ipersons.next()).thenReturn(person);
@@ -114,10 +121,14 @@ public class DataManagerFactoryTest {
 		Mockito.when(ihomes.hasNext()).thenReturn(true,false);
 		Mockito.when(ihomes.next()).thenReturn(home);
 		
+		Mockito.when(iasserts.hasNext()).thenReturn(true,false);
+		Mockito.when(iasserts.next()).thenReturn(aassert);
+		
 		try {
-			PowerMockito.when(DataManagerFactory.buildPerson(graph, person)).thenReturn(new Person("123","eric"));
-			PowerMockito.when(DataManagerFactory.buildHome(graph, home)).thenReturn(new Home("123","home"));
-			PowerMockito.when(DataManagerFactory.prepareData(graph)).thenCallRealMethod();
+			PowerMockito.doReturn(new Person("123","eric")).when(DataManagerFactory.class, "buildPerson", graph, person);
+			PowerMockito.doReturn(new Home("123","home")).when(DataManagerFactory.class, "buildHome", graph, home);
+			PowerMockito.doReturn(new Asset("123","asset", null, null)).when(DataManagerFactory.class, "buildAsset", aassert);
+			
 		} catch (Exception e1) {
 			fail();
 		}
@@ -126,6 +137,7 @@ public class DataManagerFactoryTest {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==1);
 			assertTrue(data.getHomes().size()==1);
+			assertTrue(data.getAssets().size()==1);
 			PowerMockito.verifyStatic();
 			
 		} catch (Exception e) {
@@ -142,18 +154,23 @@ public class DataManagerFactoryTest {
 		ResourceIterator<Node> ipersons = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		@SuppressWarnings("unchecked")
 		ResourceIterator<Node> ihomes = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
+		@SuppressWarnings("unchecked")
+		ResourceIterator<Node> iasserts = (ResourceIterator<Node>) Mockito.mock(ResourceIterator.class);
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(graph.findNodes(Consts.LABEL_PERSON)).thenReturn(ipersons);
 		Mockito.when(graph.findNodes(Consts.LABEL_HOME)).thenReturn(ihomes);
+		Mockito.when(graph.findNodes(Consts.LABEL_ASSET)).thenReturn(iasserts);
 		
 		Mockito.when(ipersons.hasNext()).thenReturn(false);
 		Mockito.when(ihomes.hasNext()).thenReturn(false);
+		Mockito.when(iasserts.hasNext()).thenReturn(false);
 		
 		try {
 			Data data = DataManagerFactory.prepareData(graph);
 			assertTrue(data.getPersons().size()==0);
 			assertTrue(data.getHomes().size()==0);
+			assertTrue(data.getAssets().size()==0);
 			
 		} catch (Exception e) {
 			fail();
@@ -163,7 +180,7 @@ public class DataManagerFactoryTest {
 	@Test
 	public void testbuildPerson() {
 		
-		PowerMockito.mockStatic(DataManagerFactory.class);
+		PowerMockito.spy(DataManagerFactory.class);
 		
 		GraphDatabaseService graph = Mockito.mock(GraphDatabaseService.class);
 		Transaction tx = Mockito.mock(Transaction.class);
@@ -183,7 +200,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(person.getProperty(Consts.UID)).thenReturn("123");
 		Mockito.when(person.getProperty(Consts.PERSON_FIRSTNAME)).thenReturn("qiaomei");
 		Mockito.when(person.getProperty(Consts.PERSON_LASTNAME)).thenReturn("wang3");
-		Mockito.when(person.getProperty(Consts.PERSON_IMAGEURL)).thenReturn("123.html");
+		Mockito.when(person.getProperty(Consts.PERSON_IMAGEUID)).thenReturn("123.html");
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(person.getRelationships(Consts.RelTypes.CONTAINS)).thenReturn(relations);
@@ -205,11 +222,11 @@ public class DataManagerFactoryTest {
 		Mockito.when(address.hasLabel(Consts.LABEL_ADDRESS)).thenReturn(true);
 		
 		
-		try {
-			PowerMockito.when(DataManagerFactory.buildEmail(email)).thenReturn(new Email("","", EmailType.PERSONAL));
-			PowerMockito.when(DataManagerFactory.buildPhone(phone)).thenReturn(new Phone("","", PhoneType.HOME));
-			PowerMockito.when(DataManagerFactory.buildAddress(address)).thenReturn(new Address("", AddressType.HOME, ""));
-			PowerMockito.when(DataManagerFactory.buildPerson(graph, person)).thenCallRealMethod();
+		try {			
+			PowerMockito.doReturn(new Email("","", EmailType.PERSONAL)).when(DataManagerFactory.class, "buildEmail", email);
+			PowerMockito.doReturn(new Phone("","", PhoneType.HOME)).when(DataManagerFactory.class, "buildPhone", phone);
+			PowerMockito.doReturn(new Address("", AddressType.HOME, "")).when(DataManagerFactory.class, "buildAddress", address);
+			
 		} catch (Exception e1) {
 			fail();
 		}
@@ -245,7 +262,7 @@ public class DataManagerFactoryTest {
 		Mockito.when(person.getProperty(Consts.UID)).thenReturn("123");
 		Mockito.when(person.getProperty(Consts.PERSON_FIRSTNAME)).thenReturn("qiaomei");
 		Mockito.when(person.getProperty(Consts.PERSON_LASTNAME)).thenReturn("wang3");
-		Mockito.when(person.getProperty(Consts.PERSON_IMAGEURL)).thenReturn("123.html");
+		Mockito.when(person.getProperty(Consts.PERSON_IMAGEUID)).thenReturn("123.html");
 		
 		Mockito.when(graph.beginTx()).thenReturn(tx);
 		Mockito.when(person.getRelationships(Consts.RelTypes.CONTAINS)).thenReturn(relations);
@@ -426,6 +443,98 @@ public class DataManagerFactoryTest {
 		
 		try {
 			DataManagerFactory.buildPhone(phone);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssert() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn(Consts.ASSET_TYPE_IMAGE, Consts.ASSET_TYPE_FILE, Consts.ASSET_TYPE_FILE, Consts.ASSET_TYPE_OTHER);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn(Consts.ASSET_MODE_SYSTEM, Consts.ASSET_MODE_SYSTEM, Consts.ASSET_MODE_USER);
+		
+		for (int i=0 ; i<3 ; i++ ) {
+			try {
+				Asset aassert = DataManagerFactory.buildAsset(a_assert);
+				assertTrue(aassert.getUid().equals("12345"));
+				assertTrue(aassert.getLabel().equals("a assert"));
+				
+				if (i==0) {
+					assertTrue(aassert.getType().equals(AssetType.IMAGE));
+					assertTrue(aassert.getMode().equals(AssetMode.SYSTEM));
+				}
+				else if (i==1) {
+					assertTrue(aassert.getType().equals(AssetType.FILE));
+					assertTrue(aassert.getMode().equals(AssetMode.SYSTEM));
+				}
+				else if (i==2) {
+					assertTrue(aassert.getType().equals(AssetType.OTHER));
+					assertTrue(aassert.getMode().equals(AssetMode.USER));
+				}
+
+			} catch (Exception e) {
+				fail();
+			}
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException1() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(false);
+		
+		try {
+			DataManagerFactory.buildAsset(a_assert);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException2() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn("INVALID");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn(Consts.ASSET_MODE_SYSTEM);
+		
+		try {
+			DataManagerFactory.buildAsset(a_assert);
+			fail();
+			
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+	}
+	
+	@Test
+	public void testBuildAssertException3() {
+		
+		Node a_assert = Mockito.mock(Node.class);
+		
+		Mockito.when(a_assert.hasLabel(Consts.LABEL_ASSET)).thenReturn(true);
+		Mockito.when(a_assert.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_LABEL)).thenReturn("a assert");
+		Mockito.when(a_assert.getProperty(Consts.ASSET_TYPE)).thenReturn(Consts.ASSET_TYPE_IMAGE);
+		Mockito.when(a_assert.getProperty(Consts.ASSET_MODE)).thenReturn("INVALID");
+		
+		try {
+			DataManagerFactory.buildAsset(a_assert);
 			fail();
 			
 		} catch (Exception e) {

@@ -16,7 +16,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Email implements DataObj {
+public class Email extends DataObjDefault implements DataObj {
 	
 	/**
 	 * Enum EmailType

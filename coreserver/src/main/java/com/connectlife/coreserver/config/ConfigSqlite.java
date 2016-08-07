@@ -19,7 +19,10 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.parboiled.common.Preconditions;
+import org.xnap.commons.i18n.I18n;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.config.DatabaseStructure;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
@@ -38,6 +41,11 @@ public class ConfigSqlite implements Config {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(ConfigSqlite.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Path of the database from the application base path.
@@ -71,6 +79,7 @@ public class ConfigSqlite implements Config {
 	
 	/**
 	 * Default ConfigSqlite constructor.
+	 * 
 	 * @param _setting Settings at use in this ConfigSqlite.
 	 */
 	@Inject
@@ -91,15 +100,15 @@ public class ConfigSqlite implements Config {
 	public boolean init(){
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization in progress ...");
+		m_logger.info(i18n.tr("Initialization in progress ..."));
 		
 		m_isInit = ret_val = prepareDatabase();
 	    
 	    // return the right message if succeed or failed.
 		if( true==ret_val )
-			m_logger.info("Initialization completed.");
+			m_logger.info(i18n.tr("Initialization completed."));
 		else
-			m_logger.error("Initialization failed.");
+			m_logger.error(i18n.tr("Initialization failed."));
 		
 		return ret_val;
 	}
@@ -116,19 +125,19 @@ public class ConfigSqlite implements Config {
 	 */
 	public void unInit() {
 		
-		m_logger.info("UnInitialization in progress ...");
+		m_logger.info(i18n.tr("UnInitialization in progress ..."));
 		
 		if(null != m_connection){
 			try {
 				m_connection.close();
 			} catch (SQLException e) {
-				m_logger.error("Unable to close connection. "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to close connection: ")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		
-		m_logger.info("UnInitialization completed.");
+		m_logger.info(i18n.tr("UnInitialization completed."));
 	}
 	
 	/**
@@ -141,6 +150,9 @@ public class ConfigSqlite implements Config {
 	public ConfigItem getConfig(String _section, String _item){
 		ConfigItem ret_config = null;
 		Statement statement = null;
+		
+		Preconditions.checkNotNull(_section);
+		Preconditions.checkNotNull(_item);
 		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
@@ -167,18 +179,18 @@ public class ConfigSqlite implements Config {
 						ret_config = new ConfigItem(section, item, Integer.parseInt(value));
 					}
 					else {
-						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+						m_logger.error(i18n.tr("Unable to get config from database. Invalid type (")+ type +i18n.tr(") or section (")+ section +i18n.tr(") and item (")+ item +i18n.tr(") invalid."));
 					}
 				}
 				
 			} catch (SQLException e) {
-				m_logger.error("Unable to retrive configuration. "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to retrive configuration: ")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to retrive config from database, the connection is not ready.");
+			m_logger.error(i18n.tr("Unable to retrive config from database, the connection is not ready."));
 		}
 		
 		return ret_config;
@@ -216,19 +228,19 @@ public class ConfigSqlite implements Config {
 						config = new ConfigItem(section, item, Integer.parseInt(value));
 					}
 					else {
-						m_logger.error("Unable to get config from database. Invalid type ("+ type +") or section ("+ section +") and item ("+ item +") invalid.");
+						m_logger.error(i18n.tr("Unable to get config from database. Invalid type (")+ type +i18n.tr(") or section (")+ section +i18n.tr(") and item (")+ item +i18n.tr(") invalid."));
 					}
 					ret_configs.add(config);
 				}
 				
 			} catch (SQLException e) {
-				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to retrive configurations: ")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+			m_logger.error(i18n.tr("Unable to retrive configs from database, the connection is not ready."));
 		}
 		
 		return ret_configs;
@@ -244,6 +256,8 @@ public class ConfigSqlite implements Config {
 		Statement statement = null;
 		boolean ret = false;
 		
+		Preconditions.checkNotNull(_object);
+		
 		// check if connection is ready to get config.
 		if(true == m_isInit &&
 		   null != m_connection	){
@@ -257,13 +271,13 @@ public class ConfigSqlite implements Config {
 				ret = true;
 				
 			} catch (SQLException e) {
-				m_logger.error("Unable to retrive configurations. "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to retrive configurations: "+e.getMessage()));
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to retrive configs from database, the connection is not ready.");
+			m_logger.error(i18n.tr("Unable to retrive configs from database, the connection is not ready."));
 		}
 		
 		return ret;
@@ -289,11 +303,11 @@ public class ConfigSqlite implements Config {
 			directory.mkdirs();
 			
 			// create a database connection
-			m_logger.info("Load database file '"+DATABASE_PATH+"/"+DATABASE_FILE+"'");
+			m_logger.info(i18n.tr("Load database file") +" '"+DATABASE_PATH+"/"+DATABASE_FILE+"'");
 			m_connection = DriverManager.getConnection("jdbc:sqlite:"+DATABASE_PATH+"/"+DATABASE_FILE);
 			
 			// setup timeout for query
-			m_logger.info("Set database default timeout '"+DATABASE_TIMEOUT+"'");
+			m_logger.info(i18n.tr("Set database default timeout") + " '"+DATABASE_TIMEOUT+"'");
 			statement = m_connection.createStatement();
 			statement.setQueryTimeout(DATABASE_TIMEOUT);
 			
@@ -308,14 +322,14 @@ public class ConfigSqlite implements Config {
 					if( true == version_number.equalsIgnoreCase(DatabaseStructure.VERSION) ){
 						need_to_recreate_database = false;
 						ret_val = true;
-						m_logger.info("Database version "+ DatabaseStructure.VERSION +" is good.");
+						m_logger.info(i18n.tr("Database version ")+ DatabaseStructure.VERSION +i18n.tr(" is good."));
 					}
 					else{
-						m_logger.warn("Database version isn't the right version. Database must be rebuild.");
+						m_logger.warn(i18n.tr("Database version isn't the right version. Database must be rebuild."));
 					}
 				}
 			}catch (SQLException e) {
-				m_logger.warn("Unable to load the configuration database version. Database must be rebuild.");
+				m_logger.warn(i18n.tr("Unable to load the configuration database version. Database must be rebuild."));
 			}
 			
 			// if version not the same
@@ -324,20 +338,20 @@ public class ConfigSqlite implements Config {
 				
 				// drop all tables
 				for( int i=0 ; i<DatabaseStructure.DROP_TABLES.length ; i++){
-					m_logger.warn("Execute statement: "+DatabaseStructure.DROP_TABLES[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+DatabaseStructure.DROP_TABLES[i]);
 					statement.executeUpdate(DatabaseStructure.DROP_TABLES[i]);
 				}
 				
 				// create all tables
 				for( int i=0 ; i<DatabaseStructure.CREATE_TABLES.length ; i++){
-					m_logger.warn("Execute statement: "+DatabaseStructure.CREATE_TABLES[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+DatabaseStructure.CREATE_TABLES[i]);
 					statement.executeUpdate(DatabaseStructure.CREATE_TABLES[i]);
 				}
 				
 				// create default data in all tables
 				String [] datas = DatabaseStructure.CREATE_DATA();
 				for( int i=0 ; i<datas.length ; i++){
-					m_logger.warn("Execute statement: "+datas[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+datas[i]);
 					statement.executeUpdate(datas[i]);
 				}
 			}
@@ -345,11 +359,11 @@ public class ConfigSqlite implements Config {
 			ret_val = true;
 			
 		} catch (ClassNotFoundException e) {
-			m_logger.error("Unable to prepare database. "+e.getMessage());
+			m_logger.error(i18n.tr("Unable to prepare database: ")+e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		} catch (SQLException e) {
-			m_logger.error("Unable to prepare database. "+e.getMessage());
+			m_logger.error(i18n.tr("Unable to prepare database: ")+e.getMessage());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -359,7 +373,7 @@ public class ConfigSqlite implements Config {
 		    		statement.close();
 	    	}
 	    	catch(SQLException e){
-	    		m_logger.error("Unable to close database statement. "+e.getMessage());
+	    		m_logger.error(i18n.tr("Unable to close database statement: ")+e.getMessage());
 	    		StdOutErrLog.tieSystemOutAndErrToLog();
 	    		e.printStackTrace();
 	    	}
@@ -387,32 +401,32 @@ public class ConfigSqlite implements Config {
 				
 				// drop all tables
 				for( int i=0 ; i<DatabaseStructure.DROP_TABLES.length ; i++){
-					m_logger.warn("Execute statement: "+DatabaseStructure.DROP_TABLES[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+DatabaseStructure.DROP_TABLES[i]);
 					statement.executeUpdate(DatabaseStructure.DROP_TABLES[i]);
 				}
 				
 				// create all tables
 				for( int i=0 ; i<DatabaseStructure.CREATE_TABLES.length ; i++){
-					m_logger.warn("Execute statement: "+DatabaseStructure.CREATE_TABLES[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+DatabaseStructure.CREATE_TABLES[i]);
 					statement.executeUpdate(DatabaseStructure.CREATE_TABLES[i]);
 				}
 				
 				// create default data in all tables
 				String [] datas = DatabaseStructure.CREATE_DATA();
 				for( int i=0 ; i<datas.length ; i++){
-					m_logger.warn("Execute statement: "+datas[i]);
+					m_logger.warn(i18n.tr("Execute statement: ")+datas[i]);
 					statement.executeUpdate(datas[i]);
 				}
 				ret = true;
 				
 			} catch (SQLException e) {
-				m_logger.error("Unable to restore factory configurations. "+e.getMessage());
+				m_logger.error(i18n.tr("Unable to restore factory configurations: ")+e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
 			}
 		}
 		else{
-			m_logger.error("Unable to  restore factory, the connection is not ready.");
+			m_logger.error(i18n.tr("Unable to  restore factory, the connection is not ready."));
 		}
 		
 		return ret;

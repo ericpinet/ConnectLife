@@ -16,7 +16,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Phone implements DataObj {
+public class Phone extends DataObjDefault implements DataObj {
 	
 	/**
 	 * Enum PhoneType

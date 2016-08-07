@@ -19,7 +19,7 @@ import com.rits.cloning.Cloner;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Accessory implements DataObj {
+public class Accessory extends DataObjDefault implements DataObj {
 
 	/**
 	 * Enum AccessoryType

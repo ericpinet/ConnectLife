@@ -12,6 +12,7 @@ import org.apache.sshd.common.Factory;
 import org.apache.sshd.server.Command;
 import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
+import org.xnap.commons.i18n.I18n;
 
 import jline.console.ConsoleReader;
 import jline.console.completer.StringsCompleter;
@@ -28,6 +29,7 @@ import java.util.Vector;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 
 /**
@@ -61,6 +63,11 @@ public class InAppShellFactory implements Factory {
     	 * Logger for the shell
     	 */
         private static final Logger m_logger = LogManager.getLogger(InAppShell.class);
+        
+        /**
+    	 * Initialization of translation system.
+    	 */
+    	private static I18n i18n = Application.i18n;
 
         /**
          * Use to check the OS for a fix.
@@ -220,9 +227,7 @@ public class InAppShellFactory implements Factory {
                 m_reader.addCompleter(new StringsCompleter(params));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
-                m_writer.println("****************************************************");
-                m_writer.println("*        Welcome to ConnectLife Shell              *");
-                m_writer.println("****************************************************");
+                m_writer.println(i18n.tr("- Welcome to ConnectLife Shell -"));
                 m_writer.flush();
 
                 String line;
@@ -233,7 +238,7 @@ public class InAppShellFactory implements Factory {
             } catch (InterruptedIOException e) {
             	// do nothing, the user quit the console.
             } catch (Exception e) {
-                m_logger.error("Error executing shell...", e);
+                m_logger.error(i18n.tr("Error executing shell..."), e);
     			StdOutErrLog.tieSystemOutAndErrToLog();
     			e.printStackTrace();
             } finally {
@@ -264,7 +269,7 @@ public class InAppShellFactory implements Factory {
 
             if(false == cmd_executed){
             	// UNKNOW CMD
-                response = "Command not found: \"" + _line + "\"";
+                response = i18n.tr("Command not found:") +" \"" + _line + "\"";
             }
             
             m_writer.println(response);

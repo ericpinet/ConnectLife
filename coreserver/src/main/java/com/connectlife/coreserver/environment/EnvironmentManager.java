@@ -10,11 +10,14 @@ package com.connectlife.coreserver.environment;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.google.inject.Inject;
 
 import java.util.Observable;
 
+import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.cmd.Cmd;
 import com.connectlife.coreserver.environment.data.DataManager;
 import com.connectlife.coreserver.environment.device.DeviceManager;
@@ -36,6 +39,11 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	private static Logger m_logger = LogManager.getLogger(EnvironmentManager.class);
 	
 	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
+	
+	/**
 	 * Flag to indicate if the module is correctly initialized.
 	 */
 	private boolean m_isInit;
@@ -51,15 +59,22 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	private DataManager m_data_manager;
 	
 	/**
+	 * Asset manager for manage file in the environment data.
+	 */
+	private AssetManager m_asset_manager;
+	
+	/**
 	 * Default constructor of the environment.
 	 * 
 	 * @param _datamngr DataManager at use in this Environment.
-	 * @param _devicemngr DeviceManager at use in this Environment. 
+	 * @param _devicemngr DeviceManager at use in this Environment.
+	 * @param _assetmngr AssetManager at use in this Environment. 
 	 */
 	@Inject
-	public EnvironmentManager(DataManager _datamngr, DeviceManager _devicemngr){
+	public EnvironmentManager(DataManager _datamngr, DeviceManager _devicemngr, AssetManager _assetmngr){
 		m_data_manager = _datamngr;
 		m_device_manager = _devicemngr;
+		m_asset_manager = _assetmngr;
 		m_isInit = false;
 	}
 	
@@ -71,7 +86,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	public boolean init(){
 		boolean ret_val = false;
 		
-		m_logger.info("Initialization in progress ...");
+		m_logger.info(i18n.tr("Initialization in progress ..."));
 	
 		// check if environment directory exist and load if exist
 		if( true == m_data_manager.checkEnvironmentExist() ) {
@@ -80,16 +95,16 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 			if( true == m_data_manager.init() ){
 				// loading completed with success.
 				ret_val = m_isInit = true;
-				m_logger.info("Environment loaded.");
+				m_logger.info(i18n.tr("Environment loaded."));
 			}
 			else{
 				// loading failed. 
-				m_logger.error("Environment load failed!");
+				m_logger.error(i18n.tr("Environment load failed!"));
 			}
 		}
 		else{
 			// create the initial environment
-			m_logger.info("No environment file exist. Create the base environment.");
+			m_logger.info(i18n.tr("No environment file exist. Create the base environment."));
 
 			try {
 				m_data_manager.generateBaseEnvironnment();
@@ -98,15 +113,15 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 					
 					// loading completed with success.
 					ret_val = m_isInit = true;
-					m_logger.info("Environment loaded.");
+					m_logger.info(i18n.tr("Environment loaded."));
 				}
 				else{
 					// loading failed. 
-					m_logger.error("Environment load failed!");
+					m_logger.error(i18n.tr("Environment load failed!"));
 				}
 				
 			} catch (Exception e) {
-				m_logger.error("Unable to create base environment.");
+				m_logger.error(i18n.tr("Unable to create base environment."));
 				m_logger.error(e.getMessage());
 				StdOutErrLog.tieSystemOutAndErrToLog();
 				e.printStackTrace();
@@ -114,21 +129,12 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 		}
 		
 		// Init the device manager if all is start correctly.
-		if(true == ret_val){
-			ret_val = m_device_manager.init();
-			
-			if(true == ret_val){
-				m_logger.info("Initialization completed.");
-			}
-			else{
-				m_logger.error("Unable to init the service manager of this environment. Environment initialization failed.");
-			}
+		if (m_device_manager.init() && m_asset_manager.init()) {
+			m_logger.info(i18n.tr("Initialization completed."));
 		}
 		else{
-			m_logger.error("Unable to init the environment.");
+			m_logger.error(i18n.tr("Unable to init the environment."));
 		}
-	
-
 		return ret_val;
 	}
 
@@ -144,7 +150,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 */
 	public void unInit() {
 		
-		m_logger.info("UnInitialization in progress ...");
+		m_logger.info(i18n.tr("UnInitialization in progress ..."));
 		
 		if (null != m_data_manager) {
 			m_data_manager.unInit();
@@ -153,8 +159,12 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 		if (null != m_device_manager) {
 			m_device_manager.unInit();
 		}
+		
+		if (null != m_asset_manager) {
+			m_asset_manager.unInit();
+		}
 
-		m_logger.info("UnInitialization completed.");
+		m_logger.info(i18n.tr("UnInitialization completed."));
 	}
 	
 	/**
@@ -162,7 +172,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 * 
 	 * @return The device manager of the environment.
 	 */
-	public DeviceManager getDeviceManager(){
+	public DeviceManager getDeviceManager() {
 		return m_device_manager;
 	}
 	
@@ -171,8 +181,12 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	 * 
 	 * @return The data manager of the environment.
 	 */
-	public DataManager getDataManager(){
+	public DataManager getDataManager() {
 		return m_data_manager;
+	}
+	
+	public AssetManager getAssetManager() {
+		return m_asset_manager;
 	}
 	
 	/**
