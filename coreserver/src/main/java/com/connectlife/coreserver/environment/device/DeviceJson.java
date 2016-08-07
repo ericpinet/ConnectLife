@@ -12,6 +12,7 @@ import javax.jmdns.ServiceInfo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Accessory;
 import com.clapi.simulator.device.ServiceDefinition;
@@ -34,6 +35,11 @@ public class DeviceJson implements Device {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(DeviceJson.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Service definition of the service.
@@ -158,14 +164,14 @@ public class DeviceJson implements Device {
 				// Update the service definition with the UID.
 				ret_val = m_isRegister = true;
 				m_service_definition.setAccessory(accessory);
-				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" register.");
+				m_logger.info(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" register."));
 			}
 			else {
-				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not setup in the application environment.");
+				m_logger.info(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" cannot be register. It's not setup in the application environment."));
 			}
 		}
 		else {
-			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
+			m_logger.warn(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" is already synchronized with the application environment."));
 		}
 		
 		return ret_val;
@@ -206,16 +212,16 @@ public class DeviceJson implements Device {
 				m_isRegister = false;
 				ret_val = true;
 				
-				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" unregister.");
+				m_logger.info(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" unregister."));
 				
 			}
 			else{
-				m_logger.info("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" cannot be register. It's not setup in the application environment.");
+				m_logger.info(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" cannot be register. It's not setup in the application environment."));
 			}
 			
 		}
 		else{
-			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" is already synchronized with the application environment.");
+			m_logger.warn(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" is already synchronized with the application environment."));
 		}
 		
 		return ret_val;
@@ -245,7 +251,7 @@ public class DeviceJson implements Device {
 			}
 		}
 		else{
-			m_logger.warn("Device "+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +" unable to update environment for a not register device.");
+			m_logger.warn(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" unable to update environment for a not register device."));
 		}
 		
 		return ret_val;
@@ -280,12 +286,12 @@ public class DeviceJson implements Device {
 					
 					if (ret_val) {
 						m_service_definition.setAccessory(device.getAccessory()); // update accessory information
-						m_logger.debug(this.getAccessory().getLabel() + " - Characteristic updated.");
+						m_logger.debug(this.getAccessory().getLabel() + i18n.tr(" - Characteristic updated."));
 					}
 				}
 				catch (Exception e){
 					m_isRegister = false;
-					m_logger.warn("Unable to manage this http service: " + urls[i]);
+					m_logger.warn(i18n.tr("Unable to manage this http service: ") + urls[i]);
 				}
 				
 			}// END for.

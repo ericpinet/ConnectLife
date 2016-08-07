@@ -24,6 +24,10 @@ See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.git
 
 - N/A
 
+## Translation
+
+- [PoEditor] (https://poeditor.com/join/project/GQRWqACDD2)
+
 ## Author
 
 - Eric Pinet, pineri01@gmail.com

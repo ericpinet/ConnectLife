@@ -13,8 +13,10 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Home;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.api.client.util.Preconditions;
@@ -31,6 +33,11 @@ public class CmdUpdateHome extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdUpdateHome.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Home to update in the environment.
@@ -55,9 +62,9 @@ public class CmdUpdateHome extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_home, "Error! It's not possible to update null home in the environment.");
+		Preconditions.checkNotNull(m_home, i18n.tr("Error! It's not possible to update null home in the environment."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -82,14 +89,14 @@ public class CmdUpdateHome extends CmdDefault {
 				
 			}
 			else {
-				m_logger.error("Home not found. " + m_home.toString());
-				throw new Exception("Home not found. " + m_home.toString());
+				m_logger.error(i18n.tr("Home not found: ") + m_home.toString());
+				throw new Exception(i18n.tr("Home not found: ") + m_home.toString());
 			}
 			
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}
 	
 	/**

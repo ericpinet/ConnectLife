@@ -12,7 +12,9 @@ import java.io.InterruptedIOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 
 /**
@@ -27,6 +29,11 @@ public class ShellCmdVersion implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdVersion.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -36,7 +43,7 @@ public class ShellCmdVersion implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - return the version of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - return the version of the system.\n");
 	 
 	/**
 	 * Get the shell command.

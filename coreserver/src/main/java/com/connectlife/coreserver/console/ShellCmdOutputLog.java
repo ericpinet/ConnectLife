@@ -16,6 +16,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * Shell command for output log of the application.
@@ -29,6 +32,11 @@ public class ShellCmdOutputLog implements ShellCmd {
 	 * Logger for the shell
 	 */
     private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputLog.class);
+    
+    /**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 
 	/**
 	 * Shell command.
@@ -38,7 +46,7 @@ public class ShellCmdOutputLog implements ShellCmd {
 	/**
 	 * Shell help string.
 	 */
-	private static final String SHELL_CMD_HELP = SHELL_CMD + " - Output the log of the system.\n";
+	private static final String SHELL_CMD_HELP = SHELL_CMD + i18n.tr(" - Output the log of the system.\n");
 	 
 	/**
 	 * Get the shell command.

@@ -19,8 +19,7 @@ import static com.connectlife.coreserver.ApplicationStateMachine.States.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-// internal
+import org.xnap.commons.i18n.I18n;
 
 /**
  * 
@@ -33,7 +32,12 @@ public class ApplicationStateMachine {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(Application.class);
+	private static Logger m_logger = LogManager.getLogger(ApplicationStateMachine.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Flow Context for the state machine.
@@ -87,7 +91,7 @@ public class ApplicationStateMachine {
 	 * State machine started in different thread.
 	 */
 	private void startFlow() {
-		m_logger.info("State machine starting ...");
+		m_logger.info(i18n.tr("State machine starting ..."));
         m_flow.start(new FlowContext());
     }
 	

@@ -10,8 +10,10 @@ package com.connectlife.coreserver.environment.cmd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Asset;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.google.api.client.util.Preconditions;
 
@@ -27,6 +29,11 @@ public class CmdGetAssetUrl extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdGetAssetUrl.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Asset to add in the environment.
@@ -57,10 +64,10 @@ public class CmdGetAssetUrl extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_asset, "Error! It's not possible to update null asset in the environment.");
-		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), "Error! It's not possible to update a asset with a UID.");
+		Preconditions.checkNotNull(m_asset, i18n.tr("Error! It's not possible to get url of null asset in the environment."));
+		Preconditions.checkArgument(false == m_asset.getUid().isEmpty(), i18n.tr("Error! It's not possible to get url of asset with a empty UID."));
 		
 		// get the asset manager
 		AssetManager asset_manager = m_context.getAssetManager();
@@ -69,9 +76,9 @@ public class CmdGetAssetUrl extends CmdDefault {
 		m_url = asset_manager.getAssetUrl(m_asset);
 		
 		// display info in log
-		m_logger.info(m_asset.toString() + "\nUrl:" + m_url);
+		m_logger.info(m_asset.toString() + i18n.tr("\nUrl:") + m_url);
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 	
 	/**

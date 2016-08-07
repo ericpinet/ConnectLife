@@ -46,8 +46,8 @@ public class CreateTestData {
 		eric.addPhones(new Phone("1.4", "418 998-2481", PhoneType.CELL));
 		eric.addPhones(new Phone("1.5", "418 548-1684", PhoneType.OTHER));
 		Address ericadd = new Address("1.6", AddressType.HOME, "2353 rue du cuir");
-		ericadd.setCity("Québec");
-		ericadd.setRegion("Québec");
+		ericadd.setCity("Quebec");
+		ericadd.setRegion("Quebec");
 		ericadd.setZipcode("G3E0G3");
 		ericadd.setCountry("Canada");
 		eric.addAddress(ericadd);
@@ -60,8 +60,8 @@ public class CreateTestData {
 		qiaomei.addPhones(new Phone("2.3", "438 348-1699", PhoneType.CELL));
 		
 		Address qiaomeiadd = new Address("2.4", AddressType.HOME, "2353 rue du cuir");
-		qiaomeiadd.setCity("Québec");
-		qiaomeiadd.setRegion("Québec");
+		qiaomeiadd.setCity("Quebec");
+		qiaomeiadd.setRegion("Quebec");
 		qiaomeiadd.setZipcode("G3E0G3");
 		qiaomeiadd.setCountry("Canada");
 		qiaomei.addAddress(qiaomeiadd);

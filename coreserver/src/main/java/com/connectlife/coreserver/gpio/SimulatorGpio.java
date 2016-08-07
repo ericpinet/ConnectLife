@@ -10,6 +10,9 @@ package com.connectlife.coreserver.gpio;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
 
 /**
  * SimulatorGpio controller. This class simulate the access of the GPIO on Raspberry PI.
@@ -24,6 +27,14 @@ public class SimulatorGpio implements Gpio {
 	 */
 	private final Logger m_logger = LogManager.getLogger(SimulatorGpio.class);
 	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
+	
+	/**
+	 * Is initialized
+	 */
 	private boolean m_isInit;
 
 	/**
@@ -34,7 +45,7 @@ public class SimulatorGpio implements Gpio {
 	public boolean init() {
 		
 		// Init the simulation of GPIO
-		m_logger.info("Simulation of the GPIO.");
+		m_logger.info(i18n.tr("Simulation of the GPIO."));
 		
 		return m_isInit = true;
 	}

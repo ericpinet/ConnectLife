@@ -12,8 +12,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Home;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.common.base.Preconditions;
@@ -30,6 +32,11 @@ public class CmdAddHome extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdAddHome.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Home to add in the environment.
@@ -54,10 +61,10 @@ public class CmdAddHome extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_home, "Error! It's not possible to add null home in the environment.");
-		Preconditions.checkArgument(m_home.getUid().isEmpty(), "Error! It's not possible to add a home with a UID.");
+		Preconditions.checkNotNull(m_home, i18n.tr("Error! It's not possible to add null home in the environment."));
+		Preconditions.checkArgument(m_home.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a home with a UID."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -80,6 +87,6 @@ public class CmdAddHome extends CmdDefault {
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}	
 }

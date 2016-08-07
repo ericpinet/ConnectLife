@@ -13,8 +13,10 @@ import org.apache.logging.log4j.Logger;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Accessory;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.google.api.client.util.Preconditions;
 
@@ -30,6 +32,11 @@ public class CmdUnregisterAccessory extends CmdDefault {
 	 * Logger use for this class.
 	 */
 	private static Logger m_logger = LogManager.getLogger(CmdUnregisterAccessory.class);
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * Person to add in the environment.
@@ -54,9 +61,9 @@ public class CmdUnregisterAccessory extends CmdDefault {
 	@Override
 	public void execute() throws Exception {
 		
-		m_logger.info("Execution start ...");
+		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_accessory, "Error! It's not possible to unregister null accessory in the environment.");
+		Preconditions.checkNotNull(m_accessory, i18n.tr("Error! It's not possible to unregister null accessory in the environment."));
 	
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -78,13 +85,13 @@ public class CmdUnregisterAccessory extends CmdDefault {
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.warn("Accessory not found. " + m_accessory.toString());
+				m_logger.warn(i18n.tr("Accessory not found: ") + m_accessory.toString());
 			}
 			
 			tx.success();
 		}
 		
-		m_logger.info("Execution completed.");
+		m_logger.info(i18n.tr("Execution completed."));
 	}
 	
 	/**

@@ -8,6 +8,9 @@
  */
 package com.connectlife.coreserver.environment.cmd;
 
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.environment.EnvironmentContext;
 
 /**
@@ -17,6 +20,11 @@ import com.connectlife.coreserver.environment.EnvironmentContext;
  * <br> 2016-03-28
  */
 public abstract class CmdDefault implements Cmd {
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
 	
 	/**
 	 * The environment context for the execution of this command.
@@ -45,11 +53,11 @@ public abstract class CmdDefault implements Cmd {
 	 */
 	public void validContext() throws Exception {
 		if( null == m_context ){
-			throw new Exception("The context wasn't set in the action. It's impossible to execute action without valid context.");
+			throw new Exception(i18n.tr("The context wasn't set in the action. It's impossible to execute action without valid context."));
 		}
 		else{
 			if( false == m_context.isInit() ){
-				throw new Exception("The context wasn't initialized in the action. It's impossible to execute action without valid context.");
+				throw new Exception(i18n.tr("The context wasn't initialized in the action. It's impossible to execute action without valid context."));
 			}
 		}
 	}
@@ -62,7 +70,7 @@ public abstract class CmdDefault implements Cmd {
 	 */
 	@Override
 	public void execute() throws Exception {
-		throw new Exception("Not yet implemented.");
+		throw new Exception(i18n.tr("Not yet implemented."));
 	}
 	
 	/**
