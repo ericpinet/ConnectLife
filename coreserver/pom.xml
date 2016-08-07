@@ -230,10 +230,7 @@
   
   <!-- Build -->
   <build>
-  
-  <pluginManagement>
     <plugins>
-      
       <!-- Codecov -->
       <plugin>
 		  <groupId>org.jacoco</groupId>
@@ -269,9 +266,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-  
     </plugins>
-    </pluginManagement>
     
     <resources>
         <resource>
