@@ -17,7 +17,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Characteristic implements DataObj {
+public class Characteristic extends DataObjDefault implements DataObj {
 	
 	/**
 	 * Value of boolean true in string

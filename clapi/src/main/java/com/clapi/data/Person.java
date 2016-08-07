@@ -19,7 +19,7 @@ import java.util.Vector;
  * @author ericpinet
  * <br> 2015-11-08
  */
-public class Person implements DataObj {
+public class Person extends DataObjDefault implements DataObj {
 	
 	/**
 	 * UID of the person. This UID most be generator by the server.

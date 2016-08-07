@@ -76,7 +76,7 @@ public class CmdAddAccessory extends CmdDefault {
 		m_logger.info(i18n.tr("Execution start ..."));
 		
 		Preconditions.checkNotNull(m_accessory, i18n.tr("Error! It's not possible to add null accessory in the environment."));
-		Preconditions.checkArgument((m_accessory == null || m_accessory.getUid().isEmpty()), i18n.tr("Error! It's not possible to add a accessory with a UID."));
+		Preconditions.checkArgument(null == m_accessory.getUid() || m_accessory.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a accessory with a UID."));
 
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
