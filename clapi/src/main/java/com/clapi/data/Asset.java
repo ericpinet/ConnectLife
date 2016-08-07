@@ -17,7 +17,7 @@ import java.util.List;
  * @author ericpinet
  * <br> 2016-07-08
  */
-public class Asset implements DataObj {
+public class Asset extends DataObjDefault implements DataObj {
 
 	/**
 	 * Enum AssetType
