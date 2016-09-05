@@ -195,7 +195,7 @@ public abstract class Device extends Accessory {
 								getModel(), 
 								getSerialnumber(), 
 								getServices(), 
-								getImageurl(), 
+								getImageuid(), 
 								getType(), 
 								getProtocoltype());
 	}

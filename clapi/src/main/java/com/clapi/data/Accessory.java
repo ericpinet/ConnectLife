@@ -85,9 +85,9 @@ public class Accessory extends DataObjDefault implements DataObj {
 	private List<Service> services;
 	
 	/**
-	 * Image url of the accessory.
+	 * Image uid of the accessory.
 	 */
-	private String imageurl;
+	private String imageuid;
 	
 	/**
 	 * Type of this accessory.
@@ -113,13 +113,13 @@ public class Accessory extends DataObjDefault implements DataObj {
 	 * @param model			Model of the accessory.
 	 * @param serialnumber	Serial number of the accessory.
 	 * @param services		List of service of the accessory. See com.clapi.data.Service.
-	 * @param imageurl		Image url for this accessory display at the user.
+	 * @param imageuid		Image uid for this accessory display at the user.
 	 * @param type			Type of this accessory.
 	 * @param protocoltype  Protocol type of this accessory.
 	 * 
 	 */
 	public Accessory(String uid, String label, String manufacturer, String model, String serialnumber, List<Service> services,
-			String imageurl, AccessoryType type, AccessoryProtocolType protocoltype) {
+			String imageuid, AccessoryType type, AccessoryProtocolType protocoltype) {
 		super();
 		this.uid = uid;
 		this.label = label;
@@ -127,7 +127,7 @@ public class Accessory extends DataObjDefault implements DataObj {
 		this.model = model;
 		this.serialnumber = serialnumber;
 		this.services = services;
-		this.imageurl = imageurl;
+		this.imageuid = imageuid;
 		this.type = type;
 		this.protocoltype = protocoltype;
 		this.isregister = false;
@@ -147,7 +147,7 @@ public class Accessory extends DataObjDefault implements DataObj {
 		this.model = "";
 		this.serialnumber = "";
 		this.services = new Vector<Service>();
-		this.imageurl = "";
+		this.imageuid = "";
 		this.type = null;
 		this.protocoltype = null;
 		this.isregister = false;
@@ -274,21 +274,21 @@ public class Accessory extends DataObjDefault implements DataObj {
 	}
 
 	/**
-	 * Get the url of the accessory image.
+	 * Get the uid of the accessory image.
 	 * 
-	 * @return the imageurl
+	 * @return the imageuid
 	 */
-	public String getImageurl() {
-		return imageurl;
+	public String getImageuid() {
+		return imageuid;
 	}
 
 	/**
-	 * Set the url of the accessory image.
+	 * Set the uid of the accessory image.
 	 * 
-	 * @param imageurl the imageurl to set
+	 * @param imageuid the imageuid to set
 	 */
-	public void setImageurl(String imageurl) {
-		this.imageurl = imageurl;
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 
 	/**
@@ -357,7 +357,7 @@ public class Accessory extends DataObjDefault implements DataObj {
 	public void update(Accessory accessory) {
 		Cloner cloner = new Cloner();
 		Accessory temp = cloner.deepClone(accessory);
-		this.imageurl = temp.imageurl;
+		this.imageuid = temp.imageuid;
 		this.isregister = temp.isregister;
 		this.label = temp.label;
 		this.manufacturer = temp.manufacturer;

@@ -35,6 +35,7 @@ import com.clapi.data.Zone;
 import com.clapi.data.Asset.AssetMode;
 import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 
 /**
  * Data manager factory use to build Data object from Graph database.
@@ -114,6 +115,11 @@ public abstract class DataManagerFactory {
 			ret_person.setFirstname((String) _node.getProperty(Consts.PERSON_FIRSTNAME));
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
 			ret_person.setImageuid((String)_node.getProperty(Consts.PERSON_IMAGEUID));
+			
+			// Set default image
+			if (ret_person.getImageuid().isEmpty()) {
+				ret_person.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_person));
+			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -304,6 +310,11 @@ public abstract class DataManagerFactory {
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
 			ret_home.setImageuid((String)_node.getProperty(Consts.HOME_IMAGEUID));
 			
+			// Set default image
+			if (ret_home.getImageuid().isEmpty()) {
+				ret_home.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_home));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -349,6 +360,11 @@ public abstract class DataManagerFactory {
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ZONE_IMAGEUID));
+			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -397,6 +413,11 @@ public abstract class DataManagerFactory {
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ROOM_IMAGEUID));
 			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -443,7 +464,7 @@ public abstract class DataManagerFactory {
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
 			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
 			ret.setRegister(_node.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true"));
-			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
 			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {
 				ret.setType(Accessory.AccessoryType.AUTOMATIC_DOOR);
@@ -496,6 +517,11 @@ public abstract class DataManagerFactory {
 			}
 			else {
 				throw new Exception ("Accessory protocol type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE)+"]");
+			}
+			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
