@@ -35,6 +35,7 @@ import com.clapi.data.Zone;
 import com.clapi.data.Asset.AssetMode;
 import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 
 /**
  * Data manager factory use to build Data object from Graph database.
@@ -115,6 +116,11 @@ public abstract class DataManagerFactory {
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
 			ret_person.setImageuid((String)_node.getProperty(Consts.PERSON_IMAGEUID));
 			
+			// Set default image
+			if (ret_person.getImageuid().isEmpty()) {
+				ret_person.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_person));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -172,7 +178,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -181,7 +188,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -190,7 +198,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Error! Address type not supported. ["+_node.getProperty(Consts.ADDRESS_TYPE)+"]");
@@ -198,6 +207,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a address node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -219,17 +233,20 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.EMAIL_EMAIL),
-								Email.EmailType.PERSONAL);
+								Email.EmailType.PERSONAL, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.WORK);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.WORK, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.OTHER);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.OTHER, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Email type not supported yet! ["+_node.getProperty(Consts.EMAIL_TYPE)+"]");
@@ -237,6 +254,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a email node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -258,22 +280,26 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.PHONE_NUMBER),
-								Phone.PhoneType.HOME);
+								Phone.PhoneType.HOME,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.WORK);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.WORK,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.OTHER);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.OTHER,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.CELL);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.CELL,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
@@ -281,6 +307,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -303,6 +334,11 @@ public abstract class DataManagerFactory {
 			ret_home.setUid((String) _node.getProperty(Consts.UID));
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
 			ret_home.setImageuid((String)_node.getProperty(Consts.HOME_IMAGEUID));
+			
+			// Set default image
+			if (ret_home.getImageuid().isEmpty()) {
+				ret_home.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_home));
+			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -349,6 +385,11 @@ public abstract class DataManagerFactory {
 			ret.setUid((String) _node.getProperty(Consts.UID));
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ZONE_IMAGEUID));
+			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
@@ -397,6 +438,11 @@ public abstract class DataManagerFactory {
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ROOM_IMAGEUID));
 			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -443,7 +489,7 @@ public abstract class DataManagerFactory {
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
 			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
 			ret.setRegister(_node.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true"));
-			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
 			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {
 				ret.setType(Accessory.AccessoryType.AUTOMATIC_DOOR);
@@ -496,6 +542,11 @@ public abstract class DataManagerFactory {
 			}
 			else {
 				throw new Exception ("Accessory protocol type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE)+"]");
+			}
+			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {

@@ -253,6 +253,7 @@ public class DataManagerNeo4j implements DataManager {
 			Node mail11 = graph.createNode(Consts.LABEL_EMAIL);
 			mail11.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail11.setProperty(Consts.EMAIL_EMAIL, "pineri01@gmail.com");
+			mail11.setProperty(Consts.EMAIL_IMAGEUID, "");
 			mail11.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_PERSONAL);
 			eric.createRelationshipTo(mail11, Consts.RelTypes.CONTAINS);
 			
@@ -260,6 +261,7 @@ public class DataManagerNeo4j implements DataManager {
 			Node mail12 = graph.createNode(Consts.LABEL_EMAIL);
 			mail12.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail12.setProperty(Consts.EMAIL_EMAIL, "eric.pinet@imagemsoft.com");
+			mail12.setProperty(Consts.EMAIL_IMAGEUID, "");
 			mail12.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_WORK);
 			eric.createRelationshipTo(mail12, Consts.RelTypes.CONTAINS);
 			
@@ -267,6 +269,7 @@ public class DataManagerNeo4j implements DataManager {
 			Node mail13 = graph.createNode(Consts.LABEL_EMAIL);
 			mail13.setProperty(Consts.UID, UIDGenerator.getUID());
 			mail13.setProperty(Consts.EMAIL_EMAIL, "eric_pinet@hotmail.com");
+			mail13.setProperty(Consts.EMAIL_IMAGEUID, "");
 			mail13.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_OTHER);
 			eric.createRelationshipTo(mail13, Consts.RelTypes.CONTAINS);
 			
@@ -274,6 +277,7 @@ public class DataManagerNeo4j implements DataManager {
 			Node phone11 = graph.createNode(Consts.LABEL_PHONE);
 			phone11.setProperty(Consts.UID, UIDGenerator.getUID());
 			phone11.setProperty(Consts.PHONE_NUMBER, "418 998-2481");
+			phone11.setProperty(Consts.PHONE_IMAGEUID, "");
 			phone11.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_CELL);
 			eric.createRelationshipTo(phone11, Consts.RelTypes.CONTAINS);
 			
@@ -281,6 +285,7 @@ public class DataManagerNeo4j implements DataManager {
 			Node phone12 = graph.createNode(Consts.LABEL_PHONE);
 			phone12.setProperty(Consts.UID, UIDGenerator.getUID());
 			phone12.setProperty(Consts.PHONE_NUMBER, "418 548-1684");
+			phone12.setProperty(Consts.PHONE_IMAGEUID, "");
 			phone12.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_OTHER);
 			eric.createRelationshipTo(phone12, Consts.RelTypes.CONTAINS);
 			
@@ -292,6 +297,7 @@ public class DataManagerNeo4j implements DataManager {
 			address11.setProperty(Consts.ADDRESS_REGION, "Quebec");
 			address11.setProperty(Consts.ADDRESS_ZIPCODE, "G3E 0G3");
 			address11.setProperty(Consts.ADDRESS_COUNTRY, "Canada");
+			address11.setProperty(Consts.ADDRESS_IMAGEUID, "");
 			address11.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);
 			eric.createRelationshipTo(address11, Consts.RelTypes.CONTAINS);
 			
@@ -326,51 +332,6 @@ public class DataManagerNeo4j implements DataManager {
 				asset_home.setProperty(Consts.ASSET_TYPE, Consts.ASSET_TYPE_IMAGE);
 				asset_home.setProperty(Consts.ASSET_MODE, Consts.ASSET_MODE_SYSTEM);
 			}
-
-			// LIGHT COLORED DIM
-			// ACCESSORY
-			/* Node accessory11 = graph.createNode(Consts.LABEL_ACCESSORY);
-			accessory11.setProperty(Consts.UID, UIDGenerator.getUID());
-			accessory11.setProperty(Consts.ACCESSORY_LABEL, "Light");
-			accessory11.setProperty(Consts.ACCESSORY_MANUFACTURER, "Philips");
-			accessory11.setProperty(Consts.ACCESSORY_MODEL, "100w");
-			accessory11.setProperty(Consts.ACCESSORY_SERIALNUMBER, "PL001-100-10009");
-			accessory11.setProperty(Consts.ACCESSORY_IMAGEURL, "");
-			accessory11.setProperty(Consts.ACCESSORY_ISREGISTER, false);
-			accessory11.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_LIGHT_COLORED_DIMMABLE);
-			accessory11.setProperty(Consts.ACCESSORY_PROTOCOLTYPE, Consts.ACC_PROTOCOL_TYPE_JSON_SIMULATION);
-			
-			room11.createRelationshipTo(accessory11, Consts.RelTypes.CONTAINS);
-			
-			// SERVICE1
-			Node service11 = graph.createNode(Consts.LABEL_SERVICE);
-			service11.setProperty(Consts.UID, UIDGenerator.getUID());
-			service11.setProperty(Consts.SERVICE_NAME, "light");
-
-			accessory11.createRelationshipTo(service11, Consts.RelTypes.CONTAINS);
-			
-			// CHARACTERISTIC1
-			Node characteristic11 = graph.createNode(Consts.LABEL_CHARACTERISTIC);
-			characteristic11.setProperty(Consts.UID, UIDGenerator.getUID());
-			characteristic11.setProperty(Consts.CH_LABEL, "Light");
-			characteristic11.setProperty(Consts.CH_MODE, Consts.CH_ACCESS_MODE_READ_WRITE);
-			characteristic11.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_BOOLEAN);
-			characteristic11.setProperty(Consts.CH_EVENT_TYPE, Consts.CH_EVENT_TYPE_EVENT);
-			characteristic11.setProperty(Consts.CH_DATA, "false");
-			
-			service11.createRelationshipTo(characteristic11, Consts.RelTypes.CONTAINS);
-			
-			// CHARACTERISTIC2
-			Node characteristic12 = graph.createNode(Consts.LABEL_CHARACTERISTIC);
-			characteristic12.setProperty(Consts.UID, UIDGenerator.getUID());
-			characteristic12.setProperty(Consts.CH_LABEL, "Dimmable");
-			characteristic12.setProperty(Consts.CH_MODE, Consts.CH_ACCESS_MODE_READ_WRITE);
-			characteristic12.setProperty(Consts.CH_TYPE, Consts.CH_TYPE_FLOAT);
-			characteristic12.setProperty(Consts.CH_EVENT_TYPE, Consts.CH_EVENT_TYPE_EVENT);
-			characteristic12.setProperty(Consts.CH_DATA, "1.0");
-			
-			service11.createRelationshipTo(characteristic12, Consts.RelTypes.CONTAINS);
-			*/
 			
 		    tx.success();
 		}
