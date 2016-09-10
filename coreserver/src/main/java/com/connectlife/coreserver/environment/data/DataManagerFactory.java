@@ -178,7 +178,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -187,7 +188,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -196,7 +198,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Error! Address type not supported. ["+_node.getProperty(Consts.ADDRESS_TYPE)+"]");
@@ -204,6 +207,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a address node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -225,17 +233,20 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.EMAIL_EMAIL),
-								Email.EmailType.PERSONAL);
+								Email.EmailType.PERSONAL, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.WORK);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.WORK, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.OTHER);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.OTHER, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Email type not supported yet! ["+_node.getProperty(Consts.EMAIL_TYPE)+"]");
@@ -243,6 +254,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a email node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -264,22 +280,26 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.PHONE_NUMBER),
-								Phone.PhoneType.HOME);
+								Phone.PhoneType.HOME,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.WORK);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.WORK,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.OTHER);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.OTHER,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.CELL);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.CELL,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else {
 				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
@@ -287,6 +307,11 @@ public abstract class DataManagerFactory {
 		}
 		else {
 			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;

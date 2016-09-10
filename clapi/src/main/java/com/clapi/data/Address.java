@@ -64,7 +64,36 @@ public class Address extends DataObjDefault  implements DataObj {
 	 * Country.
 	 */
 	private String country;
+	
+	/**
+	 * Image uid
+	 */
+	private String imageuid;
 
+	/**
+	 * Default Constructor.
+	 * 
+	 * @param uid Uid of the address.
+	 * @param type Type of the address.
+	 * @param street Street of the address.
+	 * @param city City of the address.
+	 * @param region Region of the address.
+	 * @param zipcode Zipcode of the address.
+	 * @param country Country of the address.
+	 * @param imageuid Image uid of the address.
+	 */
+	public Address(String uid, AddressType type, String street, String city, String region, String zipcode, String country, String imageuid) {
+		super();
+		this.uid = uid;
+		this.type = type;
+		this.street = street;
+		this.city = city;
+		this.region = region;
+		this.zipcode = zipcode;
+		this.country = country;
+		this.imageuid = imageuid;
+	}
+	
 	/**
 	 * Default Constructor.
 	 * 
@@ -85,6 +114,7 @@ public class Address extends DataObjDefault  implements DataObj {
 		this.region = region;
 		this.zipcode = zipcode;
 		this.country = country;
+		this.imageuid = "";
 	}
 	
 	/**
@@ -103,6 +133,7 @@ public class Address extends DataObjDefault  implements DataObj {
 		this.region = "";
 		this.zipcode = "";
 		this.country = "";
+		this.imageuid = "";
 	}
 	
 	/**
@@ -201,6 +232,20 @@ public class Address extends DataObjDefault  implements DataObj {
 	 */
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	/**
+	 * @return the imageuid
+	 */
+	public String getImageuid() {
+		return imageuid;
+	}
+
+	/**
+	 * @param imageuid the imageuid to set
+	 */
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 
 	/**

@@ -42,10 +42,15 @@ public class Phone extends DataObjDefault implements DataObj {
 	private String phone;
 	
 	/**
+	 * Phone Imageuid.
+	 */
+	private String imageuid;
+	
+	/**
 	 * Phone Type.
 	 */
 	private PhoneType type;
-
+	
 	/**
 	 * Default constructor. 
 	 * 
@@ -58,6 +63,23 @@ public class Phone extends DataObjDefault implements DataObj {
 		this.uid = uid;
 		this.phone = phone;
 		this.type = type;
+		this.imageuid = "";
+	}
+	
+	/**
+	 * Default constructor. 
+	 * 
+	 * @param uid Uid of the phone.
+	 * @param phone Phone of the phone.
+	 * @param type Type of the phone.
+	 * @param imageuid Imageuid of the phone.
+	 */
+	public Phone(String uid, String phone, PhoneType type, String imageuid) {
+		super();
+		this.uid = uid;
+		this.phone = phone;
+		this.type = type;
+		this.imageuid = imageuid;
 	}
 
 	/**
@@ -86,6 +108,20 @@ public class Phone extends DataObjDefault implements DataObj {
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+	/**
+	 * @return the imageuid
+	 */
+	public String getImageuid() {
+		return imageuid;
+	}
+
+	/**
+	 * @param imageuid the imageuid to set
+	 */
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 
 	/**

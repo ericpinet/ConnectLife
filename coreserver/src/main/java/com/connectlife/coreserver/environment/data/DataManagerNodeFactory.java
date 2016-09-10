@@ -566,6 +566,7 @@ public abstract class DataManagerNodeFactory {
 				
 				_node.setProperty(Consts.UID, _email.getUid());
 				_node.setProperty(Consts.EMAIL_EMAIL, _email.getEmail());
+				_node.setProperty(Consts.EMAIL_IMAGEUID, _email.getImageuid());
 				
 				if (EmailType.PERSONAL == _email.getType()) {
 					_node.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_PERSONAL);
@@ -633,6 +634,7 @@ public abstract class DataManagerNodeFactory {
 				
 				_node.setProperty(Consts.UID, _phone.getUid());
 				_node.setProperty(Consts.PHONE_NUMBER, _phone.getPhone());
+				_node.setProperty(Consts.PHONE_IMAGEUID, _phone.getImageuid());
 				
 				if (PhoneType.HOME == _phone.getType()) {
 					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_HOME);
@@ -707,6 +709,7 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ADDRESS_REGION, _address.getRegion());
 				_node.setProperty(Consts.ADDRESS_ZIPCODE, _address.getZipcode());
 				_node.setProperty(Consts.ADDRESS_COUNTRY, _address.getCountry());
+				_node.setProperty(Consts.ADDRESS_IMAGEUID, _address.getImageuid());
 				
 				if (AddressType.HOME == _address.getType()) {
 					_node.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);

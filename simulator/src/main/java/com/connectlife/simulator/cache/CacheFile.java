@@ -69,7 +69,7 @@ public class CacheFile {
 				e1.printStackTrace();
 			}
 			
-		}
+		}//END IF: file doesn't exist 
 	}
 	
 	/**

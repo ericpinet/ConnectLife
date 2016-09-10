@@ -53,6 +53,7 @@ public final class Consts {
 	public static final String ADDRESS_REGION = "region";
 	public static final String ADDRESS_ZIPCODE = "zipcode";
 	public static final String ADDRESS_COUNTRY = "country";
+	public static final String ADDRESS_IMAGEUID = "imageuid";
 	
 	public static final String ADDRESS_TYPE_HOME = "HOME";
 	public static final String ADDRESS_TYPE_OTHER = "OTHER";
@@ -64,6 +65,7 @@ public final class Consts {
 	public static final Label  LABEL_EMAIL = Label.label("email");
 	public static final String EMAIL_TYPE = "type";
 	public static final String EMAIL_EMAIL = "email";
+	public static final String EMAIL_IMAGEUID = "imageuid";
 	
 	public static final String EMAIL_TYPE_PERSONAL = "PERSONAL";
 	public static final String EMAIL_TYPE_OTHER = "OTHER";
@@ -75,6 +77,7 @@ public final class Consts {
 	public static final Label  LABEL_PHONE = Label.label("phone");
 	public static final String PHONE_TYPE = "type";
 	public static final String PHONE_NUMBER = "phone";
+	public static final String PHONE_IMAGEUID = "imageuid";
 	
 	public static final String PHONE_TYPE_HOME = "HOME";
 	public static final String PHONE_TYPE_OTHER = "OTHER";

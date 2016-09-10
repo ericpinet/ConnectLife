@@ -20,7 +20,6 @@ import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.asset.AssetManager;
 import com.connectlife.coreserver.environment.data.DataManagerFactory;
-import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.api.client.util.Preconditions;
 
 /**
