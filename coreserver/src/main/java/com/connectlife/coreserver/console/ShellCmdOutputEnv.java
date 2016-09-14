@@ -27,7 +27,7 @@ public class ShellCmdOutputEnv implements ShellCmd {
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputEnv.class);
+    private final Logger m_logger = LogManager.getLogger(getClass().getName());
     
     /**
 	 * Initialization of translation system.

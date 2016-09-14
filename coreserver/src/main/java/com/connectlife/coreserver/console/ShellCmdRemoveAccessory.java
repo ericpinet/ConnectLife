@@ -27,7 +27,7 @@ public class ShellCmdRemoveAccessory implements ShellCmd {
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdRemoveAccessory.class);
+    private final Logger m_logger = LogManager.getLogger(getClass().getName());
     
     /**
 	 * Initialization of translation system.

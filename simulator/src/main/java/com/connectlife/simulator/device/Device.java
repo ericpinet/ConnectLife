@@ -42,7 +42,7 @@ public abstract class Device extends Accessory {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(Device.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 
 	/**
 	 * Device http handler for json services.
