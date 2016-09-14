@@ -227,7 +227,7 @@ public class InAppShellFactory implements Factory {
                 m_reader.addCompleter(new StringsCompleter(params));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
-                m_writer.println(i18n.tr("- Welcome to ConnectLife Shell -"));
+                m_writer.println(i18n.tr("ConnectLife console"));
                 m_writer.flush();
 
                 String line;

@@ -90,7 +90,7 @@ public class ConsoleSSH implements Console {
 		
 		m_logger.info(i18n.tr("Initialization in progress ..."));
 		
-		ConfigItem tcpip_port 		= m_config.getConfig("CONSOLE", "TCPIP_PORT");
+		ConfigItem tcpip_port = m_config.getConfig("CONSOLE", "TCPIP_PORT");
 		
 		
 		m_logger.info(i18n.tr("TCP/IP Port: ") + tcpip_port.getIntegerValue());
