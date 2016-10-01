@@ -76,11 +76,47 @@ service CLApi {
 
 // Declaration of message request and response //////////////////
 
+// Email type
+enum EmailType {
+    EMAIL_PERSONAL = 0;
+    EMAIL_WORK = 1;
+    EMAIL_OTHER = 2;
+};
+
+// Phone type
+enum PhoneType {
+    PHONE_HOME = 0;
+    PHONE_WORK = 1;
+    PHONE_CELL = 2;
+    PHONE_OTHER = 3;
+};
+
+// Address type
+enum AddressType {
+    ADDRESS_HOME = 0;
+    ADDRES_WORK = 1;
+    ADDRES_OTHER = 2;
+};
+
+// Asset type
+enum AssetType {
+    ASSET_IMAGE = 0;
+    ASSET_FILE = 1;
+    ASSET_OTHER = 2;
+};
+
+// Asset mode
+enum AssetMode {
+    ASSET_SYSTEM = 0;
+    ASSET_USER = 1;
+};
+
 // The request/response of getVersion containing nothing
 message GetVersionRequest {
 }
 message GetVersionResponse {
   required string version = 1;
+  optional string error = 2;
 }
 
 // The request/response of checkCompatibility containing nothing
@@ -89,6 +125,7 @@ message CheckCompatibilityRequest {
 }
 message CheckCompatibilityResponse {
   required bool compatible = 1;
+  optional string error = 2;
 }
 
 // The request/response for the wait notification
@@ -96,6 +133,7 @@ message WaitNotificationRequest {
 }
 message WaitNotificationResponse{
 	required Notification notification = 1;
+	optional string error = 2;
 }
 
 // The request/response for getData
@@ -103,6 +141,7 @@ message GetJsonDataRequest {
 }
 message GetJsonDataResponse {
 	required string data = 1;
+	optional string error = 2;
 }
 
 // The request/response for addPerson
@@ -113,6 +152,7 @@ message AddPersonRequest {
 }
 message AddPersonResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updatePerson
@@ -124,6 +164,7 @@ message UpdatePersonRequest {
 }
 message UpdatePersonResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deletePerson
@@ -132,26 +173,29 @@ message DeletePersonRequest {
 }
 message DeletePersonResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addEmail
 message AddEmailRequest {
 	required string uid_person = 1;
 	required string email = 2;
-	required int32 type = 3;
+	required EmailType type = 3;
 }
 message AddEmailResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateEmail
 message UpdateEmailRequest {
 	required string uid = 1;
 	required string email = 2;
-	required int32 type = 3;
+	required EmailType type = 3;
 }
 message UpdateEmailResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteEmail
@@ -160,26 +204,29 @@ message DeleteEmailRequest {
 }
 message DeleteEmailResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addPhone
 message AddPhoneRequest {
 	required string uid_person = 1;
 	required string phone = 2;
-	required int32 type = 3;
+	required PhoneType type = 3;
 }
 message AddPhoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updatePhone
 message UpdatePhoneRequest {
 	required string uid = 1;
 	required string phone = 2;
-	required int32 type = 3;
+	required PhoneType type = 3;
 }
 message UpdatePhoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deletePhone
@@ -188,6 +235,7 @@ message DeletePhoneRequest {
 }
 message DeletePhoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addAddress
@@ -198,10 +246,11 @@ message AddAddressRequest {
 	optional string region = 5;
 	optional string zipcode = 6;
 	optional string country = 7;
-	required int32 type = 8;
+	required AddressType type = 8;
 }
 message AddAddressResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateAddress
@@ -212,10 +261,11 @@ message UpdateAddressRequest {
 	optional string region = 5;
 	optional string zipcode = 6;
 	optional string country = 7;
-	required int32 type = 8;
+	required AddressType type = 8;
 }
 message UpdateAddressResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteAddress
@@ -224,6 +274,7 @@ message DeleteAddressRequest {
 }
 message DeleteAddressResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addAccessory
@@ -233,6 +284,7 @@ message AddAccessoryRequest {
 }
 message AddAccessoryResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteAccessory
@@ -241,6 +293,7 @@ message DeleteAccessoryRequest {
 }
 message DeleteAccessoryResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addHome
@@ -250,6 +303,7 @@ message AddHomeRequest {
 }
 message AddHomeResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateHome
@@ -260,6 +314,7 @@ message UpdateHomeRequest {
 }
 message UpdateHomeResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteHome
@@ -268,6 +323,7 @@ message DeleteHomeRequest {
 }
 message DeleteHomeResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addZone
@@ -278,6 +334,7 @@ message AddZoneRequest {
 }
 message AddZoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateZone
@@ -288,6 +345,7 @@ message UpdateZoneRequest {
 }
 message UpdateZoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteZone
@@ -296,6 +354,7 @@ message DeleteZoneRequest {
 }
 message DeleteZoneResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addRoom
@@ -306,6 +365,7 @@ message AddRoomRequest {
 }
 message AddRoomResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateRoom
@@ -316,6 +376,7 @@ message UpdateRoomRequest {
 }
 message UpdateRoomResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteRoom
@@ -324,29 +385,32 @@ message DeleteRoomRequest {
 }
 message DeleteRoomResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for addAsset
 message AddAssetRequest {
 	required string label = 1;
-	required int32 type = 2;
-	required int32 mode = 3;
+	required AssetType type = 2;
+	required AssetMode mode = 3;
 	required bytes data = 4;
 }
 message AddAssetResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for updateAsset
 message UpdateAssetRequest {
 	required string uid = 1;
 	required string label = 2;
-	required int32 type = 3;
-	required int32 mode = 4;
+	required AssetType type = 3;
+	required AssetMode mode = 4;
 	required bytes data = 5;
 }
 message UpdateAssetResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for deleteAsset
@@ -355,6 +419,7 @@ message DeleteAssetRequest {
 }
 message DeleteAssetResponse {
 	required string uid = 1;
+	optional string error = 2;
 }
 
 // The request/response for getAssetUrl
@@ -363,6 +428,7 @@ message GetAssetUrlRequest {
 }
 message GetAssetUrlResponse {
 	required string url = 1;
+	optional string error = 2;
 }
 
 // Declaration of base objects ///////////////////////////////////

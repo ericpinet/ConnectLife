@@ -107,7 +107,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			StreamObserver<CheckCompatibilityResponse> responseObserver) {
 		
 		boolean ret_val = false;
-		
+		CheckCompatibilityResponse reply = null;
 		try{
 			String[] version_id_txt = request.getVersion().split("\\.");
 			int[] version_id = { Integer.parseInt(version_id_txt[0]),
@@ -121,24 +121,28 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 				ret_val = true;
 			}
 			else{
-				m_logger.info(i18n.tr("The client version: ") + request.getVersion() + i18n.tr(" isn't compatible with this server version : ")+
-						      new String( API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2] ));
+				m_logger.info(i18n.tr("The client version: ") 
+						      + request.getVersion()
+						      + i18n.tr(" isn't compatible with this server version : ") 
+						      + new String(API_SERVER_VERSION[0] + "." + API_SERVER_VERSION[1] + "." + API_SERVER_VERSION[2]));
 			}
+			reply = CheckCompatibilityResponse.newBuilder().setCompatible(ret_val).build();
 		}
 		catch(Exception e){
+			reply = CheckCompatibilityResponse.newBuilder()
+											  .setCompatible(ret_val)
+											  .setError(e.toString())
+											  .build();
+			
 			m_logger.error(i18n.tr("Unable to check compatibility of client api : ") + request.getVersion());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
-		
-		CheckCompatibilityResponse reply = CheckCompatibilityResponse.newBuilder().setCompatible(ret_val).build();
+
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}
 	
-	
-
-
 	/**
 	 * @param request Client request.
 	 * @param responseObserver Response.
@@ -179,9 +183,24 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	 */
 	@Override
 	public void getJsonData(GetJsonDataRequest request, StreamObserver<GetJsonDataResponse> responseObserver) {
-		GetJsonDataResponse reply = GetJsonDataResponse.newBuilder().setData(m_environment.getJsonEnvironment()).build();
+		GetJsonDataResponse reply = null;
+		try {
+			reply = GetJsonDataResponse.newBuilder().setData(m_environment.getJsonEnvironment()).build();
+		}
+		catch (Exception e) {
+			
+			reply = GetJsonDataResponse.newBuilder()
+									   .setData("")
+									   .setError(e.toString())
+									   .build(); // no data in response if failed.
+			
+			m_logger.error(e.toString());
+			StdOutErrLog.tieSystemOutAndErrToLog();
+			e.printStackTrace();
+		}
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
+		
 	}
 	
 	/**
@@ -198,11 +217,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			m_environment.executeCommand(cmd);
 			reply = AddHomeResponse.newBuilder().setUid(home.getUid()).build(); // uid is return to client.
 			
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			
-			reply = AddHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddHomeResponse.newBuilder()
+								   .setUid("")
+								   .setError(e.toString())
+								   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -227,9 +250,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = UpdateHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = UpdateHomeResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -254,9 +280,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeleteHomeResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeleteHomeResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -282,9 +311,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddZoneResponse.newBuilder()
+								   .setUid("")
+								   .setError(e.toString())
+								   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -309,9 +341,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = UpdateZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = UpdateZoneResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -336,9 +371,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeleteZoneResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeleteZoneResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -364,9 +402,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddRoomResponse.newBuilder()
+								   .setUid("")
+								   .setError(e.toString())
+								   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -391,9 +432,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = UpdateRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = UpdateRoomResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -418,9 +462,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeleteRoomResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeleteRoomResponse.newBuilder()
+									  .setUid("")
+									  .setError(e.toString())
+									  .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -444,9 +491,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddPersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddPersonResponse.newBuilder()
+								     .setUid("")
+								     .setError(e.toString())
+								     .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -464,6 +514,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		UpdatePersonResponse reply = null;
 		
+		// TODO - Complete the transaction
+		reply = UpdatePersonResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
 		/*
 		try {
 			Person person = m_environment.getFindProcessor().findPersonByUid(request.getUid());
@@ -477,9 +533,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddPersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddPersonResponse.newBuilder()
+								     .setUid("")
+								     .setError(e.toString())
+								     .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -496,6 +555,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
 		
 		DeletePersonResponse reply = null;
+		
+		// TODO - Complete the transaction
+		reply = DeletePersonResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
 		/*Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
 		try {
 			person = m_environment.deletePerson(person);
@@ -503,9 +568,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeletePersonResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeletePersonResponse.newBuilder()
+								    	.setUid("")
+								   		.setError(e.toString())
+								   		.build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -522,24 +590,30 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
 		
 		AddEmailResponse reply = null;
+		
+		// TODO - Complete the transaction
+		reply = AddEmailResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
 		/*
-		Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUidPerson(), "", "", ""));
+		Person person = null;
 		try {
-			Email email = new Email(UIDGenerator.getUID(), request.getEmail(), EmailType.values()[request.getType()]);
-			person.addEmails(email);
-			m_environment.updatePerson(person);
-			
+			Email email = new Email("", request.getEmail(), Email.EmailType.PERSONAL);
 			reply = AddEmailResponse.newBuilder().setUid(email.getUid()).build(); // uid is return to client.
 			
 		} catch (Exception e) {
 			
-			reply = AddEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddEmailResponse.newBuilder().setUid("")
+												 .setError(e.toString())
+												 .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
-		}
-		*/
+		}*/
+		
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();
 	}
@@ -552,7 +626,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	public void updateEmail(UpdateEmailRequest request, StreamObserver<UpdateEmailResponse> responseObserver) {
 		
 		UpdateEmailResponse reply = null;
-		/*Person person = null;
+		
+		// TODO - Complete the transaction
+		reply = UpdateEmailResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		/*
+		Person person = null;
 		try {
 			Email email = new Email(request.getUid(), request.getEmail(), EmailType.values()[request.getType()]);
 			person.updateEmail(email);
@@ -561,13 +643,16 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			reply = UpdateEmailResponse.newBuilder().setUid(email.getUid()).build(); // uid is return to client.
 		} catch (Exception e) {
 			
-			reply = UpdateEmailResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = UpdateEmailResponse.newBuilder()
+								   	   .setUid("")
+								       .setError(e.toString())
+								       .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
-		}*/
-		
+		}
+		*/
 		responseObserver.onNext(reply);
 		responseObserver.onCompleted();	
 	}
@@ -579,7 +664,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void deleteEmail(DeleteEmailRequest request, StreamObserver<DeleteEmailResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		DeleteEmailResponse reply = null;
 		
+		reply = DeleteEmailResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();		
 	}
 
 	/**
@@ -589,7 +682,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void addPhone(AddPhoneRequest request, StreamObserver<AddPhoneResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		AddPhoneResponse reply = null;
 		
+		reply = AddPhoneResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -599,7 +700,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void updatePhone(UpdatePhoneRequest request, StreamObserver<UpdatePhoneResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		UpdatePhoneResponse reply = null;
 		
+		reply = UpdatePhoneResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -609,7 +718,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void deletePhone(DeletePhoneRequest request, StreamObserver<DeletePhoneResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		DeletePhoneResponse reply = null;
 		
+		reply = DeletePhoneResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -619,7 +736,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void addAddress(AddAddressRequest request, StreamObserver<AddAddressResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		AddAddressResponse reply = null;
 		
+		reply = AddAddressResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -629,7 +754,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void updateAddress(UpdateAddressRequest request, StreamObserver<UpdateAddressResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		UpdateAddressResponse reply = null;
 		
+		reply = UpdateAddressResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 
 	/**
@@ -639,7 +772,15 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	@Override
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {
 		// TODO Auto-generated method stub
+		DeleteAddressResponse reply = null;
 		
+		reply = DeleteAddressResponse.newBuilder()
+		    	.setUid("")
+		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.build();
+		
+		responseObserver.onNext(reply);
+		responseObserver.onCompleted();
 	}
 	
 	/**
@@ -660,9 +801,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddAccessoryResponse.newBuilder()
+										.setUid("")
+										.setError(e.toString())
+										.build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -688,9 +832,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeleteAccessoryResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeleteAccessoryResponse.newBuilder()
+										   .setUid("")
+										   .setError(e.toString())
+										   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -716,9 +863,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = AddAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = AddAssetResponse.newBuilder()
+									.setUid("")
+									.setError(e.toString())
+									.build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -744,9 +894,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = UpdateAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = UpdateAssetResponse.newBuilder()
+									   .setUid("")
+									   .setError(e.toString())
+									   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -771,9 +924,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = DeleteAssetResponse.newBuilder().setUid("").build(); // no uid in response if failed.
+			reply = DeleteAssetResponse.newBuilder()
+									   .setUid("")
+									   .setError(e.toString())
+									   .build(); // no uid in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}
@@ -798,9 +954,12 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 			
 		} catch (Exception e) {
 			
-			reply = GetAssetUrlResponse.newBuilder().setUrl("").build(); // no url in response if failed.
+			reply = GetAssetUrlResponse.newBuilder()
+									   .setUrl("")
+									   .setError(e.toString())
+									   .build(); // no url in response if failed.
 			
-			m_logger.error(e.getMessage());
+			m_logger.error(e.toString());
 			StdOutErrLog.tieSystemOutAndErrToLog();
 			e.printStackTrace();
 		}

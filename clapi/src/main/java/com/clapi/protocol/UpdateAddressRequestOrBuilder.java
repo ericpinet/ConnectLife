@@ -92,11 +92,11 @@ public interface UpdateAddressRequestOrBuilder extends
       getCountryBytes();
 
   /**
-   * <code>required int32 type = 8;</code>
+   * <code>required .clapi.AddressType type = 8;</code>
    */
   boolean hasType();
   /**
-   * <code>required int32 type = 8;</code>
+   * <code>required .clapi.AddressType type = 8;</code>
    */
-  int getType();
+  com.clapi.protocol.AddressType getType();
 }

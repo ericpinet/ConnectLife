@@ -29,6 +29,7 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
+import com.clapi.protocol.EmailType;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.simulator.device.Device;
 import com.clapi.client.NotificationListener;
@@ -292,12 +293,15 @@ public class MainWindow implements NotificationListener {
 			for (int i=0 ; i<nbclient ; i++) {
 				CLApiClient client = new CLApiClient(host, Integer.parseInt(port), this);
 				m_logger.debug( i + ": Connect - server version : " + client.getVersion() );
-				client.checkCompatibility();
-				client.getJsonData();
-				clients.addElement(client);
+				
 				try {
+					client.checkCompatibility();
+					client.getJsonData();
+					clients.addElement(client);
 					Thread.sleep(10);
-				} catch (InterruptedException e) {
+					
+				} catch (Exception e) {
+					m_logger.error(e.getMessage());
 				}
 			}
 			
@@ -305,13 +309,15 @@ public class MainWindow implements NotificationListener {
 			for (int i=0 ; i<nbclient ; i++) {
 				CLApiClient client = clients.elementAt(i);
 				m_logger.debug( i + ": Disconnect - server version : " + client.getVersion() );
-				client.checkCompatibility();
-				client.getJsonData();
+				
 				try {
+					client.checkCompatibility();
+					client.getJsonData();
 					client.shutdown();
 					Thread.sleep(10);
-				} catch (InterruptedException e1) {
-
+					
+				} catch (Exception e1) {
+					m_logger.error(e1.getMessage());
 				}
 			}
 		};

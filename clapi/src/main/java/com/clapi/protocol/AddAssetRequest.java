@@ -59,13 +59,25 @@ public  final class AddAssetRequest extends
             break;
           }
           case 16: {
-            bitField0_ |= 0x00000002;
-            type_ = input.readInt32();
+            int rawValue = input.readEnum();
+            com.clapi.protocol.AssetType value = com.clapi.protocol.AssetType.valueOf(rawValue);
+            if (value == null) {
+              unknownFields.mergeVarintField(2, rawValue);
+            } else {
+              bitField0_ |= 0x00000002;
+              type_ = rawValue;
+            }
             break;
           }
           case 24: {
-            bitField0_ |= 0x00000004;
-            mode_ = input.readInt32();
+            int rawValue = input.readEnum();
+            com.clapi.protocol.AssetMode value = com.clapi.protocol.AssetMode.valueOf(rawValue);
+            if (value == null) {
+              unknownFields.mergeVarintField(3, rawValue);
+            } else {
+              bitField0_ |= 0x00000004;
+              mode_ = rawValue;
+            }
             break;
           }
           case 34: {
@@ -144,31 +156,33 @@ public  final class AddAssetRequest extends
   public static final int TYPE_FIELD_NUMBER = 2;
   private int type_;
   /**
-   * <code>required int32 type = 2;</code>
+   * <code>required .clapi.AssetType type = 2;</code>
    */
   public boolean hasType() {
     return ((bitField0_ & 0x00000002) == 0x00000002);
   }
   /**
-   * <code>required int32 type = 2;</code>
+   * <code>required .clapi.AssetType type = 2;</code>
    */
-  public int getType() {
-    return type_;
+  public com.clapi.protocol.AssetType getType() {
+    com.clapi.protocol.AssetType result = com.clapi.protocol.AssetType.valueOf(type_);
+    return result == null ? com.clapi.protocol.AssetType.ASSET_IMAGE : result;
   }
 
   public static final int MODE_FIELD_NUMBER = 3;
   private int mode_;
   /**
-   * <code>required int32 mode = 3;</code>
+   * <code>required .clapi.AssetMode mode = 3;</code>
    */
   public boolean hasMode() {
     return ((bitField0_ & 0x00000004) == 0x00000004);
   }
   /**
-   * <code>required int32 mode = 3;</code>
+   * <code>required .clapi.AssetMode mode = 3;</code>
    */
-  public int getMode() {
-    return mode_;
+  public com.clapi.protocol.AssetMode getMode() {
+    com.clapi.protocol.AssetMode result = com.clapi.protocol.AssetMode.valueOf(mode_);
+    return result == null ? com.clapi.protocol.AssetMode.ASSET_SYSTEM : result;
   }
 
   public static final int DATA_FIELD_NUMBER = 4;
@@ -218,10 +232,10 @@ public  final class AddAssetRequest extends
       com.google.protobuf.GeneratedMessage.writeString(output, 1, label_);
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
-      output.writeInt32(2, type_);
+      output.writeEnum(2, type_);
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
-      output.writeInt32(3, mode_);
+      output.writeEnum(3, mode_);
     }
     if (((bitField0_ & 0x00000008) == 0x00000008)) {
       output.writeBytes(4, data_);
@@ -239,11 +253,11 @@ public  final class AddAssetRequest extends
     }
     if (((bitField0_ & 0x00000002) == 0x00000002)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(2, type_);
+        .computeEnumSize(2, type_);
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, mode_);
+        .computeEnumSize(3, mode_);
     }
     if (((bitField0_ & 0x00000008) == 0x00000008)) {
       size += com.google.protobuf.CodedOutputStream
@@ -559,30 +573,34 @@ public  final class AddAssetRequest extends
       return this;
     }
 
-    private int type_ ;
+    private int type_ = 0;
     /**
-     * <code>required int32 type = 2;</code>
+     * <code>required .clapi.AssetType type = 2;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required int32 type = 2;</code>
+     * <code>required .clapi.AssetType type = 2;</code>
      */
-    public int getType() {
-      return type_;
+    public com.clapi.protocol.AssetType getType() {
+      com.clapi.protocol.AssetType result = com.clapi.protocol.AssetType.valueOf(type_);
+      return result == null ? com.clapi.protocol.AssetType.ASSET_IMAGE : result;
     }
     /**
-     * <code>required int32 type = 2;</code>
+     * <code>required .clapi.AssetType type = 2;</code>
      */
-    public Builder setType(int value) {
+    public Builder setType(com.clapi.protocol.AssetType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       bitField0_ |= 0x00000002;
-      type_ = value;
+      type_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>required int32 type = 2;</code>
+     * <code>required .clapi.AssetType type = 2;</code>
      */
     public Builder clearType() {
       bitField0_ = (bitField0_ & ~0x00000002);
@@ -591,30 +609,34 @@ public  final class AddAssetRequest extends
       return this;
     }
 
-    private int mode_ ;
+    private int mode_ = 0;
     /**
-     * <code>required int32 mode = 3;</code>
+     * <code>required .clapi.AssetMode mode = 3;</code>
      */
     public boolean hasMode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int32 mode = 3;</code>
+     * <code>required .clapi.AssetMode mode = 3;</code>
      */
-    public int getMode() {
-      return mode_;
+    public com.clapi.protocol.AssetMode getMode() {
+      com.clapi.protocol.AssetMode result = com.clapi.protocol.AssetMode.valueOf(mode_);
+      return result == null ? com.clapi.protocol.AssetMode.ASSET_SYSTEM : result;
     }
     /**
-     * <code>required int32 mode = 3;</code>
+     * <code>required .clapi.AssetMode mode = 3;</code>
      */
-    public Builder setMode(int value) {
+    public Builder setMode(com.clapi.protocol.AssetMode value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       bitField0_ |= 0x00000004;
-      mode_ = value;
+      mode_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>required int32 mode = 3;</code>
+     * <code>required .clapi.AssetMode mode = 3;</code>
      */
     public Builder clearMode() {
       bitField0_ = (bitField0_ & ~0x00000004);

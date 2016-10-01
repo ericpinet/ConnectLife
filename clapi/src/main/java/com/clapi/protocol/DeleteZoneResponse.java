@@ -16,6 +16,7 @@ public  final class DeleteZoneResponse extends
   }
   private DeleteZoneResponse() {
     uid_ = "";
+    error_ = "";
   }
 
   @java.lang.Override
@@ -49,6 +50,12 @@ public  final class DeleteZoneResponse extends
             com.google.protobuf.ByteString bs = input.readBytes();
             bitField0_ |= 0x00000001;
             uid_ = bs;
+            break;
+          }
+          case 18: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000002;
+            error_ = bs;
             break;
           }
         }
@@ -119,6 +126,48 @@ public  final class DeleteZoneResponse extends
     }
   }
 
+  public static final int ERROR_FIELD_NUMBER = 2;
+  private volatile java.lang.Object error_;
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public boolean hasError() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public java.lang.String getError() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        error_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getErrorBytes() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      error_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -138,6 +187,9 @@ public  final class DeleteZoneResponse extends
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       com.google.protobuf.GeneratedMessage.writeString(output, 1, uid_);
     }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 2, error_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -148,6 +200,9 @@ public  final class DeleteZoneResponse extends
     size = 0;
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       size += com.google.protobuf.GeneratedMessage.computeStringSize(1, uid_);
+    }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, error_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -263,6 +318,8 @@ public  final class DeleteZoneResponse extends
       super.clear();
       uid_ = "";
       bitField0_ = (bitField0_ & ~0x00000001);
+      error_ = "";
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -291,6 +348,10 @@ public  final class DeleteZoneResponse extends
         to_bitField0_ |= 0x00000001;
       }
       result.uid_ = uid_;
+      if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        to_bitField0_ |= 0x00000002;
+      }
+      result.error_ = error_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -310,6 +371,11 @@ public  final class DeleteZoneResponse extends
       if (other.hasUid()) {
         bitField0_ |= 0x00000001;
         uid_ = other.uid_;
+        onChanged();
+      }
+      if (other.hasError()) {
+        bitField0_ |= 0x00000002;
+        error_ = other.error_;
         onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -415,6 +481,82 @@ public  final class DeleteZoneResponse extends
   }
   bitField0_ |= 0x00000001;
       uid_ = value;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object error_ = "";
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public boolean hasError() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public java.lang.String getError() {
+      java.lang.Object ref = error_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          error_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getErrorBytes() {
+      java.lang.Object ref = error_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        error_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setError(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder clearError() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      error_ = getDefaultInstance().getError();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setErrorBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
       onChanged();
       return this;
     }

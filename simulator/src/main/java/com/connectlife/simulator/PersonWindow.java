@@ -266,8 +266,17 @@ public class PersonWindow extends Dialog {
 		
 		Label lblPicture = new Label(shell, SWT.NONE);
 		lblPicture.setText("Picture:");
-		CacheFile file = new CacheFile(client.getAssetUrl(person.getImageuid()), person.getImageuid());
-		Image image = new Image(canvas.getDisplay(), file.getFile().getAbsolutePath());
+		
+		CacheFile file = null;
+		Image image = null;
+		try {
+			file = new CacheFile(client.getAssetUrl(person.getImageuid()), person.getImageuid());
+			image = new Image(canvas.getDisplay(), file.getFile().getAbsolutePath());
+		} catch (Exception e2) {
+			m_logger.error(e2.getMessage());
+			e2.printStackTrace();
+		}
+		
 		Label lblImage = new Label(shell, SWT.NONE);
 		lblImage.setImage(ImageResize.resize(image,100,100));
 		image.dispose();
