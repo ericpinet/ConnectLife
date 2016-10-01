@@ -15,6 +15,7 @@ public  final class WaitNotificationResponse extends
     super(builder);
   }
   private WaitNotificationResponse() {
+    error_ = "";
   }
 
   @java.lang.Override
@@ -55,6 +56,12 @@ public  final class WaitNotificationResponse extends
               notification_ = subBuilder.buildPartial();
             }
             bitField0_ |= 0x00000001;
+            break;
+          }
+          case 18: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000002;
+            error_ = bs;
             break;
           }
         }
@@ -104,6 +111,48 @@ public  final class WaitNotificationResponse extends
     return notification_ == null ? com.clapi.protocol.Notification.getDefaultInstance() : notification_;
   }
 
+  public static final int ERROR_FIELD_NUMBER = 2;
+  private volatile java.lang.Object error_;
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public boolean hasError() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public java.lang.String getError() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        error_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getErrorBytes() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      error_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -127,6 +176,9 @@ public  final class WaitNotificationResponse extends
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       output.writeMessage(1, getNotification());
     }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 2, error_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -138,6 +190,9 @@ public  final class WaitNotificationResponse extends
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(1, getNotification());
+    }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, error_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -258,6 +313,8 @@ public  final class WaitNotificationResponse extends
         notificationBuilder_.clear();
       }
       bitField0_ = (bitField0_ & ~0x00000001);
+      error_ = "";
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -290,6 +347,10 @@ public  final class WaitNotificationResponse extends
       } else {
         result.notification_ = notificationBuilder_.build();
       }
+      if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        to_bitField0_ |= 0x00000002;
+      }
+      result.error_ = error_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -308,6 +369,11 @@ public  final class WaitNotificationResponse extends
       if (other == com.clapi.protocol.WaitNotificationResponse.getDefaultInstance()) return this;
       if (other.hasNotification()) {
         mergeNotification(other.getNotification());
+      }
+      if (other.hasError()) {
+        bitField0_ |= 0x00000002;
+        error_ = other.error_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -459,6 +525,82 @@ public  final class WaitNotificationResponse extends
         notification_ = null;
       }
       return notificationBuilder_;
+    }
+
+    private java.lang.Object error_ = "";
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public boolean hasError() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public java.lang.String getError() {
+      java.lang.Object ref = error_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          error_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getErrorBytes() {
+      java.lang.Object ref = error_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        error_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setError(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder clearError() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      error_ = getDefaultInstance().getError();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setErrorBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
+      onChanged();
+      return this;
     }
 
     // @@protoc_insertion_point(builder_scope:clapi.WaitNotificationResponse)

@@ -22,22 +22,22 @@ public interface AddAssetRequestOrBuilder extends
       getLabelBytes();
 
   /**
-   * <code>required int32 type = 2;</code>
+   * <code>required .clapi.AssetType type = 2;</code>
    */
   boolean hasType();
   /**
-   * <code>required int32 type = 2;</code>
+   * <code>required .clapi.AssetType type = 2;</code>
    */
-  int getType();
+  com.clapi.protocol.AssetType getType();
 
   /**
-   * <code>required int32 mode = 3;</code>
+   * <code>required .clapi.AssetMode mode = 3;</code>
    */
   boolean hasMode();
   /**
-   * <code>required int32 mode = 3;</code>
+   * <code>required .clapi.AssetMode mode = 3;</code>
    */
-  int getMode();
+  com.clapi.protocol.AssetMode getMode();
 
   /**
    * <code>required bytes data = 4;</code>

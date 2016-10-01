@@ -36,11 +36,11 @@ public interface AddPhoneRequestOrBuilder extends
       getPhoneBytes();
 
   /**
-   * <code>required int32 type = 3;</code>
+   * <code>required .clapi.PhoneType type = 3;</code>
    */
   boolean hasType();
   /**
-   * <code>required int32 type = 3;</code>
+   * <code>required .clapi.PhoneType type = 3;</code>
    */
-  int getType();
+  com.clapi.protocol.PhoneType getType();
 }

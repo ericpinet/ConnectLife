@@ -24,6 +24,7 @@ import com.clapi.protocol.CheckCompatibilityRequest;
 import com.clapi.protocol.CheckCompatibilityResponse;
 import com.clapi.protocol.DeletePersonRequest;
 import com.clapi.protocol.DeletePersonResponse;
+import com.clapi.protocol.EmailType;
 import com.clapi.protocol.GetJsonDataRequest;
 import com.clapi.protocol.GetJsonDataResponse;
 import com.clapi.protocol.GetVersionRequest;
@@ -318,7 +319,7 @@ public class ApiProcessorTest {
         };
 		
         // Execute API
-		api.addEmail(AddEmailRequest.newBuilder().setUidPerson("1").setEmail("pineri01@gmail.com").setType(1).build(), so);
+		api.addEmail(AddEmailRequest.newBuilder().setUidPerson("1").setEmail("pineri01@gmail.com").setType(EmailType.EMAIL_PERSONAL).build(), so);
 	}
 	
 	@Test
@@ -344,7 +345,7 @@ public class ApiProcessorTest {
         };
 		
         // Execute API
-		api.updateEmail(UpdateEmailRequest.newBuilder().setUid("1").setEmail("pineri01@gmail.com").setType(1).build(), so);
+		api.updateEmail(UpdateEmailRequest.newBuilder().setUid("1").setEmail("pineri01@gmail.com").setType(EmailType.EMAIL_PERSONAL).build(), so);
 	}
 	
 	@Test
