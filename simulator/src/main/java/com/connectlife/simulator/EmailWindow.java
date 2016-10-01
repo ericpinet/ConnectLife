@@ -20,7 +20,7 @@ public class EmailWindow extends Dialog {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(EmailWindow.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	protected Object result;
 	private Shell shlEmail;
 	private Person person;

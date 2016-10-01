@@ -40,7 +40,7 @@ public class AssetHttpHandler extends AbstractHandler {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(AssetHttpHandler.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

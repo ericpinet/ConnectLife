@@ -41,7 +41,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	/**
 	 * Logger use for this class.
 	 */
-	private final Logger m_logger = LogManager.getLogger(ApiProcessor.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

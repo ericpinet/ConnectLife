@@ -35,7 +35,7 @@ public class ApiGrpc implements Api {
 	/**
 	 * Logger use for this class.
 	 */
-	private final Logger m_logger = LogManager.getLogger(ApiGrpc.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

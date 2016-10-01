@@ -46,7 +46,7 @@ public class MainWindow implements NotificationListener {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(MainWindow.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 
 	protected Shell shell;
 	private Text textHost;
