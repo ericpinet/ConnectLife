@@ -39,7 +39,7 @@ public class DeviceMngr extends TimerTask implements DeviceManager, DiscoveryLis
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(DeviceMngr.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

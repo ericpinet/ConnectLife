@@ -27,7 +27,7 @@ public class ShellCmdExit implements ShellCmd {
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdExit.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
     
     /**
 	 * Initialization of translation system.

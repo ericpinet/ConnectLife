@@ -37,7 +37,7 @@ public abstract class FindProcessor {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(FindProcessor.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Data environment use by this find processor;

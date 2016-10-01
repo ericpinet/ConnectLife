@@ -31,7 +31,7 @@ public class ShellCmdOutputLog implements ShellCmd {
 	/**
 	 * Logger for the shell
 	 */
-    private static final Logger m_logger = LogManager.getLogger(ShellCmdOutputLog.class);
+    private final Logger m_logger = LogManager.getLogger(getClass().getName());
     
     /**
 	 * Initialization of translation system.

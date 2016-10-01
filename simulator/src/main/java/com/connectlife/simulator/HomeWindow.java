@@ -52,7 +52,7 @@ public class HomeWindow extends Dialog {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(HomeWindow.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 
 	protected Object result;
 	protected Shell shell;

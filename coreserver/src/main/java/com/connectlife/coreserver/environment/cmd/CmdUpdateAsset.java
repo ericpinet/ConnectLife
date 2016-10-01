@@ -34,7 +34,7 @@ public class CmdUpdateAsset extends CmdDefault {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdUpdateAsset.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.
