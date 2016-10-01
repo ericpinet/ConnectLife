@@ -64,8 +64,14 @@ public  final class AddPhoneRequest extends
             break;
           }
           case 24: {
-            bitField0_ |= 0x00000004;
-            type_ = input.readInt32();
+            int rawValue = input.readEnum();
+            com.clapi.protocol.PhoneType value = com.clapi.protocol.PhoneType.valueOf(rawValue);
+            if (value == null) {
+              unknownFields.mergeVarintField(3, rawValue);
+            } else {
+              bitField0_ |= 0x00000004;
+              type_ = rawValue;
+            }
             break;
           }
         }
@@ -181,16 +187,17 @@ public  final class AddPhoneRequest extends
   public static final int TYPE_FIELD_NUMBER = 3;
   private int type_;
   /**
-   * <code>required int32 type = 3;</code>
+   * <code>required .clapi.PhoneType type = 3;</code>
    */
   public boolean hasType() {
     return ((bitField0_ & 0x00000004) == 0x00000004);
   }
   /**
-   * <code>required int32 type = 3;</code>
+   * <code>required .clapi.PhoneType type = 3;</code>
    */
-  public int getType() {
-    return type_;
+  public com.clapi.protocol.PhoneType getType() {
+    com.clapi.protocol.PhoneType result = com.clapi.protocol.PhoneType.valueOf(type_);
+    return result == null ? com.clapi.protocol.PhoneType.PHONE_HOME : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -224,7 +231,7 @@ public  final class AddPhoneRequest extends
       com.google.protobuf.GeneratedMessage.writeString(output, 2, phone_);
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
-      output.writeInt32(3, type_);
+      output.writeEnum(3, type_);
     }
     unknownFields.writeTo(output);
   }
@@ -242,7 +249,7 @@ public  final class AddPhoneRequest extends
     }
     if (((bitField0_ & 0x00000004) == 0x00000004)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, type_);
+        .computeEnumSize(3, type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -620,30 +627,34 @@ public  final class AddPhoneRequest extends
       return this;
     }
 
-    private int type_ ;
+    private int type_ = 0;
     /**
-     * <code>required int32 type = 3;</code>
+     * <code>required .clapi.PhoneType type = 3;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int32 type = 3;</code>
+     * <code>required .clapi.PhoneType type = 3;</code>
      */
-    public int getType() {
-      return type_;
+    public com.clapi.protocol.PhoneType getType() {
+      com.clapi.protocol.PhoneType result = com.clapi.protocol.PhoneType.valueOf(type_);
+      return result == null ? com.clapi.protocol.PhoneType.PHONE_HOME : result;
     }
     /**
-     * <code>required int32 type = 3;</code>
+     * <code>required .clapi.PhoneType type = 3;</code>
      */
-    public Builder setType(int value) {
+    public Builder setType(com.clapi.protocol.PhoneType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       bitField0_ |= 0x00000004;
-      type_ = value;
+      type_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>required int32 type = 3;</code>
+     * <code>required .clapi.PhoneType type = 3;</code>
      */
     public Builder clearType() {
       bitField0_ = (bitField0_ & ~0x00000004);

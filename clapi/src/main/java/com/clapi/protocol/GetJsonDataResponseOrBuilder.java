@@ -20,4 +20,18 @@ public interface GetJsonDataResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getDataBytes();
+
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  boolean hasError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  java.lang.String getError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getErrorBytes();
 }

@@ -20,4 +20,18 @@ public interface DeleteAssetResponseOrBuilder extends
    */
   com.google.protobuf.ByteString
       getUidBytes();
+
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  boolean hasError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  java.lang.String getError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getErrorBytes();
 }

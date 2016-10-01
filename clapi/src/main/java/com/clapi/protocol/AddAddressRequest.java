@@ -92,8 +92,14 @@ public  final class AddAddressRequest extends
             break;
           }
           case 64: {
-            bitField0_ |= 0x00000040;
-            type_ = input.readInt32();
+            int rawValue = input.readEnum();
+            com.clapi.protocol.AddressType value = com.clapi.protocol.AddressType.valueOf(rawValue);
+            if (value == null) {
+              unknownFields.mergeVarintField(8, rawValue);
+            } else {
+              bitField0_ |= 0x00000040;
+              type_ = rawValue;
+            }
             break;
           }
         }
@@ -377,16 +383,17 @@ public  final class AddAddressRequest extends
   public static final int TYPE_FIELD_NUMBER = 8;
   private int type_;
   /**
-   * <code>required int32 type = 8;</code>
+   * <code>required .clapi.AddressType type = 8;</code>
    */
   public boolean hasType() {
     return ((bitField0_ & 0x00000040) == 0x00000040);
   }
   /**
-   * <code>required int32 type = 8;</code>
+   * <code>required .clapi.AddressType type = 8;</code>
    */
-  public int getType() {
-    return type_;
+  public com.clapi.protocol.AddressType getType() {
+    com.clapi.protocol.AddressType result = com.clapi.protocol.AddressType.valueOf(type_);
+    return result == null ? com.clapi.protocol.AddressType.ADDRESS_HOME : result;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -432,7 +439,7 @@ public  final class AddAddressRequest extends
       com.google.protobuf.GeneratedMessage.writeString(output, 7, country_);
     }
     if (((bitField0_ & 0x00000040) == 0x00000040)) {
-      output.writeInt32(8, type_);
+      output.writeEnum(8, type_);
     }
     unknownFields.writeTo(output);
   }
@@ -462,7 +469,7 @@ public  final class AddAddressRequest extends
     }
     if (((bitField0_ & 0x00000040) == 0x00000040)) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(8, type_);
+        .computeEnumSize(8, type_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1188,30 +1195,34 @@ public  final class AddAddressRequest extends
       return this;
     }
 
-    private int type_ ;
+    private int type_ = 0;
     /**
-     * <code>required int32 type = 8;</code>
+     * <code>required .clapi.AddressType type = 8;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>required int32 type = 8;</code>
+     * <code>required .clapi.AddressType type = 8;</code>
      */
-    public int getType() {
-      return type_;
+    public com.clapi.protocol.AddressType getType() {
+      com.clapi.protocol.AddressType result = com.clapi.protocol.AddressType.valueOf(type_);
+      return result == null ? com.clapi.protocol.AddressType.ADDRESS_HOME : result;
     }
     /**
-     * <code>required int32 type = 8;</code>
+     * <code>required .clapi.AddressType type = 8;</code>
      */
-    public Builder setType(int value) {
+    public Builder setType(com.clapi.protocol.AddressType value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       bitField0_ |= 0x00000040;
-      type_ = value;
+      type_ = value.getNumber();
       onChanged();
       return this;
     }
     /**
-     * <code>required int32 type = 8;</code>
+     * <code>required .clapi.AddressType type = 8;</code>
      */
     public Builder clearType() {
       bitField0_ = (bitField0_ & ~0x00000040);
