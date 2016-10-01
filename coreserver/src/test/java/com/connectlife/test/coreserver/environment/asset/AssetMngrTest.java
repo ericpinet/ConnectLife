@@ -104,7 +104,7 @@ public class AssetMngrTest {
 	}
 	
 	@Test
-	public void testAddAsset() {
+	public void testAddDeleteAsset() {
 		
 		// prepare app object
 		Injector injector = Guice.createInjector(new ApplicationInjectTest());
@@ -137,6 +137,8 @@ public class AssetMngrTest {
 		
 		// test save
 		try {
+			asset_mngr.addAsset(asset, ByteString.copyFrom(bytes));
+			asset_mngr.deleteAsset(asset);
 			asset_mngr.addAsset(asset, ByteString.copyFrom(bytes));
 		} catch (Exception e) {
 			fail();
