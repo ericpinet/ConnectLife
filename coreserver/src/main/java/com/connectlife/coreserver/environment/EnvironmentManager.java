@@ -36,7 +36,7 @@ public class EnvironmentManager extends Observable implements Environment, Envir
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(EnvironmentManager.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

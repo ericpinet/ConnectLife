@@ -38,7 +38,7 @@ public class DataManagerNeo4j implements DataManager {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(DataManagerNeo4j.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Environment data path contain the data representing the user, home, 
