@@ -1,8 +1,8 @@
 /**
- *  CmdUpdateHome.java
+ *  CmdDeletePerson.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-06-30.
+ *  Created by ericpinet on 2016-10-01.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -15,19 +15,19 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
 
-import com.clapi.data.Home;
+import com.clapi.data.Person;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
-import com.google.api.client.util.Preconditions;
+import com.google.common.base.Preconditions;
 
 /**
- * Command to update a home in the environment.
+ * Command to delete a person in the environment.
  * 
  * @author ericpinet
- * <br> 2016-03-28
+ * <br> 2016-10-01
  */
-public class CmdUpdateHome extends CmdDefault {
+public class CmdDeletePerson extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
@@ -40,17 +40,17 @@ public class CmdUpdateHome extends CmdDefault {
 	private static I18n i18n = Application.i18n;
 	
 	/**
-	 * Home to update in the environment.
+	 * Person to delete in the environment.
 	 */
-	private Home m_home;
+	private Person m_person;
 	
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _home Home to update in the environment.
+	 * @param _person Person to delete in the environment.
 	 */
-	public CmdUpdateHome (Home _home){
-		m_home = _home;
+	public CmdDeletePerson (Person _person){
+		m_person = _person;
 	}
 	
 	/**
@@ -64,48 +64,38 @@ public class CmdUpdateHome extends CmdDefault {
 		
 		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_home, i18n.tr("Error! It's not possible to update null home in the environment."));
+		Preconditions.checkNotNull(m_person, i18n.tr("Error! It's not possible to delete null person in the environment."));
+		Preconditions.checkArgument(false == m_person.getUid().isEmpty(), i18n.tr("Error! It's not possible to delete a person with a null UID."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
 		
-		// find the zone by the uid.
+		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 			
-			Node node = graph.findNode( Consts.LABEL_HOME, 
+			Node node = graph.findNode( Consts.LABEL_PERSON, 
 										Consts.UID, 
-										m_home.getUid() );
-			
+										m_person.getUid() );
+
 			if (null != node) {
-				
-				// Update the data in the graph
-				DataManagerNodeFactory.updateHomeNode(graph, node, m_home);
+			
+				// delete person node
+				DataManagerNodeFactory.deleteNodeWithChildren(graph, Consts.LABEL_PERSON, m_person.getUid());
 				
 				// display info in log
-				m_logger.info(m_home.toString());
-			
+				m_logger.info(m_person.toString());
+				
 				// set the data change
 				this.m_data_is_changed = true;
-				
 			}
 			else {
-				m_logger.error(i18n.tr("Home not found: ") + m_home.toString());
-				throw new Exception(i18n.tr("Home not found: ") + m_home.toString());
+				m_logger.error(i18n.tr("Person not found: ") + m_person.toString());
+				throw new Exception(i18n.tr("Person not found: ") + m_person.toString());
 			}
-			
+
 			tx.success();
 		}
 		
 		m_logger.info(i18n.tr("Execution completed."));
-	}
-	
-	/**
-	 * Return the home.
-	 * 
-	 * @return Home.
-	 */
-	public Home getHome(){
-		return m_home;
-	}
-	
+	}	
 }

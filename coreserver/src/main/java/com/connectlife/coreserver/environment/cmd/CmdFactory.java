@@ -128,6 +128,26 @@ public abstract class CmdFactory {
 	}
 	
 	/**
+	 * Return the CmdUpdatePerson. 
+	 * 
+	 * @param _person Person to update in the environment.
+	 * @return Return the CmdUpdatePerson. 
+	 */
+	static public CmdUpdatePerson getCmdUpdatePerson(Person _person){
+		return new CmdUpdatePerson(_person);
+	}
+	
+	/**
+	 * Return the CmdDeletePerson. 
+	 * 
+	 * @param _person Person to delete in the environment.
+	 * @return Return the CmdDeletePerson. 
+	 */
+	static public CmdDeletePerson getCmdDeletePerson(Person _person){
+		return new CmdDeletePerson(_person);
+	}
+	
+	/**
 	 * Return the CmdAddAccessory. 
 	 * 
 	 * @param _accessory Accessory to add in the environment.

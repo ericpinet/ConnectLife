@@ -29,7 +29,6 @@ import org.eclipse.swt.events.MouseEvent;
 import com.google.gson.Gson;
 import com.clapi.client.CLApiClient;
 import com.clapi.data.*;
-import com.clapi.protocol.EmailType;
 import com.clapi.protocol.Notification.NotificationType;
 import com.connectlife.simulator.device.Device;
 import com.clapi.client.NotificationListener;
