@@ -193,6 +193,8 @@ public class Application implements Observer{
 		
 		boolean ret_val = false;
 		
+		m_logger.info(i18n.tr("Application retrieving the base path execution context ..."));
+		
 		try {
 			m_base_path = new File(".").getCanonicalPath();
 			m_logger.info(i18n.tr("Base path:") + "'" + m_base_path +"'.");
