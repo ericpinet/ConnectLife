@@ -1,8 +1,8 @@
 /**
- *  CmdUpdatePerson.java
+ *  CmdAddEmail.java
  *  coreserver
  *
- *  Created by ericpinet on 2016-10-01.
+ *  Created by ericpinet on 2016-10-03.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -15,19 +15,21 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Transaction;
 import org.xnap.commons.i18n.I18n;
 
+import com.clapi.data.Email;
 import com.clapi.data.Person;
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.UIDGenerator;
 import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.common.base.Preconditions;
 
 /**
- * Command to update a person in the environment.
+ * Command to add an email in the environment.
  * 
  * @author ericpinet
- * <br> 2016-10-01
+ * <br> 2016-10-03
  */
-public class CmdUpdatePerson extends CmdDefault {
+public class CmdAddEmail extends CmdDefault {
 	
 	/**
 	 * Logger use for this class.
@@ -40,16 +42,23 @@ public class CmdUpdatePerson extends CmdDefault {
 	private static I18n i18n = Application.i18n;
 	
 	/**
-	 * Person to update in the environment.
+	 * Email to add in the environment.
+	 */
+	private Email m_email;
+	
+	/**
+	 * Person where to add the email.
 	 */
 	private Person m_person;
 	
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _person Person to update in the environment.
+	 * @param _email Email to add in the environment.
+	 * @param _person Home target where add zone.
 	 */
-	public CmdUpdatePerson (Person _person){
+	public CmdAddEmail (Email _email, Person _person){
+		m_email = _email;
 		m_person = _person;
 	}
 	
@@ -64,8 +73,9 @@ public class CmdUpdatePerson extends CmdDefault {
 		
 		m_logger.info(i18n.tr("Execution start ..."));
 		
-		Preconditions.checkNotNull(m_person, i18n.tr("Error! It's not possible to update null person in the environment."));
-		Preconditions.checkArgument(false == m_person.getUid().isEmpty(), i18n.tr("Error! It's not possible to update a person with a null UID."));
+		Preconditions.checkNotNull(m_email, i18n.tr("Error! It's not possible to add null email in the environment."));
+		Preconditions.checkArgument(m_email.getUid().isEmpty(), i18n.tr("Error! It's not possible to add a email with a UID."));
+		Preconditions.checkNotNull(m_person, i18n.tr("Error! It's not possible to add email in a null person in the environment."));
 		
 		// get the graph data
 		GraphDatabaseService graph = m_context.getDataManager().getGraph();
@@ -73,17 +83,23 @@ public class CmdUpdatePerson extends CmdDefault {
 		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 			
-			Node node = graph.findNode( Consts.LABEL_PERSON, 
-										Consts.UID, 
-										m_person.getUid() );
-
-			if (null != node) {
+			Node node_person = graph.findNode( 	Consts.LABEL_PERSON, 
+											 	Consts.UID, 
+											 	m_person.getUid() );
 			
-				// update person node
-				DataManagerNodeFactory.updatePersonNode(graph, node, m_person);
+			if (null != node_person) {
+						
+				// create the uid for the email
+				m_email.setUid(UIDGenerator.getUID());
+				
+				// build email node
+				Node node = DataManagerNodeFactory.buildEmailNode(graph, m_email);
+				
+				// create relationship
+				node_person.createRelationshipTo(node, Consts.RelTypes.CONTAINS);
 				
 				// display info in log
-				m_logger.info(m_person.toString());
+				m_logger.info(m_email.toString());
 				
 				// set the data change
 				this.m_data_is_changed = true;

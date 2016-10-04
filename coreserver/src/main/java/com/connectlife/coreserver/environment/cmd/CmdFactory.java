@@ -11,6 +11,7 @@ package com.connectlife.coreserver.environment.cmd;
 import com.clapi.data.Accessory;
 import com.clapi.data.Asset;
 import com.clapi.data.Characteristic;
+import com.clapi.data.Email;
 import com.clapi.data.Home;
 import com.clapi.data.Person;
 import com.clapi.data.Room;
@@ -145,6 +146,27 @@ public abstract class CmdFactory {
 	 */
 	static public CmdDeletePerson getCmdDeletePerson(Person _person){
 		return new CmdDeletePerson(_person);
+	}
+	
+	/**
+	 * Return the CmdAddEmail. 
+	 * 
+	 * @param _email Email to add in the environment.
+	 * @param _person Person where add email.
+	 * @return Return the CmdAddEmail. 
+	 */
+	static public CmdAddEmail getCmdAddEmail(Email _email, Person _person){
+		return new CmdAddEmail(_email, _person);
+	}
+	
+	/**
+	 * Return the CmdUpdateEmail. 
+	 * 
+	 * @param _email Email to update in the environment.
+	 * @return Return the CmdUpdateEmail. 
+	 */
+	static public CmdUpdateEmail getCmdUpdateEmail(Email _email){
+		return new CmdUpdateEmail(_email);
 	}
 	
 	/**
