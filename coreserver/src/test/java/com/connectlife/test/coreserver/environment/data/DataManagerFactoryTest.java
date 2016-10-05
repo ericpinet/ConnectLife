@@ -293,6 +293,8 @@ public class DataManagerFactoryTest {
 		Mockito.when(address.getProperty(Consts.ADDRESS_REGION)).thenReturn("qc");
 		Mockito.when(address.getProperty(Consts.ADDRESS_ZIPCODE)).thenReturn("111111");
 		Mockito.when(address.getProperty(Consts.ADDRESS_COUNTRY)).thenReturn("canada");
+		Mockito.when(address.getProperty(Consts.ADDRESS_IMAGEUID)).thenReturn("1");
+		
 		
 		for (int i=0 ; i<3 ; i++ ) {
 			try {
@@ -303,6 +305,7 @@ public class DataManagerFactoryTest {
 				assertTrue(add.getRegion().equals("qc"));
 				assertTrue(add.getZipcode().equals("111111"));
 				assertTrue(add.getCountry().equals("canada"));
+				assertTrue(add.getImageuid().equals("1"));
 			} catch (Exception e) {
 				fail();
 			}
@@ -348,12 +351,14 @@ public class DataManagerFactoryTest {
 		Mockito.when(email.hasLabel(Consts.LABEL_EMAIL)).thenReturn(true);
 		Mockito.when(email.getProperty(Consts.EMAIL_TYPE)).thenReturn(Consts.EMAIL_TYPE_PERSONAL, Consts.EMAIL_TYPE_WORK, Consts.EMAIL_TYPE_OTHER);
 		Mockito.when(email.getProperty(Consts.UID)).thenReturn("12345");
+		Mockito.when(email.getProperty(Consts.EMAIL_IMAGEUID)).thenReturn("1");
 		Mockito.when(email.getProperty(Consts.EMAIL_EMAIL)).thenReturn("qiaomei.wang@gmail.com");
 		
 		for (int i=0 ; i<3 ; i++ ) {
 			try {
 				Email aemail = DataManagerFactory.buildEmail(email);
 				assertTrue(aemail.getUid().equals("12345"));
+				assertTrue(aemail.getImageuid().equals("1"));
 				assertTrue(aemail.getEmail().equals("qiaomei.wang@gmail.com"));
 				
 			} catch (Exception e) {
@@ -404,12 +409,14 @@ public class DataManagerFactoryTest {
 		Mockito.when(phone.getProperty(Consts.PHONE_TYPE)).thenReturn(Consts.PHONE_TYPE_HOME, Consts.PHONE_TYPE_WORK, Consts.PHONE_TYPE_OTHER, Consts.PHONE_TYPE_CELL);
 		Mockito.when(phone.getProperty(Consts.UID)).thenReturn("12345");
 		Mockito.when(phone.getProperty(Consts.PHONE_NUMBER)).thenReturn("4188881111");
+		Mockito.when(phone.getProperty(Consts.PHONE_IMAGEUID)).thenReturn("1");
 		
 		for (int i=0 ; i<4 ; i++ ) {
 			try {
 				Phone aphone = DataManagerFactory.buildPhone(phone);
 				assertTrue(aphone.getUid().equals("12345"));
 				assertTrue(aphone.getPhone().equals("4188881111"));
+				assertTrue(aphone.getImageuid().equals("1"));
 				
 			} catch (Exception e) {
 				fail();

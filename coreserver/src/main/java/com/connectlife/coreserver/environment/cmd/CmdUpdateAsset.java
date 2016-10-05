@@ -34,7 +34,7 @@ public class CmdUpdateAsset extends CmdDefault {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdUpdateAsset.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.
@@ -103,8 +103,8 @@ public class CmdUpdateAsset extends CmdDefault {
 				this.m_data_is_changed = true;
 			}
 			else {
-				m_logger.error(i18n.tr("Home not found: ") + m_asset.toString());
-				throw new Exception(i18n.tr("Home not found: ") + m_asset.toString());
+				m_logger.error(i18n.tr("Asset not found: ") + m_asset.toString());
+				throw new Exception(i18n.tr("Asset not found: ") + m_asset.toString());
 			}
 			
 			// display info in log

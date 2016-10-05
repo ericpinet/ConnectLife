@@ -6,6 +6,8 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.clapi.client.CLApiClient;
 import com.clapi.data.Person;
+import com.clapi.protocol.EmailType;
+
 import org.eclipse.swt.widgets.Combo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +22,7 @@ public class EmailWindow extends Dialog {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(EmailWindow.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	protected Object result;
 	private Shell shlEmail;
 	private Person person;
@@ -89,11 +91,18 @@ public class EmailWindow extends Dialog {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					if(emailId < 0){
-						client.addEmail(person.getUid(), text.getText(), comboType.getSelectionIndex());
+					
+					EmailType type = EmailType.EMAIL_OTHER;
+					if(0 == comboType.getSelectionIndex())
+						type = EmailType.EMAIL_PERSONAL;
+					else if (1 == comboType.getSelectionIndex())
+						type = EmailType.EMAIL_WORK;
+					
+					if(emailId < 0){		
+						client.addEmail(person.getUid(), text.getText(), type);
 					}
 					else{
-						client.updateEmail(person.getEmails().get(emailId).getUid(), text.getText(), comboType.getSelectionIndex());
+						client.updateEmail(person.getEmails().get(emailId).getUid(), text.getText(), type);
 					}
 					shlEmail.close();
 				} catch (Exception e1) {

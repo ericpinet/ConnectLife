@@ -19,6 +19,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.graphics.Image;
 
 import java.util.Iterator;
 
@@ -32,6 +33,8 @@ import com.clapi.data.*;
 import com.clapi.data.Address.AddressType;
 import com.clapi.data.Email.EmailType;
 import com.clapi.data.Phone.PhoneType;
+import com.connectlife.simulator.cache.CacheFile;
+import com.connectlife.simulator.image.ImageResize;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -49,7 +52,7 @@ public class PersonWindow extends Dialog {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(PersonWindow.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 
 	protected Object result;
 	protected Shell shell;
@@ -97,7 +100,7 @@ public class PersonWindow extends Dialog {
 	 */
 	private void createContents() {
 		shell = new Shell();
-		shell.setSize(600, 531);
+		shell.setSize(600, 650);
 		shell.setText(getText());
 		shell.setLayout(new GridLayout(2, false));
 		
@@ -252,12 +255,31 @@ public class PersonWindow extends Dialog {
 			}
 		}
 		
+		// TODO Load image
+		Canvas canvas = new Canvas(shell, SWT.NONE);		
+		GridData gd_canvas = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_canvas.heightHint = 15;
+		gd_canvas.widthHint = 19;
+		canvas.setLayoutData(gd_canvas);
+		
+		new Label(shell, SWT.NONE);
+		
 		Label lblPicture = new Label(shell, SWT.NONE);
 		lblPicture.setText("Picture:");
 		
-		// TODO Load image
-		@SuppressWarnings("unused")
-		Canvas canvas = new Canvas(shell, SWT.NONE);
+		CacheFile file = null;
+		Image image = null;
+		try {
+			file = new CacheFile(client.getAssetUrl(person.getImageuid()), person.getImageuid());
+			image = new Image(canvas.getDisplay(), file.getFile().getAbsolutePath());
+		} catch (Exception e2) {
+			m_logger.error(e2.getMessage());
+			e2.printStackTrace();
+		}
+		
+		Label lblImage = new Label(shell, SWT.NONE);
+		lblImage.setImage(ImageResize.resize(image,100,100));
+		image.dispose();
 		new Label(shell, SWT.NONE);
 		
 		Button btnAdd = new Button(shell, SWT.NONE);
@@ -357,4 +379,6 @@ public class PersonWindow extends Dialog {
 		Button btnDeleteEmail = new Button(shell, SWT.NONE);
 		btnDeleteEmail.setText("Delete Email");
 	}
+	
+	
 }

@@ -32,7 +32,7 @@ public class CmdDeleteAccessory extends CmdDefault {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdDeleteAccessory.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

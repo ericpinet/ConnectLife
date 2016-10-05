@@ -16,6 +16,7 @@ public  final class CheckCompatibilityResponse extends
   }
   private CheckCompatibilityResponse() {
     compatible_ = false;
+    error_ = "";
   }
 
   @java.lang.Override
@@ -48,6 +49,12 @@ public  final class CheckCompatibilityResponse extends
           case 8: {
             bitField0_ |= 0x00000001;
             compatible_ = input.readBool();
+            break;
+          }
+          case 18: {
+            com.google.protobuf.ByteString bs = input.readBytes();
+            bitField0_ |= 0x00000002;
+            error_ = bs;
             break;
           }
         }
@@ -91,6 +98,48 @@ public  final class CheckCompatibilityResponse extends
     return compatible_;
   }
 
+  public static final int ERROR_FIELD_NUMBER = 2;
+  private volatile java.lang.Object error_;
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public boolean hasError() {
+    return ((bitField0_ & 0x00000002) == 0x00000002);
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public java.lang.String getError() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      if (bs.isValidUtf8()) {
+        error_ = s;
+      }
+      return s;
+    }
+  }
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  public com.google.protobuf.ByteString
+      getErrorBytes() {
+    java.lang.Object ref = error_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      error_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -110,6 +159,9 @@ public  final class CheckCompatibilityResponse extends
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       output.writeBool(1, compatible_);
     }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      com.google.protobuf.GeneratedMessage.writeString(output, 2, error_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -121,6 +173,9 @@ public  final class CheckCompatibilityResponse extends
     if (((bitField0_ & 0x00000001) == 0x00000001)) {
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(1, compatible_);
+    }
+    if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      size += com.google.protobuf.GeneratedMessage.computeStringSize(2, error_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -236,6 +291,8 @@ public  final class CheckCompatibilityResponse extends
       super.clear();
       compatible_ = false;
       bitField0_ = (bitField0_ & ~0x00000001);
+      error_ = "";
+      bitField0_ = (bitField0_ & ~0x00000002);
       return this;
     }
 
@@ -264,6 +321,10 @@ public  final class CheckCompatibilityResponse extends
         to_bitField0_ |= 0x00000001;
       }
       result.compatible_ = compatible_;
+      if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+        to_bitField0_ |= 0x00000002;
+      }
+      result.error_ = error_;
       result.bitField0_ = to_bitField0_;
       onBuilt();
       return result;
@@ -282,6 +343,11 @@ public  final class CheckCompatibilityResponse extends
       if (other == com.clapi.protocol.CheckCompatibilityResponse.getDefaultInstance()) return this;
       if (other.hasCompatible()) {
         setCompatible(other.getCompatible());
+      }
+      if (other.hasError()) {
+        bitField0_ |= 0x00000002;
+        error_ = other.error_;
+        onChanged();
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -342,6 +408,82 @@ public  final class CheckCompatibilityResponse extends
     public Builder clearCompatible() {
       bitField0_ = (bitField0_ & ~0x00000001);
       compatible_ = false;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object error_ = "";
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public boolean hasError() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public java.lang.String getError() {
+      java.lang.Object ref = error_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          error_ = s;
+        }
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getErrorBytes() {
+      java.lang.Object ref = error_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        error_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setError(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder clearError() {
+      bitField0_ = (bitField0_ & ~0x00000002);
+      error_ = getDefaultInstance().getError();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>optional string error = 2;</code>
+     */
+    public Builder setErrorBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+      error_ = value;
       onChanged();
       return this;
     }

@@ -62,7 +62,7 @@ public class InAppShellFactory implements Factory {
     	/**
     	 * Logger for the shell
     	 */
-        private static final Logger m_logger = LogManager.getLogger(InAppShell.class);
+    	private Logger m_logger = LogManager.getLogger(getClass().getName());
         
         /**
     	 * Initialization of translation system.
@@ -227,7 +227,7 @@ public class InAppShellFactory implements Factory {
                 m_reader.addCompleter(new StringsCompleter(params));
                 
                 m_writer = new PrintWriter(m_reader.getOutput());
-                m_writer.println(i18n.tr("- Welcome to ConnectLife Shell -"));
+                m_writer.println(i18n.tr("ConnectLife console"));
                 m_writer.flush();
 
                 String line;

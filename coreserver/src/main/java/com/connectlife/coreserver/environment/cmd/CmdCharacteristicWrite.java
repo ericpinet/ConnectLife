@@ -33,7 +33,7 @@ public class CmdCharacteristicWrite extends CmdDefault {
 	/**
 	 * Logger use for this class.
 	 */
-	private static Logger m_logger = LogManager.getLogger(CmdCharacteristicWrite.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.

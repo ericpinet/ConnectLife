@@ -13,10 +13,6 @@ import java.io.PrintStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// internal
-import com.connectlife.coreserver.Application;
-
-
 /**
  * This class permit to simply output stack trace in the log.
  * Exemple:
@@ -39,7 +35,7 @@ public abstract class StdOutErrLog {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(Application.class);
+	private static Logger m_logger = LogManager.getLogger(StdOutErrLog.class);
 
 	/**
 	 * Call this methode before call exception.printStackTrace() to output the stacktrace in log.

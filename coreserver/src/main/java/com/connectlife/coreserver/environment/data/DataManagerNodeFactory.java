@@ -39,6 +39,7 @@ import com.clapi.data.Zone;
 import com.clapi.data.Accessory.AccessoryProtocolType;
 import com.clapi.data.Accessory.AccessoryType;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 
 /**
  * Data factory to manage the node system of the graph with standard data.
@@ -113,6 +114,11 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.UID, _home.getUid());
 				_node.setProperty(Consts.HOME_LABEL, _home.getLabel());
 				_node.setProperty(Consts.HOME_IMAGEUID, _home.getImageuid());
+				
+				// set default image
+				if (_home.getImageuid().isEmpty()) {
+					_node.setProperty(Consts.HOME_IMAGEUID, SystemFactoryAsset.getAssetUidByClassType(_home));
+				}
 				
 				if (null != _home.getZones()) {
 					// zone
@@ -208,6 +214,11 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ZONE_LABEL, _zone.getLabel());
 				_node.setProperty(Consts.ZONE_IMAGEUID, _zone.getImageuid());
 				
+				// set default image
+				if (_zone.getImageuid().isEmpty()) {
+					_node.setProperty(Consts.ZONE_IMAGEUID, SystemFactoryAsset.getAssetUidByClassType(_zone));
+				}
+				
 				if (null != _zone.getRooms()) {
 					// room
 					Iterator<Room> itroom = _zone.getRooms().iterator();
@@ -301,6 +312,11 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.UID, _room.getUid());
 				_node.setProperty(Consts.ROOM_LABEL, _room.getLabel());
 				_node.setProperty(Consts.ROOM_IMAGEUID, _room.getImageuid());
+				
+				// set default image
+				if (_room.getImageuid().isEmpty()) {
+					_node.setProperty(Consts.ROOM_IMAGEUID, SystemFactoryAsset.getAssetUidByClassType(_room));
+				}
 				
 				if (null != _room.getAccessories()) {
 					// accessory
@@ -429,6 +445,11 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.PERSON_LASTNAME, _person.getLastname());
 				_node.setProperty(Consts.PERSON_IMAGEUID, _person.getImageuid());
 				
+				// set default image
+				if (_person.getImageuid().isEmpty()) {
+					_node.setProperty(Consts.PERSON_IMAGEUID, SystemFactoryAsset.getAssetUidByClassType(_person));
+				}
+				
 				if (null != _person.getEmails()) {
 					// email
 					Iterator<Email> itemail = _person.getEmails().iterator();
@@ -545,6 +566,7 @@ public abstract class DataManagerNodeFactory {
 				
 				_node.setProperty(Consts.UID, _email.getUid());
 				_node.setProperty(Consts.EMAIL_EMAIL, _email.getEmail());
+				_node.setProperty(Consts.EMAIL_IMAGEUID, _email.getImageuid());
 				
 				if (EmailType.PERSONAL == _email.getType()) {
 					_node.setProperty(Consts.EMAIL_TYPE, Consts.EMAIL_TYPE_PERSONAL);
@@ -612,6 +634,7 @@ public abstract class DataManagerNodeFactory {
 				
 				_node.setProperty(Consts.UID, _phone.getUid());
 				_node.setProperty(Consts.PHONE_NUMBER, _phone.getPhone());
+				_node.setProperty(Consts.PHONE_IMAGEUID, _phone.getImageuid());
 				
 				if (PhoneType.HOME == _phone.getType()) {
 					_node.setProperty(Consts.PHONE_TYPE, Consts.PHONE_TYPE_HOME);
@@ -686,6 +709,7 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ADDRESS_REGION, _address.getRegion());
 				_node.setProperty(Consts.ADDRESS_ZIPCODE, _address.getZipcode());
 				_node.setProperty(Consts.ADDRESS_COUNTRY, _address.getCountry());
+				_node.setProperty(Consts.ADDRESS_IMAGEUID, _address.getImageuid());
 				
 				if (AddressType.HOME == _address.getType()) {
 					_node.setProperty(Consts.ADDRESS_TYPE, Consts.ADDRESS_TYPE_HOME);
@@ -774,7 +798,12 @@ public abstract class DataManagerNodeFactory {
 				_node.setProperty(Consts.ACCESSORY_MANUFACTURER, _accessory.getManufacturer());
 				_node.setProperty(Consts.ACCESSORY_SERIALNUMBER, _accessory.getSerialnumber());
 				_node.setProperty(Consts.ACCESSORY_ISREGISTER, (_accessory.isRegister() ? "true" : "false"));
-				_node.setProperty(Consts.ACCESSORY_IMAGEURL, _accessory.getImageurl());
+				_node.setProperty(Consts.ACCESSORY_IMAGEURL, _accessory.getImageuid());
+				
+				// set default image
+				if (_accessory.getImageuid().isEmpty()) {
+					_node.setProperty(Consts.ACCESSORY_IMAGEURL, SystemFactoryAsset.getAssetUidByClassType(_accessory));
+				}
 				
 				if (AccessoryType.AUTOMATIC_DOOR == _accessory.getType()) {
 					_node.setProperty(Consts.ACCESSORY_TYPE, Consts.ACC_TYPE_AUTOMATIC_DOOR);

@@ -19,4 +19,18 @@ public interface WaitNotificationResponseOrBuilder extends
    * <code>required .clapi.Notification notification = 1;</code>
    */
   com.clapi.protocol.NotificationOrBuilder getNotificationOrBuilder();
+
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  boolean hasError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  java.lang.String getError();
+  /**
+   * <code>optional string error = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getErrorBytes();
 }

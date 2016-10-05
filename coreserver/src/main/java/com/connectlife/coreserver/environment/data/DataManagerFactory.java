@@ -16,6 +16,7 @@ import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.ResourceIterator;
 import org.neo4j.graphdb.Transaction;
+import org.xnap.commons.i18n.I18n;
 
 import com.clapi.data.Accessory;
 import com.clapi.data.Address;
@@ -34,7 +35,9 @@ import com.clapi.data.Service;
 import com.clapi.data.Zone;
 import com.clapi.data.Asset.AssetMode;
 import com.clapi.data.Asset.AssetType;
+import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.Consts;
+import com.connectlife.coreserver.environment.asset.SystemFactoryAsset;
 
 /**
  * Data manager factory use to build Data object from Graph database.
@@ -45,6 +48,11 @@ import com.connectlife.coreserver.Consts;
 public abstract class DataManagerFactory {
 	
 	/**
+	 * Initialization of translation system.
+	 */
+	private static I18n i18n = Application.i18n;
+	
+	/**
 	 * Get a Data representation of the environment data.
 	 * 
 	 * @param _graph GraphDatabaseService use to build data.
@@ -52,6 +60,8 @@ public abstract class DataManagerFactory {
 	 * @throws Exception Throw an exception is something goes wrong.
 	 */
 	public static Data prepareData(GraphDatabaseService _graph) throws Exception {
+		
+
 		
 		Data ret_data = new Data();
 		
@@ -90,7 +100,7 @@ public abstract class DataManagerFactory {
 			}
 		}
 		else{
-			throw new Exception ("Error! The DataManager must be correctly initialized before trying to get data.");
+			throw new Exception (i18n.tr("Error! The DataManager must be correctly initialized before trying to get data."));
 		}
 		
 		return ret_data;
@@ -115,6 +125,11 @@ public abstract class DataManagerFactory {
 			ret_person.setLastname((String)_node.getProperty(Consts.PERSON_LASTNAME));
 			ret_person.setImageuid((String)_node.getProperty(Consts.PERSON_IMAGEUID));
 			
+			// Set default image
+			if (ret_person.getImageuid().isEmpty()) {
+				ret_person.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_person));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -137,7 +152,7 @@ public abstract class DataManagerFactory {
 							ret_person.addAddress(address);
 						}
 						else{
-							throw new Exception ("Label not supported yet!");
+							throw new Exception (i18n.tr("Label not supported yet!"));
 						}
 					}
 				}
@@ -146,7 +161,7 @@ public abstract class DataManagerFactory {
 			}
 		}
 		else {
-			throw new Exception ("It's not a person node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a person node!")+" ["+_node.getLabels()+"]");
 		}
 		
 		return ret_person;
@@ -172,7 +187,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_WORK)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -181,7 +197,8 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.ADDRESS_TYPE).equals(Consts.ADDRESS_TYPE_OTHER)) {
 				ret = new Address( 	(String)_node.getProperty(Consts.UID),
@@ -190,14 +207,20 @@ public abstract class DataManagerFactory {
 								 	(String)_node.getProperty(Consts.ADDRESS_CITY),
 								 	(String)_node.getProperty(Consts.ADDRESS_REGION),
 								 	(String)_node.getProperty(Consts.ADDRESS_ZIPCODE),
-								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY));
+								 	(String)_node.getProperty(Consts.ADDRESS_COUNTRY),
+								 	(String)_node.getProperty(Consts.ADDRESS_IMAGEUID));
 			}
 			else {
-				throw new Exception ("Error! Address type not supported. ["+_node.getProperty(Consts.ADDRESS_TYPE)+"]");
+				throw new Exception (i18n.tr("Error! Address type not supported.")+" ["+_node.getProperty(Consts.ADDRESS_TYPE)+"]");
 			}
 		}
 		else {
-			throw new Exception ("It's not a address node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a address node!")+" ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -219,24 +242,32 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_PERSONAL)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.EMAIL_EMAIL),
-								Email.EmailType.PERSONAL);
+								Email.EmailType.PERSONAL, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_WORK)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.WORK);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.WORK, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.EMAIL_TYPE).equals(Consts.EMAIL_TYPE_OTHER)) {
 				ret = new Email((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.EMAIL_EMAIL),
-						Email.EmailType.OTHER);
+								(String)_node.getProperty(Consts.EMAIL_EMAIL),
+								Email.EmailType.OTHER, 
+								(String)_node.getProperty(Consts.EMAIL_IMAGEUID));
 			}
 			else {
-				throw new Exception ("Email type not supported yet! ["+_node.getProperty(Consts.EMAIL_TYPE)+"]");
+				throw new Exception (i18n.tr("Email type not supported yet!")+" ["+_node.getProperty(Consts.EMAIL_TYPE)+"]");
 			}
 		}
 		else {
-			throw new Exception ("It's not a email node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a email node!")+" ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -258,29 +289,38 @@ public abstract class DataManagerFactory {
 			if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_HOME)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
 								(String)_node.getProperty(Consts.PHONE_NUMBER),
-								Phone.PhoneType.HOME);
+								Phone.PhoneType.HOME,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_WORK)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.WORK);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.WORK,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			} 
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_OTHER)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.OTHER);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.OTHER,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else if (_node.getProperty(Consts.PHONE_TYPE).equals(Consts.PHONE_TYPE_CELL)) {
 				ret = new Phone((String)_node.getProperty(Consts.UID),
-						(String)_node.getProperty(Consts.PHONE_NUMBER),
-						Phone.PhoneType.CELL);
+								(String)_node.getProperty(Consts.PHONE_NUMBER),
+								Phone.PhoneType.CELL,
+								(String)_node.getProperty(Consts.PHONE_IMAGEUID));
 			}
 			else {
-				throw new Exception ("Phone type not supported yet! ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
+				throw new Exception (i18n.tr("Phone type not supported yet!")+" ["+_node.getProperty(Consts.PHONE_TYPE)+"]");
 			}
 		}
 		else {
-			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a phone node!")+" ["+_node.getLabels()+"]");
+		}
+		
+		// Set default image
+		if (ret.getImageuid().isEmpty()) {
+			ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 		}
 		
 		return ret;
@@ -304,6 +344,11 @@ public abstract class DataManagerFactory {
 			ret_home.setLabel((String) _node.getProperty(Consts.HOME_LABEL));
 			ret_home.setImageuid((String)_node.getProperty(Consts.HOME_IMAGEUID));
 			
+			// Set default image
+			if (ret_home.getImageuid().isEmpty()) {
+				ret_home.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret_home));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -318,7 +363,7 @@ public abstract class DataManagerFactory {
 							ret_home.addZone(zone);
 						}
 						else{
-							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+							throw new Exception (i18n.tr("Label not supported yet!")+" ["+node.getLabels()+"]");
 						}
 					}
 				}
@@ -327,7 +372,7 @@ public abstract class DataManagerFactory {
 			}
 		}
 		else {
-			throw new Exception ("It's not a home node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a home node!")+" ["+_node.getLabels()+"]");
 		}
 		return ret_home;
 	}
@@ -350,6 +395,11 @@ public abstract class DataManagerFactory {
 			ret.setLabel((String) _node.getProperty(Consts.ZONE_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ZONE_IMAGEUID));
 			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -364,7 +414,7 @@ public abstract class DataManagerFactory {
 							ret.addRoom(room);
 						}
 						else{
-							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+							throw new Exception (i18n.tr("Label not supported yet!")+" ["+node.getLabels()+"]");
 						}
 					}
 				}
@@ -373,7 +423,7 @@ public abstract class DataManagerFactory {
 			}
 		}
 		else {
-			throw new Exception ("It's not a zone node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a zone node!")+" ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -397,6 +447,11 @@ public abstract class DataManagerFactory {
 			ret.setLabel((String) _node.getProperty(Consts.ROOM_LABEL));
 			ret.setImageuid((String)_node.getProperty(Consts.ROOM_IMAGEUID));
 			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
+			}
+			
 			try ( Transaction tx = _graph.beginTx() ) {
 				
 				Iterator<Relationship> it = _node.getRelationships(Consts.RelTypes.CONTAINS).iterator();
@@ -411,7 +466,7 @@ public abstract class DataManagerFactory {
 							ret.addAccessory(accessory);
 						}
 						else{
-							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+							throw new Exception (i18n.tr("Label not supported yet!")+" ["+node.getLabels()+"]");
 						}
 					}
 				}
@@ -443,7 +498,7 @@ public abstract class DataManagerFactory {
 			ret.setManufacturer((String)_node.getProperty(Consts.ACCESSORY_MANUFACTURER));
 			ret.setSerialnumber((String)_node.getProperty(Consts.ACCESSORY_SERIALNUMBER));
 			ret.setRegister(_node.getProperty(Consts.ACCESSORY_ISREGISTER).equals("true"));
-			ret.setImageurl((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
+			ret.setImageuid((String)_node.getProperty(Consts.ACCESSORY_IMAGEURL));
 			
 			if (_node.getProperty(Consts.ACCESSORY_TYPE).equals(Consts.ACC_TYPE_AUTOMATIC_DOOR)) {
 				ret.setType(Accessory.AccessoryType.AUTOMATIC_DOOR);
@@ -479,7 +534,7 @@ public abstract class DataManagerFactory {
 				ret.setType(Accessory.AccessoryType.THERMOSTAT);
 			}
 			else {
-				throw new Exception ("Accessory type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_TYPE)+"]");
+				throw new Exception (i18n.tr("Accessory type not supported yet!")+" ["+_node.getProperty(Consts.ACCESSORY_TYPE)+"]");
 			}
 			
 			if (_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE).equals(Consts.ACC_PROTOCOL_TYPE_HAP)) {
@@ -495,7 +550,12 @@ public abstract class DataManagerFactory {
 				ret.setProtocoltype(Accessory.AccessoryProtocolType.ZWAVE);
 			}
 			else {
-				throw new Exception ("Accessory protocol type not supported yet! ["+_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE)+"]");
+				throw new Exception (i18n.tr("Accessory protocol type not supported yet!")+" ["+_node.getProperty(Consts.ACCESSORY_PROTOCOLTYPE)+"]");
+			}
+			
+			// Set default image
+			if (ret.getImageuid().isEmpty()) {
+				ret.setImageuid(SystemFactoryAsset.getAssetUidByClassType(ret));
 			}
 			
 			try ( Transaction tx = _graph.beginTx() ) {
@@ -512,7 +572,7 @@ public abstract class DataManagerFactory {
 							ret.addService(service);
 						}
 						else{
-							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+							throw new Exception (i18n.tr("Label not supported yet!")+" ["+node.getLabels()+"]");
 						}
 					}
 				}
@@ -521,7 +581,7 @@ public abstract class DataManagerFactory {
 			}
 		}
 		else {
-			throw new Exception ("It's not a accessory node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a accessory node!")+" ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -558,7 +618,7 @@ public abstract class DataManagerFactory {
 							ret.addCharacteristic(characteristic);
 						}
 						else{
-							throw new Exception ("Label not supported yet! ["+node.getLabels()+"]");
+							throw new Exception (i18n.tr("Label not supported yet!")+" ["+node.getLabels()+"]");
 						}
 					}
 				}
@@ -605,7 +665,7 @@ public abstract class DataManagerFactory {
 				type = CharacteristicType.WRITE_ONLY_BOOLEAN;
 			}
 			else {
-				throw new Exception ("Characteristic type not supported yet! ["+_node.getProperty(Consts.CH_TYPE)+"]");
+				throw new Exception (i18n.tr("Characteristic type not supported yet!")+" ["+_node.getProperty(Consts.CH_TYPE)+"]");
 			}
 			
 			if (_node.getProperty(Consts.CH_MODE).equals(Consts.CH_ACCESS_MODE_READ_ONLY)) {
@@ -618,7 +678,7 @@ public abstract class DataManagerFactory {
 				mode = CharacteristicAccessMode.WRITE_ONLY;
 			}
 			else {
-				throw new Exception ("Characteristic access mode not supported yet! ["+_node.getProperty(Consts.CH_MODE)+"]");
+				throw new Exception (i18n.tr("Characteristic access mode not supported yet!")+" ["+_node.getProperty(Consts.CH_MODE)+"]");
 			}
 			
 			if (_node.getProperty(Consts.CH_EVENT_TYPE).equals(Consts.CH_EVENT_TYPE_EVENT)) {
@@ -628,7 +688,7 @@ public abstract class DataManagerFactory {
 				event = CharacteristicEventType.NO_EVENT;
 			}
 			else {
-				throw new Exception ("Characteristic event type not supported yet! ["+_node.getProperty(Consts.CH_EVENT_TYPE)+"]");
+				throw new Exception (i18n.tr("Characteristic event type not supported yet!")+" ["+_node.getProperty(Consts.CH_EVENT_TYPE)+"]");
 			}
 			
 			ret = new Characteristic(	(String)_node.getProperty(Consts.UID),
@@ -641,7 +701,7 @@ public abstract class DataManagerFactory {
 			
 		}
 		else {
-			throw new Exception ("It's not a phone node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a phone node!")+" ["+_node.getLabels()+"]");
 		}
 		
 		return ret;
@@ -674,7 +734,7 @@ public abstract class DataManagerFactory {
 				ret.setType(AssetType.OTHER);
 			}
 			else {
-				throw new Exception ("Asset type not supported yet! ["+_node.getProperty(Consts.ASSET_TYPE)+"]");
+				throw new Exception (i18n.tr("Asset type not supported yet!")+" ["+_node.getProperty(Consts.ASSET_TYPE)+"]");
 			}
 			
 			// set mode
@@ -685,11 +745,11 @@ public abstract class DataManagerFactory {
 				ret.setMode(AssetMode.USER);
 			}
 			else {
-				throw new Exception ("Asset mode not supported yet! ["+_node.getProperty(Consts.ASSET_MODE)+"]");
+				throw new Exception (i18n.tr("Asset mode not supported yet!")+" ["+_node.getProperty(Consts.ASSET_MODE)+"]");
 			}
 		}
 		else {
-			throw new Exception ("It's not a asset node! ["+_node.getLabels()+"]");
+			throw new Exception (i18n.tr("It's not a asset node!")+" ["+_node.getLabels()+"]");
 		}
 		
 		return ret;

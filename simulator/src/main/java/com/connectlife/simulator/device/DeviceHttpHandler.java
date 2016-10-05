@@ -51,7 +51,7 @@ public class DeviceHttpHandler extends AbstractHandler {
 	/**
 	 * Init logger instance for this class
 	 */
-	private static Logger m_logger = LogManager.getLogger(DeviceHttpHandler.class);
+	private Logger m_logger = LogManager.getLogger(getClass().getName());
 
 	/**
 	 * Device parent of this http handle.

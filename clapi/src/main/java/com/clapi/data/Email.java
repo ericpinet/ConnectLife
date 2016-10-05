@@ -41,6 +41,11 @@ public class Email extends DataObjDefault implements DataObj {
 	private String email;
 	
 	/**
+	 * Email Imageuid
+	 */
+	private String imageuid;
+	
+	/**
 	 * Email type. 
 	 */
 	private EmailType type;
@@ -57,6 +62,23 @@ public class Email extends DataObjDefault implements DataObj {
 		this.uid = uid;
 		this.email = email;
 		this.type = type;
+		this.imageuid = "";
+	}
+	
+	/**
+	 * Default Constructor.
+	 * 
+	 * @param uid Uid of the email.
+	 * @param email Email of the email.
+	 * @param type Type of the email.
+	 * @param imageuid Imageuid of the email.
+	 */
+	public Email(String uid, String email, EmailType type, String imageuid) {
+		super();
+		this.uid = uid;
+		this.email = email;
+		this.type = type;
+		this.imageuid = imageuid;
 	}
 
 	/**
@@ -85,6 +107,20 @@ public class Email extends DataObjDefault implements DataObj {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	/**
+	 * @return the imageuid
+	 */
+	public String getImageuid() {
+		return imageuid;
+	}
+
+	/**
+	 * @param imageuid the imageuid to set
+	 */
+	public void setImageuid(String imageuid) {
+		this.imageuid = imageuid;
 	}
 
 	/**
