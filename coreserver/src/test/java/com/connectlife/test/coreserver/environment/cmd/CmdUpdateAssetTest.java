@@ -22,7 +22,6 @@ import com.clapi.data.Asset.AssetMode;
 import com.clapi.data.Asset.AssetType;
 import com.connectlife.coreserver.environment.EnvironmentContext;
 import com.connectlife.coreserver.environment.asset.AssetManager;
-import com.connectlife.coreserver.environment.cmd.CmdDeleteAsset;
 import com.connectlife.coreserver.environment.cmd.CmdFactory;
 import com.connectlife.coreserver.environment.cmd.CmdUpdateAsset;
 import com.connectlife.coreserver.environment.data.DataManager;
