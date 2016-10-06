@@ -8,7 +8,7 @@ See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.git
 
 - **Coreserver**: Main system server install on device without screen. ([Javadoc API](http://ericpinet.github.io/ConnectLife/javadoc/coreserver/))
 - **Clapi**: Client/Server protocol for the Connectlife system. ([Javadoc API](http://ericpinet.github.io/ConnectLife/javadoc/clapi/))
-- **Simulator**: Simulator of the home device (Helpful for tests).
+- **Simulator**: Simulator of home device (Helpful for tests).
 
 ## Documentation
 
@@ -24,9 +24,11 @@ See the website : [http://ericpinet.github.io/ConnectLife/](http://ericpinet.git
 
 - N/A
 
-## Translation
+## Continious Integration
 
-- [PoEditor] (https://poeditor.com/join/project/GQRWqACDD2)
+- Build : [Travis-CI.org](https://travis-ci.org/ericpinet/ConnectLife)
+- Translation: [PoEditor.com](https://poeditor.com/join/project/GQRWqACDD2)
+- CodeCoverage: [Codecov](https://codecov.io/gh/ericpinet/ConnectLife)
 
 ## Author
 

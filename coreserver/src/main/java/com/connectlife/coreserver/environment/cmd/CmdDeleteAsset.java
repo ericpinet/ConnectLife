@@ -1,5 +1,5 @@
 /**
- *  CmdUpdateAsset.java
+ *  CmdDeleteAsset.java
  *  coreserver
  *
  *  Created by ericpinet on 2016-08-03.
@@ -23,7 +23,7 @@ import com.connectlife.coreserver.environment.data.DataManagerNodeFactory;
 import com.google.api.client.util.Preconditions;
 
 /**
- * Command to update a asset (file) in the environment.
+ * Command to delete a asset (file) in the environment.
  * 
  * @author ericpinet
  * <br> 2016-08-03
@@ -48,7 +48,7 @@ public class CmdDeleteAsset extends CmdDefault {
 	/**
 	 * Default constructor.
 	 *  
-	 * @param _asset Asset to add in the environment.
+	 * @param _asset Asset to delete in the environment.
 	 */
 	public CmdDeleteAsset (Asset _asset){
 		m_asset = _asset;
@@ -77,9 +77,9 @@ public class CmdDeleteAsset extends CmdDefault {
 		// begin transaction
 		try ( Transaction tx = graph.beginTx() ) {
 						
-			Node node_asset = graph.findNode( Consts.LABEL_ASSET, 
-											Consts.UID, 
-											m_asset.getUid() );
+			Node node_asset = graph.findNode( 	Consts.LABEL_ASSET, 
+												Consts.UID, 
+												m_asset.getUid() );
 			
 			if (null != node_asset) {
 				

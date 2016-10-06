@@ -517,7 +517,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		// TODO - Complete the transaction
 		reply = UpdatePersonResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		/*
@@ -559,7 +559,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		// TODO - Complete the transaction
 		reply = DeletePersonResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		/*Person person = m_environment.getFindProcessorReadOnly().findPerson(new Person(request.getUid(), "", "", ""));
 		try {
@@ -594,7 +594,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		// TODO - Complete the transaction
 		reply = AddEmailResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		/*
@@ -630,7 +630,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		// TODO - Complete the transaction
 		reply = UpdateEmailResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		/*
@@ -668,7 +668,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = DeleteEmailResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -686,7 +686,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = AddPhoneResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -704,7 +704,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = UpdatePhoneResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -722,7 +722,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = DeletePhoneResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -740,7 +740,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = AddAddressResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -758,7 +758,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = UpdateAddressResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
@@ -776,7 +776,7 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 		
 		reply = DeleteAddressResponse.newBuilder()
 		    	.setUid("")
-		   		.setError(i18n.tr("Not implemented yet!"))
+		   		.setError(i18n.tr("Not yet implemented!"))
 		   		.build();
 		
 		responseObserver.onNext(reply);
