@@ -204,8 +204,13 @@ public class AssetMngr implements AssetManager {
 		m_logger.info(i18n.tr("UnInit ..."));
 		
 		try {
-			m_server.stop();
-			m_handler.stop();
+			
+			if (null != m_server)
+				m_server.stop();
+			
+			if (null != m_handler)
+				m_handler.stop();
+			
 		} catch (Exception e) {
 			m_logger.error(i18n.tr("Unable to stop the asset http server."));
 			m_logger.error(e.getMessage());
