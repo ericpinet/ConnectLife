@@ -421,7 +421,7 @@ public class AssetMngr implements AssetManager {
 			if (false == file.exists()) { 
 				
 				// read file
-				File image = new File(getClass().getResource("/" + asset.getLabel()).getFile());
+				File image = new File(getClass().getResource("/assets/" + asset.getLabel()).getFile());
 				byte[] bytes = null;
 				bytes = Files.toByteArray(image);
 				

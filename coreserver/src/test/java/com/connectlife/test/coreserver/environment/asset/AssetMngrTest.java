@@ -127,7 +127,7 @@ public class AssetMngrTest {
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
+		File image = new File(getClass().getResource("/assets/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -193,7 +193,7 @@ public class AssetMngrTest {
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
+		File image = new File(getClass().getResource("/assets/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -224,7 +224,7 @@ public class AssetMngrTest {
 		assertTrue( asset_file.exists() && (false == asset_file.isDirectory()) );
 		
 		// read other file image
-		image = new File(getClass().getResource("/" + _IMAGE_FILE_2_).getFile());
+		image = new File(getClass().getResource("/assets/" + _IMAGE_FILE_2_).getFile());
 		try {
 			bytes = Files.toByteArray(image);
 		} catch (IOException e) {
@@ -255,7 +255,7 @@ public class AssetMngrTest {
 		AssetMngr asset_mngr = new AssetMngr();
 		
 		// read file
-		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
+		File image = new File(getClass().getResource("/assets/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
@@ -285,7 +285,7 @@ public class AssetMngrTest {
 		assertTrue(asset_mngr.init());
 		
 		// read file
-		File image = new File(getClass().getResource("/" + _IMAGE_FILE_1_).getFile());
+		File image = new File(getClass().getResource("/assets/" + _IMAGE_FILE_1_).getFile());
 		byte[] bytes = null;
 		try {
 			bytes = Files.toByteArray(image);
