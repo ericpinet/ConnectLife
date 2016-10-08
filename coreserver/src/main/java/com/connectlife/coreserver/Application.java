@@ -53,7 +53,7 @@ public class Application implements Observer{
 	/**
 	 * Initialization of translation system.
 	 */
-	public static I18n i18n = I18nFactory.getI18n(Application.class, "i18n.Messages", java.util.Locale.ENGLISH);
+	public static I18n i18n = I18nFactory.getI18n(Application.class, "i18n.Messages", java.util.Locale.FRENCH);
 	
 	/**
 	 * Config manager for the application.
