@@ -25,7 +25,7 @@ public class SimulatorGpio implements Gpio {
 	/**
 	 * Logger use for this class.
 	 */
-	private final Logger m_logger = LogManager.getLogger(SimulatorGpio.class);
+	private final Logger m_logger = LogManager.getLogger(getClass().getName());
 	
 	/**
 	 * Initialization of translation system.
