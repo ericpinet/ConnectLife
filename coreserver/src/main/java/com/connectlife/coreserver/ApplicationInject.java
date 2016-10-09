@@ -36,6 +36,8 @@ import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.gpio.RaspberryPiGpio;
 import com.connectlife.coreserver.gpio.SimulatorGpio;
 import com.connectlife.coreserver.tools.os.OperatingSystem;
+import com.connectlife.coreserver.webserver.WebServer;
+import com.connectlife.coreserver.webserver.WebServerJetty;
 
 /**
  * Google Guice injection module to create an Application Class.
@@ -77,6 +79,9 @@ public class ApplicationInject extends AbstractModule {
 		else{
 			bind(Gpio.class).to(SimulatorGpio.class);
 		}
+		
+		// WebServer
+		bind(WebServer.class).to(WebServerJetty.class);
 	}
 
 }

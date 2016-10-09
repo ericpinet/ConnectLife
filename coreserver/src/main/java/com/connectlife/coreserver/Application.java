@@ -32,6 +32,7 @@ import com.connectlife.coreserver.gpio.Gpio;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.connectlife.coreserver.tools.execution.ExecutionMode;
 import com.connectlife.coreserver.tools.os.OperatingSystem;
+import com.connectlife.coreserver.webserver.WebServer;
 
 
 /**
@@ -43,7 +44,7 @@ import com.connectlife.coreserver.tools.os.OperatingSystem;
  * <br> 2015-09-07
  */
 @Singleton
-public class Application implements Observer{
+public class Application implements Observer {
 	
 	/**
 	 * Init logger instance for this class
@@ -74,6 +75,11 @@ public class Application implements Observer{
 	 * Console manager for the application.
 	 */
 	private final Console m_console;
+	
+	/**
+	 * Web server for the application.
+	 */
+	private final WebServer m_web_server;
 	
 	/**
 	 * GPIO manager for the application.
@@ -132,15 +138,17 @@ public class Application implements Observer{
 	 * @param _api Api for the application.
 	 * @param _console Console for the application.
 	 * @param _gpio GPIO manager for the application.
+	 * @param _web_Server Web server for the application.
 	 */
 	@Inject
-	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio){
+	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio, WebServer _web_server){
 		m_logger.debug(i18n.tr("Application statup."));
 		m_config = _config;
 		m_environment = _env;
 		m_api = _api;
 		m_console = _console;
 		m_gpio = _gpio;
+		m_web_server = _web_server;
 		m_ref = this;
 	}
 	
@@ -246,27 +254,29 @@ public class Application implements Observer{
 		boolean ret_val = false;
 		
 		// Check if all module are not null
-		if(m_config != null &&
+		if (m_config != null &&
 		   m_environment != null &&
 		   m_api != null &&
-		   m_console != null
-		   ){
+		   m_console != null &&
+		   m_web_server != null
+		   ) {
 			
 			// init config first
-			if(m_config.init() == true){
+			if (m_config.init() == true) {
 				
 				// init environment second
-				if(m_environment.init() == true){
+				if (m_environment.init() == true) {
 					
 					m_environment.addObserver(this);
 					
 					// init others modules
-					if(	m_api.init() == true &&
+					if (m_api.init() == true &&
 						m_console.init() == true && 
-						m_gpio.init() == true){
+						m_gpio.init() == true &&
+						m_web_server.init() == true) {
 						
 						// in debug mode (give more rights on all files to permit remote debugging)
-						if( ExecutionMode.isDebug() && OperatingSystem.isLinux() ){
+						if (ExecutionMode.isDebug() && OperatingSystem.isLinux()) {
 							Process p;
 					        try {
 					            p = Runtime.getRuntime().exec("chmod 777 -R "+getBasePath());
@@ -298,7 +308,8 @@ public class Application implements Observer{
 		   m_environment != null &&
 		   m_api != null &&
 		   m_console != null &&
-		   m_gpio != null
+		   m_gpio != null &&
+		   m_web_server != null
 		   ){
 			
 			m_console.unInit();
@@ -306,6 +317,7 @@ public class Application implements Observer{
 			m_environment.unInit();
 			m_config.unInit();
 			m_gpio.unInit();
+			m_web_server.unInit();
 			
 		}
 		else{
@@ -427,6 +439,15 @@ public class Application implements Observer{
 	 */
 	public Console getConsole(){
 		return m_console;
+	}
+	
+	/**
+	 * Return the web server for this application.
+	 * 
+	 * @return Return web server.
+	 */
+	public WebServer getWebServer(){
+		return m_web_server;
 	}
 
 	/**
