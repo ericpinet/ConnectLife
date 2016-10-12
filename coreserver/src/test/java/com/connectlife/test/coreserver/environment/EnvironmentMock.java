@@ -81,9 +81,7 @@ public class EnvironmentMock extends Observable implements Environment {
 	 * @see com.connectlife.coreserver.environment.Environment#executeCommand(com.connectlife.coreserver.environment.cmd.Cmd)
 	 */
 	@Override
-	public void executeCommand(Cmd _cmd) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void executeCommand(Cmd _cmd) throws Exception {	
 	}
 
 	/**
@@ -92,7 +90,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public String getJsonFormattedEnvironment() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -103,7 +100,6 @@ public class EnvironmentMock extends Observable implements Environment {
 	 */
 	@Override
 	public FindProcessor getFindProcessor() throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

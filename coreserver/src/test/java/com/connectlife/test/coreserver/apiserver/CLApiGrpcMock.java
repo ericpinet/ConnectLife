@@ -88,9 +88,7 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getVersion(com.clapi.protocol.GetVersionRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
-	public void getVersion(GetVersionRequest request, StreamObserver<GetVersionResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
+	public void getVersion(GetVersionRequest request, StreamObserver<GetVersionResponse> responseObserver) {	
 	}
 
 	/**
@@ -101,8 +99,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	@Override
 	public void checkCompatibility(CheckCompatibilityRequest request,
 			StreamObserver<CheckCompatibilityResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -112,9 +108,7 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void waitNotification(WaitNotificationRequest request,
-			StreamObserver<WaitNotificationResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
+			StreamObserver<WaitNotificationResponse> responseObserver) {	
 	}
 
 	/**
@@ -124,8 +118,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void getJsonData(GetJsonDataRequest request, StreamObserver<GetJsonDataResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -135,8 +127,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addPerson(AddPersonRequest request, StreamObserver<AddPersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -146,8 +136,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updatePerson(UpdatePersonRequest request, StreamObserver<UpdatePersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -157,8 +145,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deletePerson(DeletePersonRequest request, StreamObserver<DeletePersonResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -168,8 +154,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addEmail(AddEmailRequest request, StreamObserver<AddEmailResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -179,8 +163,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateEmail(UpdateEmailRequest request, StreamObserver<UpdateEmailResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -190,8 +172,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteEmail(DeleteEmailRequest request, StreamObserver<DeleteEmailResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -201,8 +181,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addPhone(AddPhoneRequest request, StreamObserver<AddPhoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -212,8 +190,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updatePhone(UpdatePhoneRequest request, StreamObserver<UpdatePhoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -223,8 +199,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deletePhone(DeletePhoneRequest request, StreamObserver<DeletePhoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -234,8 +208,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addAddress(AddAddressRequest request, StreamObserver<AddAddressResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -245,8 +217,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateAddress(UpdateAddressRequest request, StreamObserver<UpdateAddressResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -256,8 +226,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteAddress(DeleteAddressRequest request, StreamObserver<DeleteAddressResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -267,8 +235,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addAccessory(AddAccessoryRequest request, StreamObserver<AddAccessoryResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -279,8 +245,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	@Override
 	public void deleteAccessory(DeleteAccessoryRequest request,
 			StreamObserver<DeleteAccessoryResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -290,8 +254,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addHome(AddHomeRequest request, StreamObserver<AddHomeResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -301,8 +263,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateHome(UpdateHomeRequest request, StreamObserver<UpdateHomeResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -312,8 +272,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteHome(DeleteHomeRequest request, StreamObserver<DeleteHomeResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -323,8 +281,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addZone(AddZoneRequest request, StreamObserver<AddZoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -334,8 +290,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateZone(UpdateZoneRequest request, StreamObserver<UpdateZoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -345,8 +299,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteZone(DeleteZoneRequest request, StreamObserver<DeleteZoneResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -356,8 +308,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addRoom(AddRoomRequest request, StreamObserver<AddRoomResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -367,8 +317,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateRoom(UpdateRoomRequest request, StreamObserver<UpdateRoomResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -378,8 +326,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteRoom(DeleteRoomRequest request, StreamObserver<DeleteRoomResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -389,8 +335,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void addAsset(AddAssetRequest request, StreamObserver<AddAssetResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -400,8 +344,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void updateAsset(UpdateAssetRequest request, StreamObserver<UpdateAssetResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -411,8 +353,6 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void deleteAsset(DeleteAssetRequest request, StreamObserver<DeleteAssetResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -422,7 +362,5 @@ public class CLApiGrpcMock implements CLApiGrpc.CLApi {
 	 */
 	@Override
 	public void getAssetUrl(GetAssetUrlRequest request, StreamObserver<GetAssetUrlResponse> responseObserver) {
-		// TODO Auto-generated method stub
-		
 	}
 }

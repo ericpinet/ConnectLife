@@ -49,7 +49,6 @@ public class RaspberryPiGpio implements Gpio {
 	@Override
 	public boolean init() {
 		
-		// TODO: GPIO 
 		m_logger.info(i18n.tr("<--Pi4J--> GPIO Control Example ... started."));
         
         // create gpio controller
@@ -157,7 +156,6 @@ public class RaspberryPiGpio implements Gpio {
 	 */
 	@Override
 	public boolean isInit() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -167,8 +165,5 @@ public class RaspberryPiGpio implements Gpio {
 	 */
 	@Override
 	public void unInit() {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

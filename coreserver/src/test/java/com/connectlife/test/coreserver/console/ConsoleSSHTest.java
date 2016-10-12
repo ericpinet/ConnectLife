@@ -225,9 +225,6 @@ public class ConsoleSSHTest {
 		try {
 			cmd.execute("output env formatted");
 			
-			//TODO
-			//assertTrue(response != null);
-			
 		} catch (InterruptedIOException e) {
 			//do nothing.
 		}

@@ -3,7 +3,7 @@
  *  coreserver
  *
  *  Created by Eric Pinet <pineri01@gmail.com> on 2015-09-07.
- *  Copyright (c) 2015 ConnectLife (Eric Pinet). All rights reserved.
+ *  Copyright (c) 2015-2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
 package com.connectlife.coreserver;
@@ -410,7 +410,7 @@ public class Application implements Observer {
 	 * 
 	 * @return Return configuration manager.
 	 */
-	public Config getConfig(){
+	public Config getConfig() {
 		return m_config;
 	}
 	
@@ -419,7 +419,7 @@ public class Application implements Observer {
 	 * 
 	 * @return Return environement manager.
 	 */
-	public Environment getEnvironment(){
+	public Environment getEnvironment() {
 		return m_environment;
 	}
 	
@@ -428,7 +428,7 @@ public class Application implements Observer {
 	 * 
 	 * @return Return api manager.
 	 */
-	public Api getApi(){
+	public Api getApi() {
 		return m_api;
 	}
 	
@@ -437,7 +437,7 @@ public class Application implements Observer {
 	 * 
 	 * @return Return console manager.
 	 */
-	public Console getConsole(){
+	public Console getConsole() {
 		return m_console;
 	}
 	
@@ -446,7 +446,7 @@ public class Application implements Observer {
 	 * 
 	 * @return Return web server.
 	 */
-	public WebServer getWebServer(){
+	public WebServer getWebServer() {
 		return m_web_server;
 	}
 
@@ -459,7 +459,6 @@ public class Application implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO: Complete this function.
 		if(m_environment == o){
 			m_logger.info(i18n.tr("Environment was updated."));
 		}

@@ -81,7 +81,7 @@ public class ShellCmdSaveEnv implements ShellCmd {
 	 * 
 	 * @param _line The shell line enter by the user.
 	 * @return The shell string return to display at the user.
-	 * @throws InterruptedIOException The execution can cause a inturruption of the console screen. (Exit/Quit/Shutdown)
+	 * @throws InterruptedIOException The execution can cause a interruption of the console screen. (Exit/Quit/Shutdown)
 	 * @see com.connectlife.coreserver.console.ShellCmd#execute(java.lang.String)
 	 */
 	@Override

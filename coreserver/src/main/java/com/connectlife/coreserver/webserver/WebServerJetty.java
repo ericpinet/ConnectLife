@@ -195,7 +195,6 @@ public class WebServerJetty implements WebServer {
 
 	/**
 	 * UnInit the web server. Ready to init again.
-	 * 
 	 */
 	@Override
 	public void unInit() {
@@ -223,11 +222,12 @@ public class WebServerJetty implements WebServer {
 	
 	/**
 	 * Return the server connector (Port)
+	 * 
 	 * @return
 	 */
-	private ServerConnector connector()
-    {
+	private ServerConnector connector() {
         ServerConnector connector = new ServerConnector(m_server);
+        // TODO: Add configuration
         connector.setPort(8080);
         return connector;
     }
@@ -239,8 +239,7 @@ public class WebServerJetty implements WebServer {
 	 * @throws FileNotFoundException
 	 * @throws URISyntaxException
 	 */
-	private URI getWebRootResourceUri() throws FileNotFoundException, URISyntaxException
-    {
+	private URI getWebRootResourceUri() throws FileNotFoundException, URISyntaxException {
         URL indexUri = this.getClass().getResource(m_webroot);
         if (indexUri == null) {
             throw new FileNotFoundException("Unable to find resource " + m_webroot);
@@ -255,9 +254,9 @@ public class WebServerJetty implements WebServer {
 	 * @return
 	 * @throws IOException
 	 */
-    private File getScratchDir() throws IOException
-    {
-        File tempDir = new File(System.getProperty("java.io.tmpdir"));
+    private File getScratchDir() throws IOException {
+        
+    	File tempDir = new File(System.getProperty("java.io.tmpdir"));
         File scratchDir = new File(tempDir.toString(), "connectlife-embedded-jetty-jsp");
 
         if (!scratchDir.exists()) {
@@ -271,10 +270,13 @@ public class WebServerJetty implements WebServer {
     /**
      * Setup the basic application "context" for this application at "/"
      * This is also known as the handler tree (in jetty speak)
+     * 
+     * @param baseUid Base URI.
+     * @param scratchDir Directory.
      */
-    private WebAppContext getWebAppContext(URI baseUri, File scratchDir)
-    {
-        WebAppContext context = new WebAppContext();
+    private WebAppContext getWebAppContext(URI baseUri, File scratchDir) {
+        
+    	WebAppContext context = new WebAppContext();
         context.setContextPath("/");
         context.setAttribute("javax.servlet.context.tempdir", scratchDir);
         context.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",
@@ -287,10 +289,8 @@ public class WebServerJetty implements WebServer {
 
         context.addServlet(jspServletHolder(), "*.jsp");
         
-        // Add Application Servlets
-        context.addServlet(ConnectLifeServlet.class, "/connectlife/");
-
-        context.addServlet(exampleJspFileMappedServletHolder(), "/test/foo/");
+        // Add Application Servlet
+        context.addServlet(ConnectLifeServlet.class, "/connectlife");
         
         context.addServlet(defaultServletHolder(baseUri), "/");
         return context;
@@ -301,9 +301,9 @@ public class WebServerJetty implements WebServer {
      * 
      * @return
      */
-    private List<ContainerInitializer> jspInitializers()
-    {
-        JettyJasperInitializer sci = new JettyJasperInitializer();
+    private List<ContainerInitializer> jspInitializers() {
+        
+    	JettyJasperInitializer sci = new JettyJasperInitializer();
         ContainerInitializer initializer = new ContainerInitializer(sci, null);
         List<ContainerInitializer> initializers = new ArrayList<ContainerInitializer>();
         initializers.add(initializer);
@@ -318,18 +318,20 @@ public class WebServerJetty implements WebServer {
      * 
      * @return
      */
-    private ClassLoader getUrlClassLoader()
-    {
-        ClassLoader jspClassLoader = new URLClassLoader(new URL[0], this.getClass().getClassLoader());
+    private ClassLoader getUrlClassLoader() {
+        
+    	ClassLoader jspClassLoader = new URLClassLoader(new URL[0], this.getClass().getClassLoader());
         return jspClassLoader;
     }
     
     /**
      * Create JSP Servlet (must be named "jsp")
+     * 
+     * @return
      */
-    private ServletHolder jspServletHolder()
-    {
-        ServletHolder holderJsp = new ServletHolder("jsp", JettyJspServlet.class);
+    private ServletHolder jspServletHolder() {
+        
+    	ServletHolder holderJsp = new ServletHolder("jsp", JettyJspServlet.class);
         holderJsp.setInitOrder(0);
         holderJsp.setInitParameter("logVerbosityLevel", "DEBUG");
         holderJsp.setInitParameter("fork", "false");
@@ -341,22 +343,14 @@ public class WebServerJetty implements WebServer {
     }
 
     /**
-     * Create Example of mapping jsp to path spec
+     * Create Default Servlet (must be named "default").
+     * 
+     * @param baseUri
+     * @return
      */
-    private ServletHolder exampleJspFileMappedServletHolder()
-    {
-        ServletHolder holderAltMapping = new ServletHolder();
-        holderAltMapping.setName("foo.jsp");
-        holderAltMapping.setForcedPath("/test/foo/foo.jsp");
-        return holderAltMapping;
-    }
-
-    /**
-     * Create Default Servlet (must be named "default")
-     */
-    private ServletHolder defaultServletHolder(URI baseUri)
-    {
-        ServletHolder holderDefault = new ServletHolder("default", DefaultServlet.class);
+    private ServletHolder defaultServletHolder(URI baseUri) {
+        
+    	ServletHolder holderDefault = new ServletHolder("default", DefaultServlet.class);
         m_logger.info(i18n.tr("Base URI: ") + baseUri);
         holderDefault.setInitParameter("resourceBase", baseUri.toASCIIString());
         holderDefault.setInitParameter("dirAllowed", "true");
@@ -364,21 +358,22 @@ public class WebServerJetty implements WebServer {
     }
 
     /**
-     * Establish the Server URI
+     * Establish the Server URI.
+     * 
+     * @param connector
+     * @return
+     * @throws URISyntaxException
      */
-    private URI getServerUri(ServerConnector connector) throws URISyntaxException 
-    {
-        String scheme = "http";
-        for (ConnectionFactory connectFactory : connector.getConnectionFactories())
-        {
-            if (connectFactory.getProtocol().equals("SSL-http"))
-            {
+    private URI getServerUri(ServerConnector connector) throws URISyntaxException {
+        
+    	String scheme = "http";
+        for (ConnectionFactory connectFactory : connector.getConnectionFactories()) {
+            if (connectFactory.getProtocol().equals("SSL-http")) {
                 scheme = "https";
             }
         }
         String host = connector.getHost();
-        if (host == null)
-        {
+        if (host == null) {
             host = "localhost";
         }
         int port = connector.getLocalPort();
@@ -386,5 +381,4 @@ public class WebServerJetty implements WebServer {
         m_logger.info(i18n.tr("Server URI: ") + m_server_uri);
         return m_server_uri;
     }
-
 }
