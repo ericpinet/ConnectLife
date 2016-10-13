@@ -15,9 +15,9 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+	        <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard <span class="sr-only">(current)</span></a></li>
 	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench Settings" aria-hidden="true"></span> Settings<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
 	            <li><a href="#">General</a></li>
 	            <li><a href="#">Something else here</a></li>
@@ -35,7 +35,7 @@
 			</div>
 			<div class="checkbox">
 			  <label>
-			    <input type="checkbox"> Remember me
+			    <input type="checkbox"> Remember me 
 			  </label>
 			</div>
 			<button type="submit" class="btn btn-default">Sign in</button>

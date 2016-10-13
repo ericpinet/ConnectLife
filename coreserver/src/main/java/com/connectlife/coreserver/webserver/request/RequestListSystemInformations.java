@@ -1,5 +1,5 @@
 /**
- *  RequestServiceStatus.java
+ *  RequestListSystemInformation.java
  *  coreserver
  *
  *  Created by ericpinet on 11 oct. 2016.
@@ -10,7 +10,7 @@ package com.connectlife.coreserver.webserver.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,8 +18,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.connectlife.coreserver.webserver.Service;
+import com.connectlife.coreserver.tools.os.OperatingSystem;
 import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
@@ -29,17 +31,17 @@ import com.google.gson.Gson;
  * @author ericpinet
  * <br> 11 oct. 2016
  */
-public class RequestListServices extends RequestBase {
+public class RequestListSystemInformations extends RequestBase {
 	
 	/**
 	 * Query of the request. 
 	 */
-	private static String QUERY = "list_services";
+	private static String QUERY = "list_system_info";
 	
 	/**
 	 * Default constructor.
 	 */
-	public RequestListServices() {
+	public RequestListSystemInformations() {
 		
 	}
 
@@ -86,14 +88,14 @@ public class RequestListServices extends RequestBase {
 		
 		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
 		
-		List<Service> list = new ArrayList<Service>();
+		Map<String, String> system_infos = new HashMap<String, String>();
 		
-		list.add(new Service("com.connectlife.coreserver.config.ConfigSqlite", "Config", "Configuration of the system."));
-		list.add(new Service("com.connectlife.coreserver.environment.EnvironmentManager", "Environment", "Environment manager of the system."));
-		list.add(new Service("com.connectlife.coreserver.webserver.WebServerJetty", "WebService", "Web Server of the system."));
-		list.add(new Service("com.connectlife.coreserver.console.ConsoleSSH", "Console", "Console of the system."));
-		
-	    String json = new Gson().toJson(list);
+		system_infos.put(i18n.tr("System Name"), Consts.APP_NAME);
+		system_infos.put(i18n.tr("Version"), Consts.APP_VERSION);
+		system_infos.put(i18n.tr("Base Directory"), Application.getApp().getBasePath());
+		system_infos.put(i18n.tr("Operating System"), OperatingSystem.getOSName());
+	
+	    String json = new Gson().toJson(system_infos);
 
 	    _response.setContentType("application/json");
 	    _response.setCharacterEncoding("UTF-8");

@@ -8,7 +8,18 @@
  */
 package com.connectlife.coreserver.webserver.request;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.xnap.commons.i18n.I18n;
+
+import com.connectlife.coreserver.Application;
+import com.google.api.client.repackaged.com.google.common.base.Preconditions;
 
 /**
  * Request factory. Use this factory to build request. 
@@ -19,6 +30,55 @@ import javax.servlet.http.HttpServletRequest;
 public class RequestFactory {
 	
 	/**
+	 * Init logger instance for this class
+	 */
+	protected Logger m_logger = LogManager.getLogger(getClass().getName());
+	
+	/**
+	 * Initialization of translation system.
+	 */
+	protected static I18n i18n = Application.i18n;
+	
+	/**
+	 * Singleton instance.
+	 */
+	private static RequestFactory m_ref = null;
+	
+	/**
+	 * List of requests available.
+	 */
+	private List<RequestBase> m_requests;
+	
+	/**
+	 * Return singleton instance.
+	 * 
+	 * @return
+	 */
+	public static RequestFactory getRef() {
+		if (null == m_ref)
+			m_ref = new RequestFactory();
+		return m_ref;
+	}
+	
+	/**
+	 * Default constructor.
+	 */
+	private RequestFactory () {
+		m_requests = new ArrayList<RequestBase>();
+		m_requests.add(new RequestListModules());
+		m_requests.add(new RequestListSystemInformations());
+	}
+	
+	/**
+	 * Return requests available.
+	 * 
+	 * @return
+	 */
+	public List<RequestBase> getRequests() {
+		return m_requests;
+	}
+	
+	/**
 	 * Build the request to answer the request.
 	 * 
 	 * @param _request
@@ -26,6 +86,15 @@ public class RequestFactory {
 	 */
 	public static RequestBase getRequest(HttpServletRequest _request) {
 		
-		return new RequestListServices();
+		Preconditions.checkNotNull(_request, i18n.tr("The request cannot be null."));
+		
+		Iterator<RequestBase> it = (RequestFactory.getRef().getRequests().iterator());
+		while (it.hasNext()) {
+			RequestBase request = it.next();
+			if (request.requestCompatibility(_request))
+				return request;
+		}
+		return null;
+		
 	}
 }

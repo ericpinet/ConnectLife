@@ -10,7 +10,6 @@ package com.connectlife.coreserver.webserver.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;

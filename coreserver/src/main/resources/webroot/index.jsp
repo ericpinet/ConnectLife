@@ -29,8 +29,11 @@
 			<!-- HEADER -->
 			<jsp:include page="jsp/header.jsp" />
 		
-			<!-- SERVICE STATUS -->
-			<jsp:include page="jsp/panel_services.jsp" />
+			<!-- SYSTEM INFO STATUS -->
+			<jsp:include page="jsp/panel_system_info.jsp" />
+			
+			<!-- MODULES STATUS -->
+			<jsp:include page="jsp/panel_modules.jsp" />
 		
 	    </div><!-- /.container -->
 		

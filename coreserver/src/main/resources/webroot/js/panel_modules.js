@@ -1,5 +1,5 @@
 /*!
- *  panel_services_status.java
+ *  panel_modules.js
  *  coreserver
  *
  *  Created by Eric Pinet <pineri01@gmail.com> on 2016-10-10.
@@ -15,19 +15,19 @@ if (typeof jQuery === 'undefined') {
  * On click reload
  */
 $(function(){
-    $('#services_reload').on('click', function(e){
+    $('#modules_reload').on('click', function(e){
         e.preventDefault(); // prevent the default form submit action
         
         // reset table data
-    	resetServicesTable();
+    	resetTable();
     	
     	// start loading
         startLoader();
         
-        $.ajax({ url: "/connectlife?query=list_services",
+        $.ajax({ url: "/connectlife?query=list_modules",
             context: document.body,
             success: function(responseJson) {
-            	reloadServicesStatus(responseJson);
+            	reloadData(responseJson);
             },
         	error: function() {
             	showError("Server request failed.");
@@ -42,15 +42,15 @@ $(function(){
 $(document).ready(function() {
 	
 	// reset table data
-	resetServicesTable();
+	resetTable();
 	
 	// start loading
 	startLoader();
 	
-  	$.ajax({ url: "/connectlife?query=list_services",
+  	$.ajax({ url: "/connectlife?query=list_modules",
       context: document.body,
       success: function(responseJson) {
-      		reloadServicesStatus(responseJson);
+      		reloadData(responseJson);
       },
 	  error: function() {
 		  showError("Server request failed.");
@@ -59,16 +59,19 @@ $(document).ready(function() {
 });
 
 /*!
- * Reload service status table
+ * Reload table data
  */
-function reloadServicesStatus(responseJson) {
+function reloadData(responseJson) {
+	
+	// stop the loading
+	stopLoader();
 	
 	// show header
-	var $table = $("#table_services");
+	var $table = $("#table_modules");
 	$("<tr>").appendTo($table)
 	.append($("<td><strong>Short Name</strong>"))
 	.append($("<td><strong>Name</strong>"))
-	.append($("<td><strong>Description</strong>"))
+	//.append($("<td><strong>Description</strong>"))
 	.append($("<td><strong>Status</strong>"));
 	
 	// Load table data for each json object
@@ -76,11 +79,8 @@ function reloadServicesStatus(responseJson) {
 		$("<tr>").appendTo($table)
 		.append($("<td>").text(service.short_name))
 		.append($("<td>").text(service.name))
-		.append($("<td>").text(service.desc))
+		//.append($("<td>").text(service.desc))
 		.append($("<td><span class=\"label label-success\">Started</span>"));
-		
-		// stop the loading
-		stopLoader();
 	});
 }
 
@@ -89,36 +89,36 @@ function reloadServicesStatus(responseJson) {
  */
 function showError(error) {
 	
-	// Show error
-	var $table = $("#table_services");
-	$("<tr>").appendTo($table)
-	.append($("<td>Error! Unable to complete request.<br>Details:"+error));
-	
 	// stop the loading.
 	stopLoader();
+	
+	// Show error
+	var $table = $("#table_modules");
+	$("<tr>").appendTo($table)
+	.append($("<td>Error! Unable to complete request.<br>Details:"+error));
 }
 
 /*!
- * Reset Services Table
+ * Reset table data
  */
-function resetServicesTable() {
-	$("#table_services > tbody").html("");
+function resetTable() {
+	$("#table_modules > tbody").html("");
 }
 
 /*!
- * Start loading annimation.
+ * Start loading animation.
  */
 function startLoader() {
-	document.getElementById('table_service_loader').style.height = "25";
-	document.getElementById('table_service_loader').style.width = "25";
-	document.getElementById('table_service_loader').style.visibility = 'visible';
+	document.getElementById('table_modules_loader').style.height = "25";
+	document.getElementById('table_modules_loader').style.width = "25";
+	document.getElementById('table_modules_loader').style.visibility = 'visible';
 }
 
 /*!
- * Stop loading annimation.
+ * Stop loading animation.
  */
 function stopLoader() {
-	document.getElementById('table_service_loader').style.visibility = 'hidden';
-	document.getElementById('table_service_loader').style.height = "0";
-	document.getElementById('table_service_loader').style.width = "0";
+	document.getElementById('table_modules_loader').style.visibility = 'hidden';
+	document.getElementById('table_modules_loader').style.height = "0";
+	document.getElementById('table_modules_loader').style.width = "0";
 }
