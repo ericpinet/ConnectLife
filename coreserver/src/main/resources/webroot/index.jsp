@@ -32,6 +32,9 @@
 			<!-- SYSTEM INFO STATUS -->
 			<jsp:include page="jsp/panel_system_info.jsp" />
 			
+			<!-- CONFIGS -->
+			<jsp:include page="jsp/panel_configs.jsp" />
+			
 			<!-- MODULES STATUS -->
 			<jsp:include page="jsp/panel_modules.jsp" />
 		

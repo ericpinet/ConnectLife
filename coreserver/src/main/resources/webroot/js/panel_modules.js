@@ -71,15 +71,13 @@ function reloadData(responseJson) {
 	$("<tr>").appendTo($table)
 	.append($("<td><strong>Short Name</strong>"))
 	.append($("<td><strong>Name</strong>"))
-	//.append($("<td><strong>Description</strong>"))
 	.append($("<td><strong>Status</strong>"));
 	
 	// Load table data for each json object
-	$.each(responseJson, function(index, service) {
+	$.each(responseJson, function(index, module) {
 		$("<tr>").appendTo($table)
-		.append($("<td>").text(service.short_name))
-		.append($("<td>").text(service.name))
-		//.append($("<td>").text(service.desc))
+		.append($("<td>").text(module.short_name))
+		.append($("<td>").text(module.name))
 		.append($("<td><span class=\"label label-success\">Started</span>"));
 	});
 }

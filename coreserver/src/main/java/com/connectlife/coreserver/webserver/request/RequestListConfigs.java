@@ -1,8 +1,8 @@
 /**
- *  RequestServiceStatus.java
+ *  RequestListConfig.java
  *  coreserver
  *
- *  Created by ericpinet on 11 oct. 2016.
+ *  Created by ericpinet on 13 oct. 2016.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.connectlife.coreserver.Application;
+import com.connectlife.coreserver.config.ConfigItem;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
@@ -27,42 +30,42 @@ import com.google.gson.Gson;
  * 
  * 
  * @author ericpinet
- * <br> 11 oct. 2016
+ * <br> 13 oct. 2016
  */
-public class RequestListModules extends RequestBase {
+public class RequestListConfigs extends RequestBase {
 	
 	/**
 	 * Query of the request. 
 	 */
-	private final static String QUERY = "list_modules";
+	private final static String QUERY = "list_configs";
 	
 	/**
-	 * Module name 
+	 * Config section 
 	 */
-	private final static String NAME = "name";
+	private final static String SECTION = "section";
 	
 	/**
-	 * Module short name 
+	 * Config item 
 	 */
-	private final static String SHORT_NAME = "short_name";
+	private final static String ITEM = "item";
 	
 	/**
-	 * Module description 
+	 * Config type
 	 */
-	private final static String DESCRIPTION = "description";
+	private final static String TYPE = "type";
 	
 	/**
-	 * Module status 
+	 * MConfig value
 	 */
-	private final static String STATUS = "status";
+	private final static String VALUE = "value";
 	
 	/**
 	 * Default constructor.
 	 */
-	public RequestListModules() {
+	public RequestListConfigs() {
 		
 	}
-
+	
 	/**
 	 * @param _request
 	 * @return
@@ -107,17 +110,17 @@ public class RequestListModules extends RequestBase {
 		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
 		
 		@SuppressWarnings("rawtypes")
-		List<Map> modules = new ArrayList<Map>();
+		List<Map> list = new ArrayList<Map>();
 		
-		modules.add(buildModuleMap("com.connectlife.coreserver.config.ConfigSqlite", i18n.tr("Config"), i18n.tr("Configuration module of the system. Manage the base settings of the system."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.environment.EnvironmentManager", i18n.tr("Environment"), i18n.tr("Environment manager module of the system. Data management of the system."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.environment.device.DeviceMngr", i18n.tr("Device"), i18n.tr("Device management module of the system. Accessories management."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.environment.device.DiscoveryJmdns", i18n.tr("Discovery"), i18n.tr("Device discovery module of the system."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.webserver.WebServerJetty", i18n.tr("WebService"), i18n.tr("Web Server of the system."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.console.ConsoleSSH", i18n.tr("Console"), i18n.tr("Console (command line) to manage the system."), "started"));
-		modules.add(buildModuleMap("com.connectlife.coreserver.apiserver.ApiGrpc", i18n.tr("API"), i18n.tr("API server for the client application of the system."), "started"));
+		List<ConfigItem> configs = Application.getApp().getConfig().getConfigs();
 		
-	    String json = new Gson().toJson(modules);
+		Iterator<ConfigItem> it = configs.iterator();
+		while (it.hasNext()) {
+			ConfigItem item = it.next();
+			list.add(buildMap(item.getSection(), item.getItem(), item.getType().toString(), item.getValueToString()));
+		}
+		
+	    String json = new Gson().toJson(list);
 
 	    _response.setContentType("application/json");
 	    _response.setCharacterEncoding("UTF-8");
@@ -133,13 +136,13 @@ public class RequestListModules extends RequestBase {
 	 * @param _status
 	 * @return
 	 */
-	private Map<String, String> buildModuleMap(String _name, String _short_name, String _description, String _status) {
-		Map<String, String> ret_module = new HashMap<String, String>();
-		ret_module.put(NAME, _name);
-		ret_module.put(SHORT_NAME, _short_name);
-		ret_module.put(DESCRIPTION, _description);
-		ret_module.put(STATUS, _status);
-		return ret_module;
+	private Map<String, String> buildMap(String _section, String _item, String _type, String _value) {
+		Map<String, String> ret = new HashMap<String, String>();
+		ret.put(SECTION, _section);
+		ret.put(ITEM, _item);
+		ret.put(TYPE, _type);
+		ret.put(VALUE, _value);
+		return ret;
 	}
 
 }
