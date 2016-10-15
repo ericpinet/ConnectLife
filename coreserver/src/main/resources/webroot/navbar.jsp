@@ -23,24 +23,9 @@
 	            <li><a href="#">Something else here</a></li>
 	          </ul>
 	        </li>
+	        <li class="inactive"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+	        <li class="active"></li>
 	      </ul>
-	      <form class="form-inline navbar-form navbar-right">
-			<div class="form-group">
-			  <label class="sr-only" for="exampleInputUsername">Username</label>
-			  <input type="text" class="form-control" id="exampleInputUsername" placeholder="Username">
-			</div>
-			<div class="form-group">
-			  <label class="sr-only" for="exampleInputPassword">Password</label>
-			  <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
-			</div>
-			<div class="checkbox">
-			  <label>
-			    <input type="checkbox"> Remember me 
-			  </label>
-			</div>
-			<button type="submit" class="btn btn-default">Sign in</button>
-			<span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-		  </form>
 	    </div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
 </nav>
