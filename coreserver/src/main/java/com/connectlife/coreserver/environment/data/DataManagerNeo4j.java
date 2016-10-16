@@ -361,7 +361,7 @@ public class DataManagerNeo4j implements DataManager {
 	 * Delete environment directory.
 	 */
 	private void deleteEnvDirectory(){
-		File directory = new File(m_path);
+		File directory = new File(m_path + ENV_DATA_FILENAME);
 		if(directory.exists()){
 			File files[] = directory.listFiles();
 			
