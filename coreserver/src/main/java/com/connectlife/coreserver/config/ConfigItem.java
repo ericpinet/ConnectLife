@@ -58,6 +58,7 @@ public class ConfigItem {
 		m_section = _section;
 		m_item = _item;
 		m_string_value = _value;
+		m_integer_value = 0;
 		m_type = ConfigType.STRING;
 	}
 	
@@ -71,6 +72,7 @@ public class ConfigItem {
 		m_section = _section;
 		m_item = _item;
 		m_integer_value = _value;
+		m_string_value = _value.toString();
 		m_type = ConfigType.INTEGER;
 	}
 	
