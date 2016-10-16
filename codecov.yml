@@ -1,7 +1,7 @@
 codecov:
   notify:
     require_ci_to_pass: true
-comment:
+comment: false
   behavior: default
   layout: header, diff
   require_changes: false
@@ -9,12 +9,11 @@ coverage:
   precision: 2
   range:
   - 20.0
-  - 100.0
-  round: down
+  - 70.0
+  round: up
   status:
-    changes: false
-    patch: true
-    project: true
+    project: off
+    patch: off
 parsers:
   gcov:
     branch_detection:
@@ -24,3 +23,5 @@ parsers:
       method: false
   javascript:
     enable_partials: false
+ignore:
+  - "coreserver/src/main/java/com/connectlife/coreserver/environment/data/"
