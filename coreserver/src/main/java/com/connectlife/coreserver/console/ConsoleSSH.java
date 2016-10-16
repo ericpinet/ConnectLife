@@ -109,8 +109,8 @@ public class ConsoleSSH implements Console {
 		    public boolean authenticate(String username, String password, ServerSession session) {
 		    	
 		    	boolean ret_val = false;
-		    	ConfigItem admin_username 	= m_config.getConfig("CONSOLE", "ADMIN_USERNAME");
-				ConfigItem admin_password 	= m_config.getConfig("CONSOLE", "ADMIN_PASSWORD");
+		    	ConfigItem admin_username 	= m_config.getConfig("SYSTEM", "ADMIN_USERNAME");
+				ConfigItem admin_password 	= m_config.getConfig("SYSTEM", "ADMIN_PASSWORD");
 				
 		    	if( admin_username.getStringValue().equals(username) && admin_password.getStringValue().equals(password) ){
 		    		ret_val = true;

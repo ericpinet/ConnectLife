@@ -62,8 +62,6 @@ public class ConnectLifeServlet extends HttpServlet
 		else {
 			ServletException exeption = new ServletException (i18n.tr("Error! Invalid request: ") + _request.getPathInfo());
     		m_logger.error(exeption.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			exeption.printStackTrace();
     		throw exeption;
 		}
     }

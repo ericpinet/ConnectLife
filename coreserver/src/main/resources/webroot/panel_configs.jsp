@@ -7,7 +7,7 @@ initPanel("/connectlife?query=list_configs",
 		  "table_configs",
 		  "configs_reload",
 		  undefined,
-		  "table_configs_loading",
+		  "loading_config_placeholder",
 		  ["Section", "Item", "Type", "Value"],
 		  ["section", "item", "type", "value"]);
 
@@ -21,7 +21,7 @@ initPanel("/connectlife?query=list_configs",
     <h3 class="panel-title">Settings</h3>
   </div>
   <div class="panel-body" align="center">
-  	<div class="loader" id="table_configs_loading"></div>
+  	<div id = "loading_config_placeholder"></div>
     <div class="table-responsive">
     	<table class="table table-condensed" id="table_configs"><tr></tr></table>
 	</div>

@@ -67,10 +67,10 @@ public class ConfigMock implements Config {
 		if(_section.equals("CONSOLE") && _item.equals("TCPIP_PORT")){
 			return new ConfigItem(_section, _item, "0");
 		}
-		else if(_section.equals("CONSOLE") && _item.equals("ADMIN_USERNAME")){
+		else if(_section.equals("SYSTEM") && _item.equals("ADMIN_USERNAME")){
 			return new ConfigItem(_section, _item, "admin");
 		}
-		else if(_section.equals("CONSOLE") && _item.equals("ADMIN_PASSWORD")){
+		else if(_section.equals("SYSTEM") && _item.equals("ADMIN_PASSWORD")){
 			return new ConfigItem(_section, _item, "admin");
 		}
 		

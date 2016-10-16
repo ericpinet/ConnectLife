@@ -155,9 +155,10 @@ function Panel ( _request, _div_panel, _btn_reload, _btn_open, _div_loading, _he
 	this.showError = function (error) {
 		
 		// Show error
-		var $panel = $(this.div_panel);
-		$("<tr>").appendTo($panel)
-		.append($("<td>Error! Unable to complete request.<br>Details:"+error));
+		$('#alert_placeholder').html('<div class="alert alert-danger">'+
+									 '<a class="close" data-dismiss="alert">×</a><span>'+
+									 error+" (Request: "+this.request+")"+
+									 '</span></div>');
 	};
 	
 	/*!
@@ -171,17 +172,13 @@ function Panel ( _request, _div_panel, _btn_reload, _btn_open, _div_loading, _he
 	 * Start loading animation.
 	 */
 	this.startLoading = function () {
-		//document.getElementById('table_system_info_loader').style.height = "25";
-		//document.getElementById('table_system_info_loader').style.width = "25";
-		document.getElementById(this.div_loading).style.visibility = 'visible';
+		$('#'+this.div_loading).html('<br><div class="loader"></div>');
 	};
 
 	/*!
 	 * Stop loading animation.
 	 */
 	this.stopLoading = function () {
-		document.getElementById(this.div_loading).style.visibility = 'hidden';
-		//document.getElementById('table_system_info_loader').style.height = "0";
-		//document.getElementById('table_system_info_loader').style.width = "0";
+		$('#'+this.div_loading).html('');
 	};
 }

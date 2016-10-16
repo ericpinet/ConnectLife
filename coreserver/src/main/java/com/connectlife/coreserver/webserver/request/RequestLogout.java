@@ -1,5 +1,5 @@
 /**
- *  RequestLogin.java
+ *  RequestLogout.java
  *  coreserver
  *
  *  Created by ericpinet on 15 oct. 2016.
@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.config.Config;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
 import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
@@ -31,37 +29,17 @@ import com.google.gson.Gson;
  * @author ericpinet
  * <br> 15 oct. 2016
  */
-public class RequestLogin extends RequestBase {
+public class RequestLogout extends RequestBase {
 	
 	/**
 	 * Query of the request. 
 	 */
-	private static String QUERY = "login";
-	
-	/**
-	 * User to login.
-	 */
-	private static String USER = "user";
-	
-	/**
-	 * Password of the user.
-	 */
-	private static String PASSWORD = "password";
-	
-	/**
-	 * Return value if login is valid.
-	 */
-	private static String RETURN_SUCCESS = "OK";
-	
-	/**
-	 * Return value if login is invalid.
-	 */
-	private static String RETURN_FAIL = "FAIL";
+	private static String QUERY = "logout";
 	
 	/**
 	 * Default constructor.
 	 */
-	public RequestLogin() {
+	public RequestLogout() {
 		
 	}
 
@@ -108,39 +86,14 @@ public class RequestLogin extends RequestBase {
 	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception {
 		
 		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
-		
-		String ret_status;
-		String ret_error_message;
-		
-		// Get the system user name and password.
-		Config config = Application.getApp().getConfig();
-		String admin_username 	= config.getConfig("SYSTEM", "ADMIN_USERNAME").getStringValue();
-		String admin_password 	= config.getConfig("SYSTEM", "ADMIN_PASSWORD").getStringValue();
-		
-		// Get the request user name and password.
-		String username = _request.getParameter(USER);
-		String password = _request.getParameter(PASSWORD);
 				
-		// Check the login
-		if (username.equals(admin_username) &&
-			password.equals(admin_password) ) {
-			
-			// Create the session
-			HttpSession session = _request.getSession(true); // true to create new session if not exist.
-			session.setAttribute("logged", "true");
-			
-			ret_status = RETURN_SUCCESS;
-			ret_error_message = "";
-		}
-		else {
-			ret_status = RETURN_FAIL;
-			ret_error_message = i18n.tr("Invalid username or password!");
-		}
+		// Create the session
+		HttpSession session = _request.getSession(false); // true to create new session if not exist.
+		session.setAttribute("logged", "true");
 		
 		// Build response.
 		Map<String, String> response = new HashMap<String, String>();
-		response.put("status", ret_status);
-		response.put("error", ret_error_message);
+		response.put("status", "completed");
 
 	    String json = new Gson().toJson(response);
 	    _response.setContentType("application/json");

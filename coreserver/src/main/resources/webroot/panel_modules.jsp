@@ -7,7 +7,7 @@ initPanel("/connectlife?query=list_modules",
 		  "table_modules",
 		  "modules_reload",
 		  undefined,
-		  "table_modules_loading",
+		  "loading_module_placeholder",
 		  ["Name", "Description", "Status"],
 		  ["name", "description", "status"]);
 
@@ -21,7 +21,7 @@ initPanel("/connectlife?query=list_modules",
     <h3 class="panel-title">Modules</h3>
   </div>
   <div class="panel-body" align="center">
-  	<div class="loader" id="table_modules_loading"></div>
+  	<div id = "loading_module_placeholder"></div>
     <div class="table-responsive">
     	<table class="table table-condensed" id="table_modules"><tr></tr></table>
 	</div>
