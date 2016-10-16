@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/navbar.js"></script>
+
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -26,9 +30,17 @@
 	        <li class="inactive"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
 	        <li class="active"></li>
 	      </ul>
+	      
+	      <ul class="nav navbar-nav pull-right">
+	        <li class="inactive">
+	          <a href="#" id="btn-logout" role="button" aria-expanded="false"> Logout</a>
+	        </li>
+	      </ul>
+	      
 	    </div><!-- /.navbar-collapse -->
     </div> <!-- /.container-fluid -->
 </nav>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -43,3 +55,5 @@
 	    </div>
 	</div> <!-- /.container-fluid -->
 </nav>
+
+<div id = "alert_placeholder"></div>

@@ -20,7 +20,19 @@
 		
 	</head>
 	
+<%
+	// Check if the session is valid
+	if (session.getAttribute("logged") != "true") {
+		// New location to be redirected
+	   	String site = new String("index.jsp");
+	   	response.sendRedirect(site);
+	   	return;
+	}
+
+%>
+	
 	<body>
+	
 		<!-- NAVBAR -->
 		<jsp:include page="navbar.jsp" />
 		

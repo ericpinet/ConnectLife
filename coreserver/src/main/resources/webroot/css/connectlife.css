@@ -8,7 +8,7 @@ body {
 
 .loader {
     border: 5px solid #f3f3f3; /* Light grey */
-    border-top: 5px solid #8686ac; /* Dark Blue */
+    border-top: 5px solid #cccccc; /* Dark Blue */
     border-radius: 50%;
     width: 25px;
     height: 25px;

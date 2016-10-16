@@ -34,10 +34,8 @@ public class ConfigFactoryData {
 	public static String [][] ItemConfig = {
             {"APISERVER" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9006"},
             {"APISERVER" , 		"TCPIP_PORT_SECURE" , 	CONFIG_TYPE_INTEGER,			"9007"},
-            {"APISERVER" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
-            {"APISERVER" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"},
-            {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9008"},
-            {"CONSOLE" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
-            {"CONSOLE" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"}
+            {"SYSTEM" , 		"ADMIN_USERNAME", 		CONFIG_TYPE_STRING,				"admin"},
+            {"SYSTEM" , 		"ADMIN_PASSWORD", 		CONFIG_TYPE_STRING,				"admin"},
+            {"CONSOLE" , 		"TCPIP_PORT" , 			CONFIG_TYPE_INTEGER,			"9008"}
        };
 }

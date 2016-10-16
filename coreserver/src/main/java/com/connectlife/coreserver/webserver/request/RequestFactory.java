@@ -68,6 +68,8 @@ public class RequestFactory {
 		m_requests.add(new RequestListModules());
 		m_requests.add(new RequestListSystemInformations());
 		m_requests.add(new RequestListConfigs());
+		m_requests.add(new RequestLogin());
+		m_requests.add(new RequestLogout());
 	}
 	
 	/**

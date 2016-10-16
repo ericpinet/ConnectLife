@@ -95,7 +95,7 @@ public class RequestListSystemInformations extends RequestBase {
 		system_infos.put(i18n.tr("Version"), Consts.APP_VERSION);
 		system_infos.put(i18n.tr("Base Directory"), Application.getApp().getBasePath());
 		system_infos.put(i18n.tr("Operating System"), OperatingSystem.getOSName());
-	
+		
 	    String json = new Gson().toJson(system_infos);
 
 	    _response.setContentType("application/json");

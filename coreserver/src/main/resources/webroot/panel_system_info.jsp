@@ -7,7 +7,7 @@ initPanel("/connectlife?query=list_system_info",
 		  "table_system_info",
 		  "system_info_reload",
 		  undefined,
-		  "table_system_info_loading",
+		  "loading_system_placeholder",
 		  ["System Information", "Value"],
 		  undefined);
 
@@ -20,7 +20,7 @@ initPanel("/connectlife?query=list_system_info",
     <h3 class="panel-title">System Informations</h3>
   </div>
   <div class="panel-body" align="center">
-  	<div class="loader" id="table_system_info_loading"></div>
+  	<div id = "loading_system_placeholder"></div>
     <div class="table-responsive">
     	<table class="table table-condensed" id="table_system_info"><tr></tr></table>
 	</div>
