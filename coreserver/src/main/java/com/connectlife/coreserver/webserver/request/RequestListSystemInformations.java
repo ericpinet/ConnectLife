@@ -76,7 +76,7 @@ public class RequestListSystemInformations extends RequestBase {
 	}
 
 	/**
-	 * PProcess the request. 
+	 * Process the request. 
 	 * 
 	 * @param _request Client request.
 	 * @param _response Server response.
