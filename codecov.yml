@@ -1,0 +1,24 @@
+codecov:
+  notify:
+    require_ci_to_pass: true
+comment: false
+coverage:
+  precision: 2
+  range:
+  - 20.0
+  - 70.0
+  round: up
+  status:
+    project: off
+    patch: off
+parsers:
+  gcov:
+    branch_detection:
+      conditional: true
+      loop: true
+      macro: false
+      method: false
+  javascript:
+    enable_partials: false
+ignore:
+  - "coreserver/src/main/java/com/connectlife/coreserver/environment/data/"

@@ -9,7 +9,7 @@ initPanel("/connectlife?query=list_configs",
 		  undefined,
 		  "loading_config_placeholder",
 		  ["Section", "Item", "Type", "Value"],
-		  ["section", "item", "type", "value"]);
+		  ["m_section", "m_item", "m_type", "m_string_value"]);
 
 </script>
 
