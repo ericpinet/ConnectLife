@@ -143,11 +143,11 @@ public class DeviceJson implements Device {
 		
 		boolean ret_val = false;
 		
+		// at the register try, the device is considerate synchronized with the application.
+		m_isSynchronized = true;
+		
 		// check if already synch
 		if (false == m_isRegister) {
-			
-			// at the register try, the device is considerate synchronized with the application.
-			m_isSynchronized = true;
 			
 			Accessory accessory = null;
 			try {
@@ -169,9 +169,6 @@ public class DeviceJson implements Device {
 			else {
 				m_logger.info(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" cannot be register. It's not setup in the application environment."));
 			}
-		}
-		else {
-			m_logger.warn(i18n.tr("Device ")+ m_service_definition.getHostname() +":"+ m_service_definition.getPort() +i18n.tr(" is already synchronized with the application environment."));
 		}
 		
 		return ret_val;
