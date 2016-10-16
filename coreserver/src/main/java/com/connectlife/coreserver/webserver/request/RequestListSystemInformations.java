@@ -26,7 +26,7 @@ import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
- * 
+ * Request list of the system informations.
  * 
  * @author ericpinet
  * <br> 11 oct. 2016
@@ -46,8 +46,10 @@ public class RequestListSystemInformations extends RequestBase {
 	}
 
 	/**
-	 * @param _request
-	 * @return
+	 * Check if the client request can be solve by this request processor.
+	 * 
+	 * @param _request Client request.
+	 * @return True if the request,
 	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -74,14 +76,13 @@ public class RequestListSystemInformations extends RequestBase {
 	}
 
 	/**
-	 * Process the request. 
+	 * PProcess the request. 
 	 * 
-	 * @param _request
-	 * @param _response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.webserver.request.RequestBase#process(javax.servlet.http.HttpServletResponse)
+	 * @param _request Client request.
+	 * @param _response Server response.
+	 * @throws ServletException If something goes wrong.
+	 * @throws IOException If connection lost.
+	 * @throws Exception If something goes wrong.
 	 */
 	@Override
 	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception {

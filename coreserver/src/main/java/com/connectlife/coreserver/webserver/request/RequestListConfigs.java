@@ -55,7 +55,7 @@ public class RequestListConfigs extends RequestBase {
 	private final static String TYPE = "type";
 	
 	/**
-	 * MConfig value
+	 * Config value
 	 */
 	private final static String VALUE = "value";
 	
@@ -67,8 +67,10 @@ public class RequestListConfigs extends RequestBase {
 	}
 	
 	/**
-	 * @param _request
-	 * @return
+	 * Check the compatibility of the request processor vs the client request.
+	 * 
+	 * @param _request Client request
+	 * @return True if the client request can be respond by this request.
 	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -97,11 +99,11 @@ public class RequestListConfigs extends RequestBase {
 	/**
 	 * Process the request. 
 	 * 
-	 * @param _request
-	 * @param _response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws Exception
+	 * @param _request Client request.
+	 * @param _response Server response.
+	 * @throws ServletException If something goes wrong.
+	 * @throws IOException If connection lost.
+	 * @throws Exception If something goes wrong.
 	 * @see com.connectlife.coreserver.webserver.request.RequestBase#process(javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
@@ -128,12 +130,12 @@ public class RequestListConfigs extends RequestBase {
 	}
 	
 	/**
-	 * Build map for a module. 
+	 * Build map for a config. 
 	 * 
-	 * @param _name
-	 * @param _short_name
-	 * @param _description
-	 * @param _status
+	 * @param _section Section of item config. 
+	 * @param _item Item
+	 * @param _type Type of the config.
+	 * @param _value Value of the config.
 	 * @return
 	 */
 	private Map<String, String> buildMap(String _section, String _item, String _type, String _value) {

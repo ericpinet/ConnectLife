@@ -52,7 +52,7 @@ public class RequestFactory {
 	/**
 	 * Return singleton instance.
 	 * 
-	 * @return
+	 * @return Singleton instance.
 	 */
 	public static RequestFactory getRef() {
 		if (null == m_ref)
@@ -73,7 +73,7 @@ public class RequestFactory {
 	/**
 	 * Return requests available.
 	 * 
-	 * @return
+	 * @return List of all available requests.
 	 */
 	public List<RequestBase> getRequests() {
 		return m_requests;
@@ -82,8 +82,8 @@ public class RequestFactory {
 	/**
 	 * Build the request to answer the request.
 	 * 
-	 * @param _request
-	 * @return
+	 * @param _request Client request.
+	 * @return Request processor to execute this client request.
 	 */
 	public static RequestBase getRequest(HttpServletRequest _request) {
 		

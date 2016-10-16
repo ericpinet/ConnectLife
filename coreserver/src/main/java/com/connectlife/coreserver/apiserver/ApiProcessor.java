@@ -204,8 +204,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addHome(com.clapi.protocol.AddHomeRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -235,8 +235,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateHome(com.clapi.protocol.UpdateHomeRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -265,8 +265,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteHome(com.clapi.protocol.DeleteHomeRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -295,8 +295,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addZone(com.clapi.protocol.AddZoneRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -326,8 +326,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateZone(com.clapi.protocol.UpdateZoneRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -356,8 +356,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteZone(com.clapi.protocol.DeleteZoneRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -386,8 +386,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addRoom(com.clapi.protocol.AddRoomRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -417,8 +417,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateRoom(com.clapi.protocol.UpdateRoomRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -447,8 +447,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#deleteRoom(com.clapi.protocol.DeleteRoomRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -847,8 +847,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 	
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#addAsset(com.clapi.protocol.AddAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -878,8 +878,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#updateAsset(com.clapi.protocol.UpdateAssetRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override
@@ -939,8 +939,8 @@ public class ApiProcessor implements CLApiGrpc.CLApi, Observer {
 	}
 
 	/**
-	 * @param request
-	 * @param responseObserver
+	 * @param request Client request
+	 * @param responseObserver Response
 	 * @see com.clapi.protocol.CLApiGrpc.CLApi#getAssetUrl(com.clapi.protocol.GetAssetUrlRequest, io.grpc.stub.StreamObserver)
 	 */
 	@Override

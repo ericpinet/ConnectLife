@@ -47,7 +47,7 @@ abstract public class RequestBase {
 	/**
 	 * Check if the http request is compatible with the request. 
 	 * 
-	 * @param _request
+	 * @param _request Client request
 	 * @return True if the http request is compatible with this request.
 	 */
 	abstract public boolean requestCompatibility(HttpServletRequest _request);
@@ -55,11 +55,11 @@ abstract public class RequestBase {
 	/**
 	 * Process the request and complete and write response in _response.
 	 * 
-	 * @param _request
-	 * @param _response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws Exception
+	 * @param _request Client request.
+	 * @param _response Server response.
+	 * @throws ServletException If something goes wrong.
+	 * @throws IOException On connection lost.
+	 * @throws Exception If something goes wrong.
 	 */
 	abstract public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception;
 	
@@ -75,9 +75,9 @@ abstract public class RequestBase {
 	 * query        list_service
 	 * filter       config
 	 * 
-	 * @param url
-	 * @return
-	 * @throws UnsupportedEncodingException
+	 * @param url Url request (after the ?)
+	 * @return HashMap with value date.
+	 * @throws UnsupportedEncodingException If something goes wrong.
 	 */
 	public static Map<String, List<String>> getParameters(String url) throws UnsupportedEncodingException {
 		final Map<String, List<String>> query_pairs = new LinkedHashMap<String, List<String>>();

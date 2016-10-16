@@ -70,7 +70,7 @@ public class AssetHttpHandler extends AbstractHandler {
 	/**
 	 * Default constructor.
 	 * 
-	 * @param _manager
+	 * @param _manager Manager of the assets.
 	 */
 	public AssetHttpHandler (AssetMngr _manager) {
 		m_manager = _manager;

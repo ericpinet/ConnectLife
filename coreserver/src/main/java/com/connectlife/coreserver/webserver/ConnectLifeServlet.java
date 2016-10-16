@@ -39,10 +39,10 @@ public class ConnectLifeServlet extends HttpServlet
     /**
      * Process the HTTP resquest.
      * 
-     * @param _request
-     * @param _response
-     * @throws ServletException
-     * @throws IOException
+     * @param _request Client request
+     * @param _response Server response
+     * @throws ServletException If something goes wrong.
+     * @throws IOException If connection lost.
      */
     private void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
     	
@@ -71,10 +71,10 @@ public class ConnectLifeServlet extends HttpServlet
     /**
 	 * Process the GET HTTP request.
 	 * 
-	 * @param request
-	 * @param response
-	 * @throws ServletException
-	 * @throws IOException
+	 * @param _request Client request
+     * @param _response Server response
+     * @throws ServletException If something goes wrong.
+     * @throws IOException If connection lost.
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
     @Override
@@ -85,10 +85,10 @@ public class ConnectLifeServlet extends HttpServlet
     /**
      * Process the POST HTTP request.
      * 
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
+     * @param _request Client request
+     * @param _response Server response
+     * @throws ServletException If something goes wrong.
+     * @throws IOException If connection lost.
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override

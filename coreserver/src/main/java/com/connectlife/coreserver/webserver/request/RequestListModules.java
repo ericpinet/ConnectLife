@@ -64,8 +64,10 @@ public class RequestListModules extends RequestBase {
 	}
 
 	/**
-	 * @param _request
-	 * @return
+	 * Check if the client request can be solve by this request processor.
+	 * 
+	 * @param _request Client request.
+	 * @return True if the request,
 	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
@@ -94,12 +96,11 @@ public class RequestListModules extends RequestBase {
 	/**
 	 * Process the request. 
 	 * 
-	 * @param _request
-	 * @param _response
-	 * @throws ServletException
-	 * @throws IOException
-	 * @throws Exception
-	 * @see com.connectlife.coreserver.webserver.request.RequestBase#process(javax.servlet.http.HttpServletResponse)
+	 * @param _request Client request.
+	 * @param _response Server response.
+	 * @throws ServletException If something goes wrong.
+	 * @throws IOException If connection lost.
+	 * @throws Exception If something goes wrong.
 	 */
 	@Override
 	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception {
@@ -127,11 +128,11 @@ public class RequestListModules extends RequestBase {
 	/**
 	 * Build map for a module. 
 	 * 
-	 * @param _name
-	 * @param _short_name
-	 * @param _description
-	 * @param _status
-	 * @return
+	 * @param _name Name of the module.
+	 * @param _short_name Short name of the module.
+	 * @param _description Description of the module.
+	 * @param _status Status of the module.
+	 * @return Map of the module.
 	 */
 	private Map<String, String> buildModuleMap(String _name, String _short_name, String _description, String _status) {
 		Map<String, String> ret_module = new HashMap<String, String>();

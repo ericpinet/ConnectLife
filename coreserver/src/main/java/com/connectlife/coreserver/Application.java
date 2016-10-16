@@ -138,7 +138,7 @@ public class Application implements Observer {
 	 * @param _api Api for the application.
 	 * @param _console Console for the application.
 	 * @param _gpio GPIO manager for the application.
-	 * @param _web_Server Web server for the application.
+	 * @param _web_server Web server for the application.
 	 */
 	@Inject
 	public Application(Config _config, Environment _env, Api _api, Console _console, Gpio _gpio, WebServer _web_server){
