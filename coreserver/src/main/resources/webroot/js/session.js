@@ -47,7 +47,7 @@ $(function () {
 		        context: this,
 		        success: function(json) {
 	
-	        		if (json['status'] == 'OK') {
+	        		if (json['status'] == '200') {
 	        			document.location.href="main.jsp"
 	        		}
 	        		else {

@@ -51,12 +51,12 @@ public class RequestLogin extends RequestBase {
 	/**
 	 * Return value if login is valid.
 	 */
-	private static String RETURN_SUCCESS = "OK";
+	private static String RETURN_SUCCESS = "200";
 	
 	/**
 	 * Return value if login is invalid.
 	 */
-	private static String RETURN_FAIL = "FAIL";
+	private static String RETURN_FAIL = "401";
 	
 	/**
 	 * Default constructor.
