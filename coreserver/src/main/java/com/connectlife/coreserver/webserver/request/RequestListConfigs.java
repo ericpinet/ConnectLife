@@ -10,9 +10,6 @@ package com.connectlife.coreserver.webserver.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +24,7 @@ import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
- * 
+ * Return list of the configurations.
  * 
  * @author ericpinet
  * <br> 13 oct. 2016
@@ -38,26 +35,6 @@ public class RequestListConfigs extends RequestBase {
 	 * Query of the request. 
 	 */
 	private final static String QUERY = "list_configs";
-	
-	/**
-	 * Config section 
-	 */
-	private final static String SECTION = "section";
-	
-	/**
-	 * Config item 
-	 */
-	private final static String ITEM = "item";
-	
-	/**
-	 * Config type
-	 */
-	private final static String TYPE = "type";
-	
-	/**
-	 * Config value
-	 */
-	private final static String VALUE = "value";
 	
 	/**
 	 * Default constructor.
@@ -109,40 +86,11 @@ public class RequestListConfigs extends RequestBase {
 		
 		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
 		
-		@SuppressWarnings("rawtypes")
-		List<Map> list = new ArrayList<Map>();
-		
 		List<ConfigItem> configs = Application.getApp().getConfig().getConfigs();
-		
-		Iterator<ConfigItem> it = configs.iterator();
-		while (it.hasNext()) {
-			ConfigItem item = it.next();
-			list.add(buildMap(item.getSection(), item.getItem(), item.getType().toString(), item.getValueToString()));
-		}
-		
-	    String json = new Gson().toJson(list);
+	    String json = new Gson().toJson(configs);
 
 	    _response.setContentType("application/json");
 	    _response.setCharacterEncoding("UTF-8");
 	    _response.getWriter().write(json);
 	}
-	
-	/**
-	 * Build map for a config. 
-	 * 
-	 * @param _section Section of item config. 
-	 * @param _item Item
-	 * @param _type Type of the config.
-	 * @param _value Value of the config.
-	 * @return
-	 */
-	private Map<String, String> buildMap(String _section, String _item, String _type, String _value) {
-		Map<String, String> ret = new HashMap<String, String>();
-		ret.put(SECTION, _section);
-		ret.put(ITEM, _item);
-		ret.put(TYPE, _type);
-		ret.put(VALUE, _value);
-		return ret;
-	}
-
 }

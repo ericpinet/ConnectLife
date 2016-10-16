@@ -24,7 +24,7 @@ import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
- * 
+ * Return list of the modules.
  * 
  * @author ericpinet
  * <br> 11 oct. 2016
