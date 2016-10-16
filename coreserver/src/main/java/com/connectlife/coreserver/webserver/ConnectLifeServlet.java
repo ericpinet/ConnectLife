@@ -78,8 +78,8 @@ public class ConnectLifeServlet extends HttpServlet
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	process(request, response);
+    protected void doGet(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
+    	process(_request, _response);
     }
     
     /**
@@ -92,7 +92,7 @@ public class ConnectLifeServlet extends HttpServlet
      * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	process(request, response);
+    protected void doPost(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
+    	process(_request, _response);
     }
 }

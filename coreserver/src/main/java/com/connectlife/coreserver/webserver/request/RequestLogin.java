@@ -1,8 +1,8 @@
 /**
- *  RequestListConfig.java
+ *  RequestListSystemInformation.java
  *  coreserver
  *
- *  Created by ericpinet on 13 oct. 2016.
+ *  Created by ericpinet on 11 oct. 2016.
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
@@ -10,9 +10,7 @@ package com.connectlife.coreserver.webserver.request;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,56 +19,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.connectlife.coreserver.Application;
-import com.connectlife.coreserver.config.ConfigItem;
+import com.connectlife.coreserver.Consts;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.tools.os.OperatingSystem;
 import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
- * 
+ * Request list of the system informations.
  * 
  * @author ericpinet
- * <br> 13 oct. 2016
+ * <br> 11 oct. 2016
  */
-public class RequestListConfigs extends RequestBase {
+public class RequestLogin extends RequestBase {
 	
 	/**
 	 * Query of the request. 
 	 */
-	private final static String QUERY = "list_configs";
-	
-	/**
-	 * Config section 
-	 */
-	private final static String SECTION = "section";
-	
-	/**
-	 * Config item 
-	 */
-	private final static String ITEM = "item";
-	
-	/**
-	 * Config type
-	 */
-	private final static String TYPE = "type";
-	
-	/**
-	 * Config value
-	 */
-	private final static String VALUE = "value";
+	private static String QUERY = "list_system_info";
 	
 	/**
 	 * Default constructor.
 	 */
-	public RequestListConfigs() {
+	public RequestLogin() {
 		
 	}
-	
+
 	/**
-	 * Check the compatibility of the request processor vs the client request.
+	 * Check if the client request can be solve by this request processor.
 	 * 
-	 * @param _request Client request
-	 * @return True if the client request can be respond by this request.
+	 * @param _request Client request.
+	 * @return True if the request,
+	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
 	public boolean requestCompatibility(HttpServletRequest _request) {
@@ -96,7 +76,7 @@ public class RequestListConfigs extends RequestBase {
 	}
 
 	/**
-	 * Process the request. 
+	 * PProcess the request. 
 	 * 
 	 * @param _request Client request.
 	 * @param _response Server response.
@@ -109,40 +89,18 @@ public class RequestListConfigs extends RequestBase {
 		
 		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
 		
-		@SuppressWarnings("rawtypes")
-		List<Map> list = new ArrayList<Map>();
+		Map<String, String> system_infos = new HashMap<String, String>();
 		
-		List<ConfigItem> configs = Application.getApp().getConfig().getConfigs();
-		
-		Iterator<ConfigItem> it = configs.iterator();
-		while (it.hasNext()) {
-			ConfigItem item = it.next();
-			list.add(buildMap(item.getSection(), item.getItem(), item.getType().toString(), item.getValueToString()));
-		}
-		
-	    String json = new Gson().toJson(list);
+		system_infos.put(i18n.tr("System Name"), Consts.APP_NAME);
+		system_infos.put(i18n.tr("Version"), Consts.APP_VERSION);
+		system_infos.put(i18n.tr("Base Directory"), Application.getApp().getBasePath());
+		system_infos.put(i18n.tr("Operating System"), OperatingSystem.getOSName());
+	
+	    String json = new Gson().toJson(system_infos);
 
 	    _response.setContentType("application/json");
 	    _response.setCharacterEncoding("UTF-8");
 	    _response.getWriter().write(json);
-	}
-	
-	/**
-	 * Build map for a config. 
-	 * 
-	 * @param _section Section of item config. 
-	 * @param _item Item
-	 * @param _type Type of the config.
-	 * @param _value Value of the config.
-	 * @return
-	 */
-	private Map<String, String> buildMap(String _section, String _item, String _type, String _value) {
-		Map<String, String> ret = new HashMap<String, String>();
-		ret.put(SECTION, _section);
-		ret.put(ITEM, _item);
-		ret.put(TYPE, _type);
-		ret.put(VALUE, _value);
-		return ret;
 	}
 
 }

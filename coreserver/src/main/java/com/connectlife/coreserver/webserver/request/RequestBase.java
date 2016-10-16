@@ -66,10 +66,6 @@ abstract public class RequestBase {
 	/**
 	 * Build a parameter map key pair from a URL.
 	 * 
-	 * http://localhost/connectlife?query=list_service&filter=config
-	 * 
-	 * Pass the : query=list_service&filter=config to this function.
-	 * 
 	 * Key          Value
 	 * -----------  -------------
 	 * query        list_service
