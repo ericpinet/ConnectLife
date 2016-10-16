@@ -255,7 +255,6 @@ public class PersonWindow extends Dialog {
 			}
 		}
 		
-		// TODO Load image
 		Canvas canvas = new Canvas(shell, SWT.NONE);		
 		GridData gd_canvas = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
 		gd_canvas.heightHint = 15;

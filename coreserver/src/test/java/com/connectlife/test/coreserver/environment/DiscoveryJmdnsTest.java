@@ -204,8 +204,6 @@ public class DiscoveryJmdnsTest implements DiscoveryListner {
 	 */
 	@Override
 	public void serviceDiscover(ServiceEvent _service) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -214,8 +212,6 @@ public class DiscoveryJmdnsTest implements DiscoveryListner {
 	 */
 	@Override
 	public void serviceRemove(ServiceEvent _service) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -69,5 +69,4 @@ public class SimulatorGpio implements Gpio {
 		
 		m_isInit = false;
 	}
-
 }

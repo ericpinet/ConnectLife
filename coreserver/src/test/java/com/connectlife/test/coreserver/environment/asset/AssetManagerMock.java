@@ -26,7 +26,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public boolean init() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -36,7 +35,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public boolean isInit() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -46,8 +44,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public void unInit() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -58,8 +54,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public void addAsset(Asset _asset, ByteString _data) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -70,8 +64,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public void updateAsset(Asset _asset, ByteString _data) throws Exception {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -82,7 +74,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public String getAssetUrl(Asset _asset) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -93,8 +84,6 @@ public class AssetManagerMock implements AssetManager {
 	 */
 	@Override
 	public void deleteAsset(Asset _asset) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

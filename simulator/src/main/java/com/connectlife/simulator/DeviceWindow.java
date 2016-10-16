@@ -268,7 +268,6 @@ public class DeviceWindow extends Dialog {
 				try {
 					Desktop.getDesktop().browse(URI.create(e.text));
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					m_logger.error(e1.getMessage());
 					e1.printStackTrace();
 				}
