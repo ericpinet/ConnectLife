@@ -89,7 +89,7 @@ public class RequestLogout extends RequestBase {
 				
 		// Create the session
 		HttpSession session = _request.getSession(false); // true to create new session if not exist.
-		session.setAttribute("logged", "true");
+		session.setAttribute("logged", "false");
 		
 		// Build response.
 		Map<String, String> response = new HashMap<String, String>();

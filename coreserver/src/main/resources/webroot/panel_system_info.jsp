@@ -8,7 +8,7 @@ initPanel("/connectlife?query=list_system_info",
 		  "system_info_reload",
 		  undefined,
 		  "loading_system_placeholder",
-		  ["System Information", "Value"],
+		  ["Item", "Value"],
 		  undefined);
 
 </script>
