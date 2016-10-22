@@ -1,5 +1,5 @@
 /*!
- *  session.js
+ *  index.js
  *  coreserver
  *
  *  Created by Eric Pinet <pineri01@gmail.com> on 2016-10-10.
@@ -43,7 +43,7 @@ $(function () {
 		// if username and password is not empty
 		if (username != "" && password != "") {
 			// send login request
-			$.ajax({ url: "connectlife?query=login&user="+username+"&password="+password,
+			$.ajax({ url: "api/login?user="+username+"&password="+password,
 		        context: this,
 		        success: function(json) {
 	

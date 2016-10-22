@@ -3,7 +3,7 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/navbar.js"></script>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default  navbar-fixed-top">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -13,21 +13,21 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">ConnectLife</a>
+	      <a class="navbar-brand" href="main.jsp">ConnectLife</a>
 	    </div>
 	
 		<!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard <span class="sr-only">(current)</span></a></li>
+	        <li class="inactive"><a href="main.jsp"><span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span> Dashboard <span class="sr-only">(current)</span></a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-wrench Settings" aria-hidden="true"></span> Settings<span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">General</a></li>
-	            <li><a href="#">Something else here</a></li>
+	            <li><a href="main.jsp?nav=settings">General</a></li>
+	            <li><a href="main.jsp?nav=logs">Logs</a></li>
 	          </ul>
 	        </li>
-	        <li class="inactive"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span></a></li>
+	        <li class="inactive"><a href="#"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Notification</a></li>
 	        <li class="active"></li>
 	      </ul>
 	      

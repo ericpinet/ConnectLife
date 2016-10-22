@@ -18,7 +18,7 @@ $(function () {
 	$("#btn-logout").on('click', function(e){
 		e.preventDefault(); // prevent the default form submit action
 		
-		$.ajax({ url: "connectlife?query=logout",
+		$.ajax({ url: "api/logout",
             context: this,
             success: function(json) {
             	document.location.href = "index.jsp"
@@ -30,7 +30,5 @@ $(function () {
 											 '</span></div>');
             }
         });
-		
-		
 	});
 });

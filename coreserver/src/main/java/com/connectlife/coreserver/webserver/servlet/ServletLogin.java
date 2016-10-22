@@ -6,12 +6,10 @@
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.coreserver.webserver.request;
+package com.connectlife.coreserver.webserver.servlet;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -21,8 +19,6 @@ import javax.servlet.http.HttpSession;
 
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.config.Config;
-import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
@@ -31,12 +27,17 @@ import com.google.gson.Gson;
  * @author ericpinet
  * <br> 15 oct. 2016
  */
-public class RequestLogin extends RequestBase {
+public class ServletLogin extends ServletBase {
 	
 	/**
-	 * Query of the request. 
+	 * Serial Version UID
 	 */
-	private static String QUERY = "login";
+	private static final long serialVersionUID = 8379533983632510729L;
+
+	/**
+	 * Entry point of the servlet. 
+	 */
+	private static String ENTRY_POINT = "login";
 	
 	/**
 	 * User to login.
@@ -61,38 +62,19 @@ public class RequestLogin extends RequestBase {
 	/**
 	 * Default constructor.
 	 */
-	public RequestLogin() {
+	public ServletLogin() {
 		
 	}
 
 	/**
-	 * Check if the client request can be solve by this request processor.
+	 * Get the entry point of the Servlet.
 	 * 
-	 * @param _request Client request.
-	 * @return True if the request,
-	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
+	 * @return Path of the entry point
+	 * @see com.connectlife.coreserver.webserver.servlet.ServletBase#getEntryPoint()
 	 */
 	@Override
-	public boolean requestCompatibility(HttpServletRequest _request) {
-		
-		Preconditions.checkNotNull(_request, i18n.tr("Error! It's not possible to check compatibility of null http request."));
-		
-		boolean ret_val = false;
-		try {
-			Map<String, List<String>> params = getParameters(_request.getQueryString());
-			List<String> queries = params.get("query");
-			
-			if ( queries.contains(QUERY) ) {
-				ret_val = true;
-			}
-			
-		} catch (UnsupportedEncodingException e) {
-			m_logger.error(e.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			e.printStackTrace();
-		}
-		
-		return ret_val;
+	public String getEntryPoint() {
+		return ENTRY_POINT;
 	}
 
 	/**
@@ -105,9 +87,7 @@ public class RequestLogin extends RequestBase {
 	 * @throws Exception If something goes wrong.
 	 */
 	@Override
-	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception {
-		
-		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
+	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
 		
 		String ret_status;
 		String ret_error_message;

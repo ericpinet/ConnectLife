@@ -3,7 +3,7 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/panel.js"></script>
 <script>
-initPanel("/connectlife?query=list_configs",
+initPanel("/api/config",
 		  "table_configs",
 		  "configs_reload",
 		  undefined,
@@ -20,12 +20,9 @@ initPanel("/connectlife?query=list_configs",
     </div>
     <h3 class="panel-title">Settings</h3>
   </div>
-  <div class="panel-body" align="center">
-  	<div id = "loading_config_placeholder"></div>
-    <div class="table-responsive">
-    	<table class="table table-condensed" id="table_configs"><tr></tr></table>
-	</div>
-  </div>
+  <div id="loading_config_placeholder" align="center"></div>
+  <table class="table table-condensed" id="table_configs"><tr></tr></table>
+  <div class="panel-footer"></div>
 </div>
 <br>
 <br>

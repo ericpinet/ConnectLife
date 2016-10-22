@@ -6,10 +6,9 @@
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.coreserver.webserver.request;
+package com.connectlife.coreserver.webserver.servlet;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +18,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
-import com.google.api.client.util.Preconditions;
 import com.google.gson.Gson;
 
 /**
@@ -29,12 +26,17 @@ import com.google.gson.Gson;
  * @author ericpinet
  * <br> 11 oct. 2016
  */
-public class RequestListModules extends RequestBase {
+public class ServletModule extends ServletBase {
 	
 	/**
-	 * Query of the request. 
+	 * Serial version UID
 	 */
-	private final static String QUERY = "list_modules";
+	private static final long serialVersionUID = 6580371957875257106L;
+
+	/**
+	 * Entry point of the servlet. 
+	 */
+	private final static String ENTRY_POINT = "module";
 	
 	/**
 	 * Module name 
@@ -59,38 +61,19 @@ public class RequestListModules extends RequestBase {
 	/**
 	 * Default constructor.
 	 */
-	public RequestListModules() {
+	public ServletModule() {
 		
 	}
 
 	/**
-	 * Check if the client request can be solve by this request processor.
+	 * Get the entry point of the Servlet.
 	 * 
-	 * @param _request Client request.
-	 * @return True if the request,
-	 * @see com.connectlife.coreserver.webserver.request.RequestBase#requestCompatibility(javax.servlet.http.HttpServletRequest)
+	 * @return Path of the entry point
+	 * @see com.connectlife.coreserver.webserver.servlet.ServletBase#getEntryPoint()
 	 */
 	@Override
-	public boolean requestCompatibility(HttpServletRequest _request) {
-		
-		Preconditions.checkNotNull(_request, i18n.tr("Error! It's not possible to check compatibility of null http request."));
-		
-		boolean ret_val = false;
-		try {
-			Map<String, List<String>> params = getParameters(_request.getQueryString());
-			List<String> queries = params.get("query");
-			
-			if ( queries.contains(QUERY) ) {
-				ret_val = true;
-			}
-			
-		} catch (UnsupportedEncodingException e) {
-			m_logger.error(e.getMessage());
-			StdOutErrLog.tieSystemOutAndErrToLog();
-			e.printStackTrace();
-		}
-		
-		return ret_val;
+	public String getEntryPoint() {
+		return ENTRY_POINT;
 	}
 
 	/**
@@ -103,9 +86,7 @@ public class RequestListModules extends RequestBase {
 	 * @throws Exception If something goes wrong.
 	 */
 	@Override
-	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception {
-		
-		Preconditions.checkArgument(requestCompatibility(_request), i18n.tr("Error! This request is invalid: "+_request.getQueryString()));
+	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
 		
 		@SuppressWarnings("rawtypes")
 		List<Map> modules = new ArrayList<Map>();

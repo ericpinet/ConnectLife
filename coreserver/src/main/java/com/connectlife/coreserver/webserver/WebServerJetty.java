@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,8 @@ import org.eclipse.jetty.server.ConnectionFactory;
 
 import com.connectlife.coreserver.Application;
 import com.connectlife.coreserver.tools.errormanagement.StdOutErrLog;
+import com.connectlife.coreserver.webserver.servlet.ServletBase;
+import com.connectlife.coreserver.webserver.servlet.ServletFactory;
 
 /**
  * This is the main application web server for the application.
@@ -69,6 +72,11 @@ public class WebServerJetty implements WebServer {
 	 * Flag to indicate if the initialization is in progress.
 	 */
 	private boolean m_init_inprogress;
+	
+	/**
+	 * Base api path
+	 */
+	private static String m_base_api_path = "/api/";
 	
 	/**
 	 * WebRoot resource directory
@@ -289,8 +297,12 @@ public class WebServerJetty implements WebServer {
 
         context.addServlet(jspServletHolder(), "*.jsp");
         
-        // Add Application Servlet
-        context.addServlet(ConnectLifeServlet.class, "/connectlife");
+        // Add Application Servlets
+       Iterator<ServletBase> it = ServletFactory.getRef().getServlets().iterator();
+        while (it.hasNext()) {
+        	ServletBase servlet = it.next();
+        	context.addServlet(servlet.getClass(), m_base_api_path + servlet.getEntryPoint());
+        }
         
         context.addServlet(defaultServletHolder(baseUri), "/");
         return context;
