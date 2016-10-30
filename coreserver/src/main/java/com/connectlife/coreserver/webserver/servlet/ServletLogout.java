@@ -62,7 +62,6 @@ public class ServletLogout extends ServletBase {
 	 * @param _response Server response.
 	 * @throws ServletException If something goes wrong.
 	 * @throws IOException If connection lost.
-	 * @throws Exception If something goes wrong.
 	 */
 	@Override
 	public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
