@@ -53,7 +53,7 @@
 		<% } else if (request.getParameter("nav").equals("logs")) { %>
 
 			<br>
-			Logs
+			<jsp:include page="logs.jsp" />
 	
 		<% } else if (request.getParameter("nav").equals("settings")) { %>
 

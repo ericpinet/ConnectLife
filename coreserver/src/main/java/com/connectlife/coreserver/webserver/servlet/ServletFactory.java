@@ -66,6 +66,7 @@ public class ServletFactory {
 		m_requests.add(new ServletConfig());
 		m_requests.add(new ServletLogin());
 		m_requests.add(new ServletLogout());
+		m_requests.add(new ServletLog());
 	}
 	
 	/**

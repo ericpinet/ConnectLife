@@ -22,6 +22,9 @@ import com.google.gson.Gson;
 
 /**
  * Return list of the modules.
+ * <br><br>
+ * Call sample: <br>
+ * http://localhost:8080/api/module
  * 
  * @author ericpinet
  * <br> 11 oct. 2016
