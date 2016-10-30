@@ -6,7 +6,7 @@
  *  Copyright (c) 2016 ConnectLife (Eric Pinet). All rights reserved.
  *
  */
-package com.connectlife.coreserver.webserver.request;
+package com.connectlife.coreserver.webserver.servlet;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,8 +33,13 @@ import com.connectlife.coreserver.Application;
  * @author ericpinet
  * <br> 11 oct. 2016
  */
-abstract public class RequestBase {
+abstract public class ServletBase extends HttpServlet {
 	
+	/**
+	 * Default serial version uid
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Init logger instance for this class
 	 */
@@ -45,12 +51,11 @@ abstract public class RequestBase {
 	protected static I18n i18n = Application.i18n;
 	
 	/**
-	 * Check if the http request is compatible with the request. 
+	 * Get the entry point. 
 	 * 
-	 * @param _request Client request
-	 * @return True if the http request is compatible with this request.
+	 * @return Path of the entry point of the servlet.
 	 */
-	abstract public boolean requestCompatibility(HttpServletRequest _request);
+	abstract public String getEntryPoint();
 	
 	/**
 	 * Process the request and complete and write response in _response.
@@ -59,9 +64,36 @@ abstract public class RequestBase {
 	 * @param _response Server response.
 	 * @throws ServletException If something goes wrong.
 	 * @throws IOException On connection lost.
-	 * @throws Exception If something goes wrong.
 	 */
-	abstract public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException, Exception;
+	abstract public void process(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException;
+	
+	/**
+	 * Process the GET HTTP request.
+	 * 
+	 * @param _request Client request
+     * @param _response Server response
+     * @throws ServletException If something goes wrong.
+     * @throws IOException If connection lost.
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
+    @Override
+    protected void doGet(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
+    	process(_request, _response);
+    }
+    
+    /**
+     * Process the POST HTTP request.
+     * 
+     * @param _request Client request
+     * @param _response Server response
+     * @throws ServletException If something goes wrong.
+     * @throws IOException If connection lost.
+     * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     */
+    @Override
+    protected void doPost(HttpServletRequest _request, HttpServletResponse _response) throws ServletException, IOException {
+    	process(_request, _response);
+    }
 	
 	/**
 	 * Build a parameter map key pair from a URL.
@@ -89,5 +121,4 @@ abstract public class RequestBase {
 		}
 		return query_pairs;
 	}
-	
 }

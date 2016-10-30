@@ -21,15 +21,15 @@
 	</head>
 	
 <%
-	// Check if the session is valid
+	//Check if the session is valid
 	if (session.getAttribute("logged") != "true") {
-		// New location to be redirected
-	   	String site = new String("index.jsp");
-	   	response.sendRedirect(site);
+		// if the user isn't logged
+		// open the login_screen
+	   	String login_screen = new String("index.jsp");
+	   	response.sendRedirect(login_screen);
 	   	return;
 	}
-
-%>
+%>	
 	
 	<body>
 	
@@ -37,18 +37,30 @@
 		<jsp:include page="navbar.jsp" />
 		
 		<div class="container">
-		
-			<!-- HEADER -->
+
+		<% if (request.getParameter("nav") == null) { %>
+					
 			<jsp:include page="header.jsp" />
-		
-			<!-- SYSTEM INFO STATUS -->
 			<jsp:include page="panel_system_info.jsp" />
-			
-			<!-- CONFIGS -->
+					
+		<% } else if (request.getParameter("nav").equals("system")) { %>
+					
+			<jsp:include page="panel_system_info.jsp" />
 			<jsp:include page="panel_configs.jsp" />
-			
-			<!-- MODULES STATUS -->
-			<jsp:include page="panel_modules.jsp" />
+			<jsp:include page="panel_modules.jsp" />	
+				
+		
+		<% } else if (request.getParameter("nav").equals("logs")) { %>
+
+			<br>
+			<jsp:include page="logs.jsp" />
+	
+		<% } else if (request.getParameter("nav").equals("settings")) { %>
+
+			<br>
+			<jsp:include page="panel_configs.jsp" />
+	
+		<% } %>
 		
 	    </div><!-- /.container -->
 		

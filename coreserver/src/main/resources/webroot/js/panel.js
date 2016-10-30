@@ -12,6 +12,7 @@ if (typeof jQuery === 'undefined') {
 }
 
 function initPanel( _request, _div_panel, _btn_reload, _btn_open, _div_loading, _headers, _datas ) {
+	
 	var $apanel = new Panel(	_request,
 								_div_panel,
 								_btn_reload,
@@ -69,7 +70,7 @@ function Panel ( _request, _div_panel, _btn_reload, _btn_open, _div_loading, _he
 	
 	/*!
 	 * Request query.
-	 * Ex: "/connectlife?query=list_system_info"
+	 * Ex: "/api/list_system_info"
 	 */
 	this.request = _request;
 	

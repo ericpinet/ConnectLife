@@ -22,7 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.xnap.commons.i18n.I18n;
 
 /**
- * 
+ * Application state machine
  * 
  * @author ericpinet
  * <br> 2015-09-11
