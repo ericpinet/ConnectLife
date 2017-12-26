@@ -42,23 +42,29 @@
 					
 			<jsp:include page="header.jsp" />
 			<jsp:include page="panel_system_info.jsp" />
+			<jsp:include page="panel_configs.jsp" />
+			<jsp:include page="panel_modules.jsp" />
+			<br>
 					
 		<% } else if (request.getParameter("nav").equals("system")) { %>
-					
+			
+			<br>		
 			<jsp:include page="panel_system_info.jsp" />
 			<jsp:include page="panel_configs.jsp" />
 			<jsp:include page="panel_modules.jsp" />	
-				
+			<br>
 		
 		<% } else if (request.getParameter("nav").equals("logs")) { %>
 
 			<br>
 			<jsp:include page="logs.jsp" />
+			<br>
 	
 		<% } else if (request.getParameter("nav").equals("settings")) { %>
 
 			<br>
 			<jsp:include page="panel_configs.jsp" />
+			<br>
 	
 		<% } %>
 		
