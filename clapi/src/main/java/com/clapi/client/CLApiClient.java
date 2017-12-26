@@ -18,6 +18,9 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.clapi.data.Asset.AssetMode;
+import com.clapi.data.Asset.AssetType;
+import com.clapi.protocol.EmailType;
 import com.clapi.protocol.*;
 
 import com.google.common.util.concurrent.ListenableFuture;
@@ -546,7 +549,7 @@ public class CLApiClient {
 	 * 
 	 * @throws Exception If something wrong
 	 */
-	public String addAsset (String _label, AssetType _type, AssetMode _mode, ByteString _data) throws Exception {
+	public String addAsset (String _label, com.clapi.protocol.AssetType _type, com.clapi.protocol.AssetMode _mode, ByteString _data) throws Exception {
 		AddAssetRequest request = AddAssetRequest.newBuilder()
 											     .setLabel(_label)
 											     .setType(_type)
@@ -575,7 +578,7 @@ public class CLApiClient {
 	 * 
 	 * @throws Exception If something wrong
 	 */
-	public String updateAsset (String _uid, String _label, AssetType _type, AssetMode _mode, ByteString _data) throws Exception {
+	public String updateAsset (String _uid, String _label, com.clapi.protocol.AssetType _type, com.clapi.protocol.AssetMode _mode, ByteString _data) throws Exception {
 		UpdateAssetRequest request = UpdateAssetRequest.newBuilder()
 													 .setUid(_uid)
 												     .setLabel(_label)

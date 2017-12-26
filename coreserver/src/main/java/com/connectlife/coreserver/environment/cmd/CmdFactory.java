@@ -134,9 +134,9 @@ public abstract class CmdFactory {
 	 * @param _person Person to update in the environment.
 	 * @return Return the CmdUpdatePerson. 
 	 */
-	static public CmdUpdatePerson getCmdUpdatePerson(Person _person){
+	/*static public CmdUpdatePerson getCmdUpdatePerson(Person _person){
 		return new CmdUpdatePerson(_person);
-	}
+	}*/
 	
 	/**
 	 * Return the CmdDeletePerson. 
@@ -144,9 +144,9 @@ public abstract class CmdFactory {
 	 * @param _person Person to delete in the environment.
 	 * @return Return the CmdDeletePerson. 
 	 */
-	static public CmdDeletePerson getCmdDeletePerson(Person _person){
+	/*static public CmdDeletePerson getCmdDeletePerson(Person _person){
 		return new CmdDeletePerson(_person);
-	}
+	}*/
 	
 	/**
 	 * Return the CmdAddEmail. 
@@ -155,9 +155,9 @@ public abstract class CmdFactory {
 	 * @param _person Person where add email.
 	 * @return Return the CmdAddEmail. 
 	 */
-	static public CmdAddEmail getCmdAddEmail(Email _email, Person _person){
+	/*static public CmdAddEmail getCmdAddEmail(Email _email, Person _person){
 		return new CmdAddEmail(_email, _person);
-	}
+	}*/
 	
 	/**
 	 * Return the CmdUpdateEmail. 
@@ -165,9 +165,9 @@ public abstract class CmdFactory {
 	 * @param _email Email to update in the environment.
 	 * @return Return the CmdUpdateEmail. 
 	 */
-	static public CmdUpdateEmail getCmdUpdateEmail(Email _email){
+	/*static public CmdUpdateEmail getCmdUpdateEmail(Email _email){
 		return new CmdUpdateEmail(_email);
-	}
+	}*/
 	
 	/**
 	 * Return the CmdAddAccessory. 
